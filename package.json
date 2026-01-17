@@ -4,14 +4,24 @@
   "description": "[![Generic badge](https://img.shields.io/badge/course%20available%3F-yes-green.svg)](https://shields.io/)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss -i ./src/tailwind.css -o ./assets/application.css",
+    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./assets/application.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "dependencies": {
+  "devDependencies": {
     "@tailwindcss/cli": "^4.1.18",
     "tailwindcss": "^4.1.18"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nina-osk/elizabeth-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nina-osk/elizabeth-theme/issues"
+  },
+  "homepage": "https://github.com/nina-osk/elizabeth-theme#readme"
 }
