@@ -1,0 +1,31 @@
+[
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "accent_1",
+        "label": "Accent 1",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "accent_2",
+        "label": "Accent 2",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "foreground",
+        "label": "Foreground",
+        "default": "#121212"
+      }
+    ]
+  }
+]

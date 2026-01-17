@@ -1,0 +1,13 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "colors": {
+        "accent_1": "#121212",
+        "accent_2": "#ffffff",
+        "background": "#ffffff",
+        "foreground": "#121212"
+      }
+    }
+  }
+}

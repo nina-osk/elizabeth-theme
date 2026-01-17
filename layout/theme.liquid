@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ shop.locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }}</title>
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  <link rel="stylesheet" href="{{ 'application.css' | asset_url }}">
+  {{ content_for_header }}
+</head>
+<body>
+  <div class="container">
+    {{ content_for_layout }}
+  </div>
+</body>
+</html>
