@@ -10,7 +10,8 @@
   {{ content_for_header }}
 </head>
 <body>
-  <div class="container">
+    {% section 'header' %}
+  <div role="main">
     {{ content_for_layout }}
   </div>
 </body>
