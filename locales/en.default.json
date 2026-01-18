@@ -7,4 +7,11 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{}
+{ 
+    "general": {
+        "404": {
+            "title": "Page not found",
+            "subtext_html": "The page you are looking for does not exist or has been moved."
+        }
+    }
+}
