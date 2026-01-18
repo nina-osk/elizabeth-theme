@@ -65,7 +65,7 @@
             <!-- MOBILE MENU HEADER TITLE PLUS CLOSE BUTTON -->
             <div class="flex items-center justify-between pb-3">
                 <div>
-                    <h1 class="text-lg text-gray-500">{{shop.name}}</h1>
+                    <h1 class="text-lg text-gray-500">{{settings.mobile_menu_label}}</h1>
                 </div>
                 <div class="-mr-2">
                     <button x-on:click="mobileMenuOpen = false"  
@@ -109,3 +109,18 @@
     </div>
 </div>
 </div>
+
+{%  schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "text",
+        "id": "mobile_menu_label",
+        "label": "Mobile Menu Label",
+        "default": "Menu",
+        "info": "This is title of mobile menu window."
+      }
+    ]
+  }
+{% endschema %}
