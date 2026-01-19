@@ -1,15 +1,24 @@
 {% paginate collection.products by 6 %}
-  {% for products in collection.products %}
-
+    <h1 class="text-3xl text-center">{{ collection.title }}</h1>
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  {% for product in collection.products %}
+    <div class="w-full py-6 px-3">
+        <div class="border bg-white shadow-lg rounded-lg overflow-hidden">
+        </div>
+     </div>
         {%  if product.featured_image %}
             <img src="{{ product.featured_image | image_url: 'medium' }}" alt="{{ product.featured_image.alt }}" width="300" height="300">
 
             {% endif %}
+            <span>{{ product.vendor }}</span>
             <a href="{{ product.url }}">{{ product.title }}</a>
             <p>{{ product.price | money }}</p>
   {% else %}
     <p>No hay productos en esta collección.</p>
   {% endfor %}
+    </div>
+       </div>
   {% render 'pagination', pagination:paginate %}
 {% endpaginate %}
 
