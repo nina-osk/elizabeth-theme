@@ -1,0 +1,198 @@
+<div class="w-full bg-white">
+  <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-20 py-16 md:py-20">
+    <!-- Header -->
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-3 leading-tight">
+        {{ section.settings.title }}
+      </h2>
+      <p class="text-gray-500 text-sm md:text-base">
+        {{ section.settings.subtitle }}
+      </p>
+    </div>
+
+    <!-- 3D Carousel Container -->
+    <div class="flex justify-center items-center mb-12 md:mb-16" style="perspective: 1200px; height: 500px;">
+      <div class="carousel-container relative w-full h-full flex items-center justify-center" style="transform-style: preserve-3d;">
+        
+        <!-- Item 1 - Earring -->
+        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700" data-index="0" style="transform-style: preserve-3d;">
+          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center px-4 shadow-lg rounded-lg">
+            <div class="text-xs md:text-sm font-medium text-gray-700">
+              {{ section.settings.category_1_label }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 - Bracelet -->
+        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700" data-index="1" style="transform-style: preserve-3d;">
+          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center px-4 shadow-lg rounded-lg">
+            <div class="text-xs md:text-sm font-medium text-gray-700">
+              {{ section.settings.category_2_label }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 - Necklace (Featured) -->
+        <div class="carousel-item absolute w-40 md:w-56 h-56 md:h-80 rounded-lg cursor-pointer transition-all duration-700 border-2 border-gray-400" data-index="2" style="transform-style: preserve-3d; z-index: 100;">
+          <div class="w-full h-full bg-stone-300 flex items-center justify-center text-center px-4 shadow-2xl rounded-lg category-featured" style="transform-style: preserve-3d;">
+            <div class="category-image text-base md:text-xl font-bold text-gray-800 transition-transform duration-500" style="transform-style: preserve-3d;">
+              {{ section.settings.category_3_label }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 - Earring -->
+        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700" data-index="3" style="transform-style: preserve-3d;">
+          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center px-4 shadow-lg rounded-lg">
+            <div class="text-xs md:text-sm font-medium text-gray-700">
+              {{ section.settings.category_4_label }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5 - Accessories -->
+        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700" data-index="4" style="transform-style: preserve-3d;">
+          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center px-4 shadow-lg rounded-lg">
+            <div class="text-xs md:text-sm font-medium text-gray-700">
+              {{ section.settings.category_5_label }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex justify-center gap-4 md:gap-6">
+      <button id="zoom-in-btn" class="flex items-center gap-2 px-5 md:px-6 py-2 md:py-3 border-2 border-black text-black text-xs md:text-sm font-semibold uppercase hover:bg-black hover:text-white transition-colors">
+        <span>🔍</span>
+        Zoom In
+      </button>
+      <button id="rotate-btn" class="flex items-center gap-2 px-5 md:px-6 py-2 md:py-3 border-2 border-black text-black text-xs md:text-sm font-semibold uppercase hover:bg-black hover:text-white transition-colors">
+        <span>↻</span>
+        Rotar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.carousel-container');
+    const items = document.querySelectorAll('.carousel-item');
+    const zoomBtn = document.getElementById('zoom-in-btn');
+    const rotateBtn = document.getElementById('rotate-btn');
+    
+    const itemCount = items.length;
+    const radius = 450;
+    let currentRotation = 0;
+    let currentZoom = 1;
+    let rotateY = 0;
+    const featured = document.querySelector('.category-featured .category-image');
+
+    function updateCarousel() {
+      items.forEach((item, index) => {
+        const angle = (360 / itemCount) * index + currentRotation;
+        const radians = (angle * Math.PI) / 180;
+        
+        const x = Math.cos(radians) * radius;
+        const z = Math.sin(radians) * radius;
+        
+        // Calculate scale and opacity based on z position
+        const zNormalized = (z + radius) / (radius * 2);
+        const scale = 0.6 + zNormalized * 0.4;
+        const opacity = 0.5 + zNormalized * 0.5;
+        
+        item.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${scale})`;
+        item.style.opacity = opacity;
+        item.style.zIndex = Math.round(z);
+      });
+    }
+
+    function rotateToItem(index) {
+      const targetRotation = -(360 / itemCount) * index;
+      currentRotation = targetRotation;
+      updateCarousel();
+    }
+
+    // Click handlers for items
+    items.forEach((item, index) => {
+      item.addEventListener('click', function() {
+        rotateToItem(index);
+      });
+    });
+
+    // Zoom control
+    if (zoomBtn && featured) {
+      zoomBtn.addEventListener('click', function() {
+        currentZoom = currentZoom === 1 ? 1.4 : 1;
+        featured.style.transform = `scale(${currentZoom}) rotateY(${rotateY}deg)`;
+      });
+    }
+
+    // Rotate control
+    if (rotateBtn && featured) {
+      rotateBtn.addEventListener('click', function() {
+        rotateY = (rotateY + 45) % 360;
+        featured.style.transform = `scale(${currentZoom}) rotateY(${rotateY}deg)`;
+      });
+    }
+
+    // Initialize - show Necklace (index 2) in front
+    rotateToItem(2);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Categories Showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Diseños Unicos Y Elegantes Para Tu Día ADía"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Soon-to-be staples in your rotation"
+    },
+    {
+      "type": "text",
+      "id": "category_1_label",
+      "label": "Categoría 1",
+      "default": "Earring"
+    },
+    {
+      "type": "text",
+      "id": "category_2_label",
+      "label": "Categoría 2",
+      "default": "Bracelet"
+    },
+    {
+      "type": "text",
+      "id": "category_3_label",
+      "label": "Categoría 3",
+      "default": "Necklace"
+    },
+    {
+      "type": "text",
+      "id": "category_4_label",
+      "label": "Categoría 4",
+      "default": "Earring"
+    },
+    {
+      "type": "text",
+      "id": "category_5_label",
+      "label": "Categoría 5",
+      "default": "Accessories"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categories Showcase"
+    }
+  ]
+}
+{% endschema %}

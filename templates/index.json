@@ -1,5 +1,27 @@
 {
     "sections":{
+        "hero-banner":{
+            "type":"hero-banner",
+            "settings":{
+              "subtitle":"JOYERIA ORO 9K ATEMPORAL, DISEÑADA PARA LA ELEGANCIA DIARIA",
+              "title":"Descubre La Belleza Del Lujo Sutil",
+              "description":"En Munier, creemos que el lujo no tiene que ser ostentoso. Es la elegancia silenciosa la que brilla a través de la simplicidad de nuestras piezas. Hechas de oro de 9k, cada joya está diseñada para complementar tu luz única, realizando tu estilo diario con gracia y sofisticación.",
+              "button_1_text":"MAS DETALLES",
+              "button_2_text":"COMPRAR"
+            }
+        },
+        "categories-showcase":{
+            "type":"categories-showcase",
+            "settings":{
+              "title":"Diseños Unicos Y Elegantes Para Tu Día ADía",
+              "subtitle":"Soon-to-be staples in your rotation",
+              "category_1_label":"Earring",
+              "category_2_label":"Bracelet",
+              "category_3_label":"Necklace",
+              "category_4_label":"Earring",
+              "category_5_label":"Accessories"
+            }
+        },
         "featured-collections":{
             "type":"featured-collections",
             "settings":{
@@ -9,6 +31,8 @@
 
     },
     "order":[
+        "hero-banner",
+        "categories-showcase",
         "featured-collections"
         ]
 }
