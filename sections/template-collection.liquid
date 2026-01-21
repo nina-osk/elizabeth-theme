@@ -5,7 +5,7 @@
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {% for product in collection.products %}
-                    {% render 'product-card', product: product %}
+                    {% render 'product-card', product_product: product %}
                 {% else %}
                     <p>There are no products inside of this collection</p>
                 {% endfor %}
