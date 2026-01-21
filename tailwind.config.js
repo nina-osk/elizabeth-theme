@@ -7,7 +7,11 @@ export default {
     './templates/**/*.{liquid,html}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        '94': '22rem'
+    }
+  },
   },
   plugins: [],
 }
