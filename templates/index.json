@@ -47,6 +47,14 @@
     "collection-circles": {
       "type": "collection-circles",
       "blocks": {
+        "collection_item_gdg9TC": {
+          "type": "collection_item",
+          "settings": {
+            "collection_title": "Aretes Oro9K",
+            "collection_url": "",
+            "highlight": false
+          }
+        },
         "collection_item_PLBrmy": {
           "type": "collection_item",
           "settings": {
@@ -58,6 +66,7 @@
         }
       },
       "block_order": [
+        "collection_item_gdg9TC",
         "collection_item_PLBrmy"
       ],
       "settings": {
