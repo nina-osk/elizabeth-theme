@@ -14,48 +14,68 @@
     <div class="flex justify-center items-center mb-12 md:mb-16" style="perspective: 1200px; height: 500px;">
       <div class="carousel-container relative w-full h-full flex items-center justify-center" style="transform-style: preserve-3d;">
         
-        <!-- Item 1 - Earring -->
-        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700" data-index="0" style="transform-style: preserve-3d;">
-          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center px-4 shadow-lg rounded-lg">
-            <div class="text-xs md:text-sm font-medium text-gray-700">
-              {{ section.settings.category_1_label }}
-            </div>
+        <!-- Item 1 -->
+        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700 overflow-hidden" data-index="0" style="transform-style: preserve-3d;">
+          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center shadow-lg rounded-lg overflow-hidden">
+            {% if section.settings.category_1_image != blank %}
+              {{ section.settings.category_1_image | image_url: width: 400 | image_tag: alt: section.settings.category_1_label, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
+            {% else %}
+              <div class="text-xs md:text-sm font-medium text-gray-700 px-4">
+                {{ section.settings.category_1_label }}
+              </div>
+            {% endif %}
           </div>
         </div>
 
-        <!-- Item 2 - Bracelet -->
-        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700" data-index="1" style="transform-style: preserve-3d;">
-          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center px-4 shadow-lg rounded-lg">
-            <div class="text-xs md:text-sm font-medium text-gray-700">
-              {{ section.settings.category_2_label }}
-            </div>
+        <!-- Item 2 -->
+        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700 overflow-hidden" data-index="1" style="transform-style: preserve-3d;">
+          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center shadow-lg rounded-lg overflow-hidden">
+            {% if section.settings.category_2_image != blank %}
+              {{ section.settings.category_2_image | image_url: width: 400 | image_tag: alt: section.settings.category_2_label, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
+            {% else %}
+              <div class="text-xs md:text-sm font-medium text-gray-700 px-4">
+                {{ section.settings.category_2_label }}
+              </div>
+            {% endif %}
           </div>
         </div>
 
-        <!-- Item 3 - Necklace (Featured) -->
-        <div class="carousel-item absolute w-40 md:w-56 h-56 md:h-80 rounded-lg cursor-pointer transition-all duration-700 border-2 border-gray-400" data-index="2" style="transform-style: preserve-3d; z-index: 100;">
-          <div class="w-full h-full bg-stone-300 flex items-center justify-center text-center px-4 shadow-2xl rounded-lg category-featured" style="transform-style: preserve-3d;">
-            <div class="category-image text-base md:text-xl font-bold text-gray-800 transition-transform duration-500" style="transform-style: preserve-3d;">
-              {{ section.settings.category_3_label }}
-            </div>
+        <!-- Item 3 - Featured -->
+        <div class="carousel-item absolute w-40 md:w-56 h-56 md:h-80 rounded-lg cursor-pointer transition-all duration-700 border-2 border-gray-400 overflow-hidden" data-index="2" style="transform-style: preserve-3d; z-index: 100;">
+          <div class="w-full h-full bg-stone-300 flex items-center justify-center text-center shadow-2xl rounded-lg category-featured overflow-hidden" style="transform-style: preserve-3d;">
+            {% if section.settings.category_3_image != blank %}
+              {{ section.settings.category_3_image | image_url: width: 600 | image_tag: alt: section.settings.category_3_label, class: 'category-image w-full h-full object-cover transition-transform duration-500', loading: 'eager', width: 600, height: 600, style: 'transform-style: preserve-3d;' }}
+            {% else %}
+              <div class="category-image text-base md:text-xl font-bold text-gray-800 transition-transform duration-500 px-4" style="transform-style: preserve-3d;">
+                {{ section.settings.category_3_label }}
+              </div>
+            {% endif %}
           </div>
         </div>
 
-        <!-- Item 4 - Earring -->
-        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700" data-index="3" style="transform-style: preserve-3d;">
-          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center px-4 shadow-lg rounded-lg">
-            <div class="text-xs md:text-sm font-medium text-gray-700">
-              {{ section.settings.category_4_label }}
-            </div>
+        <!-- Item 4 -->
+        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700 overflow-hidden" data-index="3" style="transform-style: preserve-3d;">
+          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center shadow-lg rounded-lg overflow-hidden">
+            {% if section.settings.category_4_image != blank %}
+              {{ section.settings.category_4_image | image_url: width: 400 | image_tag: alt: section.settings.category_4_label, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
+            {% else %}
+              <div class="text-xs md:text-sm font-medium text-gray-700 px-4">
+                {{ section.settings.category_4_label }}
+              </div>
+            {% endif %}
           </div>
         </div>
 
-        <!-- Item 5 - Accessories -->
-        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700" data-index="4" style="transform-style: preserve-3d;">
-          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center px-4 shadow-lg rounded-lg">
-            <div class="text-xs md:text-sm font-medium text-gray-700">
-              {{ section.settings.category_5_label }}
-            </div>
+        <!-- Item 5 -->
+        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700 overflow-hidden" data-index="4" style="transform-style: preserve-3d;">
+          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center shadow-lg rounded-lg overflow-hidden">
+            {% if section.settings.category_5_image != blank %}
+              {{ section.settings.category_5_image | image_url: width: 400 | image_tag: alt: section.settings.category_5_label, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
+            {% else %}
+              <div class="text-xs md:text-sm font-medium text-gray-700 px-4">
+                {{ section.settings.category_5_label }}
+              </div>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -97,7 +117,6 @@
         const x = Math.cos(radians) * radius;
         const z = Math.sin(radians) * radius;
         
-        // Calculate scale and opacity based on z position
         const zNormalized = (z + radius) / (radius * 2);
         const scale = 0.6 + zNormalized * 0.4;
         const opacity = 0.5 + zNormalized * 0.5;
@@ -114,14 +133,12 @@
       updateCarousel();
     }
 
-    // Click handlers for items
     items.forEach((item, index) => {
       item.addEventListener('click', function() {
         rotateToItem(index);
       });
     });
 
-    // Zoom control
     if (zoomBtn && featured) {
       zoomBtn.addEventListener('click', function() {
         currentZoom = currentZoom === 1 ? 1.4 : 1;
@@ -129,7 +146,6 @@
       });
     }
 
-    // Rotate control
     if (rotateBtn && featured) {
       rotateBtn.addEventListener('click', function() {
         rotateY = (rotateY + 45) % 360;
@@ -137,7 +153,6 @@
       });
     }
 
-    // Initialize - show Necklace (index 2) in front
     rotateToItem(2);
   });
 </script>
@@ -161,32 +176,57 @@
     {
       "type": "text",
       "id": "category_1_label",
-      "label": "Categoría 1",
+      "label": "Categoría 1 - Nombre",
       "default": "Earring"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_1_image",
+      "label": "Categoría 1 - Imagen"
     },
     {
       "type": "text",
       "id": "category_2_label",
-      "label": "Categoría 2",
+      "label": "Categoría 2 - Nombre",
       "default": "Bracelet"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_2_image",
+      "label": "Categoría 2 - Imagen"
     },
     {
       "type": "text",
       "id": "category_3_label",
-      "label": "Categoría 3",
+      "label": "Categoría 3 - Nombre (Destacada)",
       "default": "Necklace"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_3_image",
+      "label": "Categoría 3 - Imagen (Destacada)"
     },
     {
       "type": "text",
       "id": "category_4_label",
-      "label": "Categoría 4",
+      "label": "Categoría 4 - Nombre",
       "default": "Earring"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_4_image",
+      "label": "Categoría 4 - Imagen"
     },
     {
       "type": "text",
       "id": "category_5_label",
-      "label": "Categoría 5",
+      "label": "Categoría 5 - Nombre",
       "default": "Accessories"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_5_image",
+      "label": "Categoría 5 - Imagen"
     }
   ],
   "presets": [
