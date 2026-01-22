@@ -1,38 +1,53 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections":{
-        "hero-banner":{
-            "type":"hero-banner",
-            "settings":{
-              "subtitle":"JOYERIA ORO 9K ATEMPORAL, DISEÑADA PARA LA ELEGANCIA DIARIA",
-              "title":"Descubre La Belleza Del Lujo Sutil",
-              "description":"En Munier, creemos que el lujo no tiene que ser ostentoso. Es la elegancia silenciosa la que brilla a través de la simplicidad de nuestras piezas. Hechas de oro de 9k, cada joya está diseñada para complementar tu luz única, realizando tu estilo diario con gracia y sofisticación.",
-              "button_1_text":"MAS DETALLES",
-              "button_2_text":"COMPRAR"
-            }
-        },
-        "categories-showcase":{
-            "type":"categories-showcase",
-            "settings":{
-              "title":"Diseños Unicos Y Elegantes Para Tu Día ADía",
-              "subtitle":"Soon-to-be staples in your rotation",
-              "category_1_label":"Earring",
-              "category_2_label":"Bracelet",
-              "category_3_label":"Necklace",
-              "category_4_label":"Earring",
-              "category_5_label":"Accessories"
-            }
-        },
-        "featured-collections":{
-            "type":"featured-collections",
-            "settings":{
-              "featured_collections":"all"
-            }
-        }
-
+  "sections": {
+    "hero-banner": {
+      "type": "hero-banner",
+      "settings": {
+        "subtitle": "JOYERIA ORO 9K ATEMPORAL, DISEÑADA PARA LA ELEGANCIA DIARIA",
+        "title": "Descubre La Belleza Del Lujo Sutil",
+        "description": "En Munier, creemos que el lujo no tiene que ser ostentoso. Es la elegancia silenciosa la que brilla a través de la simplicidad de nuestras piezas. Hechas de oro de 9k, cada joya está diseñada para complementar tu luz única, realizando tu estilo diario con gracia y sofisticación.",
+        "button_1_text": "MAS DETALLES",
+        "button_2_text": "COMPRAR"
+      }
     },
-    "order":[
-        "hero-banner",
-        "categories-showcase",
-        "featured-collections"
-        ]
+    "categories-showcase": {
+      "type": "categories-showcase",
+      "settings": {
+        "title": "Diseños Unicos Y Elegantes Para Tu Día ADía",
+        "subtitle": "Soon-to-be staples in your rotation",
+        "category_1_label": "Earring",
+        "category_1_product": "earring-aura-w-gold",
+        "category_2_label": "Bracelet",
+        "category_2_product": "earring-lumi-w-gold",
+        "category_3_label": "Necklace",
+        "category_3_product": "earring-aura-y-gold",
+        "category_4_label": "Earring",
+        "category_4_product": "earring-lumi-w-gold",
+        "category_5_label": "Accessories",
+        "category_5_product": "earring-aura-y-gold"
+      }
+    },
+    "featured-collections": {
+      "type": "featured-collections",
+      "settings": {
+        "title": "Featured Collection",
+        "featured_collection": "",
+        "number_of_products_to_show": 4
+      }
+    }
+  },
+  "order": [
+    "hero-banner",
+    "categories-showcase",
+    "featured-collections"
+  ]
 }
