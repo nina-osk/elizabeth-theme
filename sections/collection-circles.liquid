@@ -1,0 +1,161 @@
+<!-- Banner animado superior -->
+<div class="bg-amber-600 text-white py-3 overflow-hidden relative">
+    <div class="flex animate-marquee whitespace-nowrap">
+        <span class="mx-8 text-sm font-medium">✦ DESCUENTOS 10% OFF</span>
+        <span class="mx-8 text-sm font-medium">✦ DESCUENTOS 20% OFF</span>
+        <span class="mx-8 text-sm font-medium">✦ DESCUENTOS 10% OFF</span>
+        <span class="mx-8 text-sm font-medium">✦ DESCUENTOS 10% OFF</span>
+        <span class="mx-8 text-sm font-medium">✦ DESCUENTOS 20% OFF</span>
+        <span class="mx-8 text-sm font-medium">✦ DESCUENTOS 10% OFF</span>
+        <span class="mx-8 text-sm font-medium">✦ DESCUENTOS 10% OFF</span>
+        <span class="mx-8 text-sm font-medium">✦ DESCUENTOS 20% OFF</span>
+        <span class="mx-8 text-sm font-medium">✦ DESCUENTOS 10% OFF</span>
+    </div>
+</div>
+
+<!-- Sección principal -->
+<div class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Título superior -->
+        <div class="text-center mb-12">
+            <p class="text-sky-500 text-sm uppercase tracking-widest mb-2">{{ section.settings.subtitle }}</p>
+            <h2 class="text-4xl font-bold text-gray-900">{{ section.settings.title }}</h2>
+        </div>
+
+        <!-- Grid de colecciones -->
+        <div class="border-4 border-sky-400 rounded-lg p-8 md:p-12">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+                {% for block in section.blocks %}
+                    <div class="flex flex-col items-center group cursor-pointer">
+                        <a href="{{ block.settings.collection_url }}" class="flex flex-col items-center">
+                            <!-- Círculo con imagen -->
+                            <div class="w-32 h-32 rounded-full overflow-hidden mb-4 bg-purple-200 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 {% if block.settings.highlight %}ring-4 ring-amber-500{% endif %}">
+                                {% if block.settings.collection_image %}
+                                    <img src="{{ block.settings.collection_image | img_url: '300x300', crop: 'center' }}" 
+                                         alt="{{ block.settings.collection_title }}" 
+                                         width="300"
+                                         height="300"
+                                         class="w-full h-full object-cover">
+                                {% else %}
+                                    <div class="w-full h-full bg-purple-300"></div>
+                                {% endif %}
+                            </div>
+                            <!-- Título -->
+                            <h3 class="text-center text-sm font-medium text-gray-900">{{ block.settings.collection_title }}</h3>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+}
+</style>
+
+{% schema %}
+{
+    "name": "Collection Circles",
+    "settings": [
+        {
+            "type": "text",
+            "id": "subtitle",
+            "default": "JOYERÍA EXCLUSIVA 9K",
+            "label": "Subtítulo"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "default": "Nuestra Colección",
+            "label": "Título Principal"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "collection_item",
+            "name": "Colección",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "collection_title",
+                    "label": "Nombre de la colección",
+                    "default": "Aretes Oro9K"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "collection_image",
+                    "label": "Imagen de la colección"
+                },
+                {
+                    "type": "url",
+                    "id": "collection_url",
+                    "label": "URL de la colección"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "highlight",
+                    "label": "Destacar (borde dorado)",
+                    "default": false
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Collection Circles",
+            "blocks": [
+                {
+                    "type": "collection_item",
+                    "settings": {
+                        "collection_title": "Aretes Oro9K"
+                    }
+                },
+                {
+                    "type": "collection_item",
+                    "settings": {
+                        "collection_title": "Aretes Con Circonias"
+                    }
+                },
+                {
+                    "type": "collection_item",
+                    "settings": {
+                        "collection_title": "Aretes Con Perlas",
+                        "highlight": true
+                    }
+                },
+                {
+                    "type": "collection_item",
+                    "settings": {
+                        "collection_title": "Collares9K"
+                    }
+                },
+                {
+                    "type": "collection_item",
+                    "settings": {
+                        "collection_title": "Pulseras9K"
+                    }
+                },
+                {
+                    "type": "collection_item",
+                    "settings": {
+                        "collection_title": "Conjuntos"
+                    }
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
