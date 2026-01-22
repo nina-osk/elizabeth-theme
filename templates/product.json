@@ -1,26 +1,44 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections": {
-        "template": {
-            "type": "template-product",
-            "blocks": {
-                "vendor": { "type": "vendor" },
-                "title": { "type": "title" },
-                "price": { "type": "price" },
-                "variant_selector": { "type": "variant_selector" },
-                "quantity": { "type": "quantity" },
-                "description": { "type": "description" },
-                "checkout_buttons": { "type": "checkout_buttons" }
-            },
-            "block_order": [
-                "vendor",
-                "title",
-                "price",
-                "variant_selector",
-                "quantity",
-                "description",
-                "checkout_buttons"
-            ]
+  "sections": {
+    "template": {
+      "type": "template-product",
+      "blocks": {
+        "title_VnxHhw": {
+          "type": "title",
+          "settings": {}
+        },
+        "price_BC3eG6": {
+          "type": "price",
+          "settings": {}
+        },
+        "description_yGYj7M": {
+          "type": "description",
+          "settings": {}
+        },
+        "checkout_buttons_FrxQ6L": {
+          "type": "checkout_buttons",
+          "settings": {}
         }
-    },
-    "order": ["template"]
+      },
+      "block_order": [
+        "title_VnxHhw",
+        "price_BC3eG6",
+        "description_yGYj7M",
+        "checkout_buttons_FrxQ6L"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "template"
+  ]
 }
