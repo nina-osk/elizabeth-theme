@@ -1,8 +1,8 @@
 {
     "sections": {
-        "template": {
+        "main": {
             "type": "template-customer-login"
         }
     },
-    "order": ["template"]
+    "order": ["main"]
 }
