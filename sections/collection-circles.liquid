@@ -31,7 +31,7 @@
                             <!-- Círculo con imagen -->
                             <div class="w-32 h-32 rounded-full overflow-hidden mb-4 bg-purple-200 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 {% if block.settings.highlight %}ring-4 ring-amber-500{% endif %}">
                                 {% if block.settings.collection_image %}
-                                    <img src="{{ block.settings.collection_image | img_url: '300x300', crop: 'center' }}" 
+                                    <img src="{{ block.settings.collection_image | image_url: width: 200, crop: 'center' }}" 
                                          alt="{{ block.settings.collection_title }}" 
                                          width="300"
                                          height="300"

@@ -1,0 +1,197 @@
+<div class="py-16 px-4" style="background-color: #3E382C; color: white;">
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- Título y descripción -->
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ section.settings.title }}</h2>
+            <p class="text-gray-300 text-sm max-w-3xl mx-auto">{{ section.settings.description }}</p>
+        </div>
+
+        <!-- Grid con imagen y preguntas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            
+            <!-- Imagen izquierda -->
+            <div class="rounded-lg overflow-hidden bg-purple-300 h-96 md:h-auto">
+                {% if section.settings.faq_image %}
+                    <img src="{{ section.settings.faq_image | image_url: width: 600  }}" 
+                         alt="FAQ Image"
+                         width="600"
+                         height="600"
+                         loading="lazy"
+                         class="w-full h-full object-cover">
+                {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-purple-800 text-2xl font-bold">
+                        FAQ
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Preguntas -->
+            <div class="space-y-4">
+                {% for block in section.blocks %}
+                    <div x-data="{ open: false }" class="border-b border-gray-600 pb-4">
+                        <!-- Pregunta -->
+                        <button 
+                            @click="open = !open" 
+                            class="w-full flex items-center justify-between text-left py-3 transition-colors duration-200"
+                            style="color: white;"
+                            onmouseover="this.style.color='#C99B63'" 
+                            onmouseout="this.style.color='white'">
+                            <span class="text-base md:text-lg font-medium pr-4">{{ block.settings.question }}</span>
+                            <svg 
+                                :class="{ 'rotate-45': open }" 
+                                class="w-6 h-6 flex-shrink-0 transition-transform duration-200" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </button>
+                        <!-- Respuesta -->
+                        <div 
+                            x-show="open" 
+                            x-collapse
+                            class="text-gray-300 text-sm leading-relaxed pt-2">
+                            {{ block.settings.answer }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <!-- Campo de contacto -->
+                {% if section.settings.show_contact_field %}
+                <div class="mt-8 pt-6 border-t border-gray-600">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <input 
+                            type="text" 
+                            placeholder="{{ section.settings.contact_placeholder }}"
+                            style="background-color: #2e2822; color: white; border-color: #5a4a45;"
+                            class="flex-1 px-4 py-3 rounded-lg focus:outline-none">
+                        <a href="{{ section.settings.contact_link }}" class="px-6 py-3 text-center font-semibold rounded-lg transition-colors duration-200" style="background-color: white; color: #3E382C;" onmouseover="this.style.backgroundColor='#C99B63'; this.style.color='white'" onmouseout="this.style.backgroundColor='white'; this.style.color='#3E382C'">
+                            {{ section.settings.contact_button_text }}
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "FAQ Section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "default": "Preguntas Frecuentes",
+            "label": "Título"
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+            "label": "Descripción"
+        },
+        {
+            "type": "image_picker",
+            "id": "faq_image",
+            "label": "Imagen lateral"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_contact_field",
+            "label": "Mostrar campo de contacto",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "contact_placeholder",
+            "default": "Tienes otras preguntas? Dejanos un mensaje",
+            "label": "Texto del campo de contacto"
+        },
+        {
+            "type": "text",
+            "id": "contact_button_text",
+            "default": "PREGUNTAS",
+            "label": "Texto del botón"
+        },
+        {
+            "type": "url",
+            "id": "contact_link",
+            "label": "Enlace del botón"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "faq_item",
+            "name": "Pregunta",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "question",
+                    "label": "Pregunta",
+                    "default": "¿Qué Es El Oro De 9k?"
+                },
+                {
+                    "type": "textarea",
+                    "id": "answer",
+                    "label": "Respuesta",
+                    "default": "El oro de 9k es una aleación de oro duradera y hermosa que ofrece el equilibrio perfecto entre elegancia y resistencia para el uso diario. Combina oro real mezclado con otros metales para crear una pieza fuerte y duradera, ideal para llevar todos los días."
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "FAQ Section",
+            "blocks": [
+                {
+                    "type": "faq_item",
+                    "settings": {
+                        "question": "¿Qué Es El Oro De 9k?",
+                        "answer": "El oro de 9k es una aleación de oro duradera y hermosa que ofrece el equilibrio perfecto entre elegancia y resistencia para el uso diario. Combina oro real mezclado con otros metales para crear una pieza fuerte y duradera, ideal para llevar todos los días."
+                    }
+                },
+                {
+                    "type": "faq_item",
+                    "settings": {
+                        "question": "¿Puedo Usar Mi Joyería Todos Los Días?",
+                        "answer": "Sí, nuestras joyas de oro 9k están diseñadas específicamente para el uso diario. Son duraderas y resistentes."
+                    }
+                },
+                {
+                    "type": "faq_item",
+                    "settings": {
+                        "question": "¿Es Su Joyería Hipoalergénica?",
+                        "answer": "Sí, nuestras joyas son hipoalergénicas y seguras para pieles sensibles."
+                    }
+                },
+                {
+                    "type": "faq_item",
+                    "settings": {
+                        "question": "¿Cómo Debo Cuidar Mi Joyería?",
+                        "answer": "Limpia tus joyas con un paño suave y guárdalas en un lugar seco cuando no las uses."
+                    }
+                },
+                {
+                    "type": "faq_item",
+                    "settings": {
+                        "question": "¿Ofrecen Devoluciones O Cambios?",
+                        "answer": "Sí, aceptamos devoluciones y cambios dentro de los 30 días de la compra."
+                    }
+                },
+                {
+                    "type": "faq_item",
+                    "settings": {
+                        "question": "¿Cuánto Tardará Mi Pedido En Llegar?",
+                        "answer": "Los pedidos generalmente llegan en 5-7 días hábiles."
+                    }
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
