@@ -11,85 +11,46 @@
     </div>
 
     <!-- 3D Carousel Container -->
-    <div class="flex justify-center items-center mb-12 md:mb-16" style="perspective: 1200px; height: 500px;">
+    <div class="flex justify-center items-center mb-12 md:mb-16" style="perspective: 1200px; height: 520px;">
       <div class="carousel-container relative w-full h-full flex items-center justify-center" style="transform-style: preserve-3d;">
-        
-        <!-- Item 1 -->
-        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700 overflow-hidden" data-index="0" style="transform-style: preserve-3d;">
-          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center shadow-lg rounded-lg overflow-hidden">
-            {% if section.settings.category_1_image != blank %}
-              {{ section.settings.category_1_image | image_url: width: 400 | image_tag: alt: section.settings.category_1_label, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
-            {% else %}
-              <div class="text-xs md:text-sm font-medium text-gray-700 px-4">
-                {{ section.settings.category_1_label }}
-              </div>
-            {% endif %}
-          </div>
-        </div>
 
-        <!-- Item 2 -->
-        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700 overflow-hidden" data-index="1" style="transform-style: preserve-3d;">
-          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center shadow-lg rounded-lg overflow-hidden">
-            {% if section.settings.category_2_image != blank %}
-              {{ section.settings.category_2_image | image_url: width: 400 | image_tag: alt: section.settings.category_2_label, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
-            {% else %}
-              <div class="text-xs md:text-sm font-medium text-gray-700 px-4">
-                {{ section.settings.category_2_label }}
-              </div>
-            {% endif %}
+        {% assign cards = (1..5) %}
+        {% for i in cards %}
+          {% assign prod_key = 'category_' | append: i | append: '_product' %}
+          {% assign label_key = 'category_' | append: i | append: '_label' %}
+          {% assign prod = section.settings[prod_key] %}
+          <div class="carousel-item absolute w-36 md:w-44 lg:w-52 h-52 md:h-64 lg:h-72 rounded-lg cursor-pointer transition-all duration-700 overflow-hidden shadow-lg bg-white" data-index="{{ forloop.index0 }}" style="transform-style: preserve-3d;">
+            <div class="w-full h-full flex flex-col">
+              {% if prod != blank and prod.featured_media %}
+                <div class="h-3/4 w-full overflow-hidden bg-gray-100">
+                  {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full h-full object-cover', loading: 'lazy', width: 600, height: 600 }}
+                </div>
+                <div class="h-1/4 w-full px-3 py-2 flex flex-col justify-center">
+                  <p class="text-xs text-gray-500 truncate">{{ prod.vendor }}</p>
+                  <p class="text-sm font-semibold text-gray-800 truncate">{{ prod.title }}</p>
+                  <p class="text-sm text-gray-600">{{ prod.price | money }}</p>
+                </div>
+              {% else %}
+                <div class="h-full w-full flex items-center justify-center bg-stone-100 text-center px-4">
+                  <span class="text-sm font-medium text-gray-600">
+                    {{ section.settings[label_key] | default: 'Producto' }}
+                  </span>
+                </div>
+              {% endif %}
+            </div>
           </div>
-        </div>
+        {% endfor %}
 
-        <!-- Item 3 - Featured -->
-        <div class="carousel-item absolute w-40 md:w-56 h-56 md:h-80 rounded-lg cursor-pointer transition-all duration-700 border-2 border-gray-400 overflow-hidden" data-index="2" style="transform-style: preserve-3d; z-index: 100;">
-          <div class="w-full h-full bg-stone-300 flex items-center justify-center text-center shadow-2xl rounded-lg category-featured overflow-hidden" style="transform-style: preserve-3d;">
-            {% if section.settings.category_3_image != blank %}
-              {{ section.settings.category_3_image | image_url: width: 600 | image_tag: alt: section.settings.category_3_label, class: 'category-image w-full h-full object-cover transition-transform duration-500', loading: 'eager', width: 600, height: 600, style: 'transform-style: preserve-3d;' }}
-            {% else %}
-              <div class="category-image text-base md:text-xl font-bold text-gray-800 transition-transform duration-500 px-4" style="transform-style: preserve-3d;">
-                {{ section.settings.category_3_label }}
-              </div>
-            {% endif %}
-          </div>
-        </div>
 
-        <!-- Item 4 -->
-        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700 overflow-hidden" data-index="3" style="transform-style: preserve-3d;">
-          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center shadow-lg rounded-lg overflow-hidden">
-            {% if section.settings.category_4_image != blank %}
-              {{ section.settings.category_4_image | image_url: width: 400 | image_tag: alt: section.settings.category_4_label, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
-            {% else %}
-              <div class="text-xs md:text-sm font-medium text-gray-700 px-4">
-                {{ section.settings.category_4_label }}
-              </div>
-            {% endif %}
-          </div>
-        </div>
-
-        <!-- Item 5 -->
-        <div class="carousel-item absolute w-32 md:w-40 h-40 md:h-56 rounded-lg cursor-pointer transition-all duration-700 overflow-hidden" data-index="4" style="transform-style: preserve-3d;">
-          <div class="w-full h-full bg-stone-200 flex items-center justify-center text-center shadow-lg rounded-lg overflow-hidden">
-            {% if section.settings.category_5_image != blank %}
-              {{ section.settings.category_5_image | image_url: width: 400 | image_tag: alt: section.settings.category_5_label, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
-            {% else %}
-              <div class="text-xs md:text-sm font-medium text-gray-700 px-4">
-                {{ section.settings.category_5_label }}
-              </div>
-            {% endif %}
-          </div>
-        </div>
       </div>
     </div>
-
     <!-- Controls -->
     <div class="flex justify-center gap-4 md:gap-6">
       <button id="zoom-in-btn" class="flex items-center gap-2 px-5 md:px-6 py-2 md:py-3 border-2 border-black text-black text-xs md:text-sm font-semibold uppercase hover:bg-black hover:text-white transition-colors">
-        <span>🔍</span>
-        Zoom In
+        🔍 Zoom
       </button>
       <button id="rotate-btn" class="flex items-center gap-2 px-5 md:px-6 py-2 md:py-3 border-2 border-black text-black text-xs md:text-sm font-semibold uppercase hover:bg-black hover:text-white transition-colors">
-        <span>↻</span>
-        Rotar
+        ↻ Rotar
       </button>
     </div>
   </div>
@@ -97,30 +58,26 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const container = document.querySelector('.carousel-container');
     const items = document.querySelectorAll('.carousel-item');
     const zoomBtn = document.getElementById('zoom-in-btn');
     const rotateBtn = document.getElementById('rotate-btn');
-    
+
     const itemCount = items.length;
-    const radius = 450;
+    const radius = 420;
     let currentRotation = 0;
     let currentZoom = 1;
     let rotateY = 0;
-    const featured = document.querySelector('.category-featured .category-image');
 
     function updateCarousel() {
       items.forEach((item, index) => {
         const angle = (360 / itemCount) * index + currentRotation;
         const radians = (angle * Math.PI) / 180;
-        
         const x = Math.cos(radians) * radius;
         const z = Math.sin(radians) * radius;
-        
         const zNormalized = (z + radius) / (radius * 2);
-        const scale = 0.6 + zNormalized * 0.4;
-        const opacity = 0.5 + zNormalized * 0.5;
-        
+        const scale = 0.65 + zNormalized * 0.35;
+        const opacity = 0.45 + zNormalized * 0.55;
+
         item.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${scale})`;
         item.style.opacity = opacity;
         item.style.zIndex = Math.round(z);
@@ -134,22 +91,24 @@
     }
 
     items.forEach((item, index) => {
-      item.addEventListener('click', function() {
-        rotateToItem(index);
-      });
+      item.addEventListener('click', () => rotateToItem(index));
     });
 
-    if (zoomBtn && featured) {
-      zoomBtn.addEventListener('click', function() {
-        currentZoom = currentZoom === 1 ? 1.4 : 1;
-        featured.style.transform = `scale(${currentZoom}) rotateY(${rotateY}deg)`;
+    if (zoomBtn) {
+      zoomBtn.addEventListener('click', () => {
+        currentZoom = currentZoom === 1 ? 1.15 : 1;
+        items.forEach((item) => {
+          item.style.transform += ` scale(${currentZoom})`;
+        });
       });
     }
 
-    if (rotateBtn && featured) {
-      rotateBtn.addEventListener('click', function() {
+    if (rotateBtn) {
+      rotateBtn.addEventListener('click', () => {
         rotateY = (rotateY + 45) % 360;
-        featured.style.transform = `scale(${currentZoom}) rotateY(${rotateY}deg)`;
+        items.forEach((item) => {
+          item.style.transform += ` rotateY(${rotateY}deg)`;
+        });
       });
     }
 
@@ -161,78 +120,26 @@
 {
   "name": "Categories Showcase",
   "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Título",
-      "default": "Diseños Unicos Y Elegantes Para Tu Día ADía"
-    },
-    {
-      "type": "text",
-      "id": "subtitle",
-      "label": "Subtítulo",
-      "default": "Soon-to-be staples in your rotation"
-    },
-    {
-      "type": "text",
-      "id": "category_1_label",
-      "label": "Categoría 1 - Nombre",
-      "default": "Earring"
-    },
-    {
-      "type": "image_picker",
-      "id": "category_1_image",
-      "label": "Categoría 1 - Imagen"
-    },
-    {
-      "type": "text",
-      "id": "category_2_label",
-      "label": "Categoría 2 - Nombre",
-      "default": "Bracelet"
-    },
-    {
-      "type": "image_picker",
-      "id": "category_2_image",
-      "label": "Categoría 2 - Imagen"
-    },
-    {
-      "type": "text",
-      "id": "category_3_label",
-      "label": "Categoría 3 - Nombre (Destacada)",
-      "default": "Necklace"
-    },
-    {
-      "type": "image_picker",
-      "id": "category_3_image",
-      "label": "Categoría 3 - Imagen (Destacada)"
-    },
-    {
-      "type": "text",
-      "id": "category_4_label",
-      "label": "Categoría 4 - Nombre",
-      "default": "Earring"
-    },
-    {
-      "type": "image_picker",
-      "id": "category_4_image",
-      "label": "Categoría 4 - Imagen"
-    },
-    {
-      "type": "text",
-      "id": "category_5_label",
-      "label": "Categoría 5 - Nombre",
-      "default": "Accessories"
-    },
-    {
-      "type": "image_picker",
-      "id": "category_5_image",
-      "label": "Categoría 5 - Imagen"
-    }
+    { "type": "text", "id": "title", "label": "Título", "default": "Diseños Unicos Y Elegantes Para Tu Día ADía" },
+    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Soon-to-be staples in your rotation" },
+
+    { "type": "text", "id": "category_1_label", "label": "Categoría 1 - Texto fallback", "default": "Earring" },
+    { "type": "product", "id": "category_1_product", "label": "Categoría 1 - Producto" },
+
+    { "type": "text", "id": "category_2_label", "label": "Categoría 2 - Texto fallback", "default": "Bracelet" },
+    { "type": "product", "id": "category_2_product", "label": "Categoría 2 - Producto" },
+
+    { "type": "text", "id": "category_3_label", "label": "Categoría 3 - Texto fallback", "default": "Necklace" },
+    { "type": "product", "id": "category_3_product", "label": "Categoría 3 - Producto" },
+
+    { "type": "text", "id": "category_4_label", "label": "Categoría 4 - Texto fallback", "default": "Earring" },
+    { "type": "product", "id": "category_4_product", "label": "Categoría 4 - Producto" },
+
+    { "type": "text", "id": "category_5_label", "label": "Categoría 5 - Texto fallback", "default": "Accessories" },
+    { "type": "product", "id": "category_5_product", "label": "Categoría 5 - Producto" }
   ],
   "presets": [
-    {
-      "name": "Categories Showcase"
-    }
+    { "name": "Categories Showcase" }
   ]
 }
 {% endschema %}
