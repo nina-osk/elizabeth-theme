@@ -11,28 +11,30 @@
     </div>
 
     <!-- Mobile View (Carrusel rotativo) -->
-    <div class="md:hidden mb-8 flex justify-center px-4">
-      <div class="relative w-full max-w-64 h-64">
-        <div class="mobile-carousel-container relative w-full h-full" style="transform-style: preserve-3d;">
+    <div class="md:hidden mb-8 px-4">
+      <div class="relative w-full overflow-visible" style="height: 400px;">
+        <div class="mobile-carousel-container relative flex items-center justify-center" style="height: 100%;">
           {% assign cards = (1..5) %}
           {% for i in cards %}
             {% assign prod_key = 'category_' | append: i | append: '_product' %}
             {% assign label_key = 'category_' | append: i | append: '_label' %}
             {% assign prod = section.settings[prod_key] %}
             
-            <div class="mobile-carousel-item absolute inset-0 border-2 border-black rounded-lg cursor-pointer transition-all duration-500 overflow-hidden shadow-lg bg-white" data-index="{{ forloop.index0 }}" style="transform-style: preserve-3d;">
+            <div class="mobile-carousel-item absolute border-2 border-black rounded-lg cursor-pointer transition-all duration-500 overflow-hidden shadow-xl bg-white" 
+                 data-index="{{ forloop.index0 }}" 
+                 style="width: 200px; height: 280px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
               <div class="w-full h-full flex flex-col">
                 {% if prod != blank and prod.featured_media %}
-                  <div class="h-3/4 w-full overflow-hidden bg-gray-100">
-                    {{ prod.featured_media | image_url: width: 320 | image_tag: alt: prod.title, class: 'w-full h-full object-cover', loading: 'lazy', width: 320, height: 320 }}
+                  <div class="h-2/3 w-full overflow-hidden bg-gray-100">
+                    {{ prod.featured_media | image_url: width: 400 | image_tag: alt: prod.title, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
                   </div>
-                  <div class="h-1/4 w-full px-2 py-1 flex flex-col justify-center border-t border-gray-200">
+                  <div class="h-1/3 w-full px-3 py-2 flex flex-col justify-center border-t border-gray-200 bg-white">
                     <p class="text-xs text-gray-500 truncate">{{ prod.vendor }}</p>
-                    <p class="text-xs font-semibold text-gray-800 truncate">{{ prod.title }}</p>
-                    <p class="text-xs font-bold text-black">{{ prod.price | money }}</p>
+                    <p class="text-sm font-semibold text-gray-800 truncate">{{ prod.title }}</p>
+                    <p class="text-sm font-bold text-black">{{ prod.price | money }}</p>
                   </div>
                 {% else %}
-                  <div class="h-full w-full flex items-center justify-center bg-stone-100 text-center px-4">
+                  <div class="h-full w-full flex items-center justify-center bg-stone-100 text-center px-2">
                     <span class="text-xs font-medium text-gray-600">
                       {{ section.settings[label_key] | default: 'Producto' }}
                     </span>
@@ -115,18 +117,43 @@
 
       function updateMobileCarousel() {
         mobileItems.forEach((item, index) => {
-          if (index === mobileCurrentIndex) {
-            item.style.transform = 'translateX(0) scale(1) rotateY(0deg)';
+          const diff = index - mobileCurrentIndex;
+          
+          if (diff === 0) {
+            // Tarjeta principal (al frente, centrada)
+            item.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
             item.style.opacity = '1';
+            item.style.zIndex = '30';
+            item.style.top = '50%';
+            item.style.left = '50%';
+          } else if (diff === 1 || (mobileCurrentIndex === mobileItems.length - 1 && index === 0)) {
+            // Segunda tarjeta (detrás a la derecha)
+            item.style.transform = 'translate(-40%, -55%) scale(0.9) rotate(3deg)';
+            item.style.opacity = '0.85';
+            item.style.zIndex = '20';
+            item.style.top = '50%';
+            item.style.left = '50%';
+          } else if (diff === 2 || (mobileCurrentIndex >= mobileItems.length - 2 && index < 2)) {
+            // Tercera tarjeta (más atrás a la derecha)
+            item.style.transform = 'translate(-30%, -60%) scale(0.8) rotate(5deg)';
+            item.style.opacity = '0.6';
             item.style.zIndex = '10';
-          } else if (index < mobileCurrentIndex) {
-            item.style.transform = 'translateX(-120%) scale(0.8) rotateY(20deg)';
-            item.style.opacity = '0.3';
-            item.style.zIndex = '1';
+            item.style.top = '50%';
+            item.style.left = '50%';
+          } else if (diff === -1 || (mobileCurrentIndex === 0 && index === mobileItems.length - 1)) {
+            // Tarjeta anterior (detrás a la izquierda)
+            item.style.transform = 'translate(-60%, -55%) scale(0.9) rotate(-3deg)';
+            item.style.opacity = '0.85';
+            item.style.zIndex = '20';
+            item.style.top = '50%';
+            item.style.left = '50%';
           } else {
-            item.style.transform = 'translateX(120%) scale(0.8) rotateY(-20deg)';
-            item.style.opacity = '0.3';
+            // Tarjetas ocultas
+            item.style.transform = 'translate(-50%, -50%) scale(0.7) rotate(0deg)';
+            item.style.opacity = '0';
             item.style.zIndex = '1';
+            item.style.top = '50%';
+            item.style.left = '50%';
           }
         });
       }
@@ -143,6 +170,32 @@
           mobileCurrentIndex = (mobileCurrentIndex + 1) % mobileItems.length;
           updateMobileCarousel();
         });
+      }
+
+      // Soporte para swipe en móvil
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      mobileContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+
+      mobileContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      });
+
+      function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+          // Swipe izquierda (siguiente)
+          mobileCurrentIndex = (mobileCurrentIndex + 1) % mobileItems.length;
+          updateMobileCarousel();
+        }
+        if (touchEndX > touchStartX + 50) {
+          // Swipe derecha (anterior)
+          mobileCurrentIndex = (mobileCurrentIndex - 1 + mobileItems.length) % mobileItems.length;
+          updateMobileCarousel();
+        }
       }
 
       updateMobileCarousel();
