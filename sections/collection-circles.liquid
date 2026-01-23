@@ -13,142 +13,126 @@
     </div>
 </div>
 
-<!-- Sección principal -->
-<div class="py-16 px-4">
-    <div class="max-w-7xl mx-auto">
-        <!-- Título superior -->
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900">{{ section.settings.title }}</h2>
-        </div>
 
-        <!-- Grid de colecciones -->
-        <div class="border-4 border-sky-400 rounded-lg p-8 md:p-12">
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-                {% for block in section.blocks %}
-                    <div class="flex flex-col items-center group cursor-pointer">
-                        <a href="{{ block.settings.collection_url }}" class="flex flex-col items-center">
-                            <!-- Círculo con imagen -->
-                            <div class="w-32 h-32 rounded-full overflow-hidden mb-4 bg-purple-200 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 {% if block.settings.highlight %}ring-4 ring-amber-500{% endif %}">
-                                {% if block.settings.collection_image %}
-                                    <img src="{{ block.settings.collection_image | image_url: width: 200, crop: 'center' }}" 
-                                         alt="{{ block.settings.collection_title }}" 
-                                         width="300"
-                                         height="300"
-                                         class="w-full h-full object-cover">
-                                {% else %}
-                                    <div class="w-full h-full bg-purple-300"></div>
-                                {% endif %}
-                            </div>
-                            <!-- Título -->
-                            <h3 class="text-center text-sm font-medium text-gray-900">{{ block.settings.collection_title }}</h3>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
+<!-- Banner animado inferior -->
+<div class="w-full bg-white py-12 md:py-16 lg:py-20">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+    
+    <!-- Título de la sección -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+        {{ section.settings.section_title | default: 'Categorías' }}
+      </h2>
     </div>
+
+    <!-- Grid de 3 círculos -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-start justify-items-center">
+      
+      {% for i in (1..3) %}
+        {% assign image_key = 'circle_' | append: i | append: '_image' %}
+        {% assign title_key = 'circle_' | append: i | append: '_title' %}
+        {% assign url_key = 'circle_' | append: i | append: '_url' %}
+        
+        <div class="flex flex-col items-center text-center group cursor-pointer">
+          <!-- Círculo -->
+          <a href="{{ section.settings[url_key] | default: '#' }}" class="block mb-4 transition-transform duration-300 hover:scale-105">
+            <div class="w-64 h-64 rounded-full overflow-hidden border-2 border-black hover:border-amber-600 transition-all shadow-lg bg-white">
+              {% if section.settings[image_key] %}
+                {{ section.settings[image_key] | image_url: width: 512 | image_tag: alt: section.settings[title_key], class: 'w-full h-full object-cover', loading: 'lazy', width: 512, height: 512 }}
+              {% else %}
+                <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                  <span class="text-gray-400 text-sm">Sin imagen</span>
+                </div>
+              {% endif %}
+            </div>
+          </a>
+          
+          <!-- Título del círculo -->
+          <a href="{{ section.settings[url_key] | default: '#' }}" class="text-lg font-semibold text-gray-800 hover:text-amber-600 transition-colors">
+            {{ section.settings[title_key] | default: 'Categoría' }}
+          </a>
+        </div>
+      {% endfor %}
+      
+    </div>
+  </div>
 </div>
-
-<style>
-@keyframes marquee {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-.animate-marquee {
-    display: inline-block;
-    animation: marquee 20s linear infinite;
-}
-</style>
 
 {% schema %}
 {
-    "name": "Collection Circles",
-    "settings": [
-        {
-            "type": "text",
-            "id": "title",
-            "default": "Categorías Destacadas",
-            "label": "Título Principal"
-        }
-    ],
-    "blocks": [
-        {
-            "type": "collection_item",
-            "name": "Colección",
-            "settings": [
-                {
-                    "type": "text",
-                    "id": "collection_title",
-                    "label": "Nombre de la colección",
-                    "default": "Aretes Oro9K"
-                },
-                {
-                    "type": "image_picker",
-                    "id": "collection_image",
-                    "label": "Imagen de la colección"
-                },
-                {
-                    "type": "url",
-                    "id": "collection_url",
-                    "label": "URL de la colección"
-                },
-                {
-                    "type": "checkbox",
-                    "id": "highlight",
-                    "label": "Destacar (borde dorado)",
-                    "default": false
-                }
-            ]
-        }
-    ],
-    "presets": [
-        {
-            "name": "Collection Circles",
-            "blocks": [
-                {
-                    "type": "collection_item",
-                    "settings": {
-                        "collection_title": "Aretes Oro9K"
-                    }
-                },
-                {
-                    "type": "collection_item",
-                    "settings": {
-                        "collection_title": "Aretes Con Circonias"
-                    }
-                },
-                {
-                    "type": "collection_item",
-                    "settings": {
-                        "collection_title": "Aretes Con Perlas",
-                        "highlight": true
-                    }
-                },
-                {
-                    "type": "collection_item",
-                    "settings": {
-                        "collection_title": "Collares9K"
-                    }
-                },
-                {
-                    "type": "collection_item",
-                    "settings": {
-                        "collection_title": "Pulseras9K"
-                    }
-                },
-                {
-                    "type": "collection_item",
-                    "settings": {
-                        "collection_title": "Conjuntos"
-                    }
-                }
-            ]
-        }
-    ]
+  "name": "Collection Circles",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Título de la Sección",
+      "default": "Categorías"
+    },
+    {
+      "type": "header",
+      "content": "Círculo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "circle_1_image",
+      "label": "Imagen Círculo 1"
+    },
+    {
+      "type": "text",
+      "id": "circle_1_title",
+      "label": "Título Círculo 1",
+      "default": "Aretes"
+    },
+    {
+      "type": "url",
+      "id": "circle_1_url",
+      "label": "URL Círculo 1"
+    },
+    {
+      "type": "header",
+      "content": "Círculo 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "circle_2_image",
+      "label": "Imagen Círculo 2"
+    },
+    {
+      "type": "text",
+      "id": "circle_2_title",
+      "label": "Título Círculo 2",
+      "default": "Collares"
+    },
+    {
+      "type": "url",
+      "id": "circle_2_url",
+      "label": "URL Círculo 2"
+    },
+    {
+      "type": "header",
+      "content": "Círculo 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "circle_3_image",
+      "label": "Imagen Círculo 3"
+    },
+    {
+      "type": "text",
+      "id": "circle_3_title",
+      "label": "Título Círculo 3",
+      "default": "Pulseras"
+    },
+    {
+      "type": "url",
+      "id": "circle_3_url",
+      "label": "URL Círculo 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Circles"
+    }
+  ]
 }
 {% endschema %}
