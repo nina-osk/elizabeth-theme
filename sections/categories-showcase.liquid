@@ -198,6 +198,39 @@
         }
       }
 
+      // Toque en las tarjetas para avanzar
+      mobileItems.forEach((item, index) => {
+        item.addEventListener('click', (e) => {
+          // Prevenir el comportamiento por defecto
+          e.preventDefault();
+          
+          const diff = index - mobileCurrentIndex;
+          
+          // Si toca la tarjeta principal, avanza al siguiente
+          if (diff === 0) {
+            mobileCurrentIndex = (mobileCurrentIndex + 1) % mobileItems.length;
+            updateMobileCarousel();
+          }
+          // Si toca una tarjeta visible (derecha o izquierda), va a esa tarjeta
+          else if (diff === 1 || (mobileCurrentIndex === mobileItems.length - 1 && index === 0)) {
+            mobileCurrentIndex = index;
+            updateMobileCarousel();
+          }
+          else if (diff === -1 || (mobileCurrentIndex === 0 && index === mobileItems.length - 1)) {
+            mobileCurrentIndex = index;
+            updateMobileCarousel();
+          }
+          // Si toca cualquier otra tarjeta no visible, avanza al siguiente
+          else {
+            mobileCurrentIndex = (mobileCurrentIndex + 1) % mobileItems.length;
+            updateMobileCarousel();
+          }
+        });
+
+        // Agregar cursor pointer para indicar que es clickeable
+        item.style.cursor = 'pointer';
+      });
+
       updateMobileCarousel();
     }
 

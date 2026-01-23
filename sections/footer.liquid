@@ -1,7 +1,7 @@
 <footer style="background-color: #222121; color: white;" class="py-12 px-4">
     <div class="max-w-7xl mx-auto">
         
-        <!-- Sección superior con logo, texto y newsletter -->
+        <!-- Sección superior con logo, texto -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 pb-8" style="border-bottom: 1px solid rgba(255, 255, 255, 0.2);">
             
             <!-- Logo y texto -->
@@ -25,32 +25,7 @@
                 <p class="text-sm text-gray-400 leading-relaxed">{{ section.settings.description }}</p>
             </div>
 
-            <!-- Newsletter -->
-            <div>
-                <h3 class="text-xl font-semibold mb-4">{{ section.settings.newsletter_title }}</h3>
-                
-                <form action="/contact#contact_form" method="post" class="relative">
-                    <input type="hidden" name="form_type" value="customer">
-                    <input type="hidden" name="utf8" value="✓">
-                    <input type="hidden" name="contact[tags]" value="newsletter">
-                    
-                    <div class="relative">
-                        <input 
-                            type="email" 
-                            name="contact[email]"
-                            placeholder="{{ section.settings.newsletter_placeholder }}"
-                            required
-                            class="w-full px-4 py-3 pr-12 rounded-full text-gray-900 focus:outline-none">
-                        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center hover:bg-gray-700 transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
+</div>
         <!-- Línea separadora blanca -->
         <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.2);" class="mb-8"></div>
 
@@ -149,7 +124,7 @@
         <!-- Copyright -->
         <div class="text-center">
             <p class="text-sm text-gray-400">
-                {{ section.settings.copyright_text | default: '©BoldCommerceBrands - All Rights Reserved' }}
+                {{ section.settings.copyright_text | default: '©RobotsConsultant - All Rights Reserved' }}
             </p>
         </div>
 
@@ -176,12 +151,6 @@
             "id": "description",
             "label": "Descripción",
             "default": "Nullam semper sapien ac nibh egestas varius. Duis ornare lorem vel mollis tempor. Vivamus a elit orci. Aliquam ac sodales arcu."
-        },
-        {
-            "type": "text",
-            "id": "newsletter_title",
-            "label": "Título del newsletter",
-            "default": "Subscribete a nuestro Newsletter"
         },
         {
             "type": "text",
