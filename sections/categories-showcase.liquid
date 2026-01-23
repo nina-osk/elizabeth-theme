@@ -2,19 +2,19 @@
   <div class="mx-auto max-w-7xl px-4 md:px-6 lg:px-20 py-12 md:py-16 lg:py-20">
     <!-- Header -->
     <div class="text-center mb-8 md:mb-12 lg:mb-16">
-      <h2 class="text-2xl md:text-3xl lg:text-5xl font-bold text-black mb-2 md:mb-3 leading-tight">
+      <h2 class="text-lg md:text-xl lg:text-2xl font-semibold text-gray-800 mb-2 md:mb-3">
         {{ section.settings.title }}
       </h2>
-      <p class="text-gray-500 text-xs md:text-sm lg:text-base">
+      <p class="text-xs md:text-sm text-gray-500">
         {{ section.settings.subtitle }}
       </p>
     </div>
 
     <!-- Mobile View (Carrusel rotativo) -->
     <div class="md:hidden mb-8 px-4">
-      <div class="relative w-full overflow-visible" style="height: 400px;">
+      <div class="relative w-full overflow-visible" style="height: 450px;">
         <div class="mobile-carousel-container relative flex items-center justify-center" style="height: 100%;">
-          {% assign cards = (1..5) %}
+          {% assign cards = (1..6) %}
           {% for i in cards %}
             {% assign prod_key = 'category_' | append: i | append: '_product' %}
             {% assign label_key = 'category_' | append: i | append: '_label' %}
@@ -22,20 +22,20 @@
             
             <div class="mobile-carousel-item absolute border-2 border-black rounded-lg cursor-pointer transition-all duration-500 overflow-hidden shadow-xl bg-white" 
                  data-index="{{ forloop.index0 }}" 
-                 style="width: 200px; height: 280px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-              <div class="w-full h-full flex flex-col">
+                 style="width: 240px; height: 340px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <div class="w-full h-full flex flex-col bg-white">
                 {% if prod != blank and prod.featured_media %}
                   <div class="h-2/3 w-full overflow-hidden bg-gray-100">
-                    {{ prod.featured_media | image_url: width: 400 | image_tag: alt: prod.title, class: 'w-full h-full object-cover', loading: 'lazy', width: 400, height: 400 }}
+                    {{ prod.featured_media | image_url: width: 480 | image_tag: alt: prod.title, class: 'w-full h-full object-contain bg-white', loading: 'lazy', width: 480, height: 480 }}
                   </div>
-                  <div class="h-1/3 w-full px-3 py-2 flex flex-col justify-center border-t border-gray-200 bg-white">
-                    <p class="text-xs text-gray-500 truncate">{{ prod.vendor }}</p>
-                    <p class="text-sm font-semibold text-gray-800 truncate">{{ prod.title }}</p>
-                    <p class="text-sm font-bold text-black">{{ prod.price | money }}</p>
+                  <div class="h-1/3 w-full px-4 py-3 flex flex-col justify-center border-t border-gray-200 bg-white">
+                    <p class="text-sm text-gray-500 truncate">{{ prod.vendor }}</p>
+                    <a href="{{ prod.url }}" class="text-base font-semibold text-gray-800 truncate hover:text-amber-600 transition-colors">{{ prod.title }}</a>
+                    <a href="{{ prod.url }}" class="text-base font-bold text-black hover:text-amber-600 transition-colors">{{ prod.price | money }}</a>
                   </div>
                 {% else %}
                   <div class="h-full w-full flex items-center justify-center bg-stone-100 text-center px-2">
-                    <span class="text-xs font-medium text-gray-600">
+                    <span class="text-sm font-medium text-gray-600">
                       {{ section.settings[label_key] | default: 'Producto' }}
                     </span>
                   </div>
@@ -58,29 +58,31 @@
     </div>
 
     <!-- Desktop View (3D Carousel) -->
-    <div class="hidden md:flex justify-center items-center mb-12" style="perspective: 1200px; height: 520px;">
-      <div class="carousel-container relative w-full h-full flex items-center justify-center" style="transform-style: preserve-3d;">
+    <div class="hidden md:flex justify-center items-center mb-12" style="perspective: 1200px; height: 700px;">
+      <div class="carousel-3d relative" style="width: 100%; height: 100%; transform-style: preserve-3d;">
 
-        {% assign cards = (1..5) %}
+        {% assign cards = (1..6) %}
         {% for i in cards %}
           {% assign prod_key = 'category_' | append: i | append: '_product' %}
           {% assign label_key = 'category_' | append: i | append: '_label' %}
           {% assign prod = section.settings[prod_key] %}
           
-          <div class="carousel-item absolute w-36 md:w-44 lg:w-52 h-52 md:h-64 lg:h-72 border-2 border-black rounded-lg cursor-pointer transition-all duration-700 overflow-hidden shadow-lg bg-white" data-index="{{ forloop.index0 }}" style="transform-style: preserve-3d;">
+          <div class="carousel-item absolute border-2 border-black rounded-lg cursor-pointer transition-all duration-700 overflow-hidden shadow-2xl bg-white" 
+               data-index="{{ forloop.index0 }}" 
+               style="width: 280px; height: 400px; left: 50%; top: 50%; transform-origin: center; margin-left: -140px; margin-top: -200px;">
             <div class="w-full h-full flex flex-col">
               {% if prod != blank and prod.featured_media %}
                 <div class="h-3/4 w-full overflow-hidden bg-gray-100">
-                  {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full h-full object-cover', loading: 'lazy', width: 600, height: 600 }}
+                  {{ prod.featured_media | image_url: width: 560 | image_tag: alt: prod.title, class: 'w-full h-full object-contain', loading: 'lazy', width: 560, height: 560 }}
                 </div>
-                <div class="h-1/4 w-full px-3 py-2 flex flex-col justify-center border-t border-gray-200">
-                  <p class="text-xs text-gray-500 truncate">{{ prod.vendor }}</p>
-                  <p class="text-sm font-semibold text-gray-800 truncate">{{ prod.title }}</p>
-                  <p class="text-sm font-bold text-black">{{ prod.price | money }}</p>
+                <div class="h-1/4 w-full px-4 py-3 flex flex-col justify-center border-t-2 border-gray-200">
+                  <p class="text-sm text-gray-500 truncate">{{ prod.vendor }}</p>
+                  <a href="{{ prod.url }}" class="text-base font-bold text-gray-800 truncate hover:text-amber-600 transition-colors">{{ prod.title }}</a>
+                  <a href="{{ prod.url }}" class="text-lg font-bold text-black hover:text-amber-600 transition-colors">{{ prod.price | money }}</a>
                 </div>
               {% else %}
                 <div class="h-full w-full flex items-center justify-center bg-stone-100 text-center px-4">
-                  <span class="text-sm font-medium text-gray-600">
+                  <span class="text-base font-semibold text-gray-700">
                     {{ section.settings[label_key] | default: 'Producto' }}
                   </span>
                 </div>
@@ -94,11 +96,8 @@
 
     <!-- Desktop Controls -->
     <div class="hidden md:flex justify-center gap-4 lg:gap-6">
-      <button id="zoom-in-btn" class="flex items-center gap-2 px-5 lg:px-6 py-2 lg:py-3 border-2 border-black text-black text-xs lg:text-sm font-semibold uppercase hover:bg-black hover:text-white transition-colors">
-        🔍 Zoom
-      </button>
-      <button id="rotate-btn" class="flex items-center gap-2 px-5 lg:px-6 py-2 lg:py-3 border-2 border-black text-black text-xs lg:text-sm font-semibold uppercase hover:bg-black hover:text-white transition-colors">
-        ↻ Rotar
+      <button id="zoom-in-btn" class="px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800 transition-all">
+        Zoom
       </button>
     </div>
   </div>
@@ -129,21 +128,21 @@
           } else if (diff === 1 || (mobileCurrentIndex === mobileItems.length - 1 && index === 0)) {
             // Segunda tarjeta (detrás a la derecha)
             item.style.transform = 'translate(-40%, -55%) scale(0.9) rotate(3deg)';
-            item.style.opacity = '0.85';
+            item.style.opacity = '1';
             item.style.zIndex = '20';
             item.style.top = '50%';
             item.style.left = '50%';
           } else if (diff === 2 || (mobileCurrentIndex >= mobileItems.length - 2 && index < 2)) {
             // Tercera tarjeta (más atrás a la derecha)
             item.style.transform = 'translate(-30%, -60%) scale(0.8) rotate(5deg)';
-            item.style.opacity = '0.6';
+            item.style.opacity = '1';
             item.style.zIndex = '10';
             item.style.top = '50%';
             item.style.left = '50%';
           } else if (diff === -1 || (mobileCurrentIndex === 0 && index === mobileItems.length - 1)) {
             // Tarjeta anterior (detrás a la izquierda)
             item.style.transform = 'translate(-60%, -55%) scale(0.9) rotate(-3deg)';
-            item.style.opacity = '0.85';
+            item.style.opacity = '1';
             item.style.zIndex = '20';
             item.style.top = '50%';
             item.style.left = '50%';
@@ -201,6 +200,11 @@
       // Toque en las tarjetas para avanzar
       mobileItems.forEach((item, index) => {
         item.addEventListener('click', (e) => {
+          // Si se clickea un enlace, no hacer nada
+          if (e.target.tagName === 'A') {
+            return;
+          }
+          
           // Prevenir el comportamiento por defecto
           e.preventDefault();
           
@@ -237,14 +241,12 @@
     // Desktop Carousel
     const items = document.querySelectorAll('.carousel-item');
     const zoomBtn = document.getElementById('zoom-in-btn');
-    const rotateBtn = document.getElementById('rotate-btn');
 
     if (items.length > 0) {
       const itemCount = items.length;
-      const radius = 420;
+      const radius = 500; // Radio aumentado
       let currentRotation = 0;
       let currentZoom = 1;
-      let rotateY = 0;
 
       function updateCarousel() {
         items.forEach((item, index) => {
@@ -253,8 +255,8 @@
           const x = Math.cos(radians) * radius;
           const z = Math.sin(radians) * radius;
           const zNormalized = (z + radius) / (radius * 2);
-          const scale = 0.65 + zNormalized * 0.35;
-          const opacity = 0.45 + zNormalized * 0.55;
+          const scale = 0.7 + zNormalized * 0.3;
+          const opacity = 1;
 
           item.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${scale})`;
           item.style.opacity = opacity;
@@ -269,7 +271,12 @@
       }
 
       items.forEach((item, index) => {
-        item.addEventListener('click', () => rotateToItem(index));
+        item.addEventListener('click', (e) => {
+          if (e.target.tagName === 'A') {
+            return;
+          }
+          rotateToItem(index);
+        });
       });
 
       if (zoomBtn) {
@@ -277,15 +284,6 @@
           currentZoom = currentZoom === 1 ? 1.15 : 1;
           items.forEach((item) => {
             item.style.transform += ` scale(${currentZoom})`;
-          });
-        });
-      }
-
-      if (rotateBtn) {
-        rotateBtn.addEventListener('click', () => {
-          rotateY = (rotateY + 45) % 360;
-          items.forEach((item) => {
-            item.style.transform += ` rotateY(${rotateY}deg)`;
           });
         });
       }
@@ -299,23 +297,17 @@
 {
   "name": "Categories Showcase",
   "settings": [
-    { "type": "text", "id": "title", "label": "Título", "default": "Diseños Unicos Y Elegantes Para Tu Día ADía" },
-    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Soon-to-be staples in your rotation" },
-
-    { "type": "text", "id": "category_1_label", "label": "Categoría 1 - Texto fallback", "default": "Earring" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Diseños Únicos Y Elegantes Para Tu Día a Día" },
+    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Próximos elementos básicos en tu rotación" },
+    
+    { "type": "text", "id": "category_1_label", "label": "Categoría 1 - Etiqueta", "default": "Aretes" },
     { "type": "product", "id": "category_1_product", "label": "Categoría 1 - Producto" },
-
-    { "type": "text", "id": "category_2_label", "label": "Categoría 2 - Texto fallback", "default": "Bracelet" },
+    
+    { "type": "text", "id": "category_2_label", "label": "Categoría 2 - Etiqueta", "default": "Collar" },
     { "type": "product", "id": "category_2_product", "label": "Categoría 2 - Producto" },
-
-    { "type": "text", "id": "category_3_label", "label": "Categoría 3 - Texto fallback", "default": "Necklace" },
-    { "type": "product", "id": "category_3_product", "label": "Categoría 3 - Producto" },
-
-    { "type": "text", "id": "category_4_label", "label": "Categoría 4 - Texto fallback", "default": "Earring" },
-    { "type": "product", "id": "category_4_product", "label": "Categoría 4 - Producto" },
-
-    { "type": "text", "id": "category_5_label", "label": "Categoría 5 - Texto fallback", "default": "Accessories" },
-    { "type": "product", "id": "category_5_product", "label": "Categoría 5 - Producto" }
+    
+    { "type": "text", "id": "category_3_label", "label": "Categoría 3 - Etiqueta", "default": "Pulsera" },
+    { "type": "product", "id": "category_3_product", "label": "Categoría 3 - Producto" }
   ],
   "presets": [
     { "name": "Categories Showcase" }
