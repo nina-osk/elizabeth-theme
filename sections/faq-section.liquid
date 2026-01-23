@@ -8,21 +8,24 @@
         </div>
 
         <!-- Grid con imagen y preguntas -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-20 items-start">
             
             <!-- Imagen izquierda -->
-            <div class="rounded-lg overflow-hidden bg-purple-300 h-96 md:h-auto">
+            <div class="rounded-lg overflow-hidden bg-purple-300 h-80 md:h-96 lg:h-[450px] mx-auto md:mx-0 max-w-md">
                 {% if section.settings.faq_image %}
-                    <img src="{{ section.settings.faq_image | image_url: width: 600 }}" 
+                    <img src="{{ section.settings.faq_image | image_url: width: 500 }}" 
                          alt="FAQ Image"
-                         width="600"
-                         height="600"
+                         width="500"
+                         height="450"
                          loading="lazy"
                          class="w-full h-full object-cover">
                 {% else %}
-                    <div class="w-full h-full flex items-center justify-center text-purple-800 text-2xl font-bold">
-                        FAQ
-                    </div>
+                    <img src="{{ 'faq.jpeg' | asset_url }}" 
+                         alt="FAQ Image"
+                         width="500"
+                         height="450"
+                         loading="lazy"
+                         class="w-full h-full object-cover">
                 {% endif %}
             </div>
 
