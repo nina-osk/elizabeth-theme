@@ -13,10 +13,7 @@
       "type": "hero-banner",
       "settings": {
         "subtitle": "Joyerias de Oro 9K y18K, moderna y para el dia a dia.",
-        "title": "Descubre La Belleza Del Lujo Sutil",
-        "description": "En Munier, creemos que el lujo no tiene que ser ostentoso. Es la elegancia silenciosa la que brilla a través de la simplicidad de nuestras piezas. Hechas de oro de 9k, cada joya está diseñada para complementar tu luz única, realizando tu estilo diario con gracia y sofisticación.",
-        "button_1_text": "MAS DETALLES",
-        "button_2_text": "COMPRAR"
+        "title": "Descubre La Belleza Del Lujo Sutil"
       }
     },
     "categories-showcase": {
@@ -29,11 +26,7 @@
         "category_2_label": "Pulsera",
         "category_2_product": "earring-lumi-w-gold",
         "category_3_label": "Collar",
-        "category_3_product": "earring-aura-y-gold",
-        "category_4_label": "Aretes",
-        "category_4_product": "earring-aura-y-gold",
-        "category_5_label": "Accesorios",
-        "category_5_product": "earring-aura-y-gold"
+        "category_3_product": "earring-aura-y-gold"
       }
     },
     "featured-collections": {
@@ -46,32 +39,14 @@
     },
     "collection-circles": {
       "type": "collection-circles",
-      "blocks": {
-        "collection_item_gdg9TC": {
-          "type": "collection_item",
-          "settings": {
-            "collection_title": "Aretes Oro9K",
-            "collection_url": "",
-            "highlight": false
-          }
-        },
-        "collection_item_PLBrmy": {
-          "type": "collection_item",
-          "settings": {
-            "collection_title": "Aretes Oro9K",
-            "collection_image": "shopify://shop_images/Aretes_Oro_9K_-_Lumi_1.jpg",
-            "collection_url": "",
-            "highlight": false
-          }
-        }
-      },
-      "block_order": [
-        "collection_item_gdg9TC",
-        "collection_item_PLBrmy"
-      ],
       "settings": {
-        "subtitle": "JOYERÍA EXCLUSIVA 9K",
-        "title": "Nuestra Colección"
+        "section_title": "Categorías",
+        "circle_1_title": "Aretes",
+        "circle_1_url": "",
+        "circle_2_title": "Collares",
+        "circle_2_url": "",
+        "circle_3_title": "Pulseras",
+        "circle_3_url": ""
       }
     },
     "video-with-text": {
@@ -195,14 +170,6 @@
             "description": "All the business growth and profit revolve areffective cactchy."
           }
         },
-        "service-2": {
-          "type": "feature",
-          "settings": {
-            "icon_type": "delivery",
-            "title": "ONE DAY DELIVERY",
-            "description": "Praesent aliquet a diam hendrerit interdum quisque lacus."
-          }
-        },
         "service-3": {
           "type": "feature",
           "settings": {
@@ -222,11 +189,54 @@
       },
       "block_order": [
         "service-1",
-        "service-2",
         "service-3",
         "service-4"
       ],
       "settings": {}
+    },
+    "instagram_feed_W4QMhe": {
+      "type": "instagram-feed",
+      "blocks": {
+        "post_hAWkdB": {
+          "type": "post",
+          "settings": {
+            "post_url": "",
+            "post_caption": ""
+          }
+        },
+        "post_mckGhE": {
+          "type": "post",
+          "settings": {
+            "post_url": "",
+            "post_caption": ""
+          }
+        },
+        "post_YWzAqQ": {
+          "type": "post",
+          "settings": {
+            "post_url": "",
+            "post_caption": ""
+          }
+        },
+        "post_eBHwL8": {
+          "type": "post",
+          "settings": {
+            "post_url": "",
+            "post_caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "post_hAWkdB",
+        "post_mckGhE",
+        "post_YWzAqQ",
+        "post_eBHwL8"
+      ],
+      "name": "Instagram Feed",
+      "settings": {
+        "title": "Instagram",
+        "instagram_handle": "munierjewelry"
+      }
     }
   },
   "order": [
@@ -237,6 +247,7 @@
     "video-with-text",
     "features-with-icons",
     "faq-section",
-    "service-features"
+    "service-features",
+    "instagram_feed_W4QMhe"
   ]
 }
