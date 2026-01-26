@@ -1,7 +1,7 @@
 <div class="h-full flex items-center justify-center py-12 px-6 md:px-4 lg:px-8" x-data="{ loginForm: true, pwRecoverForm: false }">
     <div x-show="loginForm" class="max-w-md w-full space-y-8">
         <div>
-            <h1 class="text-center text-3xl font-bold mt-6">Inicia sesión en tu cuenta</h1>
+            <h1 class="text-center text-3xl font-bold mt-6">Registro</h1>
         </div>
         <div class="mt-8">
             {% form 'customer_login' %}
@@ -47,8 +47,7 @@
                     </button>
                 </div>
             {% endform %}
-        </div>
-
+        </div>}
         {% if shop.checkout.guest_login %}
             <hr class="my-12">
 
@@ -67,12 +66,12 @@
     </div>
     <div x-show="pwRecoverForm" class="max-w-md w-full space-y-8">
         <div>
-            <h1 class="text-center text-3xl font-bold mt-6">Recupera tu contraseña</h1>
+            <h1 class="text-center text-3xl font-bold mt-6">Recuperar tu contraseña</h1>
         </div>
         <div class="mt-8">
             {% form 'recover_customer_password' %}
                 {% if form.errors %}
-                    <div class="relative border border-red-400 bg-red-100 text-red-700 px-4 py-3" role="alert">
+                    <div class="relative border border-red-400 bg-red-100 text-red 700 px-4 py-3" role="alert">
                         <strong class="font-bold">Error!</strong>
                         <p class="block sm:inline">{{ form.errors | default_errors }}</p>
                     </div>
@@ -102,10 +101,3 @@
         </div>
     </div>
 </div>
-
-{% schema %}
-{
-  "name": "Template Customer Login",
-  "settings": []
-}
-{% endschema %}
