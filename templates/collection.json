@@ -1,11 +1,27 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections": {
-        "template-collection": {
-            "type": "template-collection",
-            
-        }
-    },
-    "order": [
-        "template-collection"
-    ]
+  "sections": {
+    "template-collection": {
+      "type": "template-collection",
+      "settings": {
+        "main_title": "Nuestras Colecciones",
+        "main_subtitle": "Explora nuestras colecciones destacadas",
+        "collection_1": "{{ section.settings.collection_2 }}",
+        "collection_2": "essenza",
+        "collection_3": "krishna",
+        "show_all_collections_button": true
+      }
+    }
+  },
+  "order": [
+    "template-collection"
+  ]
 }
