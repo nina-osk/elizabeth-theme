@@ -15,18 +15,19 @@
                             <!-- Íconos SVG por defecto -->
                             <div class="w-12 h-12 flex items-center justify-center">
                                 {% if block.settings.icon_type == 'shipping' %}
-                                    <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M13 16V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1m8-1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-2zm-8 0a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H5z" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M13 6h3l3 4v4h-1" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <!-- Camión de envío -->
+                                    <svg class="w-12 h-12" viewBox="0 0 512 512" fill="currentColor">
+                                        <path d="M48.64 96v320h48v-32c0-35.346 28.654-64 64-64s64 28.654 64 64v32h96.64v-32c0-35.346 28.654-64 64-64s64 28.654 64 64v32h16c8.837 0 16-7.163 16-16V263.05l-95.5-95.5C382.456 164.227 378.352 163 374 163h-69v-51c0-8.837-7.163-16-16-16H48.64zM385.28 259l-37.64-37.64c-3.156-3.156-7.438-4.93-11.908-4.93H305v61.43h80.28V259zM160.64 352c-35.346 0-64 28.654-64 64s28.654 64 64 64 64-28.654 64-64-28.654-64-64-64zm224 0c-35.346 0-64 28.654-64 64s28.654 64 64 64 64-28.654 64-64-28.654-64-64-64z"/>
                                     </svg>
                                 {% elsif block.settings.icon_type == 'payment' %}
-                                    <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <rect x="2" y="5" width="20" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2 10h20" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <!-- Tarjeta de crédito -->
+                                    <svg class="w-12 h-12" viewBox="0 0 512 512" fill="currentColor">
+                                        <path d="M448 64H64C28.65 64 0 92.65 0 128v256c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64V128c0-35.35-28.65-64-64-64zm-336 224h-64v-32h64v32zm0 64h-64v-32h64v32zm192-64h-160v-32h160v32zm-160 64v-32h160v32H144zm288-160H16v-64c0-8.82 7.18-16 16-16h448c8.82 0 16 7.18 16 16v64z"/>
                                     </svg>
                                 {% elsif block.settings.icon_type == 'support' %}
-                                    <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M19 11a7 7 0 0 1-7 7m0 0a7 7 0 0 1-7-7m7 7v4m-7-7a7 7 0 0 1 7-7m0 0a7 7 0 0 1 7 7m-7-7V1m-3 21h6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <!-- Auriculares de soporte -->
+                                    <svg class="w-12 h-12" viewBox="0 0 512 512" fill="currentColor">
+                                        <path d="M256 32C114.52 32 0 146.496 0 288v48c0 35.328 28.656 64 64 64h32c17.664 0 32-14.336 32-32V256c0-17.664-14.336-32-32-32H64.496C79.632 137.216 157.792 64 256 64s176.368 73.216 191.504 160H416c-17.664 0-32 14.336-32 32v112c0 17.664 14.336 32 32 32h32c35.344 0 64-28.672 64-64v-48c0-141.504-114.496-256-256-256zm-64 320h-64v-96h64v96zm256 0h-64v-96h64v96zm-192 64c-17.664 0-32 14.336-32 32s14.336 32 32 32h96c17.664 0 32-14.336 32-32s-14.336-32-32-32h-96z"/>
                                     </svg>
                                 {% endif %}
                             </div>

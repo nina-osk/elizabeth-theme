@@ -2,7 +2,7 @@
   <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-32 py-12 md:py-16 lg:py-20">
     <!-- Header -->
     <div class="text-center mb-8 md:mb-12 lg:mb-16">
-      <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800 mb-2 md:mb-3">
+      <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800 mb-2 md:mb-3 px-8 md:px-16 lg:px-24 leading-relaxed">
         {{ section.settings.title }}
       </h2>
       <p class="text-xs md:text-sm text-gray-500">
@@ -22,7 +22,7 @@
             
             <div class="mobile-carousel-item absolute rounded-lg cursor-pointer transition-all duration-500 overflow-hidden shadow-xl bg-white" 
                  data-index="{{ forloop.index0 }}" 
-                 style="width: 240px; height: 340px; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid #f3d5d5;">
+                 style="width: 240px; height: 340px; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid #ffffff;">
               <div class="w-full h-full flex flex-col bg-white">
                 {% if prod != blank and prod.featured_media %}
                   <div class="h-2/3 w-full overflow-hidden bg-gray-100">
@@ -69,7 +69,7 @@
           
           <div class="carousel-item absolute rounded-lg cursor-pointer transition-all duration-700 overflow-hidden shadow-2xl bg-white" 
                data-index="{{ forloop.index0 }}" 
-               style="width: 280px; height: 400px; left: 50%; top: 50%; transform-origin: center; margin-left: -140px; margin-top: -200px; border: 2px solid #f3d5d5;">
+               style="width: 280px; height: 400px; left: 50%; top: 50%; transform-origin: center; margin-left: -140px; margin-top: -200px; border: 2px solid #ffffff;">
             <div class="w-full h-full flex flex-col">
               {% if prod != blank and prod.featured_media %}
                 <div class="h-3/4 w-full overflow-hidden bg-gray-100">
