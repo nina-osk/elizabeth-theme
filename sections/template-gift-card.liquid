@@ -1,0 +1,147 @@
+<div class="gift-card-template">
+    <div class="gift-card-container">
+        <header class="gift-card-header">
+            <h1>{{ 'gift_cards.issued.subtext' | t }}</h1>
+            {% unless gift_card.enabled %}
+                <span class="gift-card-badge">{{ 'gift_cards.issued.disabled' | t }}</span>
+            {% endunless %}
+            {% if gift_card.expired %}
+                <span class="gift-card-badge gift-card-badge--expired">{{ 'gift_cards.issued.expired' | t }}</span>
+            {% endif %}
+        </header>
+
+        <main class="gift-card-main">
+            <div class="gift-card-image-wrapper">
+                <img src="{{ 'gift-card/card.svg' | shopify_asset_url }}" alt="Gift card" class="gift-card-image" width="400" height="250">
+                <div class="gift-card-amount">
+                    <h2>{{ gift_card.balance | money }}</h2>
+                    {% if gift_card.balance != gift_card.initial_value %}
+                        <p class="gift-card-initial-value">{{ 'gift_cards.issued.initial_value' | t: value: gift_card.initial_value | money }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="gift-card-code-wrapper">
+                <label for="gift-card-code">{{ 'gift_cards.issued.code' | t }}</label>
+                <input 
+                    type="text" 
+                    id="gift-card-code" 
+                    class="gift-card-code" 
+                    value="{{ gift_card.code | format_code }}" 
+                    readonly
+                >
+                <button class="btn-copy" onclick="copyGiftCardCode()">
+                    {{ 'gift_cards.issued.copy_code' | t }}
+                </button>
+            </div>
+
+            {% if gift_card.expires_on %}
+                <p class="gift-card-expiry">
+                    {{ 'gift_cards.issued.expiry_date' | t: date: gift_card.expires_on | date: "%d/%m/%Y" }}
+                </p>
+            {% endif %}
+
+            <div class="gift-card-qr-code">
+                <img src="{{ gift_card.qr_identifier | qr_code_url: size: 200 }}" alt="QR code" width="200" height="200" loading="lazy">
+                <p>{{ 'gift_cards.issued.qr_code_text' | t }}</p>
+            </div>
+
+            <div class="gift-card-actions">
+                <a href="{{ shop.url }}" class="btn btn-primary" target="_blank">
+                    {{ 'gift_cards.issued.shop_link' | t }}
+                </a>
+                <button class="btn btn-secondary" onclick="window.print()">
+                    {{ 'gift_cards.issued.print' | t }}
+                </button>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    function copyGiftCardCode() {
+        const codeInput = document.getElementById('gift-card-code');
+        codeInput.select();
+        document.execCommand('copy');
+        alert('{{ 'gift_cards.issued.copy_success' | t }}');
+    }
+</script>
+
+<style>
+    .gift-card-template {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .gift-card-container {
+        background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+        border: 2px solid #d4af37;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .gift-card-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .gift-card-badge {
+        display: inline-block;
+        padding: 5px 15px;
+        background: #ffc107;
+        color: #000;
+        border-radius: 20px;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .gift-card-image-wrapper {
+        position: relative;
+        margin: 30px 0;
+    }
+
+    .gift-card-amount {
+        text-align: center;
+        margin: 20px 0;
+        color: #d4af37;
+    }
+
+    .gift-card-code {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        text-align: center;
+        border: 2px solid #d4af37;
+        border-radius: 5px;
+        margin: 10px 0;
+        letter-spacing: 2px;
+    }
+
+    .gift-card-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background: #d4af37;
+        color: #fff;
+    }
+
+    @media print {
+        .gift-card-actions { display: none; }
+    }
+</style>

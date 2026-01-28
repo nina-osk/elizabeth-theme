@@ -1,4 +1,11 @@
-<div class="relative bg-white" x-data="{ mobileMenuOpen: false }">
+{% liquid 
+    if section.settings.menu.links == blank
+        assign main_menu_linklist = linklists[section.settings.menu].links
+    else
+        assign main_menu_linklist = section.settings.menu.links
+    endif
+%}
+<div class="relative bg-white" x-data="{ mobileMenuOpen: false, searchBarOpen: false }" x-cloak>
   <div class="mx-auto px-4 sm:px-6">
     <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
       <!-- STORE NAME / STORE LOGO -->
@@ -13,7 +20,7 @@
 
       <!-- NAVIGATION MENU -->
       <nav  x-data="{ open: false }" class="hidden md:flex space-x-10">
-        {% for link in linklists.main-menu-1.links %}
+        {% for link in main_menu_linklist %}
             {% if link.links != blank %}
                 {%  assign link_handle = link.handle | replace: '-', '_'   %}
               <div x-data="{ {{link_handle }}: false }" class="relative">

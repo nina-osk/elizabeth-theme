@@ -10,8 +10,23 @@
 { 
     "general": {
         "404": {
-            "title": "Page not found",
-            "subtext_html": "The page you are looking for does not exist or has been moved."
+            "title": "Pagina no encontrada",
+            "subtext_html": "La pagina que buscas no existe. Haz click <a href=\"\/\">aqui<\/a> para volver a la pagina principal."
+        }
+    },
+    "gift_cards": {
+        "issued": {
+            "subtext": "Tu tarjeta de regalo",
+            "disabled": "Deshabilitada",
+            "expired": "Expirada",
+            "code": "Código de la tarjeta de regalo",
+            "copy_code": "Copiar código",
+            "copy_success": "¡Código copiado al portapapeles!",
+            "initial_value": "Valor original: {{ value }}",
+            "expiry_date": "Expira el {{ date }}",
+            "qr_code_text": "Escanea este código al pagar",
+            "shop_link": "Comenzar a comprar",
+            "print": "Imprimir tarjeta de regalo"
         }
     }
 }

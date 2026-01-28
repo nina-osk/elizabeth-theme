@@ -8,6 +8,8 @@
   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
   <link rel="stylesheet" href="{{ 'application.css' | asset_url }}">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+ <style>
+    [x-cloak] { display: none !important; } </style>
   {{ content_for_header }}
 </head>
 <body>
