@@ -16,50 +16,55 @@
 
 <style>
     .swiper-button-prev, .swiper-button-next {
-        color: #000; top:auto !important; height:20px;
+        color: #000; 
+        top: 50% !important; 
+        height: 40px;
+        width: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
     .swiper-button-prev::after, .swiper-button-next::after {
         font-size: 20px;
+        font-weight: bold;
+    }
+    .swiper-button-prev:hover, .swiper-button-next:hover {
+        background: rgba(255, 255, 255, 1);
     }
     .swiper-pagination {
-        color: #000; bottom: 0 !important;
+        bottom: 20px !important;
+    }
+    .swiper-pagination-bullet {
+        background: #000;
+        opacity: 0.5;
     }
     .swiper-pagination-bullet-active {
-        color: #000 !important;
+        opacity: 1;
     }
     .product--information {
-         height: fit-content; 
-        }
+        height: fit-content; 
+    }
 </style>
 <div class="max-w-6xl mx-auto my-8">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div class="product--medias">
-            <div class="hidden md:block">
-                {% for media in product.media %}
-                    <div class="h-100 overflow-hidden p-2">
-                        {% render 'product-media', media: media %}
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="md:hidden">
-                <!-- Mobile Swiper -->
-                <div class="swiper h-94">
-                    <div class="swiper-wrapper">
-                        {% for media in product.media %}
-                            <div class="swiper-slide">
-                                <div class="h-80 overflow-hidden p-2">
+            <!-- Desktop Swiper -->
+            <div class="swiper desktop-swiper h-96 md:h-[600px]">
+                <div class="swiper-wrapper">
+                    {% for media in product.media %}
+                        <div class="swiper-slide">
+                            <div class="h-full overflow-hidden p-2 flex items-center justify-center">
                                 {% render 'product-media', media: media %}
                             </div>
-                             </div>
-                        {% endfor %}
-                    </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                        </div>
+                    {% endfor %}
                 </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
         </div>
-    </div>
 
 
      <div class="product--information sticky top-5 p-2">
@@ -119,7 +124,7 @@
 
                         {% when 'quantity' %}
                             <div class="my-3">
-                                <label for="Quantity-{{ section.id }}">Quantity</label>
+                                <label for="Quantity-{{ section.id }}">Cantidad</label>
 
                                 <div class="my-2">
                                     <input type="number" name="quantity" id="Quantity-{{ section.id }}" value="1" min="1" class="w-full border px-3 py-3">
@@ -138,9 +143,9 @@
                                     {% endif %}
                                 >
                                     {% if selected_variant.available == false %}
-                                        Sold out
+                                        Agotado
                                     {% else %}
-                                        Add to cart
+                                        Agregar al carrito
                                     {% endif %}
                                 </button>
                             </div>
@@ -228,16 +233,24 @@
 
 
 <script>
-    const swiper = new Swiper('.swiper', {
+    const swiper = new Swiper('.desktop-swiper', {
         direction: 'horizontal',
+        loop: false,
+        slidesPerView: 1,
+        spaceBetween: 10,
 
         pagination: {
-            el: '.swiper-pagination'
+            el: '.swiper-pagination',
+            clickable: true
         },
 
         navigation: {
             prevEl: '.swiper-button-prev',
             nextEl: '.swiper-button-next'
+        },
+        
+        keyboard: {
+            enabled: true,
         }
     })
 </script>
