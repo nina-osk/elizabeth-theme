@@ -91,7 +91,7 @@
             <!-- NAVIGATION LINKS FOR MOBILE MENU -->
             <div class="pt-3">
                 <nav class="grid gap-y-7">
-                    {% for link in linklists.main-menu-1.links %}
+                    {% for link in main_menu_linklist %}
                      {% assign link_handle = link.handle | replace: '-', '_'   %}
                         {% if link.links != blank %}    
                         
@@ -128,11 +128,17 @@
     "name": "Header",
     "settings": [
       {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Menú de navegación",
+        "default": "main-menu"
+      },
+      {
         "type": "text",
         "id": "mobile_menu_label",
-        "label": "Mobile Menu Label",
-        "default": "Menu",
-        "info": "This is title of mobile menu window."
+        "label": "Etiqueta del menú móvil",
+        "default": "Menú",
+        "info": "Este es el título de la ventana del menú móvil."
       }
     ]
   }
