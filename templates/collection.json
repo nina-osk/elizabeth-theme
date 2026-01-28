@@ -12,8 +12,12 @@
     "template-collection": {
       "type": "template-collection",
       "settings": {
-        "collection_handle": "aretes",
-        "products_per_page": 12
+        "main_title": "Nuestras Colecciones",
+        "main_subtitle": "Explora nuestras colecciones destacadas",
+        "collection_1": "aretes",
+        "collection_2": "",
+        "collection_3": "",
+        "show_all_collections_button": true
       }
     }
   },
