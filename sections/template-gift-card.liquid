@@ -42,7 +42,7 @@
             {% endif %}
 
             <div class="gift-card-qr-code">
-                <img src="{{ gift_card.qr_identifier | qr_code_url: size: 200 }}" alt="QR code" width="200" height="200" loading="lazy">
+                <img src="{{ gift_card.qr_identifier | qr_code }}" alt="QR code" width="200" height="200" loading="lazy">
                 <p>{{ 'gift_cards.issued.qr_code_text' | t }}</p>
             </div>
 
