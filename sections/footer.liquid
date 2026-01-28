@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto">
         
         <!-- Sección superior con logo, texto -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 pb-8" style="border-bottom: 1px solid rgba(255, 255, 255, 0.2);">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 pb-8">
             
             <!-- Logo y texto -->
             <div>
@@ -26,11 +26,9 @@
             </div>
 
 </div>
-        <!-- Línea separadora blanca -->
-        <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.2);" class="mb-8"></div>
 
         <!-- Sección de contacto -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8" style="border-bottom: 1px solid rgba(255, 255, 255, 0.2);">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8">
             {% for block in section.blocks %}
                 {% if block.type == 'contact_item' %}
                     <div class="flex items-start gap-4">
@@ -69,13 +67,8 @@
                 {% endfor %}
             </nav>
 
-            <!-- Línea separadora blanca -->
-            <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.2);" class="mb-8"></div>
-
             <!-- Redes sociales con líneas a los lados -->
             <div class="flex items-center justify-center gap-4">
-                <div class="flex-1 max-w-xs" style="border-bottom: 1px solid rgba(255, 255, 255, 0.2);"></div>
-                
                 <div class="flex gap-4">
                     {% if section.settings.instagram_url != blank %}
                         <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-gray-900 transition-all">
@@ -113,13 +106,8 @@
                         </a>
                     {% endif %}
                 </div>
-                
-                <div class="flex-1 max-w-xs" style="border-bottom: 1px solid rgba(255, 255, 255, 0.2);"></div>
             </div>
         </div>
-
-        <!-- Línea separadora blanca -->
-        <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.2);" class="mb-6"></div>
 
         <!-- Copyright -->
         <div class="text-center">
