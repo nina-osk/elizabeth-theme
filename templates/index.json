@@ -175,7 +175,8 @@
           "type": "feature",
           "settings": {
             "icon_type": "shipping",
-            "title": "FREE SHIPPING",
+            "icon_image": "shopify://shop_images/delivery-truck_6145189.png",
+            "title": "ENVIOS GRATIS",
             "description": "All the business growth and profit revolve areffective cactchy."
           }
         },
@@ -183,7 +184,8 @@
           "type": "feature",
           "settings": {
             "icon_type": "payment",
-            "title": "ONLINE PAYMENTS",
+            "icon_image": "shopify://shop_images/credit-card_5101571.png",
+            "title": "PAGOS ONLINE",
             "description": "Donec ac purus non libero vulputate tetur. Sed usque ullamcorper."
           }
         },
