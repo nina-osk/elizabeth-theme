@@ -64,20 +64,22 @@
                 </div>
 
                 <div class="p-4 md:p-12">
-                    <h1 class="text-lg font-medium mb-4">Cumplimiento</h1>
+                    <h1 class="text-lg font-medium mb-4">Datos de envio</h1>
 
                     {% if line_item.successfully_fulfilled_quantity > 0 %}
-                        <p class="mb-2">Hemos cumplido {{ line_item.successfully_fulfilled_quantity }} artículos de su pedido reciente.</p>
-                        <p class="mb-2">Compañía de seguimiento: {{ line_item.fulfillment.tracking_company }}</p>
+                        <p class="mb-2">Enviado {{ line_item.successfully_fulfilled_quantity }} artículos de su pedido reciente.</p>
+                        <p class="mb-2">Compañía de envio: {{ line_item.fulfillment.tracking_company }}</p>
                         <p class="mb-2">Número de seguimiento: {{ line_item.fulfillment.tracking_number }}</p>
 
                         <a target="_blank" href="{{ line_item.fulfillment.tracking_url }}" class="flex w-max text-sm text-white font-medium bg-gray-700 hover:bg-gray-900 px-4 py-1 rounded">
-                            Track order <span class="ml-1">{% render 'icon-link' %}</span>
+                            Número de seguimiento: <span class="ml-1">{% render 'icon-link' %}</span>
                         </a>
                     {% else %}
                         <p class="text-gray-500">El artículo aún no ha sido preparado para envio</p>
                     {% endif %}
                 </div>
+
+
             </div>
         {% endfor %}
     </div>
