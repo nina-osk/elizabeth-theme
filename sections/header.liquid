@@ -10,7 +10,9 @@
     <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
       <!-- STORE NAME / STORE LOGO -->
       <div class="flex justify-start lg:flex-1 truncate">
-        <h1 class="text-xl font-bold truncate">{{ shop.name }}</h1>
+        <a href="/" class="flex items-center">
+          <img src="{{ 'MunierOUT.svg' | asset_url }}" alt="{{ shop.name }}" class="h-8 md:h-10 w-auto">
+        </a>
       </div>
        <div class="-mr-2 -my-2 ml-3 md:hidden">
        <button x-on:click="mobileMenuOpen = true" type="button" class="bg-white p-2 inline-flex items-center justify-center focus:outline-none">
