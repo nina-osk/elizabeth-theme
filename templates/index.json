@@ -41,10 +41,13 @@
       "type": "collection-circles",
       "settings": {
         "section_title": "Categorías",
+        "circle_1_image": "shopify://shop_images/Aretes_Oro_9K-_Vera.jpg",
         "circle_1_title": "Aretes",
         "circle_1_url": "",
+        "circle_2_image": "shopify://shop_images/Pulsera-_Oro_18K_-Krishna.jpg",
         "circle_2_title": "Collares",
         "circle_2_url": "",
+        "circle_3_image": "shopify://shop_images/ModeloClose-PulseraOro18K-Krishna.png",
         "circle_3_title": "Pulseras",
         "circle_3_url": ""
       }
