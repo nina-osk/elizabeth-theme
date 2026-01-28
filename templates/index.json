@@ -12,19 +12,19 @@
     "hero-banner": {
       "type": "hero-banner",
       "settings": {
-        "subtitle": "Joyerias de Oro 9K y18K, moderna y para el dia a dia.",
-        "title": "Descubre La Belleza Del Lujo Sutil"
+        "subtitle": "Porque la ocasión especial eres tú",
+        "title": " Brilla Todos los Días"
       }
     },
     "categories-showcase": {
       "type": "categories-showcase",
       "settings": {
-        "title": "Diseños Unicos Y Elegantes Para Tu Día a Día",
-        "subtitle": "Próximos elementos básicos en tu rotación",
+        "title": "Munier crea piezas elegantes, versátiles y duraderas que se sienten tan naturales como tu propia esencia. Joyas que se mueven contigo, desde lo cotidiano hasta lo inolvidable.",
+        "subtitle": "Próximos best seller",
         "category_1_label": "Aretes de oro 9k",
         "category_1_product": "earring-aura-w-gold",
         "category_2_label": "Pulsera",
-        "category_2_product": "earring-lumi-w-gold",
+        "category_2_product": "bracelet-krishna",
         "category_3_label": "Collar",
         "category_3_product": "earring-aura-y-gold"
       }
@@ -41,10 +41,13 @@
       "type": "collection-circles",
       "settings": {
         "section_title": "Categorías",
+        "circle_1_image": "shopify://shop_images/Aretes_Oro_9K-_Vera.jpg",
         "circle_1_title": "Aretes",
         "circle_1_url": "",
+        "circle_2_image": "shopify://shop_images/Pulsera-_Oro_18K_-Krishna.jpg",
         "circle_2_title": "Collares",
         "circle_2_url": "",
+        "circle_3_image": "shopify://shop_images/ModeloClose-PulseraOro18K-Krishna.png",
         "circle_3_title": "Pulseras",
         "circle_3_url": ""
       }
