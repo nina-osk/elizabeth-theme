@@ -39,7 +39,7 @@
       "type": "featured-collections",
       "settings": {
         "title": "Nuestra Colección",
-        "featured_collection": "essenza",
+        "featured_collection": "krishna",
         "number_of_products_to_show": 6
       }
     },
@@ -70,12 +70,12 @@
     "features-with-icons": {
       "type": "features-with-icons",
       "blocks": {
-        "feature-1": {
+        "feature_Re6q8X": {
           "type": "feature",
           "settings": {
             "icon_type": "diamond",
-            "feature_title": "Circonias De Calidad",
-            "feature_description": "Empleamos circonias en cortes precisos como el solitario y el engaste invisible en nuestros collares y pulseras. Este toque de brillo es perfecto para eventos de networking y reuniones importantes, ofreciendo una declaración de estilo sutil y elegante."
+            "feature_title": "Diamantes de Laboratorio",
+            "feature_description": "Empleamos circonias en cortes precisos como el solitario y el engaste invisible en nuestros collares y pulseras. Este toque de brillo es perfecto para eventos de relevancia y reuniones importantes, ofreciendo una declaración de estilo sutil y elegante."
           }
         },
         "feature-2": {
@@ -96,7 +96,7 @@
         }
       },
       "block_order": [
-        "feature-1",
+        "feature_Re6q8X",
         "feature-2",
         "feature-3"
       ],
@@ -175,7 +175,8 @@
           "type": "feature",
           "settings": {
             "icon_type": "shipping",
-            "title": "FREE SHIPPING",
+            "icon_image": "shopify://shop_images/delivery-truck_6145189.png",
+            "title": "ENVIOS GRATIS",
             "description": "All the business growth and profit revolve areffective cactchy."
           }
         },
@@ -183,7 +184,8 @@
           "type": "feature",
           "settings": {
             "icon_type": "payment",
-            "title": "ONLINE PAYMENTS",
+            "icon_image": "shopify://shop_images/credit-card_5101571.png",
+            "title": "PAGOS ONLINE",
             "description": "Donec ac purus non libero vulputate tetur. Sed usque ullamcorper."
           }
         },
@@ -191,7 +193,8 @@
           "type": "feature",
           "settings": {
             "icon_type": "support",
-            "title": "CUSTOMER SERVICE",
+            "icon_image": "shopify://shop_images/headset_2685377.png",
+            "title": "SERVICIO AL CLIENTE",
             "description": "Felis hendrerit aliquet. Quisque dapibus justo fugia, ac eleifend ligula."
           }
         }
