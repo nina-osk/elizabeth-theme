@@ -1,64 +1,58 @@
-{% assign aretes_collection = collections[section.settings.collection_handle] %}
-
 <div class="w-full bg-white py-12 md:py-16 lg:py-20 mb-12 md:mb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-32">
         
-        {% if aretes_collection != blank %}
-            {% paginate aretes_collection.products by section.settings.products_per_page %}
-            
-                <!-- Encabezado de la colección -->
-                <div class="text-center mb-8 md:mb-12">
-                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                        {{ aretes_collection.title }}
-                    </h1>
-                    
-                    {% if aretes_collection.description != blank %}
-                        <div class="max-w-3xl mx-auto text-base text-gray-600">
-                            {{ aretes_collection.description }}
-                        </div>
-                    {% endif %}
-
-                    <div class="mt-4 text-sm text-gray-500">
-                        {{ paginate.items }} productos
-                    </div>
-                </div>
-
-                <!-- Grid de productos -->
-                {% if aretes_collection.products.size > 0 %}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                        {% for product in aretes_collection.products %}
-                            {% render 'product-card', product_product: product %}
-                        {% endfor %}
-                    </div>
-
-                    <!-- Paginación -->
-                    {% if paginate.pages > 1 %}
-                        <div class="mt-12">
-                            {% render 'pagination', pagination: paginate %}
-                        </div>
-                    {% endif %}
-                {% else %}
-                    <!-- Estado vacío -->
-                    <div class="text-center py-16">
-                        <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
-                        </svg>
-                        <h2 class="text-2xl font-semibold text-gray-900 mb-2">
-                            No hay productos en esta colección
-                        </h2>
-                        <p class="text-gray-600 mb-8">
-                            Agrega productos a la colección de {{ aretes_collection.title }}
-                        </p>
+        {% paginate collection.products by section.settings.products_per_page %}
+        
+            <!-- Encabezado de la colección -->
+            <div class="text-center mb-8 md:mb-12">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                    {{ collection.title }}
+                </h1>
+                
+                {% if collection.description != blank %}
+                    <div class="max-w-3xl mx-auto text-base text-gray-600">
+                        {{ collection.description }}
                     </div>
                 {% endif %}
 
-            {% endpaginate %}
-        {% else %}
-            <!-- No se ha seleccionado colección -->
-            <div class="text-center py-16">
-                <p class="text-gray-600">Por favor selecciona una colección en los settings de la sección</p>
+                <div class="mt-4 text-sm text-gray-500">
+                    {{ paginate.items }} productos
+                </div>
             </div>
-        {% endif %}
+
+            <!-- Grid de productos -->
+            {% if collection.products.size > 0 %}
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {% for product in collection.products %}
+                        {% render 'product-card', product_product: product %}
+                    {% endfor %}
+                </div>
+
+                <!-- Paginación -->
+                {% if paginate.pages > 1 %}
+                    <div class="mt-12">
+                        {% render 'pagination', pagination: paginate %}
+                    </div>
+                {% endif %}
+            {% else %}
+                <!-- Estado vacío -->
+                <div class="text-center py-16">
+                    <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                    </svg>
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-2">
+                        No hay productos en esta colección
+                    </h2>
+                    <p class="text-gray-600 mb-8">
+                        Esta colección está vacía actualmente
+                    </p>
+                    <a href="{{ routes.all_products_url }}" class="inline-block px-6 py-3 text-white font-semibold rounded-lg transition-colors" style="background-color: #222121; hover:background-color: #333;">
+                        Ver todos los productos
+                    </a>
+                </div>
+            {% endif %}
+
+        {% endpaginate %}
 
     </div>
 </div>
@@ -67,12 +61,6 @@
 {
     "name": "Template Collection",
     "settings": [
-        {
-            "type": "collection",
-            "id": "collection_handle",
-            "label": "Colección a mostrar",
-            "info": "Selecciona la colección que deseas mostrar (ej: Aretes)"
-        },
         {
             "type": "range",
             "id": "products_per_page",
