@@ -11,7 +11,10 @@
   "sections": {
     "template-collection": {
       "type": "template-collection",
-      "settings": {}
+      "settings": {
+        "collection_handle": "aretes",
+        "products_per_page": 12
+      }
     }
   },
   "order": [
