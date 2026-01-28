@@ -78,14 +78,6 @@
             "feature_description": "Empleamos circonias en cortes precisos como el solitario y el engaste invisible en nuestros collares y pulseras. Este toque de brillo es perfecto para eventos de relevancia y reuniones importantes, ofreciendo una declaración de estilo sutil y elegante."
           }
         },
-        "feature-1": {
-          "type": "feature",
-          "settings": {
-            "icon_type": "diamond",
-            "feature_title": "Circonias De Calidad",
-            "feature_description": "Empleamos circonias en cortes precisos como el solitario y el engaste invisible en nuestros collares y pulseras. Este toque de brillo es perfecto para eventos de networking y reuniones importantes, ofreciendo una declaración de estilo sutil y elegante."
-          }
-        },
         "feature-2": {
           "type": "feature",
           "settings": {
@@ -105,7 +97,6 @@
       },
       "block_order": [
         "feature_Re6q8X",
-        "feature-1",
         "feature-2",
         "feature-3"
       ],
