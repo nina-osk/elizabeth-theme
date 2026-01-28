@@ -1,16 +1,4 @@
-<script type="module">
-  import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.mjs'
- const swiper = new Swiper('.swiper', {
-    direction: 'horizontal',
-    pagination: {
-      el: '.swiper-pagination',
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    }
-  })
-</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
 
 {% assign selected_variant = product.selected_or_first_available_variant %}
 
@@ -45,15 +33,15 @@
         height: fit-content; 
     }
 </style>
-<div class="max-w-6xl mx-auto my-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<div class="max-w-6xl mx-auto my-8 px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="product--medias">
-            <!-- Desktop Swiper -->
-            <div class="swiper desktop-swiper h-96 md:h-[600px]">
+            <!-- Product Image Carousel -->
+            <div class="swiper desktop-swiper border-2 border-gray-200 rounded-lg overflow-hidden shadow-lg" style="height: 500px;">
                 <div class="swiper-wrapper">
                     {% for media in product.media %}
                         <div class="swiper-slide">
-                            <div class="h-full overflow-hidden p-2 flex items-center justify-center">
+                            <div class="h-full w-full flex items-center justify-center bg-white">
                                 {% render 'product-media', media: media %}
                             </div>
                         </div>
@@ -231,28 +219,36 @@
     customElements.define("variant-selector", VariantSelector);
 </script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 <script>
-    const swiper = new Swiper('.desktop-swiper', {
-        direction: 'horizontal',
-        loop: false,
-        slidesPerView: 1,
-        spaceBetween: 10,
+    document.addEventListener('DOMContentLoaded', function() {
+        const swiper = new Swiper('.desktop-swiper', {
+            direction: 'horizontal',
+            loop: false,
+            slidesPerView: 1,
+            spaceBetween: 0,
 
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true
+            },
 
-        navigation: {
-            prevEl: '.swiper-button-prev',
-            nextEl: '.swiper-button-next'
-        },
-        
-        keyboard: {
-            enabled: true,
-        }
-    })
+            navigation: {
+                prevEl: '.swiper-button-prev',
+                nextEl: '.swiper-button-next'
+            },
+            
+            keyboard: {
+                enabled: true,
+            },
+
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            }
+        });
+    });
 </script>
 
 {% schema %}
