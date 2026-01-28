@@ -26,7 +26,13 @@
         "category_2_label": "Pulsera",
         "category_2_product": "bracelet-krishna",
         "category_3_label": "Collar",
-        "category_3_product": "earring-aura-y-gold"
+        "category_3_product": "earring-aura-y-gold",
+        "category_4_label": "Anillo",
+        "category_4_product": "earring-vera-y-gold",
+        "category_5_label": "Tobillera",
+        "category_5_product": "earring-vera-w-gold",
+        "category_6_label": "Cadena",
+        "category_6_product": "earring-lumi-y-gold"
       }
     },
     "featured-collections": {
