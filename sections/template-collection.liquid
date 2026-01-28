@@ -1,17 +1,22 @@
+{% assign selected_collection = collections[section.settings.collection_handle] %}
+{% if selected_collection == blank %}
+  {% assign selected_collection = collection %}
+{% endif %}
+
 <div class="w-full bg-white py-12 md:py-16 lg:py-20 mb-12 md:mb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-32">
         
-        {% paginate collection.products by section.settings.products_per_page %}
+        {% paginate selected_collection.products by section.settings.products_per_page %}
         
             <!-- Encabezado de la colección -->
             <div class="text-center mb-8 md:mb-12">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                    {{ collection.title }}
+                    {{ selected_collection.title }}
                 </h1>
                 
-                {% if collection.description != blank %}
+                {% if selected_collection.description != blank %}
                     <div class="max-w-3xl mx-auto text-base text-gray-600">
-                        {{ collection.description }}
+                        {{ selected_collection.description }}
                     </div>
                 {% endif %}
 
@@ -21,9 +26,9 @@
             </div>
 
             <!-- Grid de productos -->
-            {% if collection.products.size > 0 %}
+            {% if selected_collection.products.size > 0 %}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {% for product in collection.products %}
+                    {% for product in selected_collection.products %}
                         {% render 'product-card', product_product: product %}
                     {% endfor %}
                 </div>
@@ -62,10 +67,16 @@
     "name": "Template Collection",
     "settings": [
         {
+            "type": "collection",
+            "id": "collection_handle",
+            "label": "Colección",
+            "info": "Selecciona la colección a mostrar (Aretes, Collares, Pulseras, etc.)"
+        },
+        {
             "type": "range",
             "id": "products_per_page",
             "min": 6,
-            "max": 50,
+            "max": 48,
             "step": 3,
             "label": "Productos por página",
             "default": 12
