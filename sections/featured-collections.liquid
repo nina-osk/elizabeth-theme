@@ -1,49 +1,347 @@
-<div class="flex flex-col items-center my-8">
-    <h1 class="text-center text-3xl">{{ section.settings.title }}</h1>
-
-    <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {% for product in section.settings.featured_collection.products limit: section.settings.number_of_products_to_show %}
-                {% render 'product-card', product_product: product %}
-            {% else %}
-                {% for item in (1..4) %}
-                    {% render 'product-card-placeholder' %}
-                {% endfor %}
-            {% endfor %}
-        </div>
+<div class="w-full bg-white py-12 md:py-16 lg:py-20">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-32">
+    
+    <!-- Header -->
+    <div class="text-center mb-8 md:mb-12">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        {{ section.settings.title }}
+      </h2>
     </div>
+
+    <!-- Collection Filter Buttons -->
+    {% if section.blocks.size > 0 %}
+      <div class="flex flex-wrap justify-center gap-3 mb-12" role="tablist" aria-label="Filter by collection">
+        {% for block in section.blocks %}
+          {% assign collection_item = collections[block.settings.collection] %}
+          {% if collection_item %}
+            <button 
+              class="collection-filter-btn px-6 py-3 rounded-full font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2"
+              data-collection-handle="{{ collection_item.handle }}"
+              data-block-id="{{ block.id }}"
+              role="tab"
+              aria-selected="false"
+              {{ block.shopify_attributes }}>
+              {{ collection_item.title }}
+            </button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Products Grid -->
+    <div class="products-grid-container">
+      {% for block in section.blocks %}
+        {% assign collection_item = collections[block.settings.collection] %}
+        {% if collection_item %}
+          <div 
+            class="collection-products-group hidden"
+            data-collection-handle="{{ collection_item.handle }}"
+            data-block-id="{{ block.id }}">
+            
+            {% if collection_item.products.size > 0 %}
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                {% for product in collection_item.products limit: section.settings.number_of_products_to_show %}
+                  <div class="product-card-enhanced group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    
+                    <!-- Product Image Container -->
+                    <div class="relative aspect-square bg-gray-100 overflow-hidden">
+                      <a href="{{ product.url }}" class="block w-full h-full">
+                        {% if product.featured_image %}
+                          {{ product.featured_image | image_url: width: 600 | image_tag: 
+                            alt: product.title, 
+                            class: 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-110',
+                            loading: 'lazy',
+                            width: 600,
+                            height: 600 
+                          }}
+                        {% else %}
+                          {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                        {% endif %}
+                      </a>
+
+                      <!-- Badges -->
+                      <div class="absolute top-3 left-3 flex flex-col gap-2 z-10">
+                        {% if product.compare_at_price > product.price %}
+                          {% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+                          <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                            -{{ discount }}%
+                          </span>
+                        {% endif %}
+                        
+                        {% if product.tags contains 'new' or product.tags contains 'nuevo' %}
+                          <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                            NEW
+                          </span>
+                        {% endif %}
+                      </div>
+
+                      <div class="absolute top-3 right-3 flex flex-col gap-2 z-10">
+                        {% if product.tags contains 'hot' or product.tags contains 'popular' %}
+                          <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                            HOT
+                          </span>
+                        {% endif %}
+                        
+                        {% if product.tags contains 'sale' or product.tags contains 'oferta' %}
+                          <span class="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                            SALE
+                          </span>
+                        {% endif %}
+                      </div>
+
+                      <!-- Hover Quick Actions (Desktop) -->
+                      <div class="absolute right-3 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                        <button 
+                          class="quick-action-btn w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-900 hover:text-white transition-colors"
+                          aria-label="Quick view"
+                          data-product-url="{{ product.url }}">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                          </svg>
+                        </button>
+                        
+                        <button 
+                          class="quick-action-btn w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-900 hover:text-white transition-colors"
+                          aria-label="Compare">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                          </svg>
+                        </button>
+                        
+                        <button 
+                          class="quick-action-btn w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-900 hover:text-white transition-colors"
+                          aria-label="Add to wishlist">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                          </svg>
+                        </button>
+                      </div>
+
+                      <!-- Add to Cart Button (Hover on Desktop) -->
+                      <div class="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                        <form action="/cart/add" method="post" class="add-to-cart-form">
+                          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                          <button 
+                            type="submit"
+                            class="w-full bg-gray-900 text-white font-semibold py-3 px-4 hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                            {% unless product.available %}disabled{% endunless %}>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            {% if product.available %}
+                              ADD TO CART
+                            {% else %}
+                              SOLD OUT
+                            {% endif %}
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="p-4 text-center">
+                      {% if product.vendor %}
+                        <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                          {{ product.vendor }}
+                        </p>
+                      {% endif %}
+
+                      <a href="{{ product.url }}" class="block font-semibold text-gray-900 hover:text-gray-700 transition-colors mb-2 line-clamp-2">
+                        {{ product.title }}
+                      </a>
+
+                      <div class="flex items-center justify-center gap-2">
+                        {% if product.compare_at_price > product.price %}
+                          <span class="text-sm text-gray-400 line-through">
+                            {{ product.compare_at_price | money }}
+                          </span>
+                        {% endif %}
+                        <span class="text-lg font-bold text-gray-900">
+                          {{ product.price | money }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <!-- Empty State -->
+              <div class="text-center py-16">
+                <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                  No hay productos en esta colección
+                </h3>
+                <p class="text-gray-600">
+                  Esta colección está vacía actualmente
+                </p>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.collection-filter-btn');
+  const productGroups = document.querySelectorAll('.collection-products-group');
 
+  if (filterButtons.length === 0) return;
+
+  // Style constants
+  const activeClasses = 'bg-gray-900 text-white';
+  const inactiveClasses = 'bg-white text-gray-900 border-2 border-gray-300 hover:border-gray-900';
+
+  function showCollection(handle) {
+    // Update buttons
+    filterButtons.forEach(btn => {
+      const isActive = btn.dataset.collectionHandle === handle;
+      
+      if (isActive) {
+        btn.className = 'collection-filter-btn px-6 py-3 rounded-full font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ' + activeClasses;
+        btn.setAttribute('aria-selected', 'true');
+      } else {
+        btn.className = 'collection-filter-btn px-6 py-3 rounded-full font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ' + inactiveClasses;
+        btn.setAttribute('aria-selected', 'false');
+      }
+    });
+
+    // Update product groups
+    productGroups.forEach(group => {
+      if (group.dataset.collectionHandle === handle) {
+        group.classList.remove('hidden');
+      } else {
+        group.classList.add('hidden');
+      }
+    });
+  }
+
+  // Button click handlers
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const handle = this.dataset.collectionHandle;
+      showCollection(handle);
+    });
+  });
+
+  // Show first collection by default
+  if (filterButtons.length > 0) {
+    showCollection(filterButtons[0].dataset.collectionHandle);
+  }
+
+  // Add to cart form handling
+  const addToCartForms = document.querySelectorAll('.add-to-cart-form');
+  addToCartForms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const button = this.querySelector('button[type="submit"]');
+      const originalText = button.innerHTML;
+      
+      button.disabled = true;
+      button.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        button.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ADDED!';
+        
+        setTimeout(() => {
+          button.disabled = false;
+          button.innerHTML = originalText;
+        }, 2000);
+
+        // Trigger cart update event
+        document.dispatchEvent(new CustomEvent('cart:updated'));
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        button.disabled = false;
+        button.innerHTML = originalText;
+        alert('Error al agregar al carrito');
+      });
+    });
+  });
+});
+</script>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 1023px) {
+    .product-card-enhanced .quick-action-btn {
+      display: none;
+    }
+    
+    .product-card-enhanced .add-to-cart-form {
+      opacity: 1;
+      position: static;
+    }
+  }
+</style>
 
 {% schema %}
 {
-    "name": "Nuestra Colección",
-    "settings": [
+  "name": "Colección Filtrable",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Colección",
+      "label": "Título"
+    },
+    {
+      "type": "range",
+      "id": "number_of_products_to_show",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "default": 8,
+      "label": "Productos por colección"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Colección",
+      "settings": [
         {
-            "type": "text",
-            "id": "title",
-            "default": "Nuestra Colección",
-            "label": "Título"
+          "type": "collection",
+          "id": "collection",
+          "label": "Seleccionar colección"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Colección Filtrable",
+      "blocks": [
+        {
+          "type": "collection"
         },
         {
-            "type": "collection",
-            "id": "featured_collection",
-            "label": "Colección"
+          "type": "collection"
         },
         {
-            "type": "range",
-            "id": "number_of_products_to_show",
-            "min": 4,
-            "max": 12,
-            "default": 4,
-            "label": "Número de productos a mostrar"
+          "type": "collection"
         }
-    ],
-    "presets": [
-        {
-            "name": "Nuestra Colección"
-        }
-    ]
+      ]
+    }
+  ]
 }
 {% endschema %}

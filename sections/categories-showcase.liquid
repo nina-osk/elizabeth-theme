@@ -10,32 +10,53 @@
       </p>
     </div>
 
-    <!-- Mobile View (Carrusel rotativo) -->
-    <div class="md:hidden mb-8 px-4">
-      <div class="relative w-full overflow-visible" style="height: 450px;">
-        <div class="mobile-carousel-container relative flex items-center justify-center" style="height: 100%;">
+    <!-- Carousel Container -->
+    <div class="carousel-wrapper max-w-6xl mx-auto mb-12">
+      <!-- Carousel Track -->
+      <div class="relative overflow-visible" style="height: 500px;">
+        <div class="carousel-track absolute inset-0 flex items-center justify-center">
           {% assign cards = (1..6) %}
           {% for i in cards %}
             {% assign prod_key = 'category_' | append: i | append: '_product' %}
             {% assign label_key = 'category_' | append: i | append: '_label' %}
             {% assign prod = section.settings[prod_key] %}
             
-            <div class="mobile-carousel-item absolute rounded-lg cursor-pointer transition-all duration-500 overflow-hidden shadow-xl bg-white" 
-                 data-index="{{ forloop.index0 }}" 
-                 style="width: 240px; height: 340px; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid #ffffff;">
-              <div class="w-full h-full flex flex-col bg-white">
+            <div class="carousel-slide absolute transition-all duration-500 ease-out" 
+                 data-index="{{ forloop.index0 }}"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Slide {{ forloop.index }} of {{ cards.size }}">
+              
+              <div class="slide-card rounded-xl overflow-hidden shadow-lg" style="background: #E7E5DE;">
+                <!-- Category Label -->
+                <div class="absolute top-4 left-4 z-10">
+                  <span class="text-xs font-medium text-gray-700 uppercase tracking-wide px-2 py-1 bg-white/80 rounded">
+                    {{ section.settings[label_key] | default: 'Producto' }}
+                  </span>
+                </div>
+
                 {% if prod != blank and prod.featured_media %}
-                  <div class="h-2/3 w-full overflow-hidden bg-gray-100">
-                    {{ prod.featured_media | image_url: width: 480 | image_tag: alt: prod.title, class: 'w-full h-full object-contain bg-white', loading: 'lazy', width: 480, height: 480 }}
-                  </div>
-                  <div class="h-1/3 w-full px-4 py-3 flex flex-col justify-center border-t border-gray-200 bg-white">
-                    <p class="text-sm text-gray-500 truncate">{{ prod.vendor }}</p>
-                    <a href="{{ prod.url }}" class="text-lg font-semibold text-gray-800 truncate hover:text-amber-600 transition-colors">{{ prod.title }}</a>
-                    <a href="{{ prod.url }}" class="text-lg font-bold text-black hover:text-amber-600 transition-colors">{{ prod.price | money }}</a>
+                  <!-- Product Image -->
+                  <div class="relative w-full" style="height: 340px;">
+                    {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full h-full object-contain', loading: 'lazy', width: 600, height: 600 }}
+                    
+                    <!-- Action Icons (visible only on active slide) -->
+                    <div class="slide-actions absolute bottom-4 left-0 right-0 flex justify-between px-4 opacity-0 transition-opacity duration-300">
+                      <button class="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors" aria-label="Rotate">
+                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                      </button>
+                      <button class="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors" aria-label="Add to favorites">
+                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 {% else %}
-                  <div class="h-full w-full flex items-center justify-center bg-stone-100 text-center px-2">
-                    <span class="text-sm font-medium text-gray-600">
+                  <div class="w-full flex items-center justify-center text-center" style="height: 340px;">
+                    <span class="text-base font-semibold text-gray-700">
                       {{ section.settings[label_key] | default: 'Producto' }}
                     </span>
                   </div>
@@ -45,251 +66,359 @@
           {% endfor %}
         </div>
       </div>
-    </div>
 
-    <!-- Mobile Controls -->
-    <div class="md:hidden flex justify-center gap-2 mb-8">
-      <button id="mobile-prev-btn" class="px-3 py-1 border-2 border-black text-black text-xs font-semibold uppercase hover:bg-black hover:text-white transition-colors rounded">
-        ← Anterior
-      </button>
-      <button id="mobile-next-btn" class="px-3 py-1 border-2 border-black text-black text-xs font-semibold uppercase hover:bg-black hover:text-white transition-colors rounded">
-        Siguiente →
-      </button>
-    </div>
+      <!-- Product Info (centered below carousel) -->
+      <div class="text-center mt-8 mb-6">
+        <h3 id="carousel-product-title" class="text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+          Producto
+        </h3>
+        <p id="carousel-product-price" class="text-lg md:text-xl font-bold text-gray-900">
+          $0.00
+        </p>
+      </div>
 
-    <!-- Desktop View (3D Carousel) -->
-    <div class="hidden md:flex justify-center items-center mb-12" style="perspective: 1200px; height: 700px;">
-      <div class="carousel-3d relative" style="width: 100%; height: 100%; transform-style: preserve-3d;">
-
-        {% assign cards = (1..6) %}
+      <!-- Pagination Dots -->
+      <div class="flex justify-center gap-2 mb-8" role="group" aria-label="Carousel pagination">
         {% for i in cards %}
-          {% assign prod_key = 'category_' | append: i | append: '_product' %}
-          {% assign label_key = 'category_' | append: i | append: '_label' %}
-          {% assign prod = section.settings[prod_key] %}
-          
-          <div class="carousel-item absolute rounded-lg cursor-pointer transition-all duration-700 overflow-hidden shadow-2xl bg-white" 
-               data-index="{{ forloop.index0 }}" 
-               style="width: 280px; height: 400px; left: 50%; top: 50%; transform-origin: center; margin-left: -140px; margin-top: -200px; border: 2px solid #ffffff;">
-            <div class="w-full h-full flex flex-col">
-              {% if prod != blank and prod.featured_media %}
-                <div class="h-3/4 w-full overflow-hidden bg-gray-100">
-                  {{ prod.featured_media | image_url: width: 560 | image_tag: alt: prod.title, class: 'w-full h-full object-contain', loading: 'lazy', width: 560, height: 560 }}
-                </div>
-                <div class="h-1/4 w-full px-4 py-3 flex flex-col justify-center border-t-2 border-gray-200">
-                  <p class="text-sm text-gray-500 truncate">{{ prod.vendor }}</p>
-                  <a href="{{ prod.url }}" class="text-xl font-bold text-gray-800 truncate hover:text-amber-600 transition-colors">{{ prod.title }}</a>
-                  <a href="{{ prod.url }}" class="text-xl font-bold text-black hover:text-amber-600 transition-colors">{{ prod.price | money }}</a>
-                </div>
-              {% else %}
-                <div class="h-full w-full flex items-center justify-center bg-stone-100 text-center px-4">
-                  <span class="text-base font-semibold text-gray-700">
-                    {{ section.settings[label_key] | default: 'Producto' }}
-                  </span>
-                </div>
-              {% endif %}
-            </div>
-          </div>
+          <button 
+            class="carousel-dot w-2 h-2 rounded-full transition-all duration-300"
+            data-index="{{ forloop.index0 }}"
+            aria-label="Go to slide {{ forloop.index }}"
+            style="background: #d1d5db;">
+          </button>
         {% endfor %}
+      </div>
 
+      <!-- Navigation Controls -->
+      <div class="flex justify-center gap-4">
+        <button id="carousel-prev" class="px-6 py-3 rounded-lg font-semibold transition-all bg-gray-900 text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2" aria-label="Previous slide">
+          ← Anterior
+        </button>
+        <button id="carousel-next" class="px-6 py-3 rounded-lg font-semibold transition-all bg-gray-900 text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2" aria-label="Next slide">
+          Siguiente →
+        </button>
       </div>
     </div>
 
-    <!-- Desktop Controls -->
-    <div class="hidden md:flex justify-center gap-4 lg:gap-6">
-      <button id="zoom-in-btn" class="px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800 transition-all">
-        Zoom
-      </button>
-    </div>
   </div>
 </div>
 
+<style>
+  /* Carousel Slide Positioning */
+  .carousel-slide {
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  /* Slide Card Styling */
+  .slide-card {
+    width: 280px;
+    height: 380px;
+    will-change: transform, opacity;
+  }
+
+  /* Active slide gets border */
+  .carousel-slide.is-active .slide-card {
+    border: 2px solid #222121;
+  }
+
+  /* Show action icons only on active slide */
+  .carousel-slide.is-active .slide-actions {
+    opacity: 1 !important;
+  }
+
+  /* Active dot styling */
+  .carousel-dot.is-active {
+    background: #222121 !important;
+    width: 2.5rem;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .slide-card {
+      width: 240px;
+      height: 340px;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-slide,
+    .carousel-dot {
+      transition: none;
+    }
+  }
+
+  /* Focus states for accessibility */
+  .carousel-slide:focus-visible {
+    outline: 2px solid #222121;
+    outline-offset: 4px;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Carousel
-    const mobileContainer = document.querySelector('.mobile-carousel-container');
-    const mobileItems = document.querySelectorAll('.mobile-carousel-item');
-    const mobilePrevBtn = document.getElementById('mobile-prev-btn');
-    const mobileNextBtn = document.getElementById('mobile-next-btn');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    const titleElement = document.getElementById('carousel-product-title');
+    const priceElement = document.getElementById('carousel-product-price');
+    const carouselTrack = document.querySelector('.carousel-track');
 
-    if (mobileItems.length > 0) {
-      let mobileCurrentIndex = 0;
+    if (slides.length === 0) return;
 
-      function updateMobileCarousel() {
-        mobileItems.forEach((item, index) => {
-          const diff = index - mobileCurrentIndex;
-          
-          if (diff === 0) {
-            // Tarjeta principal (al frente, centrada)
-            item.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
-            item.style.opacity = '1';
-            item.style.zIndex = '30';
-            item.style.top = '50%';
-            item.style.left = '50%';
-          } else if (diff === 1 || (mobileCurrentIndex === mobileItems.length - 1 && index === 0)) {
-            // Segunda tarjeta (detrás a la derecha)
-            item.style.transform = 'translate(-40%, -55%) scale(0.9) rotate(3deg)';
-            item.style.opacity = '1';
-            item.style.zIndex = '20';
-            item.style.top = '50%';
-            item.style.left = '50%';
-          } else if (diff === 2 || (mobileCurrentIndex >= mobileItems.length - 2 && index < 2)) {
-            // Tercera tarjeta (más atrás a la derecha)
-            item.style.transform = 'translate(-30%, -60%) scale(0.8) rotate(5deg)';
-            item.style.opacity = '1';
-            item.style.zIndex = '10';
-            item.style.top = '50%';
-            item.style.left = '50%';
-          } else if (diff === -1 || (mobileCurrentIndex === 0 && index === mobileItems.length - 1)) {
-            // Tarjeta anterior (detrás a la izquierda)
-            item.style.transform = 'translate(-60%, -55%) scale(0.9) rotate(-3deg)';
-            item.style.opacity = '1';
-            item.style.zIndex = '20';
-            item.style.top = '50%';
-            item.style.left = '50%';
-          } else {
-            // Tarjetas ocultas
-            item.style.transform = 'translate(-50%, -50%) scale(0.7) rotate(0deg)';
-            item.style.opacity = '0';
-            item.style.zIndex = '1';
-            item.style.top = '50%';
-            item.style.left = '50%';
-          }
-        });
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    
+    // Store product data
+    const productData = Array.from(slides).map(slide => {
+      const img = slide.querySelector('img');
+      const label = slide.querySelector('.absolute.top-4 span');
+      return {
+        title: img ? img.alt : (label ? label.textContent : 'Producto'),
+        price: '$0.00', // Price will be extracted if available
+        url: img ? img.closest('a')?.href : null
+      };
+    });
+
+    // Function to calculate slide position and styling
+    function getSlideStyle(index, activeIndex) {
+      const diff = index - activeIndex;
+      const normalizedDiff = diff > totalSlides / 2 ? diff - totalSlides : 
+                            diff < -totalSlides / 2 ? diff + totalSlides : diff;
+      
+      // Center (active) slide
+      if (normalizedDiff === 0) {
+        return {
+          x: 0,
+          scale: 1,
+          opacity: 1,
+          zIndex: 50,
+          isActive: true
+        };
       }
-
-      if (mobilePrevBtn) {
-        mobilePrevBtn.addEventListener('click', () => {
-          mobileCurrentIndex = (mobileCurrentIndex - 1 + mobileItems.length) % mobileItems.length;
-          updateMobileCarousel();
-        });
+      
+      // Right side previews
+      if (normalizedDiff > 0 && normalizedDiff <= 2) {
+        const offset = normalizedDiff * 200 + 50; // Spacing between slides
+        const scale = normalizedDiff === 1 ? 0.85 : 0.75;
+        const opacity = normalizedDiff === 1 ? 0.75 : 0.5;
+        const zIndex = 30 - (normalizedDiff * 10);
+        
+        return {
+          x: offset,
+          scale: scale,
+          opacity: opacity,
+          zIndex: zIndex,
+          isActive: false
+        };
       }
-
-      if (mobileNextBtn) {
-        mobileNextBtn.addEventListener('click', () => {
-          mobileCurrentIndex = (mobileCurrentIndex + 1) % mobileItems.length;
-          updateMobileCarousel();
-        });
+      
+      // Left side previews
+      if (normalizedDiff < 0 && normalizedDiff >= -2) {
+        const offset = normalizedDiff * 200 - 50;
+        const scale = normalizedDiff === -1 ? 0.85 : 0.75;
+        const opacity = normalizedDiff === -1 ? 0.75 : 0.5;
+        const zIndex = 30 - (Math.abs(normalizedDiff) * 10);
+        
+        return {
+          x: offset,
+          scale: scale,
+          opacity: opacity,
+          zIndex: zIndex,
+          isActive: false
+        };
       }
+      
+      // Hidden slides
+      return {
+        x: normalizedDiff > 0 ? 600 : -600,
+        scale: 0.5,
+        opacity: 0,
+        zIndex: 1,
+        isActive: false
+      };
+    }
 
-      // Soporte para swipe en móvil
-      let touchStartX = 0;
-      let touchEndX = 0;
-
-      mobileContainer.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
+    // Update carousel display
+    function updateCarousel(animate = true) {
+      slides.forEach((slide, index) => {
+        const style = getSlideStyle(index, currentIndex);
+        
+        // Apply transforms
+        slide.style.transform = `translateX(${style.x}px) translateY(-50%) scale(${style.scale})`;
+        slide.style.opacity = style.opacity;
+        slide.style.zIndex = style.zIndex;
+        slide.style.top = '50%';
+        slide.style.left = '50%';
+        
+        // Add/remove active class
+        if (style.isActive) {
+          slide.classList.add('is-active');
+          slide.setAttribute('aria-hidden', 'false');
+        } else {
+          slide.classList.remove('is-active');
+          slide.setAttribute('aria-hidden', 'true');
+        }
       });
 
-      mobileContainer.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
+      // Update dots
+      dots.forEach((dot, index) => {
+        if (index === currentIndex) {
+          dot.classList.add('is-active');
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.classList.remove('is-active');
+          dot.removeAttribute('aria-current');
+        }
       });
 
-      function handleSwipe() {
-        if (touchEndX < touchStartX - 50) {
-          // Swipe izquierda (siguiente)
-          mobileCurrentIndex = (mobileCurrentIndex + 1) % mobileItems.length;
-          updateMobileCarousel();
-        }
-        if (touchEndX > touchStartX + 50) {
-          // Swipe derecha (anterior)
-          mobileCurrentIndex = (mobileCurrentIndex - 1 + mobileItems.length) % mobileItems.length;
-          updateMobileCarousel();
-        }
+      // Update product info
+      if (productData[currentIndex]) {
+        titleElement.textContent = productData[currentIndex].title;
+        priceElement.textContent = productData[currentIndex].price;
       }
+    }
 
-      // Toque en las tarjetas para avanzar
-      mobileItems.forEach((item, index) => {
-        item.addEventListener('click', (e) => {
-          // Si se clickea un enlace, no hacer nada
-          if (e.target.tagName === 'A') {
-            return;
-          }
-          
-          // Prevenir el comportamiento por defecto
+    // Navigation functions
+    function goToSlide(index) {
+      currentIndex = (index + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    // Event listeners for controls
+    if (prevBtn) {
+      prevBtn.addEventListener('click', prevSlide);
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', nextSlide);
+    }
+
+    // Dot navigation
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => goToSlide(index));
+    });
+
+    // Slide click navigation
+    slides.forEach((slide, index) => {
+      slide.addEventListener('click', (e) => {
+        // Don't navigate if clicking on a button or link
+        if (e.target.closest('button') || e.target.closest('a')) {
+          return;
+        }
+        goToSlide(index);
+      });
+      
+      // Make slides focusable with keyboard
+      slide.setAttribute('tabindex', '0');
+      slide.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          
-          const diff = index - mobileCurrentIndex;
-          
-          // Si toca la tarjeta principal, avanza al siguiente
-          if (diff === 0) {
-            mobileCurrentIndex = (mobileCurrentIndex + 1) % mobileItems.length;
-            updateMobileCarousel();
-          }
-          // Si toca una tarjeta visible (derecha o izquierda), va a esa tarjeta
-          else if (diff === 1 || (mobileCurrentIndex === mobileItems.length - 1 && index === 0)) {
-            mobileCurrentIndex = index;
-            updateMobileCarousel();
-          }
-          else if (diff === -1 || (mobileCurrentIndex === 0 && index === mobileItems.length - 1)) {
-            mobileCurrentIndex = index;
-            updateMobileCarousel();
-          }
-          // Si toca cualquier otra tarjeta no visible, avanza al siguiente
-          else {
-            mobileCurrentIndex = (mobileCurrentIndex + 1) % mobileItems.length;
-            updateMobileCarousel();
-          }
-        });
-
-        // Agregar cursor pointer para indicar que es clickeable
-        item.style.cursor = 'pointer';
+          goToSlide(index);
+        }
       });
+    });
 
-      updateMobileCarousel();
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.target.closest('.carousel-wrapper')) {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          nextSlide();
+        }
+      }
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carouselTrack.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carouselTrack.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
     }
 
-    // Desktop Carousel
-    const items = document.querySelectorAll('.carousel-item');
-    const zoomBtn = document.getElementById('zoom-in-btn');
+    // Mouse drag support (optional)
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragCurrentX = 0;
 
-    if (items.length > 0) {
-      const itemCount = items.length;
-      const radius = 350; // Radio del carrusel
-      let currentRotation = 0;
-      let currentZoom = 1;
+    carouselTrack.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      dragStartX = e.clientX;
+      carouselTrack.style.cursor = 'grabbing';
+    });
 
-      function updateCarousel() {
-        items.forEach((item, index) => {
-          const angle = (360 / itemCount) * index + currentRotation;
-          const radians = (angle * Math.PI) / 180;
-          const x = Math.cos(radians) * radius;
-          const z = Math.sin(radians) * radius;
-          const zNormalized = (z + radius) / (radius * 2);
-          const scale = 0.7 + zNormalized * 0.3;
-          const opacity = 1;
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      dragCurrentX = e.clientX;
+    });
 
-          item.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${scale})`;
-          item.style.opacity = opacity;
-          item.style.zIndex = Math.round(z);
-        });
+    document.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      
+      const dragThreshold = 50;
+      const diff = dragStartX - dragCurrentX;
+      
+      if (Math.abs(diff) > dragThreshold) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
       }
+      
+      isDragging = false;
+      dragStartX = 0;
+      dragCurrentX = 0;
+      carouselTrack.style.cursor = 'grab';
+    });
 
-      function rotateToItem(index) {
-        const targetRotation = -(360 / itemCount) * index;
-        currentRotation = targetRotation;
-        updateCarousel();
-      }
-
-      items.forEach((item, index) => {
-        item.addEventListener('click', (e) => {
-          if (e.target.tagName === 'A') {
-            return;
-          }
-          rotateToItem(index);
-        });
-      });
-
-      if (zoomBtn) {
-        zoomBtn.addEventListener('click', () => {
-          currentZoom = currentZoom === 1 ? 1.15 : 1;
-          items.forEach((item) => {
-            item.style.transform += ` scale(${currentZoom})`;
-          });
-        });
-      }
-
-      rotateToItem(2);
-    }
+    // Initialize carousel
+    updateCarousel(false);
+    
+    // Optional: Auto-play (uncomment if desired)
+    // const autoplayInterval = 5000;
+    // let autoplayTimer = setInterval(nextSlide, autoplayInterval);
+    
+    // // Pause on hover
+    // carouselTrack.addEventListener('mouseenter', () => {
+    //   clearInterval(autoplayTimer);
+    // });
+    
+    // carouselTrack.addEventListener('mouseleave', () => {
+    //   autoplayTimer = setInterval(nextSlide, autoplayInterval);
+    // });
   });
 </script>
 
