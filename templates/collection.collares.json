@@ -1,7 +1,7 @@
 {
   "sections": {
-    "template-collection-collares": {
-      "type": "template-collection-collares",
+    "collection-collares": {
+      "type": "collection-collares",
       "settings": {
         "collection_handle": "collares",
         "products_per_page": 12
@@ -9,6 +9,6 @@
     }
   },
   "order": [
-    "template-collection-collares"
+    "collection-collares"
   ]
 }
