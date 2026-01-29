@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "template-collection-aretes": {
+      "type": "template-collection-aretes",
+      "settings": {
+        "collection_handle": "aretes",
+        "products_per_page": 12
+      }
+    }
+  },
+  "order": [
+    "template-collection-aretes"
+  ]
+}
