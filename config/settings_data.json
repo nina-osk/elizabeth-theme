@@ -28,41 +28,27 @@
       "footer": {
         "type": "footer",
         "blocks": {
-          "footer-0": {
-            "type": "contact_item",
+          "info_item_HciVga": {
+            "type": "info_item",
             "settings": {
               "icon_type": "question",
-              "title": "Tienes Preguntas ?",
-              "description": "Nullam pulvinar egestas torto venenatis dolor rutrum non."
-            }
-          },
-          "footer-1": {
-            "type": "contact_item",
-            "settings": {
-              "icon_type": "phone",
-              "title": "Atención Telefónica",
-              "description": "Nullam pulvinar egestas torto venenatis dolor rutrum non."
-            }
-          },
-          "footer-2": {
-            "type": "contact_item",
-            "settings": {
-              "icon_type": "email",
-              "title": "Nuestro Email",
+              "title": "Having Quires ?",
               "description": "Nullam pulvinar egestas torto venenatis dolor rutrum non."
             }
           }
         },
         "block_order": [
-          "footer-0",
-          "footer-1",
-          "footer-2"
+          "info_item_HciVga"
         ],
         "settings": {
-          "description": "Nullam semper sapien ac nibh egestas varius. Duis ornare lorem vel mollis tempor. Vivamus a elit orci. Aliquam ac sodales arcu.",
+          "brand_description": "Nullam semper sapien ac nibh egestas varius. Duis ornare lorem vel mollis tempor. Vivamus a elit orci. Aliquam ac sodales arcu.",
+          "nav_title": "Useful Links",
+          "search_text": "Search",
+          "contact_text": "Contact",
+          "contact_page_handle": "contact",
+          "newsletter_title": "Subscribe Our Newsletter",
+          "newsletter_description": "Joining Hands, Building A Stronger Nation Through Immigration.",
           "newsletter_placeholder": "Your mail",
-          "footer_menu": "footer",
-          "copyright_text": "©BoldCommerceBrands - All Rights Reserved",
           "instagram_url": "",
           "facebook_url": "",
           "twitter_url": "",
