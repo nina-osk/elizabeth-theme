@@ -37,10 +37,41 @@
     },
     "featured-collections": {
       "type": "featured-collections",
+      "blocks": {
+        "collection_1": {
+          "type": "collection",
+          "settings": {
+            "collection": "aretes"
+          }
+        },
+        "collection_2": {
+          "type": "collection",
+          "settings": {
+            "collection": "collares"
+          }
+        },
+        "collection_3": {
+          "type": "collection",
+          "settings": {
+            "collection": "pulseras"
+          }
+        },
+        "collection_4": {
+          "type": "collection",
+          "settings": {
+            "collection": "conjuntos"
+          }
+        }
+      },
+      "block_order": [
+        "collection_1",
+        "collection_2",
+        "collection_3",
+        "collection_4"
+      ],
       "settings": {
-        "title": "Nuestra Colección",
-        "featured_collection": "krishna",
-        "number_of_products_to_show": 6
+        "title": "Coleccion",
+        "number_of_products_to_show": 8
       }
     },
     "collection-aretes": {
