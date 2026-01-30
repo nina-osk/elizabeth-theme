@@ -19,6 +19,8 @@
       "header": {
         "type": "header",
         "settings": {
+          "logo": "shopify://shop_images/MunierOUT.svg",
+          "announcement_text": "Best Special Offers Every Week. 40% Off! Free Delivery Time.",
           "menu": "main-menu-1",
           "mobile_menu_label": "Menú"
         }
@@ -57,7 +59,6 @@
           "footer-2"
         ],
         "settings": {
-          "coupon_text": "25% $67 Off",
           "description": "Nullam semper sapien ac nibh egestas varius. Duis ornare lorem vel mollis tempor. Vivamus a elit orci. Aliquam ac sodales arcu.",
           "newsletter_placeholder": "Your mail",
           "footer_menu": "footer",
