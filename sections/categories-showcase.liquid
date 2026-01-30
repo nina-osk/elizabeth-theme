@@ -141,20 +141,22 @@
     }
     
     .slide-card {
-      width: 85vw;
-      max-width: 300px;
-      height: 400px;
+      width: 90vw;
+      max-width: 320px;
+      height: 420px;
     }
     
     /* Adjust image container on mobile */
     .carousel-slide .relative[style*="height: 340px"] {
-      height: 280px !important;
+      height: 300px !important;
     }
     
     /* Ensure image is centered and not cropped */
     .carousel-slide img {
       object-fit: contain !important;
-      padding: 0.5rem;
+      padding: 1rem !important;
+      width: 100% !important;
+      height: 100% !important;
     }
     
     /* Hide non-active slides on mobile - move them off screen */
@@ -166,11 +168,10 @@
     
     /* Center active slide on mobile */
     .carousel-slide.is-active {
-      transform: translateX(0) translateY(-50%) scale(1) !important;
+      transform: translateX(-50%) translateY(-50%) scale(1) !important;
       opacity: 1 !important;
       left: 50% !important;
-      margin-left: calc(-42.5vw) !important;
-      max-width: 300px;
+      margin-left: 0 !important;
     }
     
     /* Ensure border is visible */
