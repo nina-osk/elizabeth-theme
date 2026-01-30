@@ -111,30 +111,7 @@
           <span>({{ cart.item_count }})</span>
         </a>
 
-        {% if shop.customer_accounts_enabled %}
-          {% if customer %}
-            <a 
-              href="{{ routes.account_url }}" 
-              class="text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200"
-            >
-              Cuenta
-            </a>
-            {{ 'Log out' | customer_logout_link | replace: '<a', '<a class="text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200"' }}
-          {% else %}
-            <a 
-              href="{{ routes.login_url }}" 
-              class="text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200"
-            >
-              Iniciar sesión
-            </a>
-            <a 
-              href="{{ routes.register_url }}" 
-              class="text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200"
-            >
-              Registro
-            </a>
-          {% endif %}
-        {% endif %}
+  
       </div>
     </div>
   </div>

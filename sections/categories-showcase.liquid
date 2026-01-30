@@ -136,8 +136,25 @@
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .slide-card {
-      width: 240px;
-      height: 340px;
+      width: 280px;
+      height: 360px;
+    }
+    
+    .carousel-wrapper .relative {
+      height: 420px !important;
+    }
+    
+    /* Hide non-active slides on mobile */
+    .carousel-slide:not(.is-active) {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transform: translateX(100vw) translateY(-50%) scale(0.8) !important;
+    }
+    
+    /* Center active slide on mobile */
+    .carousel-slide.is-active {
+      transform: translateX(0) translateY(-50%) scale(1) !important;
+      opacity: 1 !important;
     }
   }
 
