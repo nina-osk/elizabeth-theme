@@ -74,20 +74,6 @@
         "number_of_products_to_show": 8
       }
     },
-    "collection-aretes": {
-      "type": "collection-aretes",
-      "settings": {
-        "collection_handle": "aretes",
-        "products_per_page": 12
-      }
-    },
-    "collection-collares": {
-      "type": "collection-collares",
-      "settings": {
-        "collection_handle": "collares",
-        "products_per_page": 12
-      }
-    },
     "collection-circles": {
       "type": "collection-circles",
       "settings": {
@@ -300,8 +286,6 @@
     "hero-banner",
     "categories-showcase",
     "featured-collections",
-    "collection-aretes",
-    "collection-collares",
     "collection-circles",
     "video-with-text",
     "features-with-icons",

@@ -126,20 +126,6 @@
                       </div>
                     </div>
                   </div>
-                      </a>
-
-                      <div class="flex items-center justify-center gap-2">
-                        {% if product.compare_at_price > product.price %}
-                          <span class="text-sm text-gray-400 line-through">
-                            {{ product.compare_at_price | money }}
-                          </span>
-                        {% endif %}
-                        <span class="text-lg font-bold text-gray-900">
-                          {{ product.price | money }}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
                 {% endfor %}
               </div>
             {% else %}
