@@ -95,34 +95,37 @@
                     </div>
 
                     <!-- Product Info -->
-                    <div class="p-3 text-center">
-                      <a href="{{ product.url }}" class="block font-medium text-gray-900 hover:text-gray-600 transition-colors mb-1 text-sm leading-tight">
+                    <div class="p-4 text-left">
+                      <!-- Star Rating with number -->
+                      <div class="flex items-center gap-1 mb-2">
+                        {% for i in (1..5) %}
+                          <svg class="w-3.5 h-3.5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                          </svg>
+                        {% endfor %}
+                        <span class="text-xs text-gray-600 ml-1">3.2</span>
+                      </div>
+
+                      <!-- Product Title -->
+                      <a href="{{ product.url }}" class="block font-normal text-gray-900 hover:text-gray-600 transition-colors mb-2 text-base leading-snug">
                         {{ product.title }}
                       </a>
 
                       <!-- Price -->
-                      <div class="flex items-center justify-center gap-2 mb-2">
+                      <div class="flex items-center gap-2">
+                        <span class="text-gray-600 text-sm">From:</span>
                         {% if product.compare_at_price > product.price %}
-                          <span class="text-gray-400 line-through text-xs">
-                            {{ product.compare_at_price | money }}
-                          </span>
-                          <span class="text-gray-900 font-bold text-base">
+                          <span class="text-gray-900 font-medium text-base">
                             {{ product.price | money }}
                           </span>
+                          <span class="text-gray-400 line-through text-sm">
+                            {{ product.compare_at_price | money }}
+                          </span>
                         {% else %}
-                          <span class="text-gray-900 font-bold text-base">
+                          <span class="text-gray-900 font-medium text-base">
                             {{ product.price | money }}
                           </span>
                         {% endif %}
-                      </div>
-
-                      <!-- Star Rating -->
-                      <div class="flex justify-center gap-0.5">
-                        {% for i in (1..5) %}
-                          <svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                          </svg>
-                        {% endfor %}
                       </div>
                     </div>
                   </div>
