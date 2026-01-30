@@ -37,11 +37,11 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="product--medias">
             <!-- Product Image Carousel -->
-            <div class="swiper desktop-swiper border-2 border-gray-200 rounded-lg overflow-hidden shadow-lg" style="height: 500px;">
+            <div class="swiper desktop-swiper border-2 border-gray-200 rounded-lg overflow-hidden shadow-lg" style="height: 600px;">
                 <div class="swiper-wrapper">
                     {% for media in product.media %}
                         <div class="swiper-slide">
-                            <div class="h-full w-full flex items-center justify-center bg-white">
+                            <div class="h-full w-full flex items-center justify-center bg-white p-4">
                                 {% render 'product-media', media: media %}
                             </div>
                         </div>
@@ -121,6 +121,38 @@
                         {% when 'description' %}
                             <div class="my-3">
                                 <p class="text-gray-700">{{ product.description }}</p>
+                            </div>
+                        
+                        {% when 'detailed_description' %}
+                            <div class="my-4 border border-red-500 rounded-lg" x-data="{ open: false }">
+                                <button 
+                                    @click="open = !open" 
+                                    class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                                    type="button"
+                                >
+                                    <span class="font-semibold text-gray-900">{{ block.settings.title | default: 'Descripción Detallada' }}</span>
+                                    <svg 
+                                        class="w-5 h-5 transform transition-transform duration-200" 
+                                        :class="{ 'rotate-180': open }"
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </button>
+                                <div 
+                                    x-show="open" 
+                                    x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0 transform -translate-y-2"
+                                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                                    x-transition:leave="transition ease-in duration-150"
+                                    x-transition:leave-start="opacity-100 transform translate-y-0"
+                                    x-transition:leave-end="opacity-0 transform -translate-y-2"
+                                    class="px-4 pb-4 text-gray-700 text-sm leading-relaxed"
+                                >
+                                    {{ block.settings.detailed_text }}
+                                </div>
                             </div>
 
                         {% when 'checkout_buttons' %}
@@ -287,6 +319,25 @@
             "type": "description",
             "name": "Descripción",
             "limit": 1
+        },
+        {
+            "type": "detailed_description",
+            "name": "Descripción Detallada (Desplegable)",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Título",
+                    "default": "Descripción Detallada"
+                },
+                {
+                    "type": "textarea",
+                    "id": "detailed_text",
+                    "label": "Texto Detallado",
+                    "default": "Es un hoop delicado con seis diamantes que acompañan la forma del rostro con un brillo sutil y elegante.\n\nInspirado en el crecimiento natural y el movimiento, su diseño aporta luz, ritmo y sofisticación para el uso diario.\n\nUna pieza cómoda, atemporal y fácil de combinar, creada para acompañarte con naturalidad."
+                }
+            ]
         },
         {
             "type": "checkout_buttons",

@@ -1,35 +1,35 @@
-<footer class="bg-white">
+<footer class="bg-neutral-900 text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <!-- Top Info Row - Light Background -->
-    <div class="border-b border-neutral-300">
+    <!-- Top Info Row - Dark Background -->
+    <div class="border-b border-neutral-700">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-12">
         {% for block in section.blocks %}
           {% if block.type == 'info_item' %}
             <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-16 h-16 rounded-full border-2 border-neutral-800 flex items-center justify-center">
+              <div class="flex-shrink-0 w-16 h-16 rounded-full border-2 border-white flex items-center justify-center">
                 {% if block.settings.icon_type == 'question' %}
-                  <svg class="w-8 h-8 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
                 {% elsif block.settings.icon_type == 'location' %}
-                  <svg class="w-8 h-8 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                   </svg>
                 {% elsif block.settings.icon_type == 'phone' %}
-                  <svg class="w-8 h-8 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                   </svg>
                 {% elsif block.settings.icon_type == 'email' %}
-                  <svg class="w-8 h-8 text-neutral-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
                 {% endif %}
               </div>
               <div>
-                <h3 class="text-lg font-semibold mb-2 text-neutral-900">{{ block.settings.title }}</h3>
-                <p class="text-sm text-neutral-600 leading-relaxed">{{ block.settings.description }}</p>
+                <h3 class="text-lg font-semibold mb-2 text-white">{{ block.settings.title }}</h3>
+                <p class="text-sm text-neutral-400 leading-relaxed">{{ block.settings.description }}</p>
               </div>
             </div>
           {% endif %}
@@ -37,9 +37,9 @@
       </div>
     </div>
 
-    <!-- Main Footer Content - Dark Background -->
-    <div class="bg-gradient-to-b from-neutral-900 to-neutral-800">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 py-16">
+    <!-- Main Footer Content -->
+    <div class="py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
         
         <!-- Brand Column -->
         <div class="lg:col-span-4">
@@ -111,10 +111,9 @@
     </div>
     
     <!-- Bottom Bar with Social Icons -->
-    <div class="bg-gradient-to-b from-neutral-900 to-neutral-800">
-      <div class="border-t border-neutral-700 py-8">
-        <div class="flex justify-center items-center gap-4">
-          {% if section.settings.instagram_url != blank %}
+    <div class="border-t border-neutral-700 py-8">
+      <div class="flex justify-center items-center gap-4">
+        {% if section.settings.instagram_url != blank %}
             <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" 
                class="w-12 h-12 rounded-full border-2 border-white/80 flex items-center justify-center hover:bg-white hover:text-neutral-900 transition-all"
                aria-label="Instagram">
@@ -159,7 +158,6 @@
             </svg>
           </a>
         {% endif %}
-      </div>
       </div>
     </div>
 
