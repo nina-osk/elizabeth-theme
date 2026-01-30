@@ -39,45 +39,63 @@
 
     <!-- Main Footer Content -->
     <div class="py-16">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
         
         <!-- Brand Column -->
-        <div class="lg:col-span-4">
+        <div class="lg:col-span-1">
           {% if section.settings.footer_logo %}
-            <img src="{{ section.settings.footer_logo | image_url: width: 150 }}" 
+            <img src="{{ section.settings.footer_logo | image_url: width: 120 }}" 
                  alt="{{ shop.name }}"
-                 width="150"
+                 width="120"
                  height="60"
                  loading="lazy"
-                 class="mb-6 max-w-[150px] h-auto">
+                 class="mb-6 max-w-[120px] h-auto filter brightness-0 invert">
           {% else %}
-            <div class="mb-6">
-              <svg class="w-20 h-20 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor">
-                <circle cx="50" cy="50" r="45" stroke-width="2"/>
-                <path d="M30 50 Q50 30 70 50 Q50 70 30 50" stroke-width="2"/>
-              </svg>
-            </div>
+            <h2 class="text-4xl font-bold mb-6 text-white" style="font-family: 'Brush Script MT', cursive;">Glamour</h2>
           {% endif %}
           <p class="text-sm text-neutral-400 leading-relaxed">
             {{ section.settings.brand_description | default: 'Nullam semper sapien ac nibh egestas varius. Duis ornare lorem vel mollis tempor. Vivamus a elit orci. Aliquam ac sodales arcu.' }}
           </p>
         </div>
 
-        <!-- Navigation Column -->
-        <div class="lg:col-span-4">
-          <h3 class="text-xl font-semibold mb-6 text-white">{{ section.settings.nav_title | default: 'Useful Links' }}</h3>
-          <nav class="space-y-4">
-            <a href="{{ routes.search_url }}" class="block text-neutral-300 hover:text-white transition-colors">
-              {{ section.settings.search_text | default: 'Search' }}
-            </a>
-            <a href="/pages/{{ section.settings.contact_page_handle | default: 'contact' }}" class="block text-neutral-300 hover:text-white transition-colors">
-              {{ section.settings.contact_text | default: 'Contact' }}
-            </a>
+        <!-- Categories Column -->
+        <div class="lg:col-span-1">
+          <h3 class="text-xl font-semibold mb-6 text-white">{{ section.settings.categories_title | default: 'Categories' }}</h3>
+          <nav class="space-y-3">
+            {% for link in linklists[section.settings.categories_menu].links %}
+              <a href="{{ link.url }}" class="block text-neutral-300 hover:text-white transition-colors text-sm">
+                {{ link.title }}
+              </a>
+            {% endfor %}
+          </nav>
+        </div>
+
+        <!-- Resources Column -->
+        <div class="lg:col-span-1">
+          <h3 class="text-xl font-semibold mb-6 text-white">{{ section.settings.resources_title | default: 'Resources' }}</h3>
+          <nav class="space-y-3">
+            {% for link in linklists[section.settings.resources_menu].links %}
+              <a href="{{ link.url }}" class="block text-neutral-300 hover:text-white transition-colors text-sm">
+                {{ link.title }}
+              </a>
+            {% endfor %}
+          </nav>
+        </div>
+
+        <!-- Useful Links Column -->
+        <div class="lg:col-span-1">
+          <h3 class="text-xl font-semibold mb-6 text-white">{{ section.settings.useful_links_title | default: 'Useful Links' }}</h3>
+          <nav class="space-y-3">
+            {% for link in linklists[section.settings.useful_links_menu].links %}
+              <a href="{{ link.url }}" class="block text-neutral-300 hover:text-white transition-colors text-sm">
+                {{ link.title }}
+              </a>
+            {% endfor %}
           </nav>
         </div>
 
         <!-- Newsletter Column -->
-        <div class="lg:col-span-4">
+        <div class="lg:col-span-1">
           <h3 class="text-xl font-semibold mb-6 text-white">{{ section.settings.newsletter_title | default: 'Subscribe Our Newsletter' }}</h3>
         <p class="text-sm text-neutral-400 mb-6 leading-relaxed">
           {{ section.settings.newsletter_description | default: 'Joining Hands, Building A Stronger Nation Through Immigration.' }}
@@ -185,32 +203,51 @@
     },
     {
       "type": "header",
-      "content": "Navigation Section"
+      "content": "Categories Column"
     },
     {
       "type": "text",
-      "id": "nav_title",
-      "label": "Navigation Title",
+      "id": "categories_title",
+      "label": "Categories Title",
+      "default": "Categories"
+    },
+    {
+      "type": "link_list",
+      "id": "categories_menu",
+      "label": "Categories Menu",
+      "default": "footer"
+    },
+    {
+      "type": "header",
+      "content": "Resources Column"
+    },
+    {
+      "type": "text",
+      "id": "resources_title",
+      "label": "Resources Title",
+      "default": "Resources"
+    },
+    {
+      "type": "link_list",
+      "id": "resources_menu",
+      "label": "Resources Menu",
+      "default": "footer"
+    },
+    {
+      "type": "header",
+      "content": "Useful Links Column"
+    },
+    {
+      "type": "text",
+      "id": "useful_links_title",
+      "label": "Useful Links Title",
       "default": "Useful Links"
     },
     {
-      "type": "text",
-      "id": "search_text",
-      "label": "Search Link Text",
-      "default": "Search"
-    },
-    {
-      "type": "text",
-      "id": "contact_text",
-      "label": "Contact Link Text",
-      "default": "Contact"
-    },
-    {
-      "type": "text",
-      "id": "contact_page_handle",
-      "label": "Contact Page Handle",
-      "default": "contact",
-      "info": "The page handle for your contact page (e.g., 'contact')"
+      "type": "link_list",
+      "id": "useful_links_menu",
+      "label": "Useful Links Menu",
+      "default": "footer"
     },
     {
       "type": "header",
