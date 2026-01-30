@@ -13,7 +13,7 @@
     <!-- Carousel Container -->
     <div class="carousel-wrapper max-w-6xl mx-auto mb-12">
       <!-- Carousel Track -->
-      <div class="relative overflow-visible" style="height: 500px;">
+      <div class="relative overflow-hidden" style="height: 500px;">
         <div class="carousel-track absolute inset-0 flex items-center justify-center">
           {% assign cards = (1..6) %}
           {% for i in cards %}
@@ -135,26 +135,49 @@
 
   /* Responsive adjustments */
   @media (max-width: 768px) {
-    .slide-card {
-      width: 280px;
-      height: 360px;
-    }
-    
     .carousel-wrapper .relative {
-      height: 420px !important;
+      overflow: hidden !important;
+      height: 440px !important;
     }
     
-    /* Hide non-active slides on mobile */
+    .slide-card {
+      width: 90vw;
+      max-width: 320px;
+      height: 380px;
+    }
+    
+    /* Hide non-active slides on mobile - move them off screen */
     .carousel-slide:not(.is-active) {
       opacity: 0 !important;
       pointer-events: none !important;
-      transform: translateX(100vw) translateY(-50%) scale(0.8) !important;
+      transform: translateX(200vw) translateY(-50%) scale(0.8) !important;
     }
     
     /* Center active slide on mobile */
     .carousel-slide.is-active {
       transform: translateX(0) translateY(-50%) scale(1) !important;
       opacity: 1 !important;
+      left: 50% !important;
+      margin-left: calc(-45vw) !important;
+      max-width: 320px;
+    }
+    
+    /* Center navigation buttons on mobile */
+    .carousel-wrapper > div:last-child {
+      justify-content: center !important;
+    }
+    
+    /* Adjust button size for mobile */
+    #carousel-prev,
+    #carousel-next {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .carousel-wrapper .relative {
+      overflow: visible !important;
     }
   }
 
