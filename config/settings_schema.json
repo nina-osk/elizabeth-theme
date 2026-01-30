@@ -27,5 +27,16 @@
         "default": "#121212"
       }
     ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo de la tienda",
+        "info": "Recomendado: PNG con fondo transparente, 200-400px de ancho. Este logo aparece en el header."
+      }
+    ]
   }
 ]
