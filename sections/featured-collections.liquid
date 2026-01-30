@@ -155,13 +155,21 @@ document.addEventListener('DOMContentLoaded', function() {
   const filterButtons = document.querySelectorAll('.collection-filter-btn');
   const productGroups = document.querySelectorAll('.collection-products-group');
 
-  if (filterButtons.length === 0) return;
+  console.log('Filter buttons found:', filterButtons.length);
+  console.log('Product groups found:', productGroups.length);
+
+  if (filterButtons.length === 0) {
+    console.warn('No filter buttons found');
+    return;
+  }
 
   // Style constants - Matching Figma design
   const activeClasses = 'bg-orange-400 text-white border-orange-400';
   const inactiveClasses = 'bg-white text-gray-900 border-gray-300 hover:border-orange-400';
 
   function showCollection(handle) {
+    console.log('Showing collection:', handle);
+    
     // Update buttons
     filterButtons.forEach(btn => {
       const isActive = btn.dataset.collectionHandle === handle;
@@ -176,26 +184,37 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Update product groups
+    let foundMatch = false;
     productGroups.forEach(group => {
+      console.log('Group handle:', group.dataset.collectionHandle);
       if (group.dataset.collectionHandle === handle) {
         group.classList.remove('hidden');
+        foundMatch = true;
+        console.log('Showing group:', handle);
       } else {
         group.classList.add('hidden');
       }
     });
+    
+    if (!foundMatch) {
+      console.warn('No matching collection group found for:', handle);
+    }
   }
 
   // Button click handlers
   filterButtons.forEach(btn => {
     btn.addEventListener('click', function() {
       const handle = this.dataset.collectionHandle;
+      console.log('Button clicked:', handle);
       showCollection(handle);
     });
   });
 
   // Show first collection by default
   if (filterButtons.length > 0) {
-    showCollection(filterButtons[0].dataset.collectionHandle);
+    const firstHandle = filterButtons[0].dataset.collectionHandle;
+    console.log('Initializing with first collection:', firstHandle);
+    showCollection(firstHandle);
   }
 
   // Add to cart form handling
