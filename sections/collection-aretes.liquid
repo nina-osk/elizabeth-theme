@@ -1,22 +1,24 @@
-{% assign selected_collection = collections[section.settings.collection_handle] %}
-{% if selected_collection == blank %}
-  {% assign selected_collection = collection %}
-{% endif %}
+{% comment %}
+  Este template filtra productos por el tag "aretes" 
+  y luego permite filtrar por subtags: stud, huggies
+{% endcomment %}
+
+{% assign all_products_with_tag = collections.all.products | where: "tags", "aretes" %}
 
 <div class="w-full bg-white py-12 md:py-16 lg:py-20 mb-12 md:mb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-32">
         
-        {% paginate selected_collection.products by section.settings.products_per_page %}
+        {% paginate all_products_with_tag by section.settings.products_per_page %}
         
-            <!-- Encabezado de la colección -->
+            <!-- Encabezado de la sección -->
             <div class="text-center mb-8 md:mb-12">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                    {{ selected_collection.title }}
+                    {{ section.settings.title | default: "Aretes" }}
                 </h1>
                 
-                {% if selected_collection.description != blank %}
+                {% if section.settings.description != blank %}
                     <div class="max-w-3xl mx-auto text-base text-gray-600">
-                        {{ selected_collection.description }}
+                        {{ section.settings.description }}
                     </div>
                 {% endif %}
             </div>
@@ -31,8 +33,8 @@
                         <button onclick="filterProducts('all')" id="filter-all" class="filter-btn px-6 py-3 rounded-lg font-medium transition-all duration-200 bg-gray-900 text-white">
                             Todos
                         </button>
-                        <button onclick="filterProducts('std')" id="filter-std" class="filter-btn px-6 py-3 rounded-lg font-medium transition-all duration-200 bg-gray-200 text-gray-700 hover:bg-gray-300">
-                            Std
+                        <button onclick="filterProducts('stud')" id="filter-stud" class="filter-btn px-6 py-3 rounded-lg font-medium transition-all duration-200 bg-gray-200 text-gray-700 hover:bg-gray-300">
+                            Stud
                         </button>
                         <button onclick="filterProducts('huggies')" id="filter-huggies" class="filter-btn px-6 py-3 rounded-lg font-medium transition-all duration-200 bg-gray-200 text-gray-700 hover:bg-gray-300">
                             Huggies
@@ -47,9 +49,9 @@
             </div>
 
             <!-- Grid de productos - 4 columnas -->
-            {% if selected_collection.products.size > 0 %}
+            {% if all_products_with_tag.size > 0 %}
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" id="products-grid">
-                    {% for product in selected_collection.products %}
+                    {% for product in all_products_with_tag %}
                         {% assign product_tags = product.tags | join: ',' | downcase %}
                         <div class="product-item" data-tags="{{ product_tags }}">
                             {% render 'product-card', product_product: product %}
@@ -59,7 +61,7 @@
 
                 <!-- Contador de productos visibles -->
                 <div class="mt-8 text-center text-sm text-gray-500">
-                    <span id="visible-count">{{ selected_collection.products.size }}</span> de {{ paginate.items }} productos
+                    <span id="visible-count">{{ all_products_with_tag.size }}</span> de {{ paginate.items }} productos
                 </div>
 
                 <!-- Paginación -->
@@ -112,7 +114,7 @@ function filterProducts(filterType) {
     // Actualizar nombre del filtro
     const filterNames = {
         'all': 'Todos los aretes',
-        'std': 'Aretes Std',
+        'stud': 'Aretes Stud',
         'huggies': 'Aretes Huggies'
     };
     filterNameElement.textContent = filterNames[filterType];
@@ -160,14 +162,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 {% schema %}
 {
-    "name": "Aretes Collection",
-    "class": "shopify-section--collection",
+    "name": "Aretes por Tag",
+    "class": "shopify-section--aretes",
     "settings": [
         {
-            "type": "collection",
-            "id": "collection_handle",
-            "label": "Colección",
-            "info": "Selecciona la colección de aretes a mostrar"
+            "type": "text",
+            "id": "title",
+            "label": "Título de la sección",
+            "default": "Aretes"
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Descripción",
+            "info": "Descripción opcional para mostrar debajo del título"
         },
         {
             "type": "range",
@@ -177,6 +185,10 @@ document.addEventListener('DOMContentLoaded', function() {
             "step": 4,
             "label": "Productos por página",
             "default": 12
+        },
+        {
+            "type": "paragraph",
+            "content": "Esta sección muestra automáticamente todos los productos con el tag 'aretes'. Puedes filtrar por 'stud' o 'huggies' usando los botones."
         }
     ]
 }
