@@ -38,6 +38,12 @@
     "featured-collections": {
       "type": "featured-collections",
       "blocks": {
+        "collection_wP3Pm7": {
+          "type": "collection",
+          "settings": {
+            "collection": "essenza"
+          }
+        },
         "collection_1": {
           "type": "collection",
           "settings": {
@@ -47,7 +53,7 @@
         "collection_2": {
           "type": "collection",
           "settings": {
-            "collection": "origins"
+            "collection": "origins-1"
           }
         },
         "collection_3": {
@@ -58,6 +64,7 @@
         }
       },
       "block_order": [
+        "collection_wP3Pm7",
         "collection_1",
         "collection_2",
         "collection_3"
