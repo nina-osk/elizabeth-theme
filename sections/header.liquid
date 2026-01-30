@@ -47,7 +47,7 @@
       </div>
 
       <!-- NAVIGATION MENU -->
-      <nav x-data="{ open: false }" class="hidden md:flex space-x-8 lg:space-x-12">
+      <nav x-data="{ open: false }" class="hidden md:flex space-x-10 lg:space-x-16">
         {% for link in main_menu_linklist %}
           {% if link.links != blank %}
             {% assign link_handle = link.handle | replace: '-', '_' %}
@@ -226,31 +226,6 @@
                   ({{ cart.item_count }})
                 </span>
               </a>
-
-              {% if shop.customer_accounts_enabled %}
-                {% if customer %}
-                  <a 
-                    href="{{ routes.account_url }}" 
-                    class="block p-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                  >
-                    Mi Cuenta
-                  </a>
-                  {{ 'Cerrar sesión' | customer_logout_link | replace: '<a', '<a class="block p-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"' }}
-                {% else %}
-                  <a 
-                    href="{{ routes.login_url }}" 
-                    class="block p-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                  >
-                    Iniciar sesión
-                  </a>
-                  <a 
-                    href="{{ routes.register_url }}" 
-                    class="block p-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                  >
-                    Registro
-                  </a>
-                {% endif %}
-              {% endif %}
             </div>
           </div>
         </div>
