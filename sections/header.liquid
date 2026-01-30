@@ -47,7 +47,7 @@
       </div>
 
       <!-- NAVIGATION MENU -->
-      <nav x-data="{ open: false }" class="hidden md:flex space-x-6 lg:space-x-8">
+      <nav x-data="{ open: false }" class="hidden md:flex space-x-8 lg:space-x-12">
         {% for link in main_menu_linklist %}
           {% if link.links != blank %}
             {% assign link_handle = link.handle | replace: '-', '_' %}
@@ -55,8 +55,7 @@
               <button 
                 x-on:click="{{link_handle}} = !{{link_handle}}" 
                 type="button" 
-                class="inline-flex items-center text-sm lg:text-base font-medium transition-colors duration-200 nav-link-{{ forloop.index }}"
-                style="{% if link.title contains 'Aretes' %}color: #E8775E;{% elsif link.title contains 'Collares' %}color: #D4AF37;{% elsif link.title contains 'Conjuntos' %}color: #FF8C42;{% else %}color: #6B7280;{% endif %}"
+                class="inline-flex items-center text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200"
               >
                 {{ link.title }}
                 {% render 'icon-dropdown' %}
@@ -94,8 +93,7 @@
           {% else %}
             <a 
               href="{{ link.url }}" 
-              class="text-sm lg:text-base font-medium transition-colors duration-200 nav-link-{{ forloop.index }}"
-              style="{% if link.title contains 'Aretes' %}color: #E8775E;{% elsif link.title contains 'Collares' %}color: #D4AF37;{% elsif link.title contains 'Conjuntos' %}color: #FF8C42;{% else %}color: #6B7280;{% endif %}"
+              class="text-sm lg:text-base font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200"
             >
               {{ link.title }}
             </a>
