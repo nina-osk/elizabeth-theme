@@ -19,7 +19,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo": "shopify://shop_images/MunierOUT.svg",
+          "logo": "shopify://shop_images/logo.jpg",
           "announcement_text": "Best Special Offers Every Week. 40% Off! Free Delivery Time.",
           "menu": "main-menu-1",
           "mobile_menu_label": "Menú"
@@ -42,10 +42,12 @@
         ],
         "settings": {
           "brand_description": "Nullam semper sapien ac nibh egestas varius. Duis ornare lorem vel mollis tempor. Vivamus a elit orci. Aliquam ac sodales arcu.",
-          "nav_title": "Useful Links",
-          "search_text": "Search",
-          "contact_text": "Contact",
-          "contact_page_handle": "contact",
+          "categories_title": "Categories",
+          "categories_menu": "footer",
+          "resources_title": "Resources",
+          "resources_menu": "footer",
+          "useful_links_title": "Useful Links",
+          "useful_links_menu": "footer",
           "newsletter_title": "Subscribe Our Newsletter",
           "newsletter_description": "Joining Hands, Building A Stronger Nation Through Immigration.",
           "newsletter_placeholder": "Your mail",
