@@ -26,12 +26,13 @@
         <a href="{{ routes.root_url }}" class="flex items-center">
           {% if section.settings.logo != blank %}
             <img 
-              src="{{ section.settings.logo | image_url: width: 200 }}" 
+              src="{{ section.settings.logo | image_url: width: 400 }}" 
               alt="{{ shop.name }}"
-              width="{{ section.settings.logo.width }}"
-              height="{{ section.settings.logo.height }}"
+              width="200"
+              height="100"
               loading="eager"
-              class="h-10 md:h-14 w-auto"
+              class="h-auto w-auto max-h-14 md:max-h-16"
+              style="max-width: 200px;"
             >
           {% else %}
             <span class="text-xl md:text-2xl font-bold text-gray-900">{{ shop.name }}</span>
