@@ -40,7 +40,7 @@
             data-block-id="{{ block.id }}">
             
             {% if collection_item.products.size > 0 %}
-              <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
                 {% for product in collection_item.products limit: section.settings.number_of_products_to_show %}
                   <div class="product-card bg-white overflow-hidden transition-all duration-300 hover:shadow-lg max-w-sm mx-auto w-full">
                     
@@ -97,9 +97,9 @@
                     <!-- Product Info -->
                     <div class="p-4 text-left">
                       <!-- Star Rating with number -->
-                      <div class="flex items-center gap-1 mb-2">
+                      <div class="flex items-center gap-0.5 mb-2">
                         {% for i in (1..5) %}
-                          <svg class="w-2.5 h-2.5 text-gray-900 fill-current" viewBox="0 0 20 20">
+                          <svg class="w-1.5 h-1.5 text-gray-900 fill-current" viewBox="0 0 20 20">
                             <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
                           </svg>
                         {% endfor %}
