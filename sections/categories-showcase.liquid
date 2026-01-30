@@ -137,13 +137,24 @@
   @media (max-width: 768px) {
     .carousel-wrapper .relative {
       overflow: hidden !important;
-      height: 440px !important;
+      height: 480px !important;
     }
     
     .slide-card {
       width: 90vw;
-      max-width: 320px;
-      height: 380px;
+      max-width: 340px;
+      height: 420px;
+    }
+    
+    /* Adjust image container on mobile */
+    .carousel-slide .relative[style*="height: 340px"] {
+      height: 320px !important;
+    }
+    
+    /* Ensure image is centered and not cropped */
+    .carousel-slide img {
+      object-fit: contain !important;
+      padding: 1rem;
     }
     
     /* Hide non-active slides on mobile - move them off screen */
@@ -159,7 +170,7 @@
       opacity: 1 !important;
       left: 50% !important;
       margin-left: calc(-45vw) !important;
-      max-width: 320px;
+      max-width: 340px;
     }
     
     /* Center navigation buttons on mobile */
