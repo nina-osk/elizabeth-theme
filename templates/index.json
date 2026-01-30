@@ -47,13 +47,13 @@
         "collection_1": {
           "type": "collection",
           "settings": {
-            "collection": "krishna"
+            "collection": "origins-1"
           }
         },
         "collection_2": {
           "type": "collection",
           "settings": {
-            "collection": "origins-1"
+            "collection": "krishna"
           }
         },
         "collection_3": {
