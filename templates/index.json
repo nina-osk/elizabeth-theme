@@ -41,33 +41,26 @@
         "collection_1": {
           "type": "collection",
           "settings": {
-            "collection": "aretes"
+            "collection": "krishna"
           }
         },
         "collection_2": {
           "type": "collection",
           "settings": {
-            "collection": "collares"
+            "collection": "origins"
           }
         },
         "collection_3": {
           "type": "collection",
           "settings": {
-            "collection": "pulseras"
-          }
-        },
-        "collection_4": {
-          "type": "collection",
-          "settings": {
-            "collection": "conjuntos"
+            "collection": "prisma-nova"
           }
         }
       },
       "block_order": [
         "collection_1",
         "collection_2",
-        "collection_3",
-        "collection_4"
+        "collection_3"
       ],
       "settings": {
         "title": "Coleccion",
