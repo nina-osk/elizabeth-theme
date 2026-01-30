@@ -47,15 +47,15 @@
                     <!-- Product Image -->
                     <div class="relative w-full" style="padding-bottom: 100%;">
                       <div class="absolute inset-0 bg-gray-50 overflow-hidden group">
-                        <a href="{{ product.url }}" class="block w-full h-full">
+                        <a href="{{ product.url }}" class="block w-full h-full p-4">
                           {% if product.featured_image %}
                             {{ product.featured_image | image_url: width: 400 | image_tag: 
                               alt: product.title, 
-                              class: 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                              class: 'w-full h-full object-contain transition-transform duration-500',
                               loading: 'lazy'
                             }}
                           {% else %}
-                            {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                            {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-contain' }}
                           {% endif %}
                         </a>
 
@@ -99,7 +99,7 @@
                       <!-- Star Rating with number -->
                       <div class="flex items-center gap-0.5 mb-2">
                         {% for i in (1..5) %}
-                          <svg class="w-2 h-2 fill-current" style="color: #FFA500;" viewBox="0 0 20 20">
+                          <svg class="w-1.5 h-1.5 fill-current" style="color: #FFA500;" viewBox="0 0 20 20">
                             <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
                           </svg>
                         {% endfor %}
