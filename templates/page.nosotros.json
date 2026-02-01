@@ -1,6 +1,6 @@
 {
   "sections": {
-    "about-us": {
+    "nosotros_main": {
       "type": "about-us",
       "settings": {
         "show_hero": true,
@@ -10,6 +10,6 @@
     }
   },
   "order": [
-    "about-us"
+    "nosotros_main"
   ]
 }
