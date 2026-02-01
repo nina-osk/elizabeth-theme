@@ -1,59 +1,64 @@
 {% comment %}
   Sección Nosotros / About Us - Munier
-  Diseño con tabs: Historia, Valores, Misión, Manifiesto
+  Diseño minimalista con tabs
 {% endcomment %}
 
-<div class="w-full bg-stone-50">
+<div class="w-full" style="background-color: #F5F1E8;">
     <!-- Header Section -->
-    <section class="pt-16 md:pt-20 lg:pt-24 pb-8 md:pb-12">
+    <section class="pt-24 md:pt-32 pb-12 md:pb-16">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <!-- Pequeño título superior -->
-            <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-gray-600 mb-6">
-                Conócenos
+            <p class="text-[10px] md:text-xs uppercase mb-6" style="letter-spacing: 0.25em; color: #666;">
+                CONÓCENOS
             </p>
             
             <!-- Título principal -->
-            <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif text-gray-900 mb-6">
-                Somos <span class="text-[#D4AF37] italic">Munier</span>
+            <h1 class="mb-6" style="font-family: Georgia, serif;">
+                <span style="font-size: 3.5rem; color: #1a1a1a; font-weight: 400; line-height: 1.2;">Somos </span>
+                <span style="font-size: 3.5rem; color: #D4A574; font-style: italic; font-weight: 400; line-height: 1.2;">Munier</span>
             </h1>
             
             <!-- Subtítulo -->
-            <p class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-base md:text-lg mx-auto" style="color: #666; max-width: 42rem;">
                 Una joyería panameña creada para celebrar lo que te hace auténtica.
             </p>
         </div>
     </section>
 
     <!-- Tabs Section -->
-    <section class="pb-16 md:pb-20 lg:pb-24">
+    <section class="pb-16 md:pb-24">
         <div class="max-w-6xl mx-auto px-6">
             <!-- Tabs Navigation -->
-            <div class="flex flex-wrap justify-center gap-0 mb-12 md:mb-16 border-b border-gray-300">
+            <div class="flex flex-wrap justify-center gap-4 mb-16" style="border-bottom: 1px solid #ddd; padding-bottom: 0;">
                 <button
                     onclick="switchTab('historia')"
                     id="tab-historia"
-                    class="tab-button px-8 py-4 text-sm uppercase tracking-wider transition-all duration-300 border-b-2 border-gray-900 text-gray-900 font-medium"
+                    class="tab-button uppercase text-xs px-6 py-4 transition-all duration-200"
+                    style="letter-spacing: 0.1em; background-color: #2d2d2d; color: white; border: none; font-weight: 500;"
                 >
                     Nuestra Historia
                 </button>
                 <button
                     onclick="switchTab('valores')"
                     id="tab-valores"
-                    class="tab-button px-8 py-4 text-sm uppercase tracking-wider transition-all duration-300 border-b-2 border-transparent text-gray-500 hover:text-gray-900"
+                    class="tab-button uppercase text-xs px-6 py-4 transition-all duration-200"
+                    style="letter-spacing: 0.1em; background-color: transparent; color: #999; border: none; font-weight: 400;"
                 >
                     Valores
                 </button>
                 <button
                     onclick="switchTab('mision')"
                     id="tab-mision"
-                    class="tab-button px-8 py-4 text-sm uppercase tracking-wider transition-all duration-300 border-b-2 border-transparent text-gray-500 hover:text-gray-900"
+                    class="tab-button uppercase text-xs px-6 py-4 transition-all duration-200"
+                    style="letter-spacing: 0.1em; background-color: transparent; color: #999; border: none; font-weight: 400;"
                 >
                     Misión
                 </button>
                 <button
                     onclick="switchTab('manifiesto')"
                     id="tab-manifiesto"
-                    class="tab-button px-8 py-4 text-sm uppercase tracking-wider transition-all duration-300 border-b-2 border-transparent text-gray-500 hover:text-gray-900"
+                    class="tab-button uppercase text-xs px-6 py-4 transition-all duration-200"
+                    style="letter-spacing: 0.1em; background-color: transparent; color: #999; border: none; font-weight: 400;"
                 >
                     Manifiesto
                 </button>
@@ -63,12 +68,12 @@
             <div class="max-w-4xl mx-auto">
                 <!-- Historia Tab -->
                 <div id="content-historia" class="tab-content">
-                    <h2 class="font-serif text-3xl md:text-4xl text-gray-900 mb-8 text-center">
+                    <h2 class="text-3xl md:text-4xl mb-8 text-center" style="font-family: Georgia, serif; color: #1a1a1a; font-weight: 400;">
                         Dónde nace nuestro brillo
                     </h2>
-                    <div class="space-y-6 text-gray-700 leading-loose text-base">
+                    <div class="space-y-6 text-base" style="color: #555; line-height: 1.8;">
                         <p>
-                            Munier nació de una idea simple y poderosa: <strong class="text-gray-900 font-semibold">todas las personas merecen una joya que celebre lo especial que son todos los días</strong>, no solo cuando el calendario marca una ocasión "importante".
+                            Munier nació de una idea simple y poderosa: <strong style="color: #1a1a1a; font-weight: 600;">todas las personas merecen una joya que celebre lo especial que son todos los días</strong>, no solo cuando el calendario marca una ocasión "importante".
                         </p>
                         <p>
                             Los fundadores, amantes del diseño y de la joyería fina, observaron algo claro en su entorno: muchas mujeres querían joyas de calidad —oro que durara, diamantes que brillaran— hechos con materiales nobles, pensados para acompañarte sin perder su luz por su uso diario.
@@ -78,32 +83,32 @@
                         </p>
                         
                         <div class="py-8 my-8">
-                            <h4 class="font-serif text-xl text-gray-900 mb-6">El camino fue guiado por tres preguntas esenciales:</h4>
+                            <h4 class="text-lg mb-6" style="font-family: Georgia, serif; color: #1a1a1a;">El camino fue guiado por tres preguntas esenciales:</h4>
                             <ul class="space-y-6">
                                 <li>
-                                    <p class="font-medium text-gray-900 mb-2">¿Cómo hacemos del lujo algo accesible sin sacrificar calidad?</p>
-                                    <p class="text-gray-600">La respuesta: oro 9K, elegante, duradero y gentil con la piel, acompañado de diamantes de laboratorio éticos y brillantes.</p>
+                                    <p class="font-semibold mb-2" style="color: #1a1a1a;">¿Cómo hacemos del lujo algo accesible sin sacrificar calidad?</p>
+                                    <p style="color: #666;">La respuesta: oro 9K, elegante, duradero y gentil con la piel, acompañado de diamantes de laboratorio éticos y brillantes.</p>
                                 </li>
                                 <li>
-                                    <p class="font-medium text-gray-900 mb-2">¿Cómo creamos joyas que se usen todos los días sin temor?</p>
-                                    <p class="text-gray-600">Haciendo piezas resistentes, modernas y versátiles, que sobreviven a cada movimiento, cada jornada, cada historia.</p>
+                                    <p class="font-semibold mb-2" style="color: #1a1a1a;">¿Cómo creamos joyas que se usen todos los días sin temor?</p>
+                                    <p style="color: #666;">Haciendo piezas resistentes, modernas y versátiles, que sobreviven a cada movimiento, cada jornada, cada historia.</p>
                                 </li>
                                 <li>
-                                    <p class="font-medium text-gray-900 mb-2">¿Cómo celebramos la diversidad de quienes las llevan?</p>
-                                    <p class="text-gray-600">Con diseños que se sienten propios en distintos estilos, tonos de piel, personalidades y etapas de vida.</p>
+                                    <p class="font-semibold mb-2" style="color: #1a1a1a;">¿Cómo celebramos la diversidad de quienes las llevan?</p>
+                                    <p style="color: #666;">Con diseños que se sienten propios en distintos estilos, tonos de piel, personalidades y etapas de vida.</p>
                                 </li>
                             </ul>
                         </div>
 
                         <p>
-                            Con estas bases, Munier tomó forma: <strong class="text-gray-900 font-semibold">una marca joven, fresca, cercana, que abraza la autenticidad y la celebra</strong>. Una marca que no exige perfección ni formalidad. Que entiende que el lujo no está solo en la joya, sino en quien la usa.
+                            Con estas bases, Munier tomó forma: <strong style="color: #1a1a1a; font-weight: 600;">una marca joven, fresca, cercana, que abraza la autenticidad y la celebra</strong>. Una marca que no exige perfección ni formalidad. Que entiende que el lujo no está solo en la joya, sino en quien la usa.
                         </p>
                         <p>
                             Hoy, Munier se levanta como una invitación: usar joyas que te acompañan, no que te limitan. Piezas que brillan, no para llamar la atención… sino para recordarte la luz que ya llevas dentro.
                         </p>
-                        <p class="font-serif text-lg text-gray-900 pt-6">
+                        <p class="text-lg pt-6" style="font-family: Georgia, serif; color: #1a1a1a;">
                             Somos Munier, y esta es nuestra historia.<br>
-                            <span class="text-[#D4AF37] italic">Una historia que ahora se entrelaza con la tuya.</span>
+                            <span style="color: #D4A574; font-style: italic;">Una historia que ahora se entrelaza con la tuya.</span>
                         </p>
                     </div>
                 </div>
@@ -213,36 +218,40 @@ function switchTab(tabName) {
     // Remover estilos activos de todos los botones
     const allButtons = document.querySelectorAll('.tab-button');
     allButtons.forEach(button => {
-        button.classList.remove('border-gray-900', 'text-gray-900', 'font-medium');
-        button.classList.add('border-transparent', 'text-gray-500');
+        button.style.backgroundColor = 'transparent';
+        button.style.color = '#999';
+        button.style.fontWeight = '400';
     });
     
-    // Mostrar el contenido seleccionado con animación
+    // Mostrar el contenido seleccionado
     const selectedContent = document.getElementById('content-' + tabName);
     selectedContent.classList.remove('hidden');
-    selectedContent.style.animation = 'fadeIn 0.5s ease-in';
     
     // Activar el botón seleccionado
     const selectedButton = document.getElementById('tab-' + tabName);
-    selectedButton.classList.add('border-gray-900', 'text-gray-900', 'font-medium');
-    selectedButton.classList.remove('border-transparent', 'text-gray-500');
+    selectedButton.style.backgroundColor = '#2d2d2d';
+    selectedButton.style.color = 'white';
+    selectedButton.style.fontWeight = '500';
 }
 </script>
 
 <style>
+.tab-content {
+    animation: fadeIn 0.4s ease-in;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
-.tab-content {
-    animation: fadeIn 0.5s ease-in;
+.tab-button:hover {
+    background-color: #2d2d2d !important;
+    color: white !important;
 }
 </style>
 
