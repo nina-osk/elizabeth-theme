@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "about-us": {
+      "type": "about-us",
+      "settings": {
+        "show_hero": true,
+        "hero_title": "Nosotros",
+        "hero_subtitle": "Pasión por la joyería que cuenta historias"
+      }
+    }
+  },
+  "order": [
+    "about-us"
+  ]
+}

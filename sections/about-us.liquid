@@ -1,0 +1,305 @@
+{% comment %}
+  Sección Nosotros / About Us - Munier
+  Diseño con tabs: Historia, Valores, Misión, Manifiesto
+{% endcomment %}
+
+<div class="w-full bg-white">
+    <!-- Hero Section -->
+    {% if section.settings.show_hero %}
+        <div class="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+            {% if section.settings.hero_image != blank %}
+                <img 
+                    src="{{ section.settings.hero_image | img_url: '2000x' }}" 
+                    alt="{{ section.settings.hero_title }}"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                >
+            {% else %}
+                <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200"></div>
+            {% endif %}
+            
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            
+            <!-- Contenido Hero -->
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center px-6 max-w-4xl">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+                        {{ section.settings.hero_title | default: "Nosotros" }}
+                    </h1>
+                    {% if section.settings.hero_subtitle != blank %}
+                        <p class="text-xl md:text-2xl text-white opacity-90">
+                            {{ section.settings.hero_subtitle }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Tabs Section -->
+    <section class="py-16 md:py-20 lg:py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Tabs Navigation -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12 md:mb-16">
+                <button
+                    onclick="switchTab('historia')"
+                    id="tab-historia"
+                    class="tab-button px-6 py-3 text-sm uppercase tracking-wider transition-all duration-300 rounded-sm bg-gray-900 text-white"
+                >
+                    Nuestra Historia
+                </button>
+                <button
+                    onclick="switchTab('valores')"
+                    id="tab-valores"
+                    class="tab-button px-6 py-3 text-sm uppercase tracking-wider transition-all duration-300 rounded-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                >
+                    Valores
+                </button>
+                <button
+                    onclick="switchTab('mision')"
+                    id="tab-mision"
+                    class="tab-button px-6 py-3 text-sm uppercase tracking-wider transition-all duration-300 rounded-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                >
+                    Misión
+                </button>
+                <button
+                    onclick="switchTab('manifiesto')"
+                    id="tab-manifiesto"
+                    class="tab-button px-6 py-3 text-sm uppercase tracking-wider transition-all duration-300 rounded-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                >
+                    Manifiesto
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="max-w-4xl mx-auto">
+                <!-- Historia Tab -->
+                <div id="content-historia" class="tab-content">
+                    <h2 class="font-serif text-4xl md:text-5xl text-gray-900 mb-12 text-center">
+                        Dónde nace nuestro brillo
+                    </h2>
+                    <div class="space-y-6 text-gray-600 leading-relaxed">
+                        <p>
+                            Munier nació de una idea simple y poderosa: <strong class="text-gray-900">todas las personas merecen una joya que celebre lo especial que son todos los días</strong>, no solo cuando el calendario marca una ocasión "importante".
+                        </p>
+                        <p>
+                            Los fundadores, amantes del diseño y de la joyería fina, observaron algo claro en su entorno: muchas mujeres querían joyas de calidad —oro que durara, diamantes que brillaran— hechos con materiales nobles, pensados para acompañarte sin perder su luz por su uso diario.
+                        </p>
+                        <p>
+                            Sin embargo, la única opción era en piezas con precios elevados en las joyerías. Había un vacío entre el lujo aspiracional y la vida real. Y así nació la visión de Munier.
+                        </p>
+                        
+                        <div class="py-8 border-y border-gray-200">
+                            <h4 class="font-serif text-xl text-gray-900 mb-6">El camino fue guiado por tres preguntas esenciales:</h4>
+                            <ul class="space-y-4">
+                                <li>
+                                    <span class="text-yellow-700 font-serif text-lg">¿Cómo hacemos del lujo algo accesible sin sacrificar calidad?</span>
+                                    <p class="mt-2">La respuesta: oro 9K, elegante, duradero y gentil con la piel, acompañado de diamantes de laboratorio éticos y brillantes.</p>
+                                </li>
+                                <li>
+                                    <span class="text-yellow-700 font-serif text-lg">¿Cómo creamos joyas que se usen todos los días sin temor?</span>
+                                    <p class="mt-2">Haciendo piezas resistentes, modernas y versátiles, que sobreviven a cada movimiento, cada jornada, cada historia.</p>
+                                </li>
+                                <li>
+                                    <span class="text-yellow-700 font-serif text-lg">¿Cómo celebramos la diversidad de quienes las llevan?</span>
+                                    <p class="mt-2">Con diseños que se sienten propios en distintos estilos, tonos de piel, personalidades y etapas de vida.</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p>
+                            Con estas bases, Munier tomó forma: <strong class="text-gray-900">una marca joven, fresca, cercana, que abraza la autenticidad y la celebra</strong>. Una marca que no exige perfección ni formalidad. Que entiende que el lujo no está solo en la joya, sino en quien la usa.
+                        </p>
+                        <p>
+                            Hoy, Munier se levanta como una invitación: usar joyas que te acompañan, no que te limitan. Piezas que brillan, no para llamar la atención… sino para recordarte la luz que ya llevas dentro.
+                        </p>
+                        <p class="font-serif text-xl text-gray-900 pt-4">
+                            Somos Munier, y esta es nuestra historia.<br>
+                            <span class="text-yellow-700 italic">Una historia que ahora se entrelaza con la tuya.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Valores Tab -->
+                <div id="content-valores" class="tab-content hidden">
+                    <h2 class="font-serif text-4xl md:text-5xl text-gray-900 mb-12 text-center">
+                        Valores de Marca
+                    </h2>
+                    <div class="grid gap-8 md:grid-cols-2">
+                        <div class="p-8 bg-amber-50 rounded-sm">
+                            <h4 class="font-serif text-xl text-gray-900 mb-3">Elegancia para todos los días</h4>
+                            <p class="text-gray-600 leading-relaxed">Joyas creadas para acompañarte día a día. Un lujo que se usa, no se guarda. Diseñadas a tu ritmo, tu estilo, y tu historia.</p>
+                        </div>
+                        <div class="p-8 bg-amber-50 rounded-sm">
+                            <h4 class="font-serif text-xl text-gray-900 mb-3">Brillo interior</h4>
+                            <p class="text-gray-600 leading-relaxed">Creemos que todas las personas tienen una luz propia que merece ser celebrada. Cada historia cuenta. Cada persona es una ocasión especial.</p>
+                        </div>
+                        <div class="p-8 bg-amber-50 rounded-sm">
+                            <h4 class="font-serif text-xl text-gray-900 mb-3">Lujo accesible</h4>
+                            <p class="text-gray-600 leading-relaxed">Piezas hechas con materiales nobles y duraderos pensadas para ser parte de tu vida por años, porque la calidad no debería ser un privilegio.</p>
+                        </div>
+                        <div class="p-8 bg-amber-50 rounded-sm">
+                            <h4 class="font-serif text-xl text-gray-900 mb-3">Belleza atemporal y versátil</h4>
+                            <p class="text-gray-600 leading-relaxed">Para quienes aman lo clásico, lo moderno, lo minimalista o lo expresivo.</p>
+                        </div>
+                        <div class="p-8 bg-amber-50 rounded-sm">
+                            <h4 class="font-serif text-xl text-gray-900 mb-3">Comodidad y confianza</h4>
+                            <p class="text-gray-600 leading-relaxed">Piezas diseñadas para sentirse tan bien como se ven: ligeras, equilibradas y pensadas para brillar junto a ti.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Misión Tab -->
+                <div id="content-mision" class="tab-content hidden">
+                    <h2 class="font-serif text-4xl md:text-5xl text-gray-900 mb-12 text-center">
+                        Nuestra Misión
+                    </h2>
+                    <div class="max-w-3xl mx-auto">
+                        <p class="text-xl md:text-2xl font-serif text-gray-900 leading-relaxed mb-8">
+                            En Munier, ofrecemos joyas de lujo accesible que celebran la diversidad de estilos, personalidades y sueños.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed mb-6">
+                            Creemos en el brillo interior de cada persona y en su derecho a expresarlo con elegancia todos los días. Con oro de 9K y 18K y diamantes de laboratorio, creamos piezas duraderas, conscientes y versátiles que acompañan la vida moderna sin miedo al desgaste.
+                        </p>
+                        <div class="p-8 bg-gray-900 text-white rounded-sm mt-8">
+                            <p class="font-serif text-lg md:text-xl leading-relaxed">
+                                Nuestra misión es <span class="text-yellow-300">empoderar y honrar la identidad</span> de quienes nos eligen, ofreciendo joyas que se sienten propias… porque cada quien es el protagonista de su propia historia.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manifiesto Tab -->
+                <div id="content-manifiesto" class="tab-content hidden">
+                    <h2 class="font-serif text-4xl md:text-5xl text-gray-900 mb-12 text-center">
+                        Manifiesto de Marca
+                    </h2>
+                    <div class="max-w-3xl mx-auto">
+                        <div class="space-y-6 font-serif text-xl md:text-2xl text-gray-900 leading-relaxed">
+                            <p>
+                                Creemos en el brillo que no se esconde.<br>
+                                <span class="text-yellow-700">En el lujo que se vive… no que se guarda.</span>
+                            </p>
+                            <p>
+                                Creemos en la persona que hace espacio para sus metas, que se mira al espejo y reconoce su fuerza, su sensibilidad, su ritmo, su estilo.
+                            </p>
+                            <p>
+                                Creemos que cada día tiene algo que celebrar:<br>
+                                un logro, un intento, una pausa. Un momento solo tuyo.
+                            </p>
+                            <p>
+                                Por eso creamos joyas que te acompañan:<br>
+                                al trabajo, a un café durante el día, a tu cita favorita contigo.<br>
+                                <span class="italic">Joyas que te hablan suave, pero dicen mucho.</span>
+                            </p>
+                            <p class="text-yellow-700 text-2xl md:text-3xl py-4">
+                                Munier no viene a darte valor.<br>
+                                Viene a recordarte del valor que ya posees.
+                            </p>
+                            <p>
+                                Porque cuando tú brillás, todo brilla contigo.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-12 pt-8 border-t border-gray-200 text-center">
+                            <p class="font-serif text-3xl tracking-wider text-gray-900">Munier</p>
+                            <p class="text-gray-600 mt-2">
+                                Piezas que brillan con tu luz cada día — lujo que te acompaña todos los días.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+function switchTab(tabName) {
+    // Ocultar todos los contenidos
+    const allContents = document.querySelectorAll('.tab-content');
+    allContents.forEach(content => {
+        content.classList.add('hidden');
+    });
+    
+    // Remover estilos activos de todos los botones
+    const allButtons = document.querySelectorAll('.tab-button');
+    allButtons.forEach(button => {
+        button.classList.remove('bg-gray-900', 'text-white');
+        button.classList.add('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-100');
+    });
+    
+    // Mostrar el contenido seleccionado con animación
+    const selectedContent = document.getElementById('content-' + tabName);
+    selectedContent.classList.remove('hidden');
+    selectedContent.style.animation = 'fadeIn 0.5s ease-in';
+    
+    // Activar el botón seleccionado
+    const selectedButton = document.getElementById('tab-' + tabName);
+    selectedButton.classList.add('bg-gray-900', 'text-white');
+    selectedButton.classList.remove('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-100');
+}
+</script>
+
+<style>
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-content {
+    animation: fadeIn 0.5s ease-in;
+}
+</style>
+
+{% schema %}
+{
+    "name": "Nosotros - Munier",
+    "class": "shopify-section--about-us",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Hero Section"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_hero",
+            "label": "Mostrar Hero",
+            "default": true
+        },
+        {
+            "type": "image_picker",
+            "id": "hero_image",
+            "label": "Imagen Hero"
+        },
+        {
+            "type": "text",
+            "id": "hero_title",
+            "label": "Título Hero",
+            "default": "Nosotros"
+        },
+        {
+            "type": "text",
+            "id": "hero_subtitle",
+            "label": "Subtítulo Hero",
+            "default": "Conoce nuestra historia"
+        },
+        {
+            "type": "paragraph",
+            "content": "Las tabs (Historia, Valores, Misión, Manifiesto) están hardcodeadas con el contenido de Munier. Para personalizar el contenido, edita directamente el archivo about-us.liquid"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Nosotros - Munier"
+        }
+    ]
+}
+{% endschema %}
