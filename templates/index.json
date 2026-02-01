@@ -142,43 +142,43 @@
         "faq-1": {
           "type": "faq_item",
           "settings": {
-            "question": "¿Qué Es El Oro De 9k?",
-            "answer": "El oro de 9k es una aleación de oro duradera y hermosa que ofrece el equilibrio perfecto entre elegancia y resistencia para el uso diario. Combina oro real mezclado con otros metales para crear una pieza fuerte y duradera, ideal para llevar todos los días."
+            "question": "🟡 ¿Qué es el oro 9K?",
+            "answer": "El oro de 9 kilates (9K) contiene 37.5 % de oro puro, combinado con otros metales como plata, cobre o zinc para crear una aleación más resistente. Esta composición hace que las joyas sean más duraderas para el uso diario, manteniendo su forma, brillo y elegancia con el paso del tiempo."
           }
         },
         "faq-2": {
           "type": "faq_item",
           "settings": {
-            "question": "¿Puedo Usar Mi Joyería Todos Los Días?",
-            "answer": "Sí, nuestras joyas de oro 9k están diseñadas específicamente para el uso diario. Son duraderas y resistentes."
+            "question": "✨ ¿Puedo usar mi pieza todos los días?",
+            "answer": "Sí. Las joyas Munier están diseñadas para acompañarte en tu rutina. El oro 9K y nuestros procesos de fabricación permiten que las piezas resistan el uso cotidiano, siempre que se sigan cuidados básicos para preservar su brillo."
           }
         },
         "faq-3": {
           "type": "faq_item",
           "settings": {
-            "question": "¿Es Su Joyería Hipoalergénica?",
-            "answer": "Sí, nuestras joyas son hipoalergénicas y seguras para pieles sensibles."
+            "question": "🤍 ¿Su joyería es hipoalergénica?",
+            "answer": "Sí. El oro 9K es un material noble y gentil con la piel, adecuado para la mayoría de personas, incluso pieles sensibles. Al no ser oro puro, su aleación está pensada para ofrecer mayor resistencia sin comprometer la comodidad."
           }
         },
         "faq-4": {
           "type": "faq_item",
           "settings": {
-            "question": "¿Cómo Debo Cuidar Mi Joyería?",
-            "answer": "Limpia tus joyas con un paño suave y guárdalas en un lugar seco cuando no las uses."
+            "question": "💎 ¿Cómo debo cuidar mi joyería?",
+            "answer": "Para mantener tu joya como nueva:\nEvitá el contacto directo con perfumes, cremas y productos químicos\nLimpiala suavemente con un baño de agua tibia y jabón suave. Puedes usar un cepillo de cerdas suaves (recomendamos los cepillos de dientes de bebe).\nGuardá cada pieza por separado en sus empaques originales para evitar rayaduras\nPuedes consultar nuestra Guía de Cuidado de Joyas para más detalles."
           }
         },
         "faq-5": {
           "type": "faq_item",
           "settings": {
-            "question": "¿Ofrecen Devoluciones O Cambios?",
-            "answer": "Sí, aceptamos devoluciones y cambios dentro de los 30 días de la compra."
+            "question": "🔁 ¿Ofrecen devoluciones o cambios?",
+            "answer": "Todas las compras en Munier son ventas finales, por lo que no ofrecemos devoluciones por preferencia personal. Sin embargo, entendemos que cambies de opinión, por ello ofrecemos a nuestros clientes la cortesia de poder cambiar su pieza por otra prenda de igual o mayor valor dentro de los primeros 5 dias de haber realizado su compra. Tus piezas cuentan con una garantía de 3 años que cubre reparaciones por daños derivados del uso normal y diario."
           }
         },
         "faq-6": {
           "type": "faq_item",
           "settings": {
-            "question": "¿Cuánto Tardará Mi Pedido En Llegar?",
-            "answer": "Los pedidos generalmente llegan en 5-7 días hábiles."
+            "question": "📦 ¿Cuánto tardará mi pedido en llegar?",
+            "answer": "Los pedidos se procesan y se envian en 1 a 2 días hábiles  para entras en la ciudad de panama (panama centro y ciudad radial) una vez confirmado el pago.\nPara envíos al interior del país el tiempo de entrega estimado son de 3 a 5 días hábiles dependiendo de la ubicación."
           }
         }
       },
@@ -192,7 +192,7 @@
       ],
       "settings": {
         "title": "Preguntas Frecuentes",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+        "description": "",
         "show_contact_field": true,
         "contact_placeholder": "Tienes otras preguntas? Dejanos un mensaje",
         "contact_button_text": "PREGUNTAS",
