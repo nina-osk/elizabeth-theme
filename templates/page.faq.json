@@ -6,6 +6,7 @@
         "faq-1": {
           "type": "faq_item",
           "settings": {
+            "icon": "💎",
             "question": "¿Qué materiales utilizan en sus joyas?",
             "answer": "Utilizamos oro de 9K y 18K de la más alta calidad, acompañado de diamantes de laboratorio éticos y brillantes. Todos nuestros materiales son nobles y duraderos, pensados para acompañarte día a día sin perder su brillo."
           }
@@ -13,6 +14,7 @@
         "faq-2": {
           "type": "faq_item",
           "settings": {
+            "icon": "📦",
             "question": "¿Cuál es el tiempo de entrega?",
             "answer": "El tiempo de entrega estándar es de 3-5 días hábiles dentro del área metropolitana. Para envíos internacionales, el tiempo puede variar entre 7-15 días hábiles dependiendo del destino."
           }
@@ -20,6 +22,7 @@
         "faq-3": {
           "type": "faq_item",
           "settings": {
+            "icon": "✅",
             "question": "¿Ofrecen garantía en sus productos?",
             "answer": "Sí, todas nuestras joyas cuentan con una garantía de 1 año contra defectos de fabricación. Esta garantía cubre problemas de calidad pero no incluye daños por uso inadecuado o desgaste normal."
           }
@@ -27,6 +30,7 @@
         "faq-4": {
           "type": "faq_item",
           "settings": {
+            "icon": "🔄",
             "question": "¿Puedo devolver o cambiar un producto?",
             "answer": "Aceptamos devoluciones y cambios dentro de los 30 días posteriores a la compra. El producto debe estar en su estado original, sin uso y con todas sus etiquetas. Los costos de envío de devolución corren por cuenta del cliente."
           }
@@ -34,6 +38,7 @@
         "faq-5": {
           "type": "faq_item",
           "settings": {
+            "icon": "✨",
             "question": "¿Cómo debo cuidar mis joyas?",
             "answer": "Para mantener el brillo de tus joyas, recomendamos guardarlas en un lugar seco cuando no las uses, evitar el contacto con perfumes y productos químicos, y limpiarlas suavemente con un paño suave. Nuestras piezas están diseñadas para uso diario, pero un cuidado adecuado prolonga su vida útil."
           }
@@ -41,6 +46,7 @@
         "faq-6": {
           "type": "faq_item",
           "settings": {
+            "icon": "💍",
             "question": "¿Los diamantes de laboratorio son auténticos?",
             "answer": "Sí, los diamantes de laboratorio son diamantes reales con las mismas propiedades físicas, químicas y ópticas que los diamantes naturales. Son éticos, sostenibles y más accesibles, sin comprometer la calidad ni el brillo."
           }
@@ -48,6 +54,7 @@
         "faq-7": {
           "type": "faq_item",
           "settings": {
+            "icon": "🌎",
             "question": "¿Hacen envíos internacionales?",
             "answer": "Sí, realizamos envíos a la mayoría de países. Los costos y tiempos de entrega varían según el destino. Durante el proceso de compra podrás ver las opciones de envío disponibles para tu ubicación."
           }
@@ -55,6 +62,7 @@
         "faq-8": {
           "type": "faq_item",
           "settings": {
+            "icon": "🖊️",
             "question": "¿Ofrecen servicio de grabado personalizado?",
             "answer": "Actualmente no ofrecemos servicio de grabado, pero estamos trabajando para incluirlo pronto. Mantente atento a nuestras actualizaciones."
           }
@@ -71,9 +79,7 @@
         "faq-8"
       ],
       "settings": {
-        "show_hero": true,
-        "hero_title": "Preguntas Frecuentes",
-        "hero_subtitle": "Encuentra respuestas a tus dudas sobre Munier",
+        "subtitle": "Resolvemos tus dudas",
         "show_cta": true,
         "cta_title": "¿No encontraste tu respuesta?",
         "cta_text": "Estamos aquí para ayudarte. Contáctanos y resolveremos todas tus dudas.",
