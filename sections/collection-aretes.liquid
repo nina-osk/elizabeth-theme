@@ -11,20 +11,8 @@
 <div class="w-full bg-white py-12 md:py-16 lg:py-20 mb-12 md:mb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-32">
         
-        {% comment %} Obtenemos todos los productos y filtramos por tag {% endcomment %}
+        {% comment %} Obtenemos todos los productos {% endcomment %}
         {% assign all_products = collections.all.products %}
-        {% assign aretes_products = "" | split: "" %}
-        
-        {% for product in all_products %}
-            {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
-            {% for tag in product_tags_lower %}
-                {% assign tag_trimmed = tag | strip %}
-                {% if tag_trimmed == target_tag_lower %}
-                    {% assign aretes_products = aretes_products | concat: product %}
-                    {% break %}
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
         
             <!-- Encabezado de la sección -->
             <div class="text-center mb-8 md:mb-12">
@@ -65,36 +53,45 @@
             </div>
 
             <!-- Grid de productos - 4 columnas -->
-            {% comment %} DEBUG: Mostrar información {% endcomment %}
-            <div class="text-center mb-4 p-4 bg-yellow-50 rounded text-left max-w-4xl mx-auto">
-                <p class="text-sm text-gray-700">
-                    <strong>Debug Detallado:</strong><br>
-                    Tag buscado: "<strong>{{ target_tag }}</strong>" (minúsculas: "<strong>{{ target_tag_lower }}</strong>")<br>
-                    Total productos en colección "all": <strong>{{ all_products.size }}</strong><br>
-                    Productos filtrados con tag "{{ target_tag }}": <strong>{{ aretes_products.size }}</strong><br><br>
-                    {% if all_products.size > 0 %}
-                        <strong>Primeros 5 productos y sus tags:</strong><br>
-                        {% for product in all_products limit: 5 %}
-                            {{ forloop.index }}. <strong>{{ product.title }}</strong><br>
-                            &nbsp;&nbsp;Tags: {{ product.tags | join: ', ' }}<br>
-                        {% endfor %}
+            {% comment %} Contar productos que tienen el tag {% endcomment %}
+            {% assign aretes_count = 0 %}
+            {% for product in all_products %}
+                {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
+                {% for tag in product_tags_lower %}
+                    {% assign tag_trimmed = tag | strip %}
+                    {% if tag_trimmed == target_tag_lower %}
+                        {% assign aretes_count = aretes_count | plus: 1 %}
+                        {% break %}
                     {% endif %}
-                </p>
-            </div>
+                {% endfor %}
+            {% endfor %}
             
-            {% if aretes_products.size > 0 %}
+            {% if aretes_count > 0 %}
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" id="products-grid">
-                    {% for product in aretes_products %}
-                        {% assign product_tags = product.tags | join: ',' | downcase %}
-                        <div class="product-item" data-tags="{{ product_tags }}">
-                            {% render 'product-card', product_product: product %}
-                        </div>
+                    {% for product in all_products %}
+                        {% comment %} Verificar si el producto tiene el tag {% endcomment %}
+                        {% assign has_tag = false %}
+                        {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
+                        {% for tag in product_tags_lower %}
+                            {% assign tag_trimmed = tag | strip %}
+                            {% if tag_trimmed == target_tag_lower %}
+                                {% assign has_tag = true %}
+                                {% break %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if has_tag %}
+                            {% assign product_tags = product.tags | join: ',' | downcase %}
+                            <div class="product-item" data-tags="{{ product_tags }}">
+                                {% render 'product-card', product_product: product %}
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
 
                 <!-- Contador de productos visibles -->
                 <div class="mt-8 text-center text-sm text-gray-500">
-                    <span id="visible-count">{{ aretes_products.size }}</span> productos encontrados
+                    <span id="visible-count">{{ aretes_count }}</span> productos encontrados
                 </div>
             {% else %}
                 <!-- Estado vacío -->
