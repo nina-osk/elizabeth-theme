@@ -5,10 +5,10 @@
             {% if product_product.featured_image %}
                 <img 
                     class="w-full h-full object-contain" 
-                    src="{{ product_product.featured_image | image_url: width: 500 }}" 
+                    src="{{ product_product.featured_image | image_url: width: 800 }}" 
                     alt="{{ product_product.featured_image.alt }}" 
-                    width="500" 
-                    height="500" 
+                    width="800" 
+                    height="800" 
                     loading="lazy"
                 >
             {% else %}
