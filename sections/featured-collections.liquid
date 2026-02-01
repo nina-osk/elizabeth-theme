@@ -11,272 +11,80 @@
       </h2>
     </div>
 
-    <!-- Collection Filter Buttons -->
+    <!-- Collection Cards -->
     {% if section.blocks.size > 0 %}
-      <div class="flex flex-wrap justify-center gap-4 mb-12" role="tablist" aria-label="Filter by collection">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; max-width: 1280px; margin: 0 auto;">
         {% for block in section.blocks %}
           {% assign collection_item = collections[block.settings.collection] %}
           {% if collection_item %}
-            <button 
-              class="collection-filter-btn px-8 py-2.5 font-medium text-sm uppercase tracking-wider transition-all duration-300 focus:outline-none border-2"
-              data-collection-handle="{{ collection_item.handle }}"
-              data-block-id="{{ block.id }}"
-              role="tab"
-              aria-selected="false"
-              {{ block.shopify_attributes }}>
-              {{ collection_item.title }}
-            </button>
+            <div style="position: relative; height: 500px; overflow: hidden; border-radius: 8px;" {{ block.shopify_attributes }}>
+              <!-- Background Image -->
+              {% if collection_item.image %}
+                <img src="{{ collection_item.image | image_url: width: 800 }}" 
+                     alt="{{ collection_item.title }}" 
+                     style="position: absolute; width: 100%; height: 100%; object-fit: cover;">
+              {% elsif collection_item.products.first.featured_image %}
+                <img src="{{ collection_item.products.first.featured_image | image_url: width: 800 }}" 
+                     alt="{{ collection_item.title }}" 
+                     style="position: absolute; width: 100%; height: 100%; object-fit: cover;">
+              {% else %}
+                <div style="position: absolute; width: 100%; height: 100%; background-color: #333;"></div>
+              {% endif %}
+              
+              <!-- Dark Overlay -->
+              <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));"></div>
+              
+              <!-- Content -->
+              <div style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; color: white;">
+                <p style="font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; color: #D4A574; margin-bottom: 1rem;">
+                  {{ block.settings.subtitle | default: "LA LUZ QUE ELIGES LLEVAR" | upcase }}
+                </p>
+                <h3 style="font-family: Georgia, serif; font-size: 2.5rem; font-weight: 400; color: white; margin-bottom: 1rem; line-height: 1.2;">
+                  {{ collection_item.title }}
+                </h3>
+                <p style="font-size: 0.9375rem; color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; line-height: 1.6;">
+                  {{ block.settings.description | default: collection_item.description | strip_html | truncate: 100 }}
+                </p>
+                <a href="{{ collection_item.url }}" 
+                   style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: #D4A574; text-decoration: none; transition: transform 0.3s;">
+                  VER COLECCIÓN
+                  <svg style="width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
           {% endif %}
         {% endfor %}
       </div>
     {% endif %}
 
-    <!-- Products Grid -->
-    <div class="products-grid-container max-w-6xl mx-auto">
-      {% for block in section.blocks %}
-        {% assign collection_item = collections[block.settings.collection] %}
-        {% if collection_item %}
-          <div 
-            class="collection-products-group hidden"
-            data-collection-handle="{{ collection_item.handle }}"
-            data-block-id="{{ block.id }}">
-            
-            {% if collection_item.products.size > 0 %}
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-                {% for product in collection_item.products limit: section.settings.number_of_products_to_show %}
-                  <div class="product-card bg-white overflow-hidden transition-all duration-300 hover:shadow-lg max-w-sm mx-auto w-full">
-                    
-                    <!-- Product Image -->
-                    <div class="relative w-full" style="padding-bottom: 100%;">
-                      <div class="absolute inset-0 bg-gray-50 overflow-hidden group">
-                        <a href="{{ product.url }}" class="block w-full h-full">
-                          {% if product.featured_image %}
-                            {{ product.featured_image | image_url: width: 400 | image_tag: 
-                              alt: product.title, 
-                              class: 'w-full h-full object-cover transition-transform duration-500',
-                              loading: 'lazy'
-                            }}
-                          {% else %}
-                            {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
-                          {% endif %}
-                        </a>
-
-                        <!-- Badges - Top Left -->
-                        <div class="absolute top-2 left-2 flex gap-1 z-10">
-                          {% if product.compare_at_price > product.price %}
-                            {% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
-                            <span class="bg-black text-white text-xs font-bold px-2 py-0.5">
-                              -{{ discount }}%
-                            </span>
-                          {% endif %}
-                          
-                          {% if product.tags contains 'sale' or product.tags contains 'oferta' %}
-                            <span class="bg-orange-400 text-white text-xs font-bold px-2 py-0.5">
-                              SALE
-                            </span>
-                          {% endif %}
-                        </div>
-
-                        <!-- Add to Cart Button - Always visible on mobile, hover on desktop -->
-                        <div class="absolute bottom-0 left-0 right-0 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 z-20">
-                          <form action="/cart/add" method="post" class="add-to-cart-form">
-                            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                            <button 
-                              type="submit"
-                              class="w-full bg-black text-white font-medium py-2.5 px-4 hover:bg-gray-800 transition-colors text-xs uppercase tracking-wide"
-                              {% unless product.available %}disabled{% endunless %}>
-                              {% if product.available %}
-                                ADD TO CART
-                              {% else %}
-                                SOLD OUT
-                              {% endif %}
-                            </button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Product Info -->
-                    <div class="p-4 text-left">
-                      <!-- Star Rating with number -->
-                      <div class="flex items-center gap-0.5 mb-2">
-                        {% for i in (1..5) %}
-                          <svg class="w-2 h-2 fill-current" style="color: #FFA500;" viewBox="0 0 20 20">
-                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                          </svg>
-                        {% endfor %}
-                        <span class="text-xs text-gray-600 ml-1">3.2</span>
-                      </div>
-
-                      <!-- Product Title -->
-                      <a href="{{ product.url }}" class="block font-normal text-gray-900 hover:text-gray-600 transition-colors mb-2 text-base leading-snug">
-                        {{ product.title }}
-                      </a>
-
-                      <!-- Price -->
-                      <div class="flex items-center gap-2">
-                        <span class="text-gray-600 text-sm">From:</span>
-                        {% if product.compare_at_price > product.price %}
-                          <span class="text-gray-900 font-semibold text-base">
-                            {{ product.price | money }}
-                          </span>
-                          <span class="text-gray-400 line-through text-sm">
-                            {{ product.compare_at_price | money }}
-                          </span>
-                        {% else %}
-                          <span class="text-gray-900 font-semibold text-base">
-                            {{ product.price | money }}
-                          </span>
-                        {% endif %}
-                      </div>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
-            {% else %}
-              <!-- Empty State -->
-              <div class="text-center py-16">
-                <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
-                </svg>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                  No hay productos en esta colección
-                </h3>
-                <p class="text-gray-600">
-                  Esta colección está vacía actualmente
-                </p>
-              </div>
-            {% endif %}
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-
   </div>
 </div>
 
 <script>
+// Hover effects for collection cards
 document.addEventListener('DOMContentLoaded', function() {
-  const filterButtons = document.querySelectorAll('.collection-filter-btn');
-  const productGroups = document.querySelectorAll('.collection-products-group');
-
-  console.log('Filter buttons found:', filterButtons.length);
-  console.log('Product groups found:', productGroups.length);
-
-  if (filterButtons.length === 0) {
-    console.warn('No filter buttons found');
-    return;
-  }
-
-  // Style constants - Matching Figma design
-  const activeClasses = 'bg-orange-400 text-white border-orange-400';
-  const inactiveClasses = 'bg-white text-gray-900 border-gray-300 hover:border-orange-400';
-
-  function showCollection(handle) {
-    console.log('Showing collection:', handle);
+  const cards = document.querySelectorAll('[style*="position: relative; height: 500px"]');
+  
+  cards.forEach(card => {
+    const link = card.querySelector('a[style*="display: inline-flex"]');
     
-    // Update buttons
-    filterButtons.forEach(btn => {
-      const isActive = btn.dataset.collectionHandle === handle;
-      
-      if (isActive) {
-        btn.className = 'collection-filter-btn px-8 py-2.5 font-medium text-sm uppercase tracking-wider transition-all duration-300 focus:outline-none border-2 ' + activeClasses;
-        btn.setAttribute('aria-selected', 'true');
-      } else {
-        btn.className = 'collection-filter-btn px-8 py-2.5 font-medium text-sm uppercase tracking-wider transition-all duration-300 focus:outline-none border-2 ' + inactiveClasses;
-        btn.setAttribute('aria-selected', 'false');
-      }
-    });
-
-    // Update product groups
-    let foundMatch = false;
-    productGroups.forEach(group => {
-      console.log('Group handle:', group.dataset.collectionHandle);
-      if (group.dataset.collectionHandle === handle) {
-        group.classList.remove('hidden');
-        foundMatch = true;
-        console.log('Showing group:', handle);
-      } else {
-        group.classList.add('hidden');
+    card.addEventListener('mouseenter', function() {
+      if (link) {
+        link.style.transform = 'translateX(5px)';
       }
     });
     
-    if (!foundMatch) {
-      console.warn('No matching collection group found for:', handle);
-    }
-  }
-
-  // Button click handlers
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const handle = this.dataset.collectionHandle;
-      console.log('Button clicked:', handle);
-      showCollection(handle);
-    });
-  });
-
-  // Show first collection by default
-  if (filterButtons.length > 0) {
-    const firstHandle = filterButtons[0].dataset.collectionHandle;
-    console.log('Initializing with first collection:', firstHandle);
-    showCollection(firstHandle);
-  }
-
-  // Add to cart form handling
-  const addToCartForms = document.querySelectorAll('.add-to-cart-form');
-  addToCartForms.forEach(form => {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const formData = new FormData(this);
-      const button = this.querySelector('button[type="submit"]');
-      const originalText = button.innerHTML;
-      
-      button.disabled = true;
-      button.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
-
-      fetch('/cart/add.js', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        button.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ADDED!';
-        
-        setTimeout(() => {
-          button.disabled = false;
-          button.innerHTML = originalText;
-        }, 2000);
-
-        // Trigger cart update event
-        document.dispatchEvent(new CustomEvent('cart:updated'));
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        button.disabled = false;
-        button.innerHTML = originalText;
-        alert('Error al agregar al carrito');
-      });
+    card.addEventListener('mouseleave', function() {
+      if (link) {
+        link.style.transform = 'translateX(0)';
+      }
     });
   });
 });
 </script>
 
-<style>
-  @media (max-width: 1023px) {
-    .product-card .add-to-cart-form {
-      opacity: 1;
-      position: static;
-    }
-  }
-  
-  /* Ensure first button is active by default */
-  .collection-filter-btn:first-child {
-    background-color: #fb923c;
-    color: white;
-    border-color: #fb923c;
-  }
-</style>
 
 {% schema %}
 {
@@ -293,15 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "title",
       "default": "Nuestras Colecciones",
       "label": "Título"
-    },
-    {
-      "type": "range",
-      "id": "number_of_products_to_show",
-      "min": 4,
-      "max": 24,
-      "step": 4,
-      "default": 8,
-      "label": "Productos por colección"
     }
   ],
   "blocks": [
@@ -313,6 +112,18 @@ document.addEventListener('DOMContentLoaded', function() {
           "type": "collection",
           "id": "collection",
           "label": "Seleccionar colección"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtítulo",
+          "default": "LA LUZ QUE ELIGES LLEVAR"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descripción personalizada",
+          "info": "Opcional - deja vacío para usar la descripción de la colección"
         }
       ]
     }
