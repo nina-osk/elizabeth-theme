@@ -25,7 +25,7 @@
 
         <!-- Product Information -->
         <div style="grid-column: 1 / -1; max-width: 700px; margin: 0 auto; width: 100%;">
-            {% form 'product', product %}
+            {% form 'product', product, id: 'product-form' %}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                 
                 {% for block in section.blocks %}
@@ -41,7 +41,7 @@
                             </div>
                             
                         {% when 'price' %}
-                            <div style="margin-bottom: 1.5rem;">
+                            <div style="margin-bottom: 1.5rem;" id="price-{{ section.id }}">
                                 {% if selected_variant.compare_at_price > selected_variant.price %}
                                     <span style="font-size: 0.9375rem; color: #999; text-decoration: line-through; margin-right: 0.75rem;">{{ selected_variant.compare_at_price | money }}</span>
                                 {% endif %}
@@ -87,7 +87,7 @@
                         {% when 'variant_selector' %}
                             <div style="margin-bottom: 1.5rem;">
                                 {% unless product.has_only_default_variant %}
-                                    <div data-url="{{ product.url}}" data-section="{{ section.id }}">
+                                    <variant-selector data-url="{{ product.url}}" data-section="{{ section.id }}">
                                         {% for option in product.options_with_values %}
                                             <label for="Option-{{ section.id }}-{{ forloop.index0 }}" style="display: block; font-size: 0.875rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.5rem;">{{ option.name }}</label>
                                             <div style="margin-bottom: 1rem;">
@@ -107,12 +107,12 @@
                                                 </select>
                                             </div>
                                         {% endfor %}
-                                    </div>
+                                        <script type="application/json">
+                                        {{ product.variants | json }}
+                                        </script>
+                                    </variant-selector>
                                 {% endunless %}
                             </div>
-                            <script type="application/json">
-                            {{ product.variants | json }}
-                            </script>
 
                         {% when 'quantity' %}
                             <div style="margin-bottom: 1.5rem;">
