@@ -9,8 +9,10 @@
         <div class="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
             {% if section.settings.hero_image != blank %}
                 <img 
-                    src="{{ section.settings.hero_image | img_url: '2000x' }}" 
+                    src="{{ section.settings.hero_image | image_url: width: 2000 }}" 
                     alt="{{ section.settings.hero_title }}"
+                    width="2000"
+                    height="1200"
                     class="w-full h-full object-cover"
                     loading="lazy"
                 >

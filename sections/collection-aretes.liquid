@@ -1,19 +1,17 @@
 {% comment %}
   Este template muestra productos filtrados por el tag "aretes"
-  usando una colección automática de Shopify basada en ese tag
+  desde todos los productos de la tienda
   y luego permite filtrar por subtags: stud, huggies
 {% endcomment %}
 
-{% comment %} Obtener la colección que debe estar configurada con filtro automático de tag "aretes" {% endcomment %}
+{% comment %} Tag principal para filtrar productos {% endcomment %}
 {% assign target_tag = section.settings.filter_tag | default: "aretes" %}
-{% assign collection_handle = section.settings.collection_handle | default: "aretes" %}
-{% assign target_collection = collections[collection_handle] %}
 
 <div class="w-full bg-white py-12 md:py-16 lg:py-20 mb-12 md:mb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-32">
         
-        {% comment %} Usamos la colección que debe tener productos filtrados por tag "aretes" {% endcomment %}
-        {% paginate target_collection.products by section.settings.products_per_page %}
+        {% comment %} Paginamos todos los productos y filtramos por tag dentro del loop {% endcomment %}
+        {% paginate collections.all.products by 50 %}
         
             <!-- Encabezado de la sección -->
             <div class="text-center mb-8 md:mb-12">
@@ -54,11 +52,18 @@
             </div>
 
             <!-- Grid de productos - 4 columnas -->
-            {% comment %} Verificamos que la colección tenga productos con el tag {% endcomment %}
-            {% if paginate.items.size > 0 %}
+            {% comment %} Contamos productos que tienen el tag "aretes" {% endcomment %}
+            {% assign aretes_count = 0 %}
+            {% for product in paginate.items %}
+                {% if product.tags contains target_tag %}
+                    {% assign aretes_count = aretes_count | plus: 1 %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if aretes_count > 0 %}
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" id="products-grid">
                     {% for product in paginate.items %}
-                        {% comment %} Verificamos que el producto tenga el tag principal {% endcomment %}
+                        {% comment %} Solo mostramos productos con el tag "aretes" {% endcomment %}
                         {% if product.tags contains target_tag %}
                             {% assign product_tags = product.tags | join: ',' | downcase %}
                             <div class="product-item" data-tags="{{ product_tags }}">
@@ -70,7 +75,7 @@
 
                 <!-- Contador de productos visibles -->
                 <div class="mt-8 text-center text-sm text-gray-500">
-                    <span id="visible-count">{{ paginate.items.size }}</span> productos encontrados
+                    <span id="visible-count">{{ aretes_count }}</span> productos encontrados
                 </div>
 
                 <!-- Paginación -->
@@ -171,21 +176,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 {% schema %}
 {
-    "name": "Colección Aretes (por Tag)",
+    "name": "Aretes (Filtrado por Tag)",
     "class": "shopify-section--aretes",
     "settings": [
-        {
-            "type": "collection",
-            "id": "collection_handle",
-            "label": "Colección",
-            "info": "Selecciona una colección AUTOMÁTICA configurada con el tag 'aretes'. Si no existe, créala en Shopify: Productos > Colecciones > Nueva colección > Automática > Condiciones: Tag es igual a 'aretes'"
-        },
         {
             "type": "text",
             "id": "filter_tag",
             "label": "Tag para filtrar",
             "default": "aretes",
-            "info": "Tag principal para filtrar productos (debe coincidir con el tag de la colección automática)"
+            "info": "Muestra solo productos que tengan este tag. Asegúrate de etiquetar tus productos con 'aretes'"
         },
         {
             "type": "text",
@@ -200,17 +199,8 @@ document.addEventListener('DOMContentLoaded', function() {
             "info": "Descripción opcional para mostrar debajo del título"
         },
         {
-            "type": "range",
-            "id": "products_per_page",
-            "min": 8,
-            "max": 48,
-            "step": 4,
-            "label": "Productos por página",
-            "default": 12
-        },
-        {
             "type": "paragraph",
-            "content": "⚠️ IMPORTANTE: Esta sección requiere una colección AUTOMÁTICA en Shopify con el tag 'aretes'. Los botones de filtro (Stud, Huggies) funcionan con JavaScript en el frontend filtrando por subtags."
+            "content": "✅ Esta sección muestra TODOS los productos filtrados por el tag 'aretes'. Los botones de filtro (Stud, Huggies) funcionan en el frontend filtrando por subtags adicionales. Etiqueta tus productos con: 'aretes' y opcionalmente 'stud' o 'huggies'."
         }
     ]
 }
