@@ -1,13 +1,25 @@
-<div class="w-full bg-white">
-  <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-32 py-12 md:py-16 lg:py-20">
+<div style="width: 100%; background-color: #F5F1E8;">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 6rem 2rem 3rem;">
     <!-- Header -->
-    <div class="text-center mb-8 md:mb-12 lg:mb-16">
-      <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800 mb-2 md:mb-3 px-8 md:px-16 lg:px-24 leading-relaxed">
-        {{ section.settings.title }}
-      </h2>
-      <p class="text-xs md:text-sm text-gray-500">
-        {{ section.settings.subtitle }}
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; color: #8B7355; margin-bottom: 2.5rem;">
+        {{ section.settings.header_small | default: "SOMOS MUNIER" }}
       </p>
+      
+      <div style="max-width: 950px; margin: 0 auto 3rem;">
+        <h2 style="font-family: Georgia, serif; font-size: 2rem; line-height: 1.6; color: #2d2d2d; font-weight: 400;">
+          {{ section.settings.quote_part1 }}
+          <span style="font-style: italic; color: #D4A574;">{{ section.settings.quote_highlight }}</span>{{ section.settings.quote_part2 }}
+        </h2>
+      </div>
+      
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 4rem;">
+        <div style="width: 4rem; height: 1px; background-color: #D4A574;"></div>
+        <p style="font-family: Georgia, serif; font-style: italic; color: #D4A574; font-size: 1.25rem;">
+          {{ section.settings.signature | default: "Munier" }}
+        </p>
+        <div style="width: 4rem; height: 1px; background-color: #D4A574;"></div>
+      </div>
     </div>
 
     <!-- Carousel Container -->
@@ -483,8 +495,36 @@
 {
   "name": "Categories Showcase",
   "settings": [
-    { "type": "text", "id": "title", "label": "Título", "default": "Diseños Únicos Y Elegantes Para Tu Día a Día" },
-    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Próximos elementos básicos en tu rotación" },
+    {
+      "type": "text",
+      "id": "header_small",
+      "label": "Encabezado Pequeño",
+      "default": "SOMOS MUNIER"
+    },
+    {
+      "type": "textarea",
+      "id": "quote_part1",
+      "label": "Texto de la cita (Parte 1 - antes de la palabra destacada)",
+      "default": "\"Somos Munier, una joyeria panameña creada para celebrar lo que te hace "
+    },
+    {
+      "type": "text",
+      "id": "quote_highlight",
+      "label": "Palabra destacada (en dorado itálico)",
+      "default": "auténtica"
+    },
+    {
+      "type": "textarea",
+      "id": "quote_part2",
+      "label": "Texto de la cita (Parte 2 - después de la palabra destacada)",
+      "default": ". Diseñamos piezas en oro 9K con diamantes de laboratorio —duraderas, elegantes y conscientes— hechas para vivir contigo, no para quedarse guardadas.\""
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Firma",
+      "default": "Munier"
+    },
     
     { "type": "text", "id": "category_1_label", "label": "Categoría 1 - Etiqueta", "default": "Aretes" },
     { "type": "product", "id": "category_1_product", "label": "Categoría 1 - Producto" },
