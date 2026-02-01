@@ -1,6 +1,7 @@
-{% assign selected_collection = collections[section.settings.collection_handle] %}
-{% if selected_collection == blank %}
+{% if collection != blank %}
   {% assign selected_collection = collection %}
+{% else %}
+  {% assign selected_collection = collections[section.settings.collection_handle] %}
 {% endif %}
 
 <div class="w-full bg-white py-12 md:py-16 lg:py-20 mb-12 md:mb-16">
