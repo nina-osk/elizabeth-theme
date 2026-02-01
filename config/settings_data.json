@@ -19,7 +19,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo": "shopify://shop_images/logo.jpg",
+          "logo": "shopify://shop_images/logo-removebg-preview.png",
           "announcement_text": "Best Special Offers Every Week. 40% Off! Free Delivery Time.",
           "menu": "main-menu-1",
           "mobile_menu_label": "Menú"
@@ -27,37 +27,7 @@
       },
       "footer": {
         "type": "footer",
-        "blocks": {
-          "info_item_h7bRFj": {
-            "type": "info_item",
-            "settings": {
-              "icon_type": "question",
-              "title": "Having Quires ?",
-              "description": "Nullam pulvinar egestas torto venenatis dolor rutrum non."
-            }
-          }
-        },
-        "block_order": [
-          "info_item_h7bRFj"
-        ],
-        "settings": {
-          "footer_logo": "shopify://shop_images/logo_1.jpg",
-          "brand_description": "Piezas que brillan con tu luz cada día — lujo que te acompaña todos los días.\n\nTú eres la ocasión especial.",
-          "categories_title": "Explorar",
-          "categories_menu": "footer",
-          "resources_title": "",
-          "resources_menu": "",
-          "useful_links_title": "",
-          "useful_links_menu": "",
-          "newsletter_title": "Subscribete a nuestra Newsletter",
-          "newsletter_description": "",
-          "newsletter_placeholder": "Your mail",
-          "instagram_url": "",
-          "facebook_url": "",
-          "twitter_url": "",
-          "youtube_url": "",
-          "pinterest_url": ""
-        }
+        "settings": {}
       }
     },
     "content_for_index": []
