@@ -52,12 +52,18 @@
             </div>
 
             <!-- Grid de productos - 4 columnas -->
-            {% comment %} Contamos productos que tienen el tag "aretes" {% endcomment %}
+            {% comment %} Contamos productos que tienen el tag "aretes" (insensible a mayúsculas) {% endcomment %}
             {% assign aretes_count = 0 %}
+            {% assign target_tag_lower = target_tag | downcase %}
             {% for product in paginate.items %}
-                {% if product.tags contains target_tag %}
-                    {% assign aretes_count = aretes_count | plus: 1 %}
-                {% endif %}
+                {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
+                {% for tag in product_tags_lower %}
+                    {% assign tag_trimmed = tag | strip %}
+                    {% if tag_trimmed == target_tag_lower %}
+                        {% assign aretes_count = aretes_count | plus: 1 %}
+                        {% break %}
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
             
             {% comment %} DEBUG: Mostrar información {% endcomment %}
@@ -73,8 +79,18 @@
             {% if aretes_count > 0 %}
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" id="products-grid">
                     {% for product in paginate.items %}
-                        {% comment %} Solo mostramos productos con el tag "aretes" {% endcomment %}
-                        {% if product.tags contains target_tag %}
+                        {% comment %} Solo mostramos productos con el tag "aretes" (insensible a mayúsculas) {% endcomment %}
+                        {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
+                        {% assign show_product = false %}
+                        {% for tag in product_tags_lower %}
+                            {% assign tag_trimmed = tag | strip %}
+                            {% if tag_trimmed == target_tag_lower %}
+                                {% assign show_product = true %}
+                                {% break %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if show_product %}
                             {% assign product_tags = product.tags | join: ',' | downcase %}
                             <div class="product-item" data-tags="{{ product_tags }}">
                                 {% render 'product-card', product_product: product %}
