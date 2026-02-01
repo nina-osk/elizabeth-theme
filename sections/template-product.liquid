@@ -2,100 +2,106 @@
 
 {% assign selected_variant = product.selected_or_first_available_variant %}
 
-<style>
-    .swiper-button-prev, .swiper-button-next {
-        color: #000; 
-        top: 80% !important; 
-        height: 40px;
-        width: 40px;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 50%;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    .swiper-button-prev::after, .swiper-button-next::after {
-        font-size: 20px;
-        font-weight: bold;
-    }
-    .swiper-button-prev:hover, .swiper-button-next:hover {
-        background: rgba(255, 255, 255, 1);
-    }
-    .swiper-pagination {
-        bottom: 10px !important;
-    }
-    .swiper-pagination-bullet {
-        background: #000;
-        opacity: 0.5;
-    }
-    .swiper-pagination-bullet-active {
-        opacity: 1;
-    }
-    .product--information {
-        height: fit-content; 
-    }
-</style>
-<div class="max-w-6xl mx-auto my-8 px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="product--medias">
-            <!-- Product Image Carousel -->
-            <div class="swiper desktop-swiper border-2 border-gray-200 rounded-lg overflow-hidden shadow-lg" style="height: 600px;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 2rem 1rem; background-color: #F5F1E8;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 3rem;">
+        
+        <!-- Product Images Carousel -->
+        <div style="grid-column: 1 / -1;">
+            <div class="swiper desktop-swiper" style="border: 1px solid #e5e7eb; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); height: 600px; background-color: white;">
                 <div class="swiper-wrapper">
                     {% for media in product.media %}
                         <div class="swiper-slide">
-                            <div class="h-full w-full flex items-center justify-center bg-white p-4">
+                            <div style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; background-color: white; padding: 1rem;">
                                 {% render 'product-media', media: media %}
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-                <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
         </div>
 
-
-     <div class="product--information sticky top-5 p-2">
+        <!-- Product Information -->
+        <div style="grid-column: 1 / -1; max-width: 700px; margin: 0 auto; width: 100%;">
             {% form 'product', product %}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                               {% for block in section.blocks %}
+                
+                {% for block in section.blocks %}
                     {% case block.type %}
                         {% when 'vendor' %}
-                            <div class="my-3">
-                                <span class="text-xs text-gray-500">{{ product.vendor }}</span>
+                            <div style="margin-bottom: 0.5rem;">
+                                <span style="font-size: 0.75rem; color: #8B7355; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">{{ product.vendor }}</span>
                             </div>
+                            
                         {% when 'title' %}
-                            <div class="my-3">
-                                <h1 class="text-3xl text-gray-900">{{ product.title }}</h1>
+                            <div style="margin-bottom: 1.5rem;">
+                                <h1 style="font-family: Georgia, serif; font-size: 2rem; color: #2d2d2d; font-weight: 400; line-height: 1.2;">{{ product.title }}</h1>
                             </div>
+                            
                         {% when 'price' %}
-                            <div class="my-3">
-                                <span class="text-base text-gray-500 line-through">{{ selected_variant.compare_at_price | money }}</span>
-                                <span class="text-lg text-gray-900">{{ selected_variant.price | money }}</span>
-
+                            <div style="margin-bottom: 1.5rem;">
+                                {% if selected_variant.compare_at_price > selected_variant.price %}
+                                    <span style="font-size: 0.9375rem; color: #999; text-decoration: line-through; margin-right: 0.75rem;">{{ selected_variant.compare_at_price | money }}</span>
+                                {% endif %}
+                                <span style="font-size: 1.5rem; color: #2d2d2d; font-weight: 600;">{{ selected_variant.price | money }}</span>
                                 {% if selected_variant.price < selected_variant.compare_at_price %}
-                                    <span class="px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4">Sale</span>
+                                    <span style="display: inline-block; padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; background-color: #D4A574; color: white; border-radius: 1rem; margin-left: 1rem;">OFERTA</span>
                                 {% endif %}
                             </div>
+                            
+                        {% when 'description' %}
+                            <div style="margin-bottom: 1.5rem;" x-data="{ expanded: false }">
+                                <div style="color: #2d2d2d; line-height: 1.7; font-size: 0.9375rem;">
+                                    <div 
+                                        style="overflow: hidden; transition: max-height 0.3s ease;"
+                                        :style="expanded ? 'max-height: 1000px;' : 'max-height: 4.5rem;'"
+                                    >
+                                        {{ product.description }}
+                                    </div>
+                                    {% assign description_length = product.description | size %}
+                                    {% if description_length > 150 %}
+                                        <button 
+                                            @click="expanded = !expanded" 
+                                            type="button"
+                                            style="margin-top: 0.75rem; font-size: 0.875rem; font-weight: 600; color: #D4A574; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; padding: 0; transition: color 0.2s;"
+                                            onmouseover="this.style.color='#C99B63'"
+                                            onmouseout="this.style.color='#D4A574'"
+                                        >
+                                            <span x-text="expanded ? 'Ver menos' : 'Ver más descripción'"></span>
+                                            <svg 
+                                                style="width: 1rem; height: 1rem; transition: transform 0.2s;" 
+                                                :style="expanded ? 'transform: rotate(180deg);' : ''"
+                                                fill="none" 
+                                                stroke="currentColor" 
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
                         {% when 'variant_selector' %}
-                            <div class="my-3">
+                            <div style="margin-bottom: 1.5rem;">
                                 {% unless product.has_only_default_variant %}
                                     <div data-url="{{ product.url}}" data-section="{{ section.id }}">
                                         {% for option in product.options_with_values %}
-                                            <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
-
-                                            <div class="my-2">
+                                            <label for="Option-{{ section.id }}-{{ forloop.index0 }}" style="display: block; font-size: 0.875rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.5rem;">{{ option.name }}</label>
+                                            <div style="margin-bottom: 1rem;">
                                                 <select 
                                                     name="options[{{ option.name | escape }}]" 
                                                     id="Option-{{ section.id }}-{{ forloop.index0 }}" 
-                                                    class="w-full border py-3 px-3"
+                                                    style="width: 100%; border: 2px solid #e5e7eb; padding: 0.75rem; font-size: 0.9375rem; border-radius: 0; background-color: white; cursor: pointer;"
                                                 >
                                                     {% for value in option.values %}
                                                         <option 
                                                             value="{{ value | escape }}"
-                                                            {% if option.selected_value == value %}
-                                                                selected="selected"
-                                                            {% endif %}
+                                                            {% if option.selected_value == value %}selected="selected"{% endif %}
+                                                        >
+                                                            {{ value }}
                                                         >
                                                             {{ value }}
                                                         </option>
@@ -111,56 +117,26 @@
                             </script>
 
                         {% when 'quantity' %}
-                            <div class="my-3">
-                                <label for="Quantity-{{ section.id }}">Cantidad</label>
-
-                                <div class="my-2">
-                                    <input type="number" name="quantity" id="Quantity-{{ section.id }}" value="1" min="1" class="w-full border px-3 py-3">
+                            <div style="margin-bottom: 1.5rem;">
+                                <label for="Quantity-{{ section.id }}" style="display: block; font-size: 0.875rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.5rem;">Cantidad</label>
+                                <div>
+                                    <input type="number" name="quantity" id="Quantity-{{ section.id }}" value="1" min="1" style="width: 100%; border: 2px solid #e5e7eb; padding: 0.75rem; font-size: 0.9375rem; border-radius: 0;">
                                 </div>
                             </div>
-                        {% when 'description' %}
-                            <div class="my-3" x-data="{ expanded: false }">
-                                <div class="text-gray-700 leading-relaxed">
-                                    <div 
-                                        class="overflow-hidden transition-all duration-300"
-                                        :class="expanded ? 'max-h-full' : 'max-h-[4.5rem]'"
-                                        style="line-height: 1.5rem;"
-                                    >
-                                        {{ product.description }}
-                                    </div>
-                                    {% assign description_length = product.description | size %}
-                                    {% if description_length > 150 %}
-                                        <button 
-                                            @click="expanded = !expanded" 
-                                            type="button"
-                                            class="mt-2 text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors flex items-center gap-1"
-                                        >
-                                            <span x-text="expanded ? 'Ver menos' : 'Ver más'"></span>
-                                            <svg 
-                                                class="w-4 h-4 transform transition-transform duration-200" 
-                                                :class="{ 'rotate-180': expanded }"
-                                                fill="none" 
-                                                stroke="currentColor" 
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                            </svg>
-                                        </button>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        
+                            
                         {% when 'detailed_description' %}
-                            <div class="my-4 border border-red-500 rounded-lg" x-data="{ open: false }">
+                            <div style="margin-bottom: 1.5rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; overflow: hidden;" x-data="{ open: false }">
                                 <button 
                                     @click="open = !open" 
-                                    class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
                                     type="button"
+                                    style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 1rem; text-align: left; background-color: white; border: none; cursor: pointer; transition: background-color 0.2s;"
+                                    onmouseover="this.style.backgroundColor='#F5F1E8'"
+                                    onmouseout="this.style.backgroundColor='white'"
                                 >
-                                    <span class="font-semibold text-gray-900">{{ block.settings.title | default: 'Descripción Detallada' }}</span>
+                                    <span style="font-weight: 600; color: #2d2d2d; font-size: 0.9375rem;">{{ block.settings.title | default: 'Descripción Detallada' }}</span>
                                     <svg 
-                                        class="w-5 h-5 transform transition-transform duration-200" 
-                                        :class="{ 'rotate-180': open }"
+                                        style="width: 1.25rem; height: 1.25rem; transition: transform 0.2s; color: #2d2d2d;" 
+                                        :style="open ? 'transform: rotate(180deg);' : ''"
                                         fill="none" 
                                         stroke="currentColor" 
                                         viewBox="0 0 24 24"
@@ -176,21 +152,21 @@
                                     x-transition:leave="transition ease-in duration-150"
                                     x-transition:leave-start="opacity-100 transform translate-y-0"
                                     x-transition:leave-end="opacity-0 transform -translate-y-2"
-                                    class="px-4 pb-4 text-gray-700 text-sm leading-relaxed"
+                                    style="padding: 0 1rem 1rem 1rem; color: #2d2d2d; font-size: 0.875rem; line-height: 1.7; background-color: white;"
                                 >
                                     {{ block.settings.detailed_text }}
                                 </div>
                             </div>
 
                         {% when 'checkout_buttons' %}
-                            <div class="my-3">
-                                <button type="submit" name="add" class="w-full px-6 py-4 text-white rounded-sm my-2 transition-colors"
-                                    style="background-color: #222121;"
-                                    onmouseover="this.style.backgroundColor='#333333'"
-                                    onmouseout="this.style.backgroundColor='#222121'"
-                                    {% if selected_variant.available == false %}
-                                        disabled
-                                    {% endif %}
+                            <div style="margin-top: 2rem;">
+                                <button type="submit" name="add" 
+                                    style="width: 100%; padding: 1rem 1.5rem; color: white; background-color: #2d2d2d; border: none; font-weight: 600; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: all 0.3s; border-radius: 0;"
+                                    onmouseover="this.style.backgroundColor='#1a1a1a'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'"
+                                    onmouseout="this.style.backgroundColor='#2d2d2d'; this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+                                    onmouseover="this.style.backgroundColor='#1a1a1a'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'"
+                                    onmouseout="this.style.backgroundColor='#2d2d2d'; this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+                                    {% if selected_variant.available == false %}disabled{% endif %}
                                 >
                                     {% if selected_variant.available == false %}
                                         Agotado
@@ -198,6 +174,57 @@
                                         Agregar al carrito
                                     {% endif %}
                                 </button>
+                            </div>
+                    {% endcase %}
+                {% endfor %}
+            {% endform %}
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Swiper Navigation Buttons */
+    .swiper-button-prev, .swiper-button-next {
+        color: #2d2d2d; 
+        top: 80% !important; 
+        height: 40px;
+        width: 40px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .swiper-button-prev::after, .swiper-button-next::after {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .swiper-button-prev:hover, .swiper-button-next:hover {
+        background: rgba(255, 255, 255, 1);
+    }
+    .swiper-pagination {
+        bottom: 10px !important;
+    }
+    .swiper-pagination-bullet {
+        background: #2d2d2d;
+        opacity: 0.5;
+    }
+    .swiper-pagination-bullet-active {
+        background: #D4A574;
+        opacity: 1;
+    }
+    
+    /* Responsive Grid */
+    @media (min-width: 768px) {
+        .max-w-6xl > div:first-child {
+            grid-template-columns: 1fr 1fr;
+        }
+        .max-w-6xl > div:first-child > div:first-child {
+            grid-column: 1;
+        }
+        .max-w-6xl > div:first-child > div:last-child {
+            grid-column: 2;
+        }
+    }
+</style>
                             </div>
                         {% else %}
                             
