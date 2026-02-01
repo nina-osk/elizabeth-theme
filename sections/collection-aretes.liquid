@@ -55,6 +55,23 @@
             {% comment %} Contamos productos que tienen el tag "aretes" (insensible a mayúsculas) {% endcomment %}
             {% assign aretes_count = 0 %}
             {% assign target_tag_lower = target_tag | downcase %}
+            
+            {% comment %} DEBUG: Mostrar todos los productos y sus tags {% endcomment %}
+            <div class="text-center mb-4 p-4 bg-yellow-50 rounded text-left max-w-4xl mx-auto">
+                <p class="text-sm text-gray-700">
+                    <strong>Debug Detallado:</strong><br>
+                    Tag buscado (original): "<strong>{{ target_tag }}</strong>"<br>
+                    Tag buscado (minúsculas): "<strong>{{ target_tag_lower }}</strong>"<br>
+                    Total productos en la tienda: <strong>{{ paginate.items.size }}</strong><br><br>
+                    <strong>Productos y sus tags:</strong><br>
+                    {% for product in paginate.items limit: 5 %}
+                        {{ forloop.index }}. {{ product.title }}<br>
+                        &nbsp;&nbsp;Tags: {{ product.tags | join: ', ' }}<br>
+                        &nbsp;&nbsp;Tags (minúsculas): {{ product.tags | join: ', ' | downcase }}<br>
+                    {% endfor %}
+                </p>
+            </div>
+            
             {% for product in paginate.items %}
                 {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
                 {% for tag in product_tags_lower %}
@@ -66,12 +83,10 @@
                 {% endfor %}
             {% endfor %}
             
-            {% comment %} DEBUG: Mostrar información {% endcomment %}
+            {% comment %} DEBUG: Mostrar información de conteo {% endcomment %}
             <div class="text-center mb-4 p-4 bg-blue-50 rounded">
                 <p class="text-sm text-gray-700">
-                    <strong>Debug Info:</strong><br>
-                    Tag buscado: "<strong>{{ target_tag }}</strong>"<br>
-                    Total productos en la tienda: <strong>{{ paginate.items.size }}</strong><br>
+                    <strong>Resultado:</strong><br>
                     Productos con tag "{{ target_tag }}": <strong>{{ aretes_count }}</strong>
                 </p>
             </div>
