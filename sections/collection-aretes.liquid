@@ -60,6 +60,16 @@
                 {% endif %}
             {% endfor %}
             
+            {% comment %} DEBUG: Mostrar información {% endcomment %}
+            <div class="text-center mb-4 p-4 bg-blue-50 rounded">
+                <p class="text-sm text-gray-700">
+                    <strong>Debug Info:</strong><br>
+                    Tag buscado: "<strong>{{ target_tag }}</strong>"<br>
+                    Total productos en la tienda: <strong>{{ paginate.items.size }}</strong><br>
+                    Productos con tag "{{ target_tag }}": <strong>{{ aretes_count }}</strong>
+                </p>
+            </div>
+            
             {% if aretes_count > 0 %}
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" id="products-grid">
                     {% for product in paginate.items %}
