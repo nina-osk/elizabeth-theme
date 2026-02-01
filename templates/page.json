@@ -1,10 +1,25 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections": {
-        "template-page": {
-            "type": "template-page"
-        }
-    },
-    "order": [
-        "template-page"
-    ]
+  "sections": {
+    "about_us_pR7KtM": {
+      "type": "about-us",
+      "name": "Nosotros - Munier",
+      "settings": {
+        "show_hero": true,
+        "hero_title": "Nosotros",
+        "hero_subtitle": "Conoce nuestra historia"
+      }
+    }
+  },
+  "order": [
+    "about_us_pR7KtM"
+  ]
 }
