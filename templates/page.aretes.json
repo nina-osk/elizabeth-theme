@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "aretes-main": {
+      "type": "collection-aretes",
+      "settings": {
+        "filter_tag": "Aretes",
+        "title": "Aretes de Oro",
+        "description": "Explora nuestra colección de aretes en oro 9K con diamantes de laboratorio"
+      }
+    }
+  },
+  "order": [
+    "aretes-main"
+  ]
+}

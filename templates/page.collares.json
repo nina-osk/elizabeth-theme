@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "collares-main": {
+      "type": "collection-collares",
+      "settings": {
+        "filter_tag": "Collares",
+        "title": "Collares de Oro",
+        "description": "Descubre nuestra colección de collares en oro 9K y 18K con diamantes de laboratorio"
+      }
+    }
+  },
+  "order": [
+    "collares-main"
+  ]
+}
