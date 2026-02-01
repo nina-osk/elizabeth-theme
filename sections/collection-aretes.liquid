@@ -3,12 +3,10 @@
   y luego permite filtrar por subtags: stud, huggies
 {% endcomment %}
 
-{% assign all_products_with_tag = collections.all.products | where: "tags", "aretes" %}
-
 <div class="w-full bg-white py-12 md:py-16 lg:py-20 mb-12 md:mb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-32">
         
-        {% paginate all_products_with_tag by section.settings.products_per_page %}
+        {% paginate collections.all.products by section.settings.products_per_page %}
         
             <!-- Encabezado de la sección -->
             <div class="text-center mb-8 md:mb-12">
@@ -49,19 +47,28 @@
             </div>
 
             <!-- Grid de productos - 4 columnas -->
-            {% if all_products_with_tag.size > 0 %}
+            {% assign aretes_count = 0 %}
+            {% for product in paginate.items %}
+                {% if product.tags contains "aretes" %}
+                    {% assign aretes_count = aretes_count | plus: 1 %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if aretes_count > 0 %}
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" id="products-grid">
-                    {% for product in all_products_with_tag %}
-                        {% assign product_tags = product.tags | join: ',' | downcase %}
-                        <div class="product-item" data-tags="{{ product_tags }}">
-                            {% render 'product-card', product_product: product %}
-                        </div>
+                    {% for product in paginate.items %}
+                        {% if product.tags contains "aretes" %}
+                            {% assign product_tags = product.tags | join: ',' | downcase %}
+                            <div class="product-item" data-tags="{{ product_tags }}">
+                                {% render 'product-card', product_product: product %}
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
 
                 <!-- Contador de productos visibles -->
                 <div class="mt-8 text-center text-sm text-gray-500">
-                    <span id="visible-count">{{ all_products_with_tag.size }}</span> de {{ paginate.items }} productos
+                    <span id="visible-count">{{ aretes_count }}</span> productos con aretes
                 </div>
 
                 <!-- Paginación -->
