@@ -1,110 +1,44 @@
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
 <div style="width: 100%; background-color: #F5F1E8;">
-  <div class="swiper hero-swiper w-full" style="height: 80vh; min-height: 600px;">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide w-full h-full">
-        <div style="position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; background-color: #F5F1E8;">
-          <!-- Content Center -->
-          <div style="max-width: 1000px; margin: 0 auto; text-align: center;" class="hero-content">
-            <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; color: #8B7355; margin-bottom: 2rem; overflow: hidden;">
-              <span class="inline-block animate-typing">{{ section.settings.subtitle }}</span>
-            </p>
-            <h1 style="font-family: Georgia, serif; font-size: 5rem; line-height: 1.1; color: #2d2d2d; margin-bottom: 1rem; overflow: hidden;">
-              <span class="inline-block animate-typing-title" style="display: inline;">{{ section.settings.title_part1 }}</span>
-              <br>
-              <span class="inline-block animate-typing-title-gold" style="display: inline; font-style: italic; color: #D4A574;">{{ section.settings.title_part2 }}</span>
-            </h1>
-            <p style="font-size: 1rem; color: #8B7355; line-height: 1.8; max-width: 700px; margin: 0 auto 3rem; opacity: 0;" class="animate-fade-in-up" style="animation-delay: 2s;">
-              {{ section.settings.description }}
-            </p>
-            
-            <!-- Botones -->
-            <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0;" class="animate-fade-in-up" style="animation-delay: 2.5s;">
-              <a href="{{ section.settings.button1_link }}" style="padding: 1rem 2.5rem; background-color: #2d2d2d; color: white; text-decoration: none; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.05em; transition: all 0.3s; position: relative; overflow: hidden;">
-                {{ section.settings.button1_text }}
-              </a>
-              <a href="{{ section.settings.button2_link }}" style="padding: 1rem 2.5rem; background-color: transparent; color: #2d2d2d; text-decoration: none; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.05em; border: 2px solid #2d2d2d; transition: all 0.3s;">
-                {{ section.settings.button2_text }}
-              </a>
-            </div>
-          </div>
-        </div>
+  <div style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem;">
+    <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+      
+      <!-- Subtitle -->
+      <p style="font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; color: #8B7355; margin-bottom: 3rem; opacity: 0;" class="hero-subtitle">
+        {{ section.settings.subtitle }}
+      </p>
+      
+      <!-- Title -->
+      <h1 style="font-family: Georgia, serif; line-height: 1.1; color: #2d2d2d; margin-bottom: 2rem;">
+        <span style="display: block; font-size: 5rem; font-weight: 400; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
+        <span style="display: block; font-size: 6rem; font-style: italic; color: #D4A574; font-weight: 400; opacity: 0;" class="hero-title-part2">{{ section.settings.title_part2 }}</span>
+      </h1>
+      
+      <!-- Description -->
+      <p style="font-size: 1rem; color: #8B7355; line-height: 1.8; max-width: 700px; margin: 0 auto 3rem; opacity: 0;" class="hero-description">
+        {{ section.settings.description }}
+      </p>
+      
+      <!-- Buttons -->
+      <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0;" class="hero-buttons">
+        <a href="{{ section.settings.button1_link }}" style="padding: 1rem 2.5rem; background-color: #2d2d2d; color: white; text-decoration: none; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.05em; transition: all 0.3s;">
+          {{ section.settings.button1_text }}
+        </a>
+        <a href="{{ section.settings.button2_link }}" style="padding: 1rem 2.5rem; background-color: transparent; color: #2d2d2d; text-decoration: none; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.05em; border: 2px solid #2d2d2d; transition: all 0.3s;">
+          {{ section.settings.button2_text }}
+        </a>
       </div>
+      
     </div>
-
-    <!-- Navigation arrows -->
-    <div class="swiper-button-prev" style="position: absolute; left: 2rem; top: 50%; transform: translateY(-50%); z-index: 20; width: 2.5rem; height: 2.5rem; background-color: rgba(255, 255, 255, 0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s;"></div>
-    <div class="swiper-button-next" style="position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 20; width: 2.5rem; height: 2.5rem; background-color: rgba(255, 255, 255, 0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s;"></div>
-
-    <!-- Pagination -->
-    <div class="swiper-pagination" style="position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 20;"></div>
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const swiper = new Swiper('.hero-swiper', {
-      loop: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        type: 'bullets',
-        clickable: true,
-      },
-      speed: 800,
-      on: {
-        slideChange: function () {
-          // Reiniciar animaciones al cambiar de slide
-          const activeSlide = this.slides[this.activeIndex];
-          const content = activeSlide.querySelector('.hero-content');
-          if (content) {
-            content.style.animation = 'none';
-            setTimeout(() => {
-              content.style.animation = '';
-            }, 10);
-          }
-        }
-      }
-    });
-  });
-</script>
 
 <style>
-  .hero-swiper {
-    --swiper-pagination-bullet-size: 12px;
-    --swiper-pagination-bullet-horizontal-gap: 10px;
-  }
-  
-  .swiper-button-prev::after,
-  .swiper-button-next::after {
-    font-size: 18px;
-    color: #000;
-  }
-  
-  .swiper-pagination-bullet {
-    background-color: rgba(255, 255, 255, 0.6);
-    transition: all 0.3s ease;
-  }
-  
-  .swiper-pagination-bullet-active {
-    background-color: #fff;
-    transform: scale(1.2);
-  }
-
-  /* Animaciones */
-  @keyframes fadeInUp {
+  /* Fade In Animations */
+  @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -112,146 +46,27 @@
     }
   }
 
-  @keyframes typing {
-    0% {
-      width: 0;
-      opacity: 0;
-    }
-    1% {
-      opacity: 1;
-    }
-    100% {
-      width: 100%;
-      opacity: 1;
-    }
+  .hero-subtitle {
+    animation: fadeIn 0.8s ease-out 0.2s forwards;
   }
 
-  @keyframes shine {
-    0% {
-      background-position: -200%;
-    }
-    100% {
-      background-position: 200%;
-    }
+  .hero-title-part1 {
+    animation: fadeIn 1s ease-out 0.5s forwards;
   }
 
-  @keyframes letterSpacing {
-    0%, 100% {
-      letter-spacing: 0.1em;
-    }
-    50% {
-      letter-spacing: 0.2em;
-    }
+  .hero-title-part2 {
+    animation: fadeIn 1s ease-out 0.8s forwards;
   }
 
-  .animate-typing {
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    animation: typing 2s steps(40, end) forwards,
-               letterSpacing 3s ease-in-out infinite 2s;
-    color: #8B7355;
+  .hero-description {
+    animation: fadeIn 1s ease-out 1.1s forwards;
   }
 
-  @keyframes typingTitle {
-    0% {
-      width: 0;
-      opacity: 0;
-    }
-    1% {
-      opacity: 1;
-    }
-    100% {
-      width: 100%;
-      opacity: 1;
-    }
+  .hero-buttons {
+    animation: fadeIn 1s ease-out 1.4s forwards;
   }
 
-  @keyframes fadeInScale {
-    0% {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  .animate-typing-title {
-    display: inline-block;
-    overflow: hidden;
-    animation: typingTitle 2.5s steps(50, end) 1s forwards,
-               fadeInScale 0.5s ease-out 1s forwards;
-    opacity: 0;
-    color: #2d2d2d;
-  }
-
-  .animate-typing-title-gold {
-    display: inline-block;
-    overflow: hidden;
-    animation: typingTitle 2.5s steps(50, end) 1.5s forwards,
-               fadeInScale 0.5s ease-out 1.5s forwards;
-    opacity: 0;
-    color: #D4A574;
-  }
-
-  @media (max-width: 768px) {
-    .animate-typing,
-    .animate-typing-title,
-    .animate-typing-title-gold {
-      white-space: normal;
-      animation: fadeInUp 1s ease-out forwards;
-    }
-  }
-
-  @keyframes spinSlow {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes spinReverse {
-    from {
-      transform: rotate(360deg);
-    }
-    to {
-      transform: rotate(0deg);
-    }
-  }
-
-  @keyframes pulseSubtle {
-    0%, 100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.1);
-      opacity: 0.8;
-    }
-  }
-
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
-    opacity: 0;
-  }
-
-  .animate-spin-slow {
-    animation: spinSlow 20s linear infinite;
-  }
-
-  .animate-spin-reverse {
-    animation: spinReverse 15s linear infinite;
-  }
-
-  .animate-pulse-subtle {
-    animation: pulseSubtle 3s ease-in-out infinite;
-  }
-
-  /* Efecto hover mejorado para botones */
+  /* Hover effects for buttons */
   a[href] {
     position: relative;
     overflow: hidden;
@@ -280,19 +95,14 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  .swiper-button-prev:hover,
-  .swiper-button-next:hover {
-    background-color: rgba(255, 255, 255, 1);
-    transform: translateY(-50%) scale(1.1);
-  }
-
-  .hero-content {
-    animation: fadeInUp 1s ease-out forwards;
-  }
-
+  /* Responsive adjustments */
   @media (max-width: 768px) {
-    h1 {
+    .hero-title-part1 {
       font-size: 2.5rem !important;
+    }
+    
+    .hero-title-part2 {
+      font-size: 3rem !important;
     }
   }
 </style>
