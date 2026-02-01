@@ -1,511 +1,83 @@
-<div class="w-full bg-white">
-  <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-32 py-12 md:py-16 lg:py-20">
+<div style="width: 100%; background-color: #F5F1E8;">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 6rem 2rem; text-align: center;">
+    
     <!-- Header -->
-    <div class="text-center mb-8 md:mb-12 lg:mb-16">
-      <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800 mb-2 md:mb-3 px-8 md:px-16 lg:px-24 leading-relaxed">
-        {{ section.settings.title }}
+    <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; color: #8B7355; margin-bottom: 2.5rem;">
+      {{ section.settings.header_small | default: "SOMOS MUNIER" }}
+    </p>
+    
+    <!-- Main Quote -->
+    <div style="max-width: 950px; margin: 0 auto 3rem;">
+      <h2 style="font-family: Georgia, serif; font-size: 2rem; line-height: 1.6; color: #2d2d2d; font-weight: 400;">
+        {{ section.settings.quote_part1 }}
+        <span style="font-style: italic; color: #D4A574;">{{ section.settings.quote_highlight }}</span>{{ section.settings.quote_part2 }}
       </h2>
-      <p class="text-xs md:text-sm text-gray-500">
-        {{ section.settings.subtitle }}
-      </p>
     </div>
-
-    <!-- Carousel Container -->
-    <div class="carousel-wrapper max-w-6xl mx-auto mb-12">
-      <!-- Carousel Track -->
-      <div class="relative overflow-hidden" style="height: 500px;">
-        <div class="carousel-track absolute inset-0 flex items-center justify-center">
-          {% assign cards = (1..6) %}
-          {% for i in cards %}
-            {% assign prod_key = 'category_' | append: i | append: '_product' %}
-            {% assign label_key = 'category_' | append: i | append: '_label' %}
-            {% assign prod = section.settings[prod_key] %}
-            
-            <div class="carousel-slide absolute transition-all duration-500 ease-out" 
-                 data-index="{{ forloop.index0 }}"
-                 role="group"
-                 aria-roledescription="slide"
-                 aria-label="Slide {{ forloop.index }} of {{ cards.size }}">
-              
-              <div class="slide-card rounded-xl overflow-hidden shadow-lg" style="background: #E7E5DE;">
-                <!-- Category Label -->
-                <div class="absolute top-4 left-4 z-10">
-                  <span class="text-xs font-medium text-gray-700 uppercase tracking-wide px-2 py-1 bg-white/80 rounded">
-                    {{ section.settings[label_key] | default: 'Producto' }}
-                  </span>
-                </div>
-
-                {% if prod != blank and prod.featured_media %}
-                  <!-- Product Image -->
-                  <div class="relative w-full" style="height: 340px;">
-                    {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full h-full object-contain', loading: 'lazy', width: 600, height: 600 }}
-                    
-                    <!-- Action Icons (visible only on active slide) -->
-                    <div class="slide-actions absolute bottom-4 left-0 right-0 flex justify-between px-4 opacity-0 transition-opacity duration-300">
-                      <button class="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors" aria-label="Rotate">
-                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                        </svg>
-                      </button>
-                      <button class="w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors" aria-label="Add to favorites">
-                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                {% else %}
-                  <div class="w-full flex items-center justify-center text-center" style="height: 340px;">
-                    <span class="text-base font-semibold text-gray-700">
-                      {{ section.settings[label_key] | default: 'Producto' }}
-                    </span>
-                  </div>
-                {% endif %}
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-
-      <!-- Product Info (centered below carousel) -->
-      <div class="text-center mt-8 mb-6">
-        <h3 id="carousel-product-title" class="text-xl md:text-2xl font-semibold text-gray-900 mb-2">
-          Producto
-        </h3>
-        <p id="carousel-product-price" class="text-lg md:text-xl font-bold text-gray-900">
-          $0.00
-        </p>
-      </div>
-
-      <!-- Pagination Dots -->
-      <div class="flex justify-center gap-2 mb-8" role="group" aria-label="Carousel pagination">
-        {% for i in cards %}
-          <button 
-            class="carousel-dot w-2 h-2 rounded-full transition-all duration-300"
-            data-index="{{ forloop.index0 }}"
-            aria-label="Go to slide {{ forloop.index }}"
-            style="background: #d1d5db;">
-          </button>
-        {% endfor %}
-      </div>
-
-      <!-- Navigation Controls -->
-      <div class="flex justify-center gap-4">
-        <button id="carousel-prev" class="px-6 py-3 rounded-lg font-semibold transition-all bg-gray-900 text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2" aria-label="Previous slide">
-          ← Anterior
-        </button>
-        <button id="carousel-next" class="px-6 py-3 rounded-lg font-semibold transition-all bg-gray-900 text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2" aria-label="Next slide">
-          Siguiente →
-        </button>
-      </div>
+    
+    <!-- Signature -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 3rem;">
+      <div style="width: 4rem; height: 1px; background-color: #D4A574;"></div>
+      <p style="font-family: Georgia, serif; font-style: italic; color: #D4A574; font-size: 1.25rem;">
+        {{ section.settings.signature | default: "Munier" }}
+      </p>
+      <div style="width: 4rem; height: 1px; background-color: #D4A574;"></div>
     </div>
 
   </div>
 </div>
 
 <style>
-  /* Carousel Slide Positioning */
-  .carousel-slide {
-    pointer-events: auto;
-    cursor: pointer;
-  }
-
-  /* Slide Card Styling */
-  .slide-card {
-    width: 280px;
-    height: 380px;
-    will-change: transform, opacity;
-  }
-
-  /* Active slide gets border */
-  .carousel-slide.is-active .slide-card {
-    border: 2px solid #222121;
-  }
-
-  /* Show action icons only on active slide */
-  .carousel-slide.is-active .slide-actions {
-    opacity: 1 !important;
-  }
-
-  /* Active dot styling */
-  .carousel-dot.is-active {
-    background: #222121 !important;
-    width: 2.5rem;
-  }
-
-  /* Responsive adjustments */
+  /* Minimal styling for responsive text */
   @media (max-width: 768px) {
-    .carousel-wrapper .relative {
-      overflow: hidden !important;
-      height: 520px !important;
+    div h2 {
+      font-size: 1.5rem !important;
     }
-    
-    .slide-card {
-      width: 90vw;
-      max-width: 320px;
-      height: 420px;
-    }
-    
-    /* Adjust image container on mobile */
-    .carousel-slide .relative[style*="height: 340px"] {
-      height: 300px !important;
-    }
-    
-    /* Ensure image is centered and not cropped */
-    .carousel-slide img {
-      object-fit: contain !important;
-      padding: 1rem !important;
-      width: 100% !important;
-      height: 100% !important;
-    }
-    
-    /* Hide non-active slides on mobile - move them off screen */
-    .carousel-slide:not(.is-active) {
-      opacity: 0 !important;
-      pointer-events: none !important;
-      transform: translateX(200vw) translateY(-50%) scale(0.8) !important;
-    }
-    
-    /* Center active slide on mobile */
-    .carousel-slide.is-active {
-      transform: translateX(-50%) translateY(-50%) scale(1) !important;
-      opacity: 1 !important;
-      left: 50% !important;
-      margin-left: 0 !important;
-    }
-    
-    /* Ensure border is visible */
-    .carousel-slide.is-active .slide-card {
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    }
-    
-    /* Center navigation buttons on mobile */
-    .carousel-wrapper > div:last-child {
-      justify-content: center !important;
-    }
-    
-    /* Adjust button size for mobile */
-    #carousel-prev,
-    #carousel-next {
-      padding: 0.75rem 1.5rem;
-      font-size: 0.875rem;
-    }
-  }
-  
-  @media (min-width: 769px) {
-    .carousel-wrapper .relative {
-      overflow: visible !important;
-    }
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .carousel-slide,
-    .carousel-dot {
-      transition: none;
-    }
-  }
-
-  /* Focus states for accessibility */
-  .carousel-slide:focus-visible {
-    outline: 2px solid #222121;
-    outline-offset: 4px;
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.carousel-dot');
-    const prevBtn = document.getElementById('carousel-prev');
-    const nextBtn = document.getElementById('carousel-next');
-    const titleElement = document.getElementById('carousel-product-title');
-    const priceElement = document.getElementById('carousel-product-price');
-    const carouselTrack = document.querySelector('.carousel-track');
-
-    if (slides.length === 0) return;
-
-    let currentIndex = 0;
-    const totalSlides = slides.length;
-    
-    // Store product data
-    const productData = Array.from(slides).map(slide => {
-      const img = slide.querySelector('img');
-      const label = slide.querySelector('.absolute.top-4 span');
-      return {
-        title: img ? img.alt : (label ? label.textContent : 'Producto'),
-        price: '$0.00', // Price will be extracted if available
-        url: img ? img.closest('a')?.href : null
-      };
-    });
-
-    // Function to calculate slide position and styling
-    function getSlideStyle(index, activeIndex) {
-      const diff = index - activeIndex;
-      const normalizedDiff = diff > totalSlides / 2 ? diff - totalSlides : 
-                            diff < -totalSlides / 2 ? diff + totalSlides : diff;
-      
-      // Center (active) slide
-      if (normalizedDiff === 0) {
-        return {
-          x: 0,
-          scale: 1,
-          opacity: 1,
-          zIndex: 50,
-          isActive: true
-        };
-      }
-      
-      // Right side previews
-      if (normalizedDiff > 0 && normalizedDiff <= 2) {
-        const offset = normalizedDiff * 200 + 50; // Spacing between slides
-        const scale = normalizedDiff === 1 ? 0.85 : 0.75;
-        const opacity = normalizedDiff === 1 ? 0.75 : 0.5;
-        const zIndex = 30 - (normalizedDiff * 10);
-        
-        return {
-          x: offset,
-          scale: scale,
-          opacity: opacity,
-          zIndex: zIndex,
-          isActive: false
-        };
-      }
-      
-      // Left side previews
-      if (normalizedDiff < 0 && normalizedDiff >= -2) {
-        const offset = normalizedDiff * 200 - 50;
-        const scale = normalizedDiff === -1 ? 0.85 : 0.75;
-        const opacity = normalizedDiff === -1 ? 0.75 : 0.5;
-        const zIndex = 30 - (Math.abs(normalizedDiff) * 10);
-        
-        return {
-          x: offset,
-          scale: scale,
-          opacity: opacity,
-          zIndex: zIndex,
-          isActive: false
-        };
-      }
-      
-      // Hidden slides
-      return {
-        x: normalizedDiff > 0 ? 600 : -600,
-        scale: 0.5,
-        opacity: 0,
-        zIndex: 1,
-        isActive: false
-      };
-    }
-
-    // Update carousel display
-    function updateCarousel(animate = true) {
-      slides.forEach((slide, index) => {
-        const style = getSlideStyle(index, currentIndex);
-        
-        // Apply transforms
-        slide.style.transform = `translateX(${style.x}px) translateY(-50%) scale(${style.scale})`;
-        slide.style.opacity = style.opacity;
-        slide.style.zIndex = style.zIndex;
-        slide.style.top = '50%';
-        slide.style.left = '50%';
-        
-        // Add/remove active class
-        if (style.isActive) {
-          slide.classList.add('is-active');
-          slide.setAttribute('aria-hidden', 'false');
-        } else {
-          slide.classList.remove('is-active');
-          slide.setAttribute('aria-hidden', 'true');
-        }
-      });
-
-      // Update dots
-      dots.forEach((dot, index) => {
-        if (index === currentIndex) {
-          dot.classList.add('is-active');
-          dot.setAttribute('aria-current', 'true');
-        } else {
-          dot.classList.remove('is-active');
-          dot.removeAttribute('aria-current');
-        }
-      });
-
-      // Update product info
-      if (productData[currentIndex]) {
-        titleElement.textContent = productData[currentIndex].title;
-        priceElement.textContent = productData[currentIndex].price;
-      }
-    }
-
-    // Navigation functions
-    function goToSlide(index) {
-      currentIndex = (index + totalSlides) % totalSlides;
-      updateCarousel();
-    }
-
-    function nextSlide() {
-      goToSlide(currentIndex + 1);
-    }
-
-    function prevSlide() {
-      goToSlide(currentIndex - 1);
-    }
-
-    // Event listeners for controls
-    if (prevBtn) {
-      prevBtn.addEventListener('click', prevSlide);
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', nextSlide);
-    }
-
-    // Dot navigation
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => goToSlide(index));
-    });
-
-    // Slide click navigation
-    slides.forEach((slide, index) => {
-      slide.addEventListener('click', (e) => {
-        // Don't navigate if clicking on a button or link
-        if (e.target.closest('button') || e.target.closest('a')) {
-          return;
-        }
-        goToSlide(index);
-      });
-      
-      // Make slides focusable with keyboard
-      slide.setAttribute('tabindex', '0');
-      slide.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          goToSlide(index);
-        }
-      });
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.target.closest('.carousel-wrapper')) {
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          prevSlide();
-        } else if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          nextSlide();
-        }
-      }
-    });
-
-    // Touch/swipe support
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    carouselTrack.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    carouselTrack.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-      const swipeThreshold = 50;
-      const diff = touchStartX - touchEndX;
-      
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-      }
-    }
-
-    // Mouse drag support (optional)
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragCurrentX = 0;
-
-    carouselTrack.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      dragStartX = e.clientX;
-      carouselTrack.style.cursor = 'grabbing';
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      dragCurrentX = e.clientX;
-    });
-
-    document.addEventListener('mouseup', () => {
-      if (!isDragging) return;
-      
-      const dragThreshold = 50;
-      const diff = dragStartX - dragCurrentX;
-      
-      if (Math.abs(diff) > dragThreshold) {
-        if (diff > 0) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-      }
-      
-      isDragging = false;
-      dragStartX = 0;
-      dragCurrentX = 0;
-      carouselTrack.style.cursor = 'grab';
-    });
-
-    // Initialize carousel
-    updateCarousel(false);
-    
-    // Optional: Auto-play (uncomment if desired)
-    // const autoplayInterval = 5000;
-    // let autoplayTimer = setInterval(nextSlide, autoplayInterval);
-    
-    // // Pause on hover
-    // carouselTrack.addEventListener('mouseenter', () => {
-    //   clearInterval(autoplayTimer);
-    // });
-    
-    // carouselTrack.addEventListener('mouseleave', () => {
-    //   autoplayTimer = setInterval(nextSlide, autoplayInterval);
-    // });
-  });
+  // No carousel functionality needed anymore
 </script>
 
 {% schema %}
 {
-  "name": "Categories Showcase",
+  "name": "Brand Quote Section",
   "settings": [
-    { "type": "text", "id": "title", "label": "Título", "default": "Diseños Únicos Y Elegantes Para Tu Día a Día" },
-    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Próximos elementos básicos en tu rotación" },
-    
-    { "type": "text", "id": "category_1_label", "label": "Categoría 1 - Etiqueta", "default": "Aretes" },
-    { "type": "product", "id": "category_1_product", "label": "Categoría 1 - Producto" },
-    
-    { "type": "text", "id": "category_2_label", "label": "Categoría 2 - Etiqueta", "default": "Collar" },
-    { "type": "product", "id": "category_2_product", "label": "Categoría 2 - Producto" },
-    
-    { "type": "text", "id": "category_3_label", "label": "Categoría 3 - Etiqueta", "default": "Pulsera" },
-    { "type": "product", "id": "category_3_product", "label": "Categoría 3 - Producto" },
-    
-    { "type": "text", "id": "category_4_label", "label": "Categoría 4 - Etiqueta", "default": "Anillo" },
-    { "type": "product", "id": "category_4_product", "label": "Categoría 4 - Producto" },
-    
-    { "type": "text", "id": "category_5_label", "label": "Categoría 5 - Etiqueta", "default": "Tobillera" },
-    { "type": "product", "id": "category_5_product", "label": "Categoría 5 - Producto" },
-    
-    { "type": "text", "id": "category_6_label", "label": "Categoría 6 - Etiqueta", "default": "Cadena" },
-    { "type": "product", "id": "category_6_product", "label": "Categoría 6 - Producto" }
+    {
+      "type": "text",
+      "id": "header_small",
+      "label": "Encabezado Pequeño",
+      "default": "SOMOS MUNIER"
+    },
+    {
+      "type": "textarea",
+      "id": "quote_part1",
+      "label": "Texto de la cita (Parte 1 - antes de la palabra destacada)",
+      "default": "\"Somos Munier, una joyeria panameña creada para celebrar lo que te hace "
+    },
+    {
+      "type": "text",
+      "id": "quote_highlight",
+      "label": "Palabra destacada (en dorado itálico)",
+      "default": "auténtica"
+    },
+    {
+      "type": "textarea",
+      "id": "quote_part2",
+      "label": "Texto de la cita (Parte 2 - después de la palabra destacada)",
+      "default": ". Diseñamos piezas en oro 9K con diamantes de laboratorio —duraderas, elegantes y conscientes— hechas para vivir contigo, no para quedarse guardadas.\""
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Firma",
+      "default": "Munier"
+    }
   ],
   "presets": [
-    { "name": "Categories Showcase" }
+    {
+      "name": "Brand Quote Section"
+    }
   ]
 }
 {% endschema %}
