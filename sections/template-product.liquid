@@ -119,8 +119,34 @@
                                 </div>
                             </div>
                         {% when 'description' %}
-                            <div class="my-3">
-                                <p class="text-gray-700">{{ product.description }}</p>
+                            <div class="my-3" x-data="{ expanded: false }">
+                                <div class="text-gray-700">
+                                    <div 
+                                        style="overflow: hidden; transition: max-height 0.3s ease;"
+                                        :style="expanded ? 'max-height: 1000px;' : 'max-height: 4.5rem;'"
+                                    >
+                                        {{ product.description }}
+                                    </div>
+                                    {% assign description_length = product.description | size %}
+                                    {% if description_length > 150 %}
+                                        <button 
+                                            @click="expanded = !expanded" 
+                                            type="button"
+                                            class="mt-2 text-sm font-semibold text-gray-900 hover:text-gray-600 flex items-center gap-2 transition-colors"
+                                        >
+                                            <span x-text="expanded ? 'Ver menos' : 'Ver más'"></span>
+                                            <svg 
+                                                class="w-4 h-4 transition-transform" 
+                                                :class="expanded ? 'rotate-180' : ''"
+                                                fill="none" 
+                                                stroke="currentColor" 
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </button>
+                                    {% endif %}
+                                </div>
                             </div>
 
                         {% when 'checkout_buttons' %}
