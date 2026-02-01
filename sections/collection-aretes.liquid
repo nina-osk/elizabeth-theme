@@ -1,14 +1,18 @@
 {% comment %}
-  Este template muestra productos de una colección 
+  Este template muestra productos filtrados por el tag "aretes"
+  usando una colección automática de Shopify basada en ese tag
   y luego permite filtrar por subtags: stud, huggies
 {% endcomment %}
 
+{% comment %} Obtener la colección que debe estar configurada con filtro automático de tag "aretes" {% endcomment %}
+{% assign target_tag = section.settings.filter_tag | default: "aretes" %}
 {% assign collection_handle = section.settings.collection_handle | default: "aretes" %}
 {% assign target_collection = collections[collection_handle] %}
 
 <div class="w-full bg-white py-12 md:py-16 lg:py-20 mb-12 md:mb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-32">
         
+        {% comment %} Usamos la colección que debe tener productos filtrados por tag "aretes" {% endcomment %}
         {% paginate target_collection.products by section.settings.products_per_page %}
         
             <!-- Encabezado de la sección -->
@@ -50,19 +54,23 @@
             </div>
 
             <!-- Grid de productos - 4 columnas -->
+            {% comment %} Verificamos que la colección tenga productos con el tag {% endcomment %}
             {% if paginate.items.size > 0 %}
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" id="products-grid">
                     {% for product in paginate.items %}
-                        {% assign product_tags = product.tags | join: ',' | downcase %}
-                        <div class="product-item" data-tags="{{ product_tags }}">
-                            {% render 'product-card', product_product: product %}
-                        </div>
+                        {% comment %} Verificamos que el producto tenga el tag principal {% endcomment %}
+                        {% if product.tags contains target_tag %}
+                            {% assign product_tags = product.tags | join: ',' | downcase %}
+                            <div class="product-item" data-tags="{{ product_tags }}">
+                                {% render 'product-card', product_product: product %}
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
 
                 <!-- Contador de productos visibles -->
                 <div class="mt-8 text-center text-sm text-gray-500">
-                    <span id="visible-count">{{ paginate.items.size }}</span> de {{ paginate.items }} productos
+                    <span id="visible-count">{{ paginate.items.size }}</span> productos encontrados
                 </div>
 
                 <!-- Paginación -->
@@ -78,10 +86,10 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
                     </svg>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-2">
-                        No hay productos en esta colección
+                        No hay productos con el tag "{{ target_tag }}"
                     </h2>
                     <p class="text-gray-600 mb-8">
-                        Esta colección está vacía actualmente
+                        No se encontraron productos con esta etiqueta. Asegúrate de tener productos etiquetados con "{{ target_tag }}" o crea una colección automática con este tag.
                     </p>
                     <a href="{{ routes.all_products_url }}" class="inline-block px-6 py-3 text-white font-semibold rounded-lg transition-colors" style="background-color: #222121; hover:background-color: #333;">
                         Ver todos los productos
@@ -163,14 +171,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 {% schema %}
 {
-    "name": "Colección Aretes",
+    "name": "Colección Aretes (por Tag)",
     "class": "shopify-section--aretes",
     "settings": [
         {
             "type": "collection",
             "id": "collection_handle",
-            "label": "Colección de aretes",
-            "info": "Selecciona la colección que contiene los aretes"
+            "label": "Colección",
+            "info": "Selecciona una colección AUTOMÁTICA configurada con el tag 'aretes'. Si no existe, créala en Shopify: Productos > Colecciones > Nueva colección > Automática > Condiciones: Tag es igual a 'aretes'"
+        },
+        {
+            "type": "text",
+            "id": "filter_tag",
+            "label": "Tag para filtrar",
+            "default": "aretes",
+            "info": "Tag principal para filtrar productos (debe coincidir con el tag de la colección automática)"
         },
         {
             "type": "text",
@@ -195,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             "type": "paragraph",
-            "content": "Esta sección muestra productos de una colección. Puedes filtrar por 'stud' o 'huggies' usando los botones."
+            "content": "⚠️ IMPORTANTE: Esta sección requiere una colección AUTOMÁTICA en Shopify con el tag 'aretes'. Los botones de filtro (Stud, Huggies) funcionan con JavaScript en el frontend filtrando por subtags."
         }
     ]
 }
