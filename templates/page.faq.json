@@ -1,7 +1,7 @@
 {
   "sections": {
     "faq_main": {
-      "type": "faq",
+      "type": "faq-section",
       "blocks": {
         "faq-1": {
           "type": "faq_item",
