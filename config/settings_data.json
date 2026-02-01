@@ -32,7 +32,7 @@
             "type": "info_item",
             "settings": {
               "icon_type": "question",
-              "title": "¿Tienes alguna pregunta ?",
+              "title": "¿Tienes una pregunta ?",
               "description": "Estamos felices de ayudarte\ninfo@munierjewelry.com"
             }
           }
@@ -45,12 +45,12 @@
           "brand_description": "Nullam semper sapien ac nibh egestas varius. Duis ornare lorem vel mollis tempor. Vivamus a elit orci. Aliquam ac sodales arcu.",
           "categories_title": "Categories",
           "categories_menu": "footer",
-          "resources_title": "Resources",
-          "resources_menu": "footer",
-          "useful_links_title": "Useful Links",
-          "useful_links_menu": "footer",
-          "newsletter_title": "Subscribe Our Newsletter",
-          "newsletter_description": "Joining Hands, Building A Stronger Nation Through Immigration.",
+          "resources_title": "",
+          "resources_menu": "",
+          "useful_links_title": "",
+          "useful_links_menu": "",
+          "newsletter_title": "",
+          "newsletter_description": "",
           "newsletter_placeholder": "Your mail",
           "instagram_url": "",
           "facebook_url": "",
