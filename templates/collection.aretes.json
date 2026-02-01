@@ -3,8 +3,8 @@
     "collection-aretes": {
       "type": "collection-aretes",
       "settings": {
-        "collection_handle": "aretes",
-        "products_per_page": 12
+        "filter_tag": "aretes",
+        "title": "Aretes"
       }
     }
   },
