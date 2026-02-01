@@ -60,11 +60,23 @@
             MUNIER
           </h3>
           <nav style="display: flex; flex-direction: column; gap: 0.75rem;">
-            {% for link in footer_menu_linklist %}
-              <a href="{{ link.url }}" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
-                {{ link.title }}
+            {% if footer_menu_linklist.size > 0 %}
+              {% for link in footer_menu_linklist %}
+                <a href="{{ link.url }}" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+                  {{ link.title }}
+                </a>
+              {% endfor %}
+            {% else %}
+              <a href="{{ routes.search_url }}" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+                Buscar
               </a>
-            {% endfor %}
+              <a href="{{ routes.account_url }}" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+                Mi Cuenta
+              </a>
+              <a href="/pages/contact" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+                Contacto
+              </a>
+            {% endif %}
           </nav>
         </div>
 
