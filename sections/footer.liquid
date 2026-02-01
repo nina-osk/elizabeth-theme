@@ -1,3 +1,11 @@
+{% liquid 
+    if section.settings.footer_menu.links == blank
+        assign footer_menu_linklist = linklists[section.settings.footer_menu].links
+    else
+        assign footer_menu_linklist = section.settings.footer_menu.links
+    endif
+%}
+
 <footer style="background-color: #2d2d2d; color: white;">
   <div style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
     
@@ -52,15 +60,11 @@
             MUNIER
           </h3>
           <nav style="display: flex; flex-direction: column; gap: 0.75rem;">
-            <a href="/pages/about-us" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
-              Nuestra Historia
-            </a>
-            <a href="/pages/about-us" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
-              Valores
-            </a>
-            <a href="/pages/about-us" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
-              Misión
-            </a>
+            {% for link in footer_menu_linklist %}
+              <a href="{{ link.url }}" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+                {{ link.title }}
+              </a>
+            {% endfor %}
           </nav>
         </div>
 
@@ -83,6 +87,14 @@
 {% schema %}
 {
   "name": "Footer",
-  "settings": []
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Menú del Footer",
+      "default": "footer",
+      "info": "Menú para la columna 'Munier' del footer"
+    }
+  ]
 }
 {% endschema %}
