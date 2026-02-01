@@ -80,7 +80,7 @@
 
                         <!-- Add to Cart Button - Always visible on mobile, hover on desktop -->
                         <div class="absolute bottom-0 left-0 right-0 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 z-20">
-                          <form action="/cart/add" method="post" class="add-to-cart-form">
+                          <form action="{{ routes.cart_add_url }}" method="post" class="add-to-cart-form">
                             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                             <button 
                               type="submit"
