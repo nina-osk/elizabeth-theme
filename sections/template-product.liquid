@@ -102,8 +102,6 @@
                                                             {% if option.selected_value == value %}selected="selected"{% endif %}
                                                         >
                                                             {{ value }}
-                                                        >
-                                                            {{ value }}
                                                         </option>
                                                     {% endfor %}
                                                 </select>
@@ -162,8 +160,6 @@
                             <div style="margin-top: 2rem;">
                                 <button type="submit" name="add" 
                                     style="width: 100%; padding: 1rem 1.5rem; color: white; background-color: #2d2d2d; border: none; font-weight: 600; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: all 0.3s; border-radius: 0;"
-                                    onmouseover="this.style.backgroundColor='#1a1a1a'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'"
-                                    onmouseout="this.style.backgroundColor='#2d2d2d'; this.style.transform='translateY(0)'; this.style.boxShadow='none'"
                                     onmouseover="this.style.backgroundColor='#1a1a1a'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'"
                                     onmouseout="this.style.backgroundColor='#2d2d2d'; this.style.transform='translateY(0)'; this.style.boxShadow='none'"
                                     {% if selected_variant.available == false %}disabled{% endif %}
@@ -225,16 +221,6 @@
         }
     }
 </style>
-                            </div>
-                        {% else %}
-                            
-                    {% endcase %}
-                {% endfor %}
-            {% endform %}
-        </div>
-    </div>
-</div>
-
 
 <script>
     class VariantSelector extends HTMLElement {
@@ -376,7 +362,7 @@
         },
         {
             "type": "detailed_description",
-            "name": "Descripción Detallada (Desplegable)",
+            "name": "Descripción Detallada",
             "limit": 1,
             "settings": [
                 {
