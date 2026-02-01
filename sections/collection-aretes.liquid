@@ -5,13 +5,26 @@
 {% endcomment %}
 
 {% comment %} Tag principal para filtrar productos {% endcomment %}
-{% assign target_tag = section.settings.filter_tag | default: "aretes" %}
+{% assign target_tag = section.settings.filter_tag | default: "Aretes" %}
+{% assign target_tag_lower = target_tag | downcase %}
 
 <div class="w-full bg-white py-12 md:py-16 lg:py-20 mb-12 md:mb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-32">
         
-        {% comment %} Paginamos todos los productos y filtramos por tag dentro del loop {% endcomment %}
-        {% paginate collections.all.products by 50 %}
+        {% comment %} Obtenemos todos los productos y filtramos por tag {% endcomment %}
+        {% assign all_products = collections.all.products %}
+        {% assign aretes_products = "" | split: "" %}
+        
+        {% for product in all_products %}
+            {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
+            {% for tag in product_tags_lower %}
+                {% assign tag_trimmed = tag | strip %}
+                {% if tag_trimmed == target_tag_lower %}
+                    {% assign aretes_products = aretes_products | concat: product %}
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
         
             <!-- Encabezado de la sección -->
             <div class="text-center mb-8 md:mb-12">
@@ -52,79 +65,37 @@
             </div>
 
             <!-- Grid de productos - 4 columnas -->
-            {% comment %} Contamos productos que tienen el tag "aretes" (insensible a mayúsculas) {% endcomment %}
-            {% assign aretes_count = 0 %}
-            {% assign target_tag_lower = target_tag | downcase %}
-            
-            {% comment %} DEBUG: Mostrar todos los productos y sus tags {% endcomment %}
+            {% comment %} DEBUG: Mostrar información {% endcomment %}
             <div class="text-center mb-4 p-4 bg-yellow-50 rounded text-left max-w-4xl mx-auto">
                 <p class="text-sm text-gray-700">
                     <strong>Debug Detallado:</strong><br>
-                    Tag buscado (original): "<strong>{{ target_tag }}</strong>"<br>
-                    Tag buscado (minúsculas): "<strong>{{ target_tag_lower }}</strong>"<br>
-                    Total productos en la tienda: <strong>{{ paginate.items.size }}</strong><br><br>
-                    <strong>Productos y sus tags:</strong><br>
-                    {% for product in paginate.items limit: 5 %}
-                        {{ forloop.index }}. {{ product.title }}<br>
-                        &nbsp;&nbsp;Tags: {{ product.tags | join: ', ' }}<br>
-                        &nbsp;&nbsp;Tags (minúsculas): {{ product.tags | join: ', ' | downcase }}<br>
-                    {% endfor %}
-                </p>
-            </div>
-            
-            {% for product in paginate.items %}
-                {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
-                {% for tag in product_tags_lower %}
-                    {% assign tag_trimmed = tag | strip %}
-                    {% if tag_trimmed == target_tag_lower %}
-                        {% assign aretes_count = aretes_count | plus: 1 %}
-                        {% break %}
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-            
-            {% comment %} DEBUG: Mostrar información de conteo {% endcomment %}
-            <div class="text-center mb-4 p-4 bg-blue-50 rounded">
-                <p class="text-sm text-gray-700">
-                    <strong>Resultado:</strong><br>
-                    Productos con tag "{{ target_tag }}": <strong>{{ aretes_count }}</strong>
-                </p>
-            </div>
-            
-            {% if aretes_count > 0 %}
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" id="products-grid">
-                    {% for product in paginate.items %}
-                        {% comment %} Solo mostramos productos con el tag "aretes" (insensible a mayúsculas) {% endcomment %}
-                        {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
-                        {% assign show_product = false %}
-                        {% for tag in product_tags_lower %}
-                            {% assign tag_trimmed = tag | strip %}
-                            {% if tag_trimmed == target_tag_lower %}
-                                {% assign show_product = true %}
-                                {% break %}
-                            {% endif %}
+                    Tag buscado: "<strong>{{ target_tag }}</strong>" (minúsculas: "<strong>{{ target_tag_lower }}</strong>")<br>
+                    Total productos en colección "all": <strong>{{ all_products.size }}</strong><br>
+                    Productos filtrados con tag "{{ target_tag }}": <strong>{{ aretes_products.size }}</strong><br><br>
+                    {% if all_products.size > 0 %}
+                        <strong>Primeros 5 productos y sus tags:</strong><br>
+                        {% for product in all_products limit: 5 %}
+                            {{ forloop.index }}. <strong>{{ product.title }}</strong><br>
+                            &nbsp;&nbsp;Tags: {{ product.tags | join: ', ' }}<br>
                         {% endfor %}
-                        
-                        {% if show_product %}
-                            {% assign product_tags = product.tags | join: ',' | downcase %}
-                            <div class="product-item" data-tags="{{ product_tags }}">
-                                {% render 'product-card', product_product: product %}
-                            </div>
-                        {% endif %}
+                    {% endif %}
+                </p>
+            </div>
+            
+            {% if aretes_products.size > 0 %}
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" id="products-grid">
+                    {% for product in aretes_products %}
+                        {% assign product_tags = product.tags | join: ',' | downcase %}
+                        <div class="product-item" data-tags="{{ product_tags }}">
+                            {% render 'product-card', product_product: product %}
+                        </div>
                     {% endfor %}
                 </div>
 
                 <!-- Contador de productos visibles -->
                 <div class="mt-8 text-center text-sm text-gray-500">
-                    <span id="visible-count">{{ aretes_count }}</span> productos encontrados
+                    <span id="visible-count">{{ aretes_products.size }}</span> productos encontrados
                 </div>
-
-                <!-- Paginación -->
-                {% if paginate.pages > 1 %}
-                    <div class="mt-12">
-                        {% render 'pagination', pagination: paginate %}
-                    </div>
-                {% endif %}
             {% else %}
                 <!-- Estado vacío -->
                 <div class="text-center py-16">
@@ -135,15 +106,13 @@
                         No hay productos con el tag "{{ target_tag }}"
                     </h2>
                     <p class="text-gray-600 mb-8">
-                        No se encontraron productos con esta etiqueta. Asegúrate de tener productos etiquetados con "{{ target_tag }}" o crea una colección automática con este tag.
+                        No se encontraron productos con esta etiqueta. Asegúrate de tener productos etiquetados con "{{ target_tag }}".
                     </p>
                     <a href="{{ routes.all_products_url }}" class="inline-block px-6 py-3 text-white font-semibold rounded-lg transition-colors" style="background-color: #222121; hover:background-color: #333;">
                         Ver todos los productos
                     </a>
                 </div>
             {% endif %}
-
-        {% endpaginate %}
 
     </div>
 </div>
