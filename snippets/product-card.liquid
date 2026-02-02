@@ -75,7 +75,12 @@
         
         <!-- Product Price -->
         <p class="text-neutral-900 font-normal text-base">
-            From: {{ product_product.price | money }}
+            {% if product_product.compare_at_price > product_product.price %}
+                <span class="text-neutral-500 line-through mr-2">{{ product_product.compare_at_price | money_without_trailing_zeros }}</span>
+                <span class="text-red-600">{{ product_product.price | money_without_trailing_zeros }}</span>
+            {% else %}
+                {{ product_product.price | money_without_trailing_zeros }}
+            {% endif %}
         </p>
     </div>
 </div>
