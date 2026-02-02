@@ -35,6 +35,9 @@
             
             <div class="carousel-slide absolute transition-all duration-500 ease-out" 
                  data-index="{{ forloop.index0 }}"
+                 data-title="{{ prod.title | escape }}"
+                 data-price="{% if prod.selected_or_first_available_variant %}{{ prod.selected_or_first_available_variant.price | money_with_currency }}{% else %}$0.00{% endif %}"
+                 data-url="{{ prod.url }}"
                  role="group"
                  aria-roledescription="slide"
                  aria-label="Slide {{ forloop.index }} of {{ cards.size }}">
@@ -240,14 +243,12 @@
     let currentIndex = 0;
     const totalSlides = slides.length;
     
-    // Store product data
+    // Store product data from data attributes
     const productData = Array.from(slides).map(slide => {
-      const img = slide.querySelector('img');
-      const label = slide.querySelector('.absolute.top-4 span');
       return {
-        title: img ? img.alt : (label ? label.textContent : 'Producto'),
-        price: '$0.00', // Price will be extracted if available
-        url: img ? img.closest('a')?.href : null
+        title: slide.dataset.title || 'Producto',
+        price: slide.dataset.price || '$0.00',
+        url: slide.dataset.url || null
       };
     });
 
