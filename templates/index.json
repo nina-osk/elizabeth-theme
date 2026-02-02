@@ -199,7 +199,7 @@
       "settings": {
         "title": "Preguntas Frecuentes",
         "description": "",
-        "use_video": false,
+        "use_video": true,
         "faq_video": "",
         "show_contact_field": true,
         "contact_placeholder": "Tienes otras preguntas? Dejanos un mensaje",
