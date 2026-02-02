@@ -17,9 +17,9 @@
         "title_part2": "ocasión especial",
         "description": "Creemos que el lujo no está en la ocasión, sino en quien la vive. Joyas diseñadas para acompañarte todos los días.",
         "button1_text": "EXPLORAR COLECCIONES",
-        "button1_link": "",
+        "button1_link": "shopify://collections",
         "button2_text": "NUESTRA HISTORIA",
-        "button2_link": ""
+        "button2_link": "shopify://pages/nuestra-historia"
       }
     },
     "categories-showcase": {
