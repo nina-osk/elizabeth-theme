@@ -28,27 +28,17 @@
                 
                 <!-- Add to Cart Button -->
                 {% assign current_variant = product.selected_or_first_available_variant %}
-                {% comment %} Verificar que la variante exista, esté disponible Y tenga inventario {% endcomment %}
-                {% if current_variant and current_variant.available and current_variant.inventory_quantity > 0 %}
-                    <form action="{{ routes.cart_add_url }}" method="post" class="flex-1 add-to-cart-form" data-product-form>
-                        <input type="hidden" name="id" value="{{ current_variant.id }}">
-                        <input type="hidden" name="quantity" value="1">
-                        <button 
-                            type="submit"
-                            class="w-full bg-black text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wider uppercase hover:bg-neutral-800 transition-colors"
-                            data-add-to-cart
-                        >
-                            ADD TO CART
-                        </button>
-                    </form>
-                {% else %}
+                <form action="{{ routes.cart_add_url }}" method="post" class="flex-1 add-to-cart-form" data-product-form>
+                    <input type="hidden" name="id" value="{{ current_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
                     <button 
-                        disabled
-                        class="flex-1 bg-gray-400 text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wider uppercase cursor-not-allowed"
+                        type="submit"
+                        class="w-full bg-black text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wider uppercase hover:bg-neutral-800 transition-colors"
+                        data-add-to-cart
                     >
-                        SOLD OUT
+                        ADD TO CART
                     </button>
-                {% endif %}
+                </form>
                 
                 <!-- Wishlist Icon -->
                 <button class="flex items-center justify-center w-10 h-10 hover:bg-neutral-100 rounded transition-colors" aria-label="Add to wishlist">
@@ -116,6 +106,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const button = this.querySelector('[data-add-to-cart]');
       const originalText = button.innerHTML;
       
+      // Log data being sent
+      console.log('Adding to cart:', {
+        id: formData.get('id'),
+        quantity: formData.get('quantity')
+      });
+      
       // Disable button
       button.disabled = true;
       button.innerHTML = 'ADDING...';
@@ -125,14 +121,17 @@ document.addEventListener('DOMContentLoaded', function() {
         body: formData
       })
       .then(response => {
+        console.log('Response status:', response.status);
         if (!response.ok) {
           return response.json().then(err => {
-            throw new Error(err.description || 'Error al agregar al carrito');
+            console.error('Shopify error:', err);
+            throw new Error(err.description || err.message || 'Error al agregar al carrito');
           });
         }
         return response.json();
       })
       .then(data => {
+        console.log('Added successfully:', data);
         // Success
         button.innerHTML = '✓ ADDED!';
         button.classList.remove('bg-black');
@@ -156,10 +155,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 2000);
       })
       .catch(error => {
-        console.error('Error:', error);
-        button.innerHTML = '✗ ' + (error.message || 'ERROR');
+        console.error('Catch error:', error);
+        const errorMsg = error.message || 'ERROR';
+        button.innerHTML = '✗ ' + errorMsg;
         button.classList.remove('bg-black');
         button.classList.add('bg-red-600');
+        
+        // Show alert for user
+        alert('No se pudo agregar al carrito: ' + errorMsg);
         
         setTimeout(() => {
           button.disabled = false;
@@ -168,6 +171,10 @@ document.addEventListener('DOMContentLoaded', function() {
           button.classList.add('bg-black');
         }, 3000);
       });
+    });
+  });
+});
+</script>
           button.innerHTML = originalText;
         }, 2000);
       });
