@@ -75,13 +75,14 @@
         
         <!-- Product Price -->
         <p class="text-neutral-900 font-normal text-base">
-            {% if product.compare_at_price > product.price %}
-                <span class="text-neutral-500 line-through mr-2">{{ product.compare_at_price | money_with_currency }}</span>
-                <span class="text-red-600">{{ product.price | money_with_currency }}</span>
+            {% assign variant = product.selected_or_first_available_variant %}
+            {% if variant.compare_at_price > variant.price %}
+                <span class="text-neutral-500 line-through mr-2">{{ variant.compare_at_price | money_with_currency }}</span>
+                <span class="text-red-600">{{ variant.price | money_with_currency }}</span>
             {% elsif product.price_varies %}
                 Desde {{ product.price_min | money_with_currency }}
             {% else %}
-                {{ product.selected_or_first_available_variant.price | money_with_currency }}
+                {{ variant.price | money_with_currency }}
             {% endif %}
         </p>
     </div>
