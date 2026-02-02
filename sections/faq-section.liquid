@@ -8,6 +8,7 @@
   assign section_description = section.settings.description
   assign faq_image = section.settings.faq_image
   assign faq_video = section.settings.faq_video
+  assign faq_video_file = section.settings.faq_video_file
   assign use_video = section.settings.use_video
   assign show_contact = section.settings.show_contact_field
   assign contact_placeholder = section.settings.contact_placeholder
@@ -53,6 +54,18 @@
               height="450">
             </iframe>
           {% endif %}
+        {% elsif use_video and faq_video_file %}
+          <video 
+            class="faq-section__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            width="500"
+            height="450">
+            <source src="{{ faq_video_file }}" type="video/mp4">
+            Tu navegador no soporta el video.
+          </video>
         {% elsif faq_image %}
           {{ faq_image | image_url: width: 500 | image_tag: 
             alt: 'FAQ Image',
@@ -569,11 +582,25 @@
             "default": false
         },
         {
+            "type": "header",
+            "content": "Opción 1: Video de YouTube o Vimeo"
+        },
+        {
             "type": "video_url",
             "id": "faq_video",
-            "label": "Video lateral",
+            "label": "URL de video (YouTube/Vimeo)",
             "accept": ["youtube", "vimeo"],
-            "info": "Se mostrará solo si 'Usar video' está activado"
+            "info": "Pega la URL de YouTube o Vimeo"
+        },
+        {
+            "type": "header",
+            "content": "Opción 2: Video de la biblioteca de Shopify"
+        },
+        {
+            "type": "url",
+            "id": "faq_video_file",
+            "label": "Archivo de video (MP4)",
+            "info": "Sube un archivo .mp4 desde la biblioteca de archivos de Shopify. Usa esto si no tienes URL de YouTube/Vimeo."
         },
         {
             "type": "image_picker",
