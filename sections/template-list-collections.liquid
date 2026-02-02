@@ -1,34 +1,149 @@
-<div class="flex flex-col items-center my-8">
-    <h1 class="text-3xl font-medium">{{ section.settings.title }}</h1>
-
-    <div class="max-w-6xl mx-auto my-3">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {% for collection in collections %}
-                {% if collection.all_products_count > 0 %}
-                    <div class="w-full py-6 px-3">
-                        <a href="{{ collection.url }}" class="block border bg-white overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                            <div class="h-80 overflow-hidden">
-                                {% if collection.featured_image != blank %}
-                                    {% assign collection_image = collection.featured_image %}
-                                {% else %}
-                                    {% assign collection_image = collection.products.first.image %}
-                                {% endif %}
-
-                                <img class="w-full h-full object-cover transition duration-1000 ease-in-out transform hover:scale-105" src="{{ collection_image | image_url: width: 500 }}" alt="{{ collection.title | escape }}" width="500" height="500" loading="lazy">
-                            </div>
-
-                            <div class="p-4 bg-gray-100">
-                                <h2 class="text-xl font-medium text-gray-900">{{ collection.title }}</h2>
-                            </div>
-                        </a>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+<div class="w-full bg-white py-12 md:py-16 lg:py-20">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <p style="font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; color: #D4A574; margin-bottom: 1rem;">
+        {{ section.settings.subtitle | default: "DESCUBRE" }}
+      </p>
+      <h2 style="font-family: Georgia, serif; font-size: 2.5rem; font-weight: 400; color: #2d2d2d;">
+        {{ section.settings.title | default: "Coleccion" }}
+      </h2>
     </div>
+
+    <!-- Collection Filter Buttons -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 3rem;" role="tablist" aria-label="Filter by collection">
+      <button 
+        class="collection-filter-btn active"
+        style="padding: 0.75rem 2.5rem; font-weight: 500; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s; cursor: pointer;"
+        data-collection-handle="all"
+        role="tab"
+        aria-selected="true">
+        TODAS
+      </button>
+      {% for collection in collections %}
+        {% if collection.all_products_count > 0 %}
+          <button 
+            class="collection-filter-btn"
+            style="padding: 0.75rem 2.5rem; font-weight: 500; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s; background-color: white; color: #2d2d2d; border: 2px solid #e8e8e8; cursor: pointer;"
+            data-collection-handle="{{ collection.handle }}"
+            role="tab"
+            aria-selected="false">
+            {{ collection.title }}
+          </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Collections Grid -->
+    <div class="collections-grid max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for collection in collections %}
+          {% if collection.all_products_count > 0 %}
+            <div class="collection-card" data-collection-handle="{{ collection.handle }}">
+              <a href="{{ collection.url }}" class="block bg-white overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div class="relative h-80 overflow-hidden">
+                  {% if collection.featured_image != blank %}
+                    {% assign collection_image = collection.featured_image %}
+                  {% else %}
+                    {% assign collection_image = collection.products.first.featured_image %}
+                  {% endif %}
+
+                  <img 
+                    class="w-full h-full object-cover transition duration-700 ease-in-out transform hover:scale-110" 
+                    src="{{ collection_image | image_url: width: 600 }}" 
+                    alt="{{ collection.title | escape }}" 
+                    width="600" 
+                    height="600" 
+                    loading="lazy">
+                  
+                  <!-- Overlay with collection title -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                    <div>
+                      <h2 class="text-2xl font-semibold text-white mb-2">{{ collection.title }}</h2>
+                      <p class="text-white/90 text-sm">{{ collection.all_products_count }} productos</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
 </div>
 
+<style>
+  /* Filter Button Styles */
+  .collection-filter-btn {
+    background-color: white;
+    color: #2d2d2d;
+    border: 2px solid #e8e8e8;
+  }
 
+  .collection-filter-btn.active {
+    background-color: #C8A882;
+    color: white;
+    border: 2px solid #C8A882;
+  }
+
+  .collection-filter-btn:hover {
+    background-color: #f5f5f5;
+  }
+
+  .collection-filter-btn.active:hover {
+    background-color: #B89872;
+  }
+
+  /* Collection Card Animation */
+  .collection-card {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .collection-card.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.collection-filter-btn');
+    const collectionCards = document.querySelectorAll('.collection-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const selectedHandle = this.getAttribute('data-collection-handle');
+
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+
+        // Filter collections
+        collectionCards.forEach(card => {
+          const cardHandle = card.getAttribute('data-collection-handle');
+          
+          if (selectedHandle === 'all' || cardHandle === selectedHandle) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>
 
 {% schema %}
 {
@@ -36,9 +151,15 @@
     "settings": [
         {
             "type": "text",
+            "id": "subtitle",
+            "label": "Subtítulo",
+            "default": "DESCUBRE"
+        },
+        {
+            "type": "text",
             "id": "title",
-            "default": "Colecciones",
-            "label": "Title"
+            "label": "Título",
+            "default": "Coleccion"
         }
     ]
 }
