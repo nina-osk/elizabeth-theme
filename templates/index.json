@@ -87,6 +87,7 @@
     "collection-circles": {
       "type": "collection-circles",
       "settings": {
+        "subtitle": "DESCUBRE",
         "section_title": "Categorías",
         "circle_1_image": "shopify://shop_images/AreteOro9K-Libi.jpg",
         "circle_1_title": "Aretes",
@@ -105,6 +106,7 @@
         "title": "Joyería Atemporal De Oro9k",
         "description": "Munier crea piezas elegantes, versátiles y duraderas que se sienten tan naturales como tu propia esencia. Joyas que se mueven contigo, desde lo cotidiano hasta lo inolvidable.",
         "video_url": "",
+        "video_file": "shopify://files/videos/HomePage.mp4",
         "bottom_title": "Lujo Discreto Y De Calidad"
       }
     },
