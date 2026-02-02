@@ -13,14 +13,6 @@
 
     <!-- Collection Filter Buttons -->
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 3rem;" role="tablist" aria-label="Filter by collection">
-      <button 
-        class="collection-filter-btn active"
-        style="padding: 0.75rem 2.5rem; font-weight: 500; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s; cursor: pointer;"
-        data-collection-handle="all"
-        role="tab"
-        aria-selected="true">
-        TODAS
-      </button>
       {% for collection in collections %}
         {% if collection.all_products_count > 0 %}
           <button 
@@ -35,41 +27,37 @@
       {% endfor %}
     </div>
 
-    <!-- Collections Grid -->
-    <div class="collections-grid max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {% for collection in collections %}
-          {% if collection.all_products_count > 0 %}
-            <div class="collection-card" data-collection-handle="{{ collection.handle }}">
-              <a href="{{ collection.url }}" class="block bg-white overflow-hidden hover:shadow-xl transition-all duration-300">
-                <div class="relative h-80 overflow-hidden">
-                  {% if collection.featured_image != blank %}
-                    {% assign collection_image = collection.featured_image %}
-                  {% else %}
-                    {% assign collection_image = collection.products.first.featured_image %}
-                  {% endif %}
-
-                  <img 
-                    class="w-full h-full object-cover transition duration-700 ease-in-out transform hover:scale-110" 
-                    src="{{ collection_image | image_url: width: 600 }}" 
-                    alt="{{ collection.title | escape }}" 
-                    width="600" 
-                    height="600" 
-                    loading="lazy">
-                  
-                  <!-- Overlay with collection title -->
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                    <div>
-                      <h2 class="text-2xl font-semibold text-white mb-2">{{ collection.title }}</h2>
-                      <p class="text-white/90 text-sm">{{ collection.all_products_count }} productos</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
+    <!-- Products Grid -->
+    <div class="products-grid-container max-w-6xl mx-auto">
+      {% for collection in collections %}
+        {% if collection.all_products_count > 0 %}
+          <div 
+            class="collection-products-group hidden"
+            data-collection-handle="{{ collection.handle }}">
+            
+            {% if collection.products.size > 0 %}
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                {% for product in collection.products %}
+                  {% render 'product-card', product: product %}
+                {% endfor %}
+              </div>
+            {% else %}
+              <!-- Empty State -->
+              <div class="text-center py-16">
+                <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                  No hay productos en esta colección
+                </h3>
+                <p class="text-gray-600">
+                  Esta colección está vacía actualmente
+                </p>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
 
   </div>
@@ -97,52 +85,67 @@
     background-color: #B89872;
   }
 
-  /* Collection Card Animation */
-  .collection-card {
+  /* Product Groups */
+  .collection-products-group {
     opacity: 1;
-    transform: scale(1);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease;
   }
 
-  .collection-card.hidden {
-    opacity: 0;
-    transform: scale(0.95);
-    height: 0;
-    overflow: hidden;
-    margin: 0;
+  .collection-products-group.hidden {
+    display: none;
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const filterButtons = document.querySelectorAll('.collection-filter-btn');
-    const collectionCards = document.querySelectorAll('.collection-card');
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.collection-filter-btn');
+  const productGroups = document.querySelectorAll('.collection-products-group');
 
-    filterButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const selectedHandle = this.getAttribute('data-collection-handle');
+  // Style constants
+  const activeStyles = 'background-color: #C8A882; color: white; border-color: #C8A882;';
+  const inactiveStyles = 'background-color: white; color: #2d2d2d; border-color: #e8e8e8;';
 
-        // Update active button
-        filterButtons.forEach(btn => {
-          btn.classList.remove('active');
-          btn.setAttribute('aria-selected', 'false');
-        });
-        this.classList.add('active');
-        this.setAttribute('aria-selected', 'true');
+  function showCollection(handle) {
+    // Update buttons
+    filterButtons.forEach(btn => {
+      const isActive = btn.dataset.collectionHandle === handle;
+      const baseStyle = 'padding: 0.75rem 2.5rem; font-weight: 500; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s; border: 2px solid; cursor: pointer;';
+      
+      if (isActive) {
+        btn.style.cssText = baseStyle + activeStyles;
+        btn.setAttribute('aria-selected', 'true');
+        btn.classList.add('active');
+      } else {
+        btn.style.cssText = baseStyle + inactiveStyles;
+        btn.setAttribute('aria-selected', 'false');
+        btn.classList.remove('active');
+      }
+    });
 
-        // Filter collections
-        collectionCards.forEach(card => {
-          const cardHandle = card.getAttribute('data-collection-handle');
-          
-          if (selectedHandle === 'all' || cardHandle === selectedHandle) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
-      });
+    // Update product groups
+    productGroups.forEach(group => {
+      if (group.dataset.collectionHandle === handle) {
+        group.classList.remove('hidden');
+      } else {
+        group.classList.add('hidden');
+      }
+    });
+  }
+
+  // Button click handlers
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const handle = this.dataset.collectionHandle;
+      showCollection(handle);
     });
   });
+
+  // Show first collection by default
+  if (filterButtons.length > 0) {
+    const firstHandle = filterButtons[0].dataset.collectionHandle;
+    showCollection(firstHandle);
+  }
+});
 </script>
 
 {% schema %}
