@@ -18,20 +18,20 @@
 {% endif %}
 
 <div style="position: relative; background-color: #F5F1E8;" x-data="{ mobileMenuOpen: false }">
-  <div style="max-width: 1280px; margin: 0 auto; padding: 1.5rem 1rem;">
+  <div style="max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem;">
     
     <!-- Header Row -->
-    <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem;">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 3rem;">
       
       <!-- Mobile menu button - Left side -->
-      <div style="display: flex; align-items: center; gap: 1rem;">
+      <div style="display: flex; align-items: center;">
         <button x-on:click="mobileMenuOpen = true" type="button" style="background: none; border: none; padding: 0.5rem; cursor: pointer; display: none;" class="mobile-menu-btn">
           {% render 'icon-menu-bar3' %}
         </button>
       </div>
       
-      <!-- LOGO - Center -->
-      <div style="display: flex; justify-content: center;">
+      <!-- LOGO - Left/Center -->
+      <div style="display: flex; align-items: center; flex-shrink: 0; margin-right: auto;">
         <a href="{{ routes.root_url }}" style="display: inline-block; text-decoration: none;">
           {% if section.settings.logo != blank %}
             <img 
@@ -40,7 +40,7 @@
               width="200"
               height="100"
               loading="eager"
-              style="height: auto; width: auto; max-height: 3rem; max-width: 180px;"
+              style="height: auto; width: auto; max-height: 3rem; max-width: 200px;"
             >
           {% else %}
             <span style="font-size: 1.5rem; font-weight: 700; color: #2d2d2d; letter-spacing: 0.1em;">MUNIER</span>
@@ -48,85 +48,82 @@
         </a>
       </div>
 
-      <!-- NAVIGATION MENU + Cart - Right side -->
-      <div style="display: flex; align-items: center; gap: 3rem;" class="desktop-nav">
-        <nav style="display: flex; align-items: center; gap: 2.5rem;">
-          {% for link in main_menu_linklist %}
-            {% if link.links != blank %}
-              {% assign link_handle = link.handle | replace: '-', '_' %}
-              <div x-data="{ {{link_handle}}: false }" style="position: relative;">
-                <button 
-                  x-on:click="{{link_handle}} = !{{link_handle}}" 
-                  type="button" 
-                  class="nav-link"
-                  style="background: none; border: none; font-size: 0.8125rem; font-weight: 500; color: #2d2d2d; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; padding: 0.5rem 0; display: flex; align-items: center; gap: 0.25rem; position: relative;"
-                >
-                  {{ link.title }}
-                  {% render 'icon-dropdown' %}
-                </button>
-                
-                <div 
-                  x-show="{{link_handle}}" 
-                  @click.away="{{link_handle}} = false" 
-                  x-transition:enter="transition ease-out duration-200"
-                  x-transition:enter-start="opacity-0 translate-y-1"
-                  x-transition:enter-end="opacity-100 translate-y-0"
-                  x-transition:leave="transition ease-in duration-150"
-                  x-transition:leave-start="opacity-100 translate-y-0"
-                  x-transition:leave-end="opacity-0 translate-y-1"
-                  style="position: absolute; z-index: 50; margin-top: 0.75rem; left: 50%; transform: translateX(-50%); min-width: 250px;"
-                >
-                  <div style="box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb; border-radius: 0.5rem; overflow: hidden;">
-                    <div style="background-color: white; padding: 1.5rem;">
-                      {% for childlink in link.links %}
-                        <a 
-                          href="{{ childlink.url }}" 
-                          style="display: block; padding: 0.75rem; margin: -0.25rem; text-decoration: none; border-radius: 0.5rem; transition: background-color 0.2s;"
-                          onmouseover="this.style.backgroundColor='#F5F1E8'" 
-                          onmouseout="this.style.backgroundColor='transparent'"
-                        >
-                          <p style="color: #2d2d2d; font-size: 0.9375rem; font-weight: 500; margin: 0;">
-                            {{ childlink.title }}
-                          </p>
-                        </a>
-                      {% endfor %}
-                    </div>
+      <!-- NAVIGATION MENU - Center/Right -->
+      <nav style="display: flex; align-items: center; gap: 2rem; flex: 1; justify-content: center;" class="desktop-nav">
+        {% for link in main_menu_linklist %}
+          {% if link.links != blank %}
+            {% assign link_handle = link.handle | replace: '-', '_' %}
+            <div x-data="{ {{link_handle}}: false }" style="position: relative;">
+              <button 
+                x-on:click="{{link_handle}} = !{{link_handle}}" 
+                type="button" 
+                class="nav-link"
+                style="background: none; border: none; font-size: 0.75rem; font-weight: 600; color: #2d2d2d; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; padding: 0.5rem 0; display: flex; align-items: center; gap: 0.25rem; position: relative; white-space: nowrap;"
+              >
+                {{ link.title }}
+                {% render 'icon-dropdown' %}
+              </button>
+              
+              <div 
+                x-show="{{link_handle}}" 
+                @click.away="{{link_handle}} = false" 
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 translate-y-1"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 translate-y-1"
+                style="position: absolute; z-index: 50; margin-top: 0.75rem; left: 50%; transform: translateX(-50%); min-width: 250px;"
+              >
+                <div style="box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb; border-radius: 0.5rem; overflow: hidden;">
+                  <div style="background-color: white; padding: 1.5rem;">
+                    {% for childlink in link.links %}
+                      <a 
+                        href="{{ childlink.url }}" 
+                        style="display: block; padding: 0.75rem; margin: -0.25rem; text-decoration: none; border-radius: 0.5rem; transition: background-color 0.2s;"
+                        onmouseover="this.style.backgroundColor='#F5F1E8'" 
+                        onmouseout="this.style.backgroundColor='transparent'"
+                      >
+                        <p style="color: #2d2d2d; font-size: 0.9375rem; font-weight: 500; margin: 0;">
+                          {{ childlink.title }}
+                        </p>
+                      </a>
+                    {% endfor %}
                   </div>
                 </div>
               </div>
-            {% else %}
-              <a 
-                href="{{ link.url }}" 
-                class="nav-link {% if link.active %}active-link{% endif %}"
-                style="font-size: 0.8125rem; font-weight: 500; color: #2d2d2d; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; padding: 0.5rem 0; position: relative; display: inline-block;"
-              >
-                {{ link.title }}
-              </a>
-            {% endif %}
-          {% endfor %}
-        </nav>
+            </div>
+          {% else %}
+            <a 
+              href="{{ link.url }}" 
+              class="nav-link {% if link.active %}active-link{% endif %}"
+              style="font-size: 0.75rem; font-weight: 600; color: #2d2d2d; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; padding: 0.5rem 0; position: relative; display: inline-block; white-space: nowrap;"
+            >
+              {{ link.title }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </nav>
+      
+      <!-- User Account & Cart - Right side -->
+      <div style="display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0;" class="desktop-nav">
+        <!-- User Account -->
+        <a 
+          href="{{ routes.account_url }}" 
+          style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;"
+          title="{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}"
+        >
+          {% render 'icon-user' %}
+        </a>
         
-        <!-- User Account & Cart -->
-        <div style="display: flex; align-items: center; gap: 1.5rem;">
-          <!-- User Account -->
-          <a 
-            href="{{ routes.account_url }}" 
-            style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;"
-            title="{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}"
-          >
-           
-            <span style="white-space: nowrap;">{% if customer %}{{ customer.first_name | default: 'Cuenta' }}{% else %} {% render 'icon-user' %}{% endif %}</span>
-          </a>
-          
-          <!-- Cart -->
-          <a 
-            href="{{ routes.cart_url }}" 
-            style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap;"
-          >
-            {% render 'icon-shopping-bag' %} 
-            <span>({{ cart.item_count }})</span>
-          </a>
-        </div>
+        <!-- Cart -->
+        <a 
+          href="{{ routes.cart_url }}" 
+          style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap;"
+        >
+          {% render 'icon-shopping-bag' %} 
+          <span>({{ cart.item_count }})</span>
+        </a>
       </div>
     </div>
 
