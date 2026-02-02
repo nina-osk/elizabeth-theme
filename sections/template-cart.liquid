@@ -1,137 +1,109 @@
 {% if cart.item_count > 0 %}
-  <div class="max-w-5xl mx-auto px-4 py-10">
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-8">
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl font-semibold">Tu Carrito ({{ cart.item_count }})</h1>
       <a href="{{ routes.all_products_collection_url }}" class="text-blue-600 hover:text-blue-800 underline text-sm">Continúa comprando</a>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-      <!-- Cart Items -->
-      <div class="lg:col-span-2">
-        <form action="{{ routes.cart_url }}" method="POST" id="cart-form">
-          <div class="divide-y divide-gray-200">
-            {% for item in cart.items %}
-              <div class="py-6 flex gap-6">
-                <!-- Product Image -->
-                <div class="flex-shrink-0">
-                  <a href="{{ item.url }}">
-                    {% if item.image %}
-                      <img 
-                        src="{{ item.image | image_url: width: 150 }}" 
-                        alt="{{ item.title | escape }}" 
-                        class="w-32 h-32 object-cover rounded border"
-                        width="150"
-                        height="150"
-                      >
-                    {% else %}
-                      {{ 'product-1' | placeholder_svg_tag: 'w-32 h-32 object-cover rounded border' }}
+    <form action="{{ routes.cart_url }}" method="POST" id="cart-form">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Products -->
+        <div class="lg:col-span-2">
+          {% for item in cart.items %}
+            <div class="flex gap-4 py-6 border-b">
+              <a href="{{ item.url }}" class="flex-shrink-0">
+                {% if item.image %}
+                  <img src="{{ item.image | image_url: width: 150 }}" alt="{{ item.title }}" class="w-24 h-24 object-cover rounded border">
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'w-24 h-24 object-cover rounded border' }}
+                {% endif %}
+              </a>
+              
+              <div class="flex-grow">
+                <div class="flex justify-between mb-2">
+                  <div>
+                    <a href="{{ item.url }}" class="font-medium text-gray-900 hover:text-gray-700">{{ item.product.title }}</a>
+                    {% if item.variant.title != 'Default Title' %}
+                      <p class="text-sm text-gray-500 mt-1">{{ item.variant.title }}</p>
                     {% endif %}
+                    <p class="text-gray-900 mt-2">{{ item.final_price | money_with_currency }}</p>
+                  </div>
+                  <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="text-gray-400 hover:text-red-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                   </a>
                 </div>
-
-                <!-- Product Info -->
-                <div class="flex-grow flex flex-col">
-                  <div class="flex justify-between mb-2">
-                    <div>
-                      <a href="{{ item.url }}" class="text-lg font-medium text-gray-900 hover:text-gray-700">
-                        {{ item.product.title }}
-                      </a>
-                      {% if item.variant.title != 'Default Title' %}
-                        <p class="text-sm text-gray-500 mt-1">{{ item.variant.title }}</p>
-                      {% endif %}
-                    </div>
-                    
-                    <!-- Remove Button -->
-                    <button 
-                      type="button"
-                      class="text-gray-400 hover:text-red-500 transition-colors self-start"
-                      onclick="window.location.href='{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0'"
-                      aria-label="Eliminar producto"
-                    >
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                      </svg>
-                    </button>
+                
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="text-sm text-gray-600">Cantidad:</span>
+                  <div class="flex items-center border border-gray-300 rounded">
+                    <button type="button" class="px-3 py-1 hover:bg-gray-100" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.form.submit();">−</button>
+                    <input type="number" name="updates[]" value="{{ item.quantity }}" min="1" class="w-16 text-center border-x py-1 focus:outline-none">
+                    <button type="button" class="px-3 py-1 hover:bg-gray-100" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.form.submit();">+</button>
                   </div>
-
-                  <p class="text-base font-medium text-gray-900 mb-3">{{ item.final_price | money_with_currency }}</p>
-
-                  <!-- Quantity Controls -->
-                  <div class="flex items-center gap-4 mt-auto">
-                    <div class="flex items-center">
-                      <label for="quantity-{{ forloop.index }}" class="text-sm text-gray-600 mr-3">Cantidad:</label>
-                      <div class="flex items-center border-2 border-gray-800 rounded">
-                        <button 
-                          type="button"
-                          class="px-4 py-2 hover:bg-gray-100 transition-colors text-lg font-medium"
-                          onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.form.submit();"
-                        >
-                          −
-                        </button>
-                        <input 
-                          type="number" 
-                          name="updates[]" 
-                          id="quantity-{{ forloop.index }}"
-                          value="{{ item.quantity }}" 
-                          min="1"
-                          class="w-12 text-center border-x-2 border-gray-800 py-2 focus:outline-none font-medium"
-                        >
-                        <button 
-                          type="button"
-                          class="px-4 py-2 hover:bg-gray-100 transition-colors text-lg font-medium"
-                          onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.form.submit();"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <div class="ml-auto text-right">
-                      <p class="text-xs text-gray-500">Total:</p>
-                      <p class="text-lg font-bold text-gray-900">{{ item.final_line_price | money_with_currency }}</p>
-                    </div>
-                  </div>
+                  <span class="ml-auto text-sm"><strong>{{ item.final_line_price | money_with_currency }}</strong></span>
                 </div>
               </div>
-            {% endfor %}
+            </div>
+          {% endfor %}
+          
+          <div class="mt-6">
+            <label for="cart-note" class="block text-sm font-medium mb-2">Notas del pedido (opcional)</label>
+            <textarea id="cart-note" name="note" rows="3" class="w-full border rounded px-3 py-2 text-sm" placeholder="Instrucciones especiales, opciones de entrega, etc.">{{ cart.note }}</textarea>
           </div>
+          
+          <button type="submit" name="update" class="lg:hidden w-full mt-4 bg-gray-800 text-white py-3 rounded hover:bg-black">Actualizar carrito</button>
+        </div>
 
-          <!-- Order Notes -->
-          <div class="mt-8 pt-6 border-t border-gray-200">
-            <label for="cart-note" class="block text-base font-medium text-gray-700 mb-3">
-              Notas del pedido (opcional)
-            </label>
-            <textarea 
-              id="cart-note" 
-              name="note" 
-              rows="3"
-              class="w-full border border-gray-300 rounded-md px-4 py-3 text-sm resize-none focus:ring-2 focus:ring-gray-800 focus:border-transparent"
-              placeholder="Instrucciones especiales, opciones de entrega, etc."
-            >{{ cart.note }}</textarea>
+        <!-- Summary -->
+        <div class="lg:col-span-1">
+          <div class="bg-gray-50 rounded-lg p-6 sticky top-4">
+            <h2 class="text-xl font-semibold mb-4">Resumen del pedido</h2>
+            
+            <div class="space-y-3 pb-4 border-b mb-4">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Subtotal ({{ cart.item_count }} {% if cart.item_count == 1 %}artículo{% else %}artículos{% endif %})</span>
+                <span class="font-medium">{{ cart.total_price | money_with_currency }}</span>
+              </div>
+              <p class="text-sm text-gray-500">Los impuestos y envío se calculan al finalizar la compra</p>
+            </div>
+            
+            <div class="flex justify-between text-xl font-bold pb-4 border-b mb-4">
+              <span>Total</span>
+              <span>{{ cart.total_price | money_with_currency }}</span>
+            </div>
+            
+            <button type="submit" name="checkout" class="w-full bg-black text-white py-4 rounded font-semibold hover:bg-gray-800 mb-3">Proceder al pago</button>
+            <button type="submit" name="update" class="hidden lg:block w-full border border-gray-800 text-gray-800 py-3 rounded font-semibold hover:bg-gray-800 hover:text-white">Actualizar carrito</button>
+            
+            <div class="mt-6 pt-6 border-t space-y-3">
+              <div class="flex items-center gap-3 text-sm">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Compra 100% segura</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                <span>Envío gratis en pedidos +$1000</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                <span>Devoluciones en 30 días</span>
+              </div>
+            </div>
           </div>
-
-          <!-- Update Cart Button (Mobile) -->
-          <button 
-            type="submit" 
-            name="update"
-            class="lg:hidden w-full mt-6 bg-gray-800 text-white py-4 px-6 rounded font-medium hover:bg-black transition-colors"
-          >
-            Actualizar carrito
+        </div>
+      </div>
+    </form>
+  </div>
 
 {% else %}
-  <div class="max-w-5xl h-96 my-10 mx-auto px-4 flex items-center justify-center">
+  <div class="max-w-6xl h-96 my-10 mx-auto px-4 flex items-center justify-center">
     <div class="text-center">
-      <svg class="w-32 h-32 mx-auto text-gray-300 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+      <svg class="w-24 h-24 mx-auto text-gray-300 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
       </svg>
-      <h1 class="text-4xl font-semibold text-gray-900 mb-4">Tu carrito está vacío</h1>
-      <p class="text-gray-600 mb-10 text-lg">¡Descubre nuestras hermosas joyas y encuentra tu pieza perfecta!</p>
-      <a 
-        href="{{ routes.all_products_collection_url }}" 
-        class="inline-block bg-black text-white px-10 py-4 rounded-md font-semibold hover:bg-gray-800 transition-colors text-base"
-      >
-        Explorar productos
-      </a>
+      <h1 class="text-3xl font-semibold text-gray-900 mb-4">Tu carrito está vacío</h1>
+      <p class="text-gray-600 mb-8">¡Descubre nuestras hermosas joyas y encuentra tu pieza perfecta!</p>
+      <a href="{{ routes.all_products_collection_url }}" class="inline-block bg-black text-white px-8 py-3 rounded font-semibold hover:bg-gray-800">Explorar productos</a>
     </div>
   </div>
 {% endif %}
