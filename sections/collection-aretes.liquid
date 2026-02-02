@@ -88,7 +88,7 @@
                         {% if has_tag %}
                             {% assign product_tags = product.tags | join: ',' | downcase %}
                             <div class="product-item" data-tags="{{ product_tags }}">
-                                {% render 'product-card', product_product: product %}
+                                {% render 'product-card', product: product %}
                             </div>
                         {% endif %}
                     {% endfor %}
