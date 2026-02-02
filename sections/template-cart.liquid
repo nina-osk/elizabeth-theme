@@ -242,24 +242,31 @@
       });
 
       function updateCart() {
+        const updates = {};
+        document.querySelectorAll('[data-qty-input]').forEach((input, index) => {
+          updates[index + 1] = parseInt(input.value) || 0;
+        });
+
         fetch('/cart/update.js', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            updates: Array.from(document.querySelectorAll('[data-qty-input]')).reduce((acc, input) => {
-              acc[input.dataset.line] = parseInt(input.value);
-              return acc;
-            }, {})
-          })
+          body: JSON.stringify({ updates: updates })
         })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
         .then(data => {
+          // Reload to show updated cart
           window.location.reload();
         })
         .catch(error => {
-          console.error('Error:', error);
+          console.error('Error updating cart:', error);
+          alert('Hubo un error al actualizar el carrito. Por favor, recarga la página.');
         });
       }
     });
