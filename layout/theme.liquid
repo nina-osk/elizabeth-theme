@@ -10,6 +10,80 @@
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
  <style>
     [x-cloak] { display: none !important; } </style>
+  
+  <script>
+  // Global Add to Cart Handler
+  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('submit', function(e) {
+      const form = e.target;
+      if (!form.hasAttribute('data-product-form')) return;
+      
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const button = form.querySelector('button[type="submit"]');
+      if (!button) return;
+      
+      const formData = new FormData(form);
+      const variantId = formData.get('id');
+      
+      if (!variantId) {
+        alert('Error: Producto no válido');
+        return;
+      }
+      
+      const originalText = button.innerHTML;
+      button.disabled = true;
+      button.innerHTML = 'ADDING...';
+      
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: 1
+        })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.status === 422 || data.status === 'error') {
+          throw new Error(data.description || 'No disponible');
+        }
+        
+        button.innerHTML = '✓ ADDED!';
+        button.classList.add('bg-green-600');
+        button.classList.remove('bg-black');
+        
+        fetch('/cart.js')
+          .then(r => r.json())
+          .then(cart => {
+            document.querySelectorAll('[data-cart-count]').forEach(el => el.textContent = cart.item_count);
+          });
+        
+        setTimeout(() => {
+          button.disabled = false;
+          button.innerHTML = originalText;
+          button.classList.remove('bg-green-600');
+          button.classList.add('bg-black');
+        }, 2000);
+      })
+      .catch(err => {
+        button.innerHTML = 'ERROR';
+        button.classList.add('bg-red-600');
+        button.classList.remove('bg-black');
+        alert(err.message || 'Error al agregar al carrito');
+        
+        setTimeout(() => {
+          button.disabled = false;
+          button.innerHTML = originalText;
+          button.classList.remove('bg-red-600');
+          button.classList.add('bg-black');
+        }, 3000);
+      });
+    }, true);
+  });
+  </script>
+  
   {{ content_for_header }}
 </head>
 <body>
