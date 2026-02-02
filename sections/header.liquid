@@ -103,14 +103,27 @@
           {% endfor %}
         </nav>
         
-        <!-- Cart -->
-        <a 
-          href="{{ routes.cart_url }}" 
-          style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap;"
-        >
-          {% render 'icon-shopping-cart' %} 
-          <span>({{ cart.item_count }})</span>
-        </a>
+        <!-- User Account & Cart -->
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+          <!-- User Account -->
+          <a 
+            href="{{ routes.account_url }}" 
+            style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;"
+            title="{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}"
+          >
+            {% render 'icon-user' %}
+            <span style="white-space: nowrap;">{% if customer %}{{ customer.first_name | default: 'Cuenta' }}{% else %}Login{% endif %}</span>
+          </a>
+          
+          <!-- Cart -->
+          <a 
+            href="{{ routes.cart_url }}" 
+            style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap;"
+          >
+            {% render 'icon-shopping-bag' %} 
+            <span>({{ cart.item_count }})</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -192,12 +205,21 @@
           <div class="pt-4 mt-4">
             <div class="flex flex-col space-y-3">
               <a 
+                href="{{ routes.account_url }}" 
+                class="flex items-center justify-between p-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                <span>{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}</span>
+                <span class="flex items-center gap-2">
+                  {% render 'icon-user' %}
+                </span>
+              </a>
+              <a 
                 href="{{ routes.cart_url }}" 
                 class="flex items-center justify-between p-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 <span>Carrito</span>
                 <span class="flex items-center gap-2">
-                  {% render 'icon-shopping-cart' %}
+                  {% render 'icon-shopping-bag' %}
                   ({{ cart.item_count }})
                 </span>
               </a>
