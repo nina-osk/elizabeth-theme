@@ -13,7 +13,7 @@
             <div class="flex gap-4 py-6 border-b">
               <a href="{{ item.url }}" class="flex-shrink-0">
                 {% if item.image %}
-                  <img src="{{ item.image | image_url: width: 150 }}" alt="{{ item.title }}" class="w-24 h-24 object-cover rounded border">
+                  <img src="{{ item.image | image_url: width: 150 }}" alt="{{ item.title }}" width="150" height="150" class="w-24 h-24 object-cover rounded border">
                 {% else %}
                   {{ 'product-1' | placeholder_svg_tag: 'w-24 h-24 object-cover rounded border' }}
                 {% endif %}
@@ -33,14 +33,19 @@
                   </a>
                 </div>
                 
-                <div class="flex items-center gap-4 mt-3">
-                  <span class="text-sm text-gray-600">Cantidad:</span>
-                  <div class="flex items-center border border-gray-300 rounded">
-                    <button type="button" class="px-3 py-1 hover:bg-gray-100" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.form.submit();">−</button>
-                    <input type="number" name="updates[]" value="{{ item.quantity }}" min="1" class="w-16 text-center border-x py-1 focus:outline-none">
-                    <button type="button" class="px-3 py-1 hover:bg-gray-100" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.form.submit();">+</button>
+                <div class="flex flex-col gap-3 mt-3">
+                  <div class="flex items-center gap-3">
+                    <span class="text-sm text-gray-600">Cantidad:</span>
+                    <div class="flex items-center border border-gray-300 rounded">
+                      <button type="button" class="px-3 py-1 hover:bg-gray-100" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.form.submit();">−</button>
+                      <input type="number" name="updates[]" value="{{ item.quantity }}" min="1" class="w-16 text-center border-x py-1 focus:outline-none">
+                      <button type="button" class="px-3 py-1 hover:bg-gray-100" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.form.submit();">+</button>
+                    </div>
                   </div>
-                  <span class="ml-auto text-sm"><strong>{{ item.final_line_price | money_with_currency }}</strong></span>
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-600">Total:</span>
+                    <span class="text-base font-bold text-gray-900">{{ item.final_line_price | money_with_currency }}</span>
+                  </div>
                 </div>
               </div>
             </div>
