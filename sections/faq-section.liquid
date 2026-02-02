@@ -7,6 +7,8 @@
   assign section_title = section.settings.title
   assign section_description = section.settings.description
   assign faq_image = section.settings.faq_image
+  assign faq_video = section.settings.faq_video
+  assign use_video = section.settings.use_video
   assign show_contact = section.settings.show_contact_field
   assign contact_placeholder = section.settings.contact_placeholder
   assign contact_button_text = section.settings.contact_button_text
@@ -27,9 +29,21 @@
     <!-- Content Grid -->
     <div class="faq-section__grid">
       
-      <!-- Image Column -->
+      <!-- Image/Video Column -->
       <div class="faq-section__image-wrapper">
-        {% if faq_image %}
+        {% if use_video and faq_video %}
+          <video 
+            class="faq-section__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            width="500"
+            height="450">
+            <source src="{{ faq_video }}" type="video/mp4">
+            Tu navegador no soporta el video.
+          </video>
+        {% elsif faq_image %}
           {{ faq_image | image_url: width: 500 | image_tag: 
             alt: 'FAQ Image',
             width: 500,
@@ -186,7 +200,7 @@
     }
   }
 
-  /* Image */
+  /* Image/Video */
   .faq-section__image-wrapper {
     background-color: #d8b4fe;
     border-radius: 0.5rem;
@@ -194,6 +208,12 @@
     height: 20rem;
     max-width: 28rem;
     margin: 0 auto;
+  }
+
+  .faq-section__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   @media (min-width: 768px) {
@@ -532,9 +552,23 @@
             "label": "Descripción"
         },
         {
+            "type": "checkbox",
+            "id": "use_video",
+            "label": "Usar video en lugar de imagen",
+            "default": false
+        },
+        {
+            "type": "video_url",
+            "id": "faq_video",
+            "label": "Video lateral",
+            "accept": ["youtube", "vimeo"],
+            "info": "Se mostrará solo si 'Usar video' está activado"
+        },
+        {
             "type": "image_picker",
             "id": "faq_image",
-            "label": "Imagen lateral"
+            "label": "Imagen lateral",
+            "info": "Se mostrará solo si 'Usar video' está desactivado"
         },
         {
             "type": "checkbox",
