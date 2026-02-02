@@ -27,12 +27,24 @@
                 </button>
                 
                 <!-- Add to Cart Button -->
-                <a 
-                    href="{{ product.url }}" 
-                    class="flex-1 bg-black text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wider uppercase hover:bg-neutral-800 transition-colors"
-                >
-                    ADD TO CART
-                </a>
+                {% if product.available %}
+                    <form action="{{ routes.cart_add_url }}" method="post" class="flex-1 add-to-cart-form">
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                        <button 
+                            type="submit"
+                            class="w-full bg-black text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wider uppercase hover:bg-neutral-800 transition-colors"
+                        >
+                            ADD TO CART
+                        </button>
+                    </form>
+                {% else %}
+                    <button 
+                        disabled
+                        class="flex-1 bg-gray-400 text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wider uppercase cursor-not-allowed"
+                    >
+                        SOLD OUT
+                    </button>
+                {% endif %}
                 
                 <!-- Wishlist Icon -->
                 <button class="flex items-center justify-center w-10 h-10 hover:bg-neutral-100 rounded transition-colors" aria-label="Add to wishlist">
