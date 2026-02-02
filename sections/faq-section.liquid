@@ -32,17 +32,27 @@
       <!-- Image/Video Column -->
       <div class="faq-section__image-wrapper">
         {% if use_video and faq_video %}
-          <video 
-            class="faq-section__video"
-            autoplay
-            muted
-            loop
-            playsinline
-            width="500"
-            height="450">
-            <source src="{{ faq_video }}" type="video/mp4">
-            Tu navegador no soporta el video.
-          </video>
+          {% if faq_video.type == 'youtube' %}
+            <iframe
+              class="faq-section__video"
+              src="https://www.youtube.com/embed/{{ faq_video.id }}?autoplay=1&mute=1&loop=1&playlist={{ faq_video.id }}&controls=0&showinfo=0&rel=0&modestbranding=1"
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+              allowfullscreen
+              width="500"
+              height="450">
+            </iframe>
+          {% elsif faq_video.type == 'vimeo' %}
+            <iframe
+              class="faq-section__video"
+              src="https://player.vimeo.com/video/{{ faq_video.id }}?autoplay=1&muted=1&loop=1&background=1"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              width="500"
+              height="450">
+            </iframe>
+          {% endif %}
         {% elsif faq_image %}
           {{ faq_image | image_url: width: 500 | image_tag: 
             alt: 'FAQ Image',
@@ -214,6 +224,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border: none;
   }
 
   @media (min-width: 768px) {
