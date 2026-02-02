@@ -76,12 +76,12 @@
         <!-- Product Price -->
         <p class="text-neutral-900 font-normal text-base">
             {% if product.compare_at_price > product.price %}
-                <span class="text-neutral-500 line-through mr-2">{{ product.compare_at_price | money }}</span>
-                <span class="text-red-600">{{ product.price | money }}</span>
+                <span class="text-neutral-500 line-through mr-2">{{ product.compare_at_price | money_with_currency }}</span>
+                <span class="text-red-600">{{ product.price | money_with_currency }}</span>
             {% elsif product.price_varies %}
-                From {{ product.price_min | money }}
+                Desde {{ product.price_min | money_with_currency }}
             {% else %}
-                {{ product.price | money }}
+                {{ product.selected_or_first_available_variant.price | money_with_currency }}
             {% endif %}
         </p>
     </div>
