@@ -13,14 +13,23 @@
       "type": "hero-banner",
       "settings": {
         "subtitle": "Porque la ocasión especial eres tú",
-        "title": " Brilla Todos los Días"
+        "title_part1": "Tu eres la",
+        "title_part2": "ocasión especial",
+        "description": "Creemos que el lujo no está en la ocasión, sino en quien la vive. Joyas diseñadas para acompañarte todos los días.",
+        "button1_text": "EXPLORAR COLECCIONES",
+        "button1_link": "",
+        "button2_text": "NUESTRA HISTORIA",
+        "button2_link": ""
       }
     },
     "categories-showcase": {
       "type": "categories-showcase",
       "settings": {
-        "title": "Somos Munier, una joyería panameña Diseñamos piezas atemporales en oro de 9K y diamantes de laboratorio.",
-        "subtitle": "Próximos best seller",
+        "header_small": "SOMOS MUNIER",
+        "quote_part1": "\"Somos Munier, una joyeria panameña creada para celebrar lo que te hace",
+        "quote_highlight": "auténtica",
+        "quote_part2": ". Diseñamos piezas en oro 9K con diamantes de laboratorio —duraderas, elegantes y conscientes— hechas para vivir contigo, no para quedarse guardadas.\"",
+        "signature": "Munier",
         "category_1_label": "Aretes de oro 9k",
         "category_1_product": "earring-aura-w-gold",
         "category_2_label": "Pulsera",
@@ -70,6 +79,7 @@
         "collection_3"
       ],
       "settings": {
+        "header_small": "DESCUBRE",
         "title": "Coleccion",
         "number_of_products_to_show": 8
       }
@@ -78,10 +88,10 @@
       "type": "collection-circles",
       "settings": {
         "section_title": "Categorías",
-        "circle_1_image": "shopify://shop_images/Aretes_Oro_9K-_Vera.jpg",
+        "circle_1_image": "shopify://shop_images/AreteOro9K-Libi.jpg",
         "circle_1_title": "Aretes",
         "circle_1_url": "",
-        "circle_2_image": "shopify://shop_images/Pulsera-_Oro_18K_-Krishna.jpg",
+        "circle_2_image": "shopify://shop_images/Using_the_uploaded_2k_202601302323.jpg",
         "circle_2_title": "Collares",
         "circle_2_url": "",
         "circle_3_image": "shopify://shop_images/ModeloClose-PulseraOro18K-Krishna.png",
