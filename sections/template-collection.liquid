@@ -72,7 +72,7 @@
             {% if selected_collection.products.size > 0 %}
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
                     {% for product in selected_collection.products %}
-                        {% render 'product-card', product_product: product %}
+                        {% render 'product-card', product: product %}
                     {% endfor %}
                 </div>
 

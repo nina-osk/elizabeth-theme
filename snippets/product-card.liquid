@@ -1,12 +1,12 @@
 <div class="product-card bg-white rounded-lg overflow-hidden transition-all duration-300 w-full">
     <!-- Product Image with Actions -->
     <div class="relative bg-neutral-100 aspect-square group">
-        <a href="{{ product_product.url }}" class="block w-full h-full p-4">
-            {% if product_product.featured_image %}
+        <a href="{{ product.url }}" class="block w-full h-full p-4">
+            {% if product.featured_image %}
                 <img 
                     class="w-full h-full object-contain" 
-                    src="{{ product_product.featured_image | image_url: width: 800 }}" 
-                    alt="{{ product_product.featured_image.alt }}" 
+                    src="{{ product.featured_image | image_url: width: 800 }}" 
+                    alt="{{ product.featured_image.alt }}" 
                     width="800" 
                     height="800" 
                     loading="lazy"
@@ -28,7 +28,7 @@
                 
                 <!-- Add to Cart Button -->
                 <a 
-                    href="{{ product_product.url }}" 
+                    href="{{ product.url }}" 
                     class="flex-1 bg-black text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wider uppercase hover:bg-neutral-800 transition-colors"
                 >
                     ADD TO CART
@@ -44,9 +44,9 @@
         </div>
         
         <!-- Image Pagination Dots -->
-        {% if product_product.media.size > 1 %}
+        {% if product.media.size > 1 %}
             <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5">
-                {% for media in product_product.media limit: 3 %}
+                {% for media in product.media limit: 3 %}
                     <div class="w-2 h-2 rounded-full {% if forloop.first %}bg-black{% else %}bg-neutral-400{% endif %}"></div>
                 {% endfor %}
             </div>
@@ -69,22 +69,19 @@
         </div>
         
         <!-- Product Title -->
-        <a href="{{ product_product.url }}" class="block text-neutral-900 font-normal text-base mb-2 hover:text-neutral-700 transition-colors">
-            {{ product_product.title }}
+        <a href="{{ product.url }}" class="block text-neutral-900 font-normal text-base mb-2 hover:text-neutral-700 transition-colors">
+            {{ product.title }}
         </a>
         
         <!-- Product Price -->
         <p class="text-neutral-900 font-normal text-base">
-            {% assign variant_price = product_product.selected_or_first_available_variant.price %}
-            {% assign variant_compare_price = product_product.selected_or_first_available_variant.compare_at_price %}
-            
-            {% if variant_compare_price and variant_compare_price > variant_price %}
-                <span class="text-neutral-500 line-through mr-2">{{ variant_compare_price | money }}</span>
-                <span class="text-red-600">{{ variant_price | money }}</span>
-            {% elsif product_product.price_min != product_product.price_max %}
-                From {{ product_product.price_min | money }}
+            {% if product.compare_at_price > product.price %}
+                <span class="text-neutral-500 line-through mr-2">{{ product.compare_at_price | money }}</span>
+                <span class="text-red-600">{{ product.price | money }}</span>
+            {% elsif product.price_varies %}
+                From {{ product.price_min | money }}
             {% else %}
-                {{ variant_price | money }}
+                {{ product.price | money }}
             {% endif %}
         </p>
     </div>
