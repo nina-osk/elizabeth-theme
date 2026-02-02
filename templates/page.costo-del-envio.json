@@ -1,16 +1,16 @@
 {
   "sections": {
-    "envios_hero": {
+    "main": {
       "type": "template-page",
       "settings": {}
     },
-    "envios_info": {
+    "shipping_info": {
       "type": "service-features",
       "settings": {}
     }
   },
   "order": [
-    "envios_hero",
-    "envios_info"
+    "main",
+    "shipping_info"
   ]
 }
