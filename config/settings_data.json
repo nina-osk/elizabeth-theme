@@ -20,7 +20,7 @@
         "type": "header",
         "settings": {
           "logo": "shopify://shop_images/logo-removebg-preview.png",
-          "announcement_text": "Best Special Offers Every Week. 40% Off! Free Delivery Time.",
+          "announcement_text": "",
           "menu": "main-menu-1",
           "mobile_menu_label": "Menú"
         }
