@@ -28,7 +28,9 @@
                 
                 <!-- Add to Cart Button -->
                 {% assign current_variant = product.selected_or_first_available_variant %}
-                <form action="{{ routes.cart_add_url }}" method="post" class="flex-1 add-to-cart-form" data-product-form>
+                <form action="{{ routes.cart_add_url }}" method="post" class="flex-1" data-product-form>
+                    <input type="hidden" name="form_type" value="product">
+                    <input type="hidden" name="utf8" value="✓">
                     <input type="hidden" name="id" value="{{ current_variant.id }}">
                     <input type="hidden" name="quantity" value="1">
                     <button 
@@ -95,72 +97,73 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const forms = document.querySelectorAll('[data-product-form]');
+if (typeof window.addToCartHandlerInitialized === 'undefined') {
+  window.addToCartHandlerInitialized = true;
   
-  forms.forEach(form => {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const formData = new FormData(this);
-      const button = this.querySelector('[data-add-to-cart]');
-      const originalText = button.innerHTML;
-      
-      // Disable button
-      button.disabled = true;
-      button.innerHTML = 'ADDING...';
-      
-      fetch('/cart/add.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: new URLSearchParams(formData).toString()
+  document.addEventListener('submit', function(e) {
+    const form = e.target;
+    if (!form.matches('[data-product-form]')) return;
+    
+    e.preventDefault();
+    
+    const button = form.querySelector('[data-add-to-cart]');
+    if (!button) return;
+    
+    const originalText = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = 'ADDING...';
+    
+    const formData = new FormData(form);
+    
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: formData.get('id'),
+        quantity: parseInt(formData.get('quantity'))
       })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(err => {
-            throw new Error(err.description || err.message || 'Error al agregar');
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status && data.status === 422) {
+        throw new Error(data.description || 'Producto no disponible');
+      }
+      
+      button.innerHTML = '✓ ADDED!';
+      button.classList.add('bg-green-600');
+      button.classList.remove('bg-black');
+      
+      // Update cart count
+      fetch('/cart.js')
+        .then(r => r.json())
+        .then(cart => {
+          document.querySelectorAll('[data-cart-count]').forEach(el => {
+            el.textContent = cart.item_count;
           });
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Success
-        button.innerHTML = '✓ ADDED!';
-        button.classList.remove('bg-black');
-        button.classList.add('bg-green-600');
-        
-        // Update cart count
-        fetch('/cart.js')
-          .then(r => r.json())
-          .then(cart => {
-            const cartCount = document.querySelector('[data-cart-count]');
-            if (cartCount) cartCount.textContent = cart.item_count;
-          });
-        
-        setTimeout(() => {
-          button.disabled = false;
-          button.innerHTML = originalText;
-          button.classList.remove('bg-green-600');
-          button.classList.add('bg-black');
-        }, 2000);
-      })
-      .catch(error => {
-        button.innerHTML = 'ERROR';
-        button.classList.remove('bg-black');
-        button.classList.add('bg-red-600');
-        alert('Error: ' + error.message);
-        
-        setTimeout(() => {
-          button.disabled = false;
-          button.innerHTML = originalText;
-          button.classList.remove('bg-red-600');
-          button.classList.add('bg-black');
-        }, 3000);
-      });
+        });
+      
+      setTimeout(() => {
+        button.disabled = false;
+        button.innerHTML = originalText;
+        button.classList.remove('bg-green-600');
+        button.classList.add('bg-black');
+      }, 2000);
+    })
+    .catch(error => {
+      button.innerHTML = 'ERROR';
+      button.classList.add('bg-red-600');
+      button.classList.remove('bg-black');
+      console.error('Error:', error);
+      
+      setTimeout(() => {
+        button.disabled = false;
+        button.innerHTML = originalText;
+        button.classList.remove('bg-red-600');
+        button.classList.add('bg-black');
+      }, 3000);
     });
   });
-});
+}
 </script>
