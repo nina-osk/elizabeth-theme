@@ -21,14 +21,17 @@
   <div style="max-width: 1280px; margin: 0 auto; padding: 1.5rem 1rem;">
     
     <!-- Header Row -->
-    <div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem;">
+    <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem;">
       
-      <!-- Mobile menu button + LOGO - Left side -->
+      <!-- Mobile menu button - Left side -->
       <div style="display: flex; align-items: center; gap: 1rem;">
         <button x-on:click="mobileMenuOpen = true" type="button" style="background: none; border: none; padding: 0.5rem; cursor: pointer; display: none;" class="mobile-menu-btn">
           {% render 'icon-menu-bar3' %}
         </button>
-        
+      </div>
+      
+      <!-- LOGO - Center -->
+      <div style="display: flex; justify-content: center;">
         <a href="{{ routes.root_url }}" style="display: inline-block; text-decoration: none;">
           {% if section.settings.logo != blank %}
             <img 
@@ -111,8 +114,8 @@
             style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;"
             title="{% if customer %}Mi cuenta{% else %}Iniciar sesión{% endif %}"
           >
-            {% render 'icon-user' %}
-            <span style="white-space: nowrap;">{% if customer %}{{ customer.first_name | default: 'Cuenta' }}{% else %}Login{% endif %}</span>
+           
+            <span style="white-space: nowrap;">{% if customer %}{{ customer.first_name | default: 'Cuenta' }}{% else %} {% render 'icon-user' %}{% endif %}</span>
           </a>
           
           <!-- Cart -->
