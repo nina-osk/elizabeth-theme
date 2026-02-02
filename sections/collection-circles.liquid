@@ -20,8 +20,13 @@
     
     <!-- Título de la sección -->
     <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-        {{ section.settings.section_title | default: 'Categorías' }}
+      {% if section.settings.subtitle != blank %}
+        <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; color: #D4A574; margin-bottom: 1rem; text-transform: uppercase;">
+          {{ section.settings.subtitle }}
+        </p>
+      {% endif %}
+      <h2 style="font-family: Georgia, serif; font-size: 3rem; font-weight: 400; color: #2d2d2d; line-height: 1.1;">
+        {{ section.settings.section_title | default: 'Coleccion' }}
       </h2>
     </div>
 
@@ -64,9 +69,15 @@
   "settings": [
     {
       "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "DESCUBRE"
+    },
+    {
+      "type": "text",
       "id": "section_title",
       "label": "Título de la Sección",
-      "default": "Categorías"
+      "default": "Coleccion"
     },
     {
       "type": "header",
