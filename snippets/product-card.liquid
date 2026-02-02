@@ -75,15 +75,16 @@
         
         <!-- Product Price -->
         <p class="text-neutral-900 font-normal text-base">
-            {% if product_product.price_min == 0 %}
-                <span class="text-red-600">No price set - Configure in Shopify Admin</span>
+            {% assign variant_price = product_product.selected_or_first_available_variant.price %}
+            {% assign variant_compare_price = product_product.selected_or_first_available_variant.compare_at_price %}
+            
+            {% if variant_compare_price and variant_compare_price > variant_price %}
+                <span class="text-neutral-500 line-through mr-2">{{ variant_compare_price | money }}</span>
+                <span class="text-red-600">{{ variant_price | money }}</span>
             {% elsif product_product.price_min != product_product.price_max %}
                 From {{ product_product.price_min | money }}
-            {% elsif product_product.compare_at_price > product_product.price %}
-                <span class="text-neutral-500 line-through mr-2">{{ product_product.compare_at_price | money }}</span>
-                <span class="text-red-600">{{ product_product.price | money }}</span>
             {% else %}
-                {{ product_product.price | money }}
+                {{ variant_price | money }}
             {% endif %}
         </p>
     </div>
