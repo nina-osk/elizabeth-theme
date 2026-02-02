@@ -29,14 +29,10 @@
                 <!-- Add to Cart Button -->
                 {% assign current_variant = product.selected_or_first_available_variant %}
                 <form action="{{ routes.cart_add_url }}" method="post" class="flex-1" data-product-form>
-                    <input type="hidden" name="form_type" value="product">
-                    <input type="hidden" name="utf8" value="✓">
                     <input type="hidden" name="id" value="{{ current_variant.id }}">
-                    <input type="hidden" name="quantity" value="1">
                     <button 
                         type="submit"
                         class="w-full bg-black text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wider uppercase hover:bg-neutral-800 transition-colors"
-                        data-add-to-cart
                     >
                         ADD TO CART
                     </button>
