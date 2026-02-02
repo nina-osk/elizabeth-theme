@@ -1,54 +1,52 @@
 {% if cart.item_count > 0 %}
-  <div class="max-w-6xl mx-auto px-4 my-10">
+  <div class="max-w-5xl mx-auto px-4 py-10">
     <!-- Header -->
-    <div class="flex items-center justify-between my-5 pb-5 border-b border-gray-200">
-      <h1 class="text-3xl font-medium">Tu Carrito ({{ cart.item_count }})</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="text-sm text-gray-600 hover:text-black underline">Continúa comprando</a>
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl font-semibold">Tu Carrito ({{ cart.item_count }})</h1>
+      <a href="{{ routes.all_products_collection_url }}" class="text-blue-600 hover:text-blue-800 underline text-sm">Continúa comprando</a>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
       <!-- Cart Items -->
       <div class="lg:col-span-2">
         <form action="{{ routes.cart_url }}" method="POST" id="cart-form">
-          <div class="space-y-4">
+          <div class="divide-y divide-gray-200">
             {% for item in cart.items %}
-              <div class="flex gap-4 p-4 bg-white border border-gray-200 rounded-lg" data-cart-item data-line="{{ forloop.index }}">
+              <div class="py-6 flex gap-6">
                 <!-- Product Image -->
                 <div class="flex-shrink-0">
                   <a href="{{ item.url }}">
                     {% if item.image %}
                       <img 
-                        src="{{ item.image | image_url: width: 120 }}" 
+                        src="{{ item.image | image_url: width: 150 }}" 
                         alt="{{ item.title | escape }}" 
-                        class="w-24 h-24 object-cover rounded"
-                        width="120"
-                        height="120"
+                        class="w-32 h-32 object-cover rounded border"
+                        width="150"
+                        height="150"
                       >
                     {% else %}
-                      {{ 'product-1' | placeholder_svg_tag: 'w-24 h-24 object-cover rounded' }}
+                      {{ 'product-1' | placeholder_svg_tag: 'w-32 h-32 object-cover rounded border' }}
                     {% endif %}
                   </a>
                 </div>
 
                 <!-- Product Info -->
-                <div class="flex-grow">
-                  <div class="flex justify-between">
+                <div class="flex-grow flex flex-col">
+                  <div class="flex justify-between mb-2">
                     <div>
-                      <a href="{{ item.url }}" class="font-medium text-gray-900 hover:text-gray-700">
+                      <a href="{{ item.url }}" class="text-lg font-medium text-gray-900 hover:text-gray-700">
                         {{ item.product.title }}
                       </a>
                       {% if item.variant.title != 'Default Title' %}
                         <p class="text-sm text-gray-500 mt-1">{{ item.variant.title }}</p>
                       {% endif %}
-                      <p class="text-sm text-gray-900 mt-2">{{ item.final_price | money_with_currency }}</p>
                     </div>
                     
                     <!-- Remove Button -->
                     <button 
                       type="button"
-                      class="text-gray-400 hover:text-red-500 transition-colors"
-                      data-remove-item
-                      data-line="{{ forloop.index }}"
+                      class="text-gray-400 hover:text-red-500 transition-colors self-start"
+                      onclick="window.location.href='{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0'"
                       aria-label="Eliminar producto"
                     >
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,40 +55,41 @@
                     </button>
                   </div>
 
+                  <p class="text-base font-medium text-gray-900 mb-3">{{ item.final_price | money_with_currency }}</p>
+
                   <!-- Quantity Controls -->
-                  <div class="flex items-center gap-2 mt-4">
-                    <label for="quantity-{{ forloop.index }}" class="text-sm text-gray-600">Cantidad:</label>
-                    <div class="flex items-center border border-gray-300 rounded">
-                      <button 
-                        type="button"
-                        class="px-3 py-1 hover:bg-gray-100 transition-colors"
-                        data-qty-decrease
-                        data-line="{{ forloop.index }}"
-                      >
-                        −
-                      </button>
-                      <input 
-                        type="number" 
-                        name="updates[]" 
-                        id="quantity-{{ forloop.index }}"
-                        value="{{ item.quantity }}" 
-                        min="0"
-                        class="w-16 text-center border-x border-gray-300 py-1 focus:outline-none"
-                        data-qty-input
-                        data-line="{{ forloop.index }}"
-                      >
-                      <button 
-                        type="button"
-                        class="px-3 py-1 hover:bg-gray-100 transition-colors"
-                        data-qty-increase
-                        data-line="{{ forloop.index }}"
-                      >
-                        +
-                      </button>
+                  <div class="flex items-center gap-4 mt-auto">
+                    <div class="flex items-center">
+                      <label for="quantity-{{ forloop.index }}" class="text-sm text-gray-600 mr-3">Cantidad:</label>
+                      <div class="flex items-center border-2 border-gray-800 rounded">
+                        <button 
+                          type="button"
+                          class="px-4 py-2 hover:bg-gray-100 transition-colors text-lg font-medium"
+                          onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.form.submit();"
+                        >
+                          −
+                        </button>
+                        <input 
+                          type="number" 
+                          name="updates[]" 
+                          id="quantity-{{ forloop.index }}"
+                          value="{{ item.quantity }}" 
+                          min="1"
+                          class="w-12 text-center border-x-2 border-gray-800 py-2 focus:outline-none font-medium"
+                        >
+                        <button 
+                          type="button"
+                          class="px-4 py-2 hover:bg-gray-100 transition-colors text-lg font-medium"
+                          onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.form.submit();"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
-                    <span class="text-sm text-gray-600 ml-auto">
-                      Total: <strong>{{ item.final_line_price | money_with_currency }}</strong>
-                    </span>
+                    <div class="ml-auto text-right">
+                      <p class="text-xs text-gray-500">Total:</p>
+                      <p class="text-lg font-bold text-gray-900">{{ item.final_line_price | money_with_currency }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -98,15 +97,15 @@
           </div>
 
           <!-- Order Notes -->
-          <div class="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-            <label for="cart-note" class="block text-sm font-medium text-gray-700 mb-2">
+          <div class="mt-8 pt-6 border-t border-gray-200">
+            <label for="cart-note" class="block text-base font-medium text-gray-700 mb-3">
               Notas del pedido (opcional)
             </label>
             <textarea 
               id="cart-note" 
               name="note" 
               rows="3"
-              class="w-full border border-gray-300 rounded px-3 py-2 resize-none focus:ring-2 focus:ring-black focus:border-transparent"
+              class="w-full border border-gray-300 rounded-md px-4 py-3 text-sm resize-none focus:ring-2 focus:ring-gray-800 focus:border-transparent"
               placeholder="Instrucciones especiales, opciones de entrega, etc."
             >{{ cart.note }}</textarea>
           </div>
@@ -115,174 +114,21 @@
           <button 
             type="submit" 
             name="update"
-            class="lg:hidden w-full mt-4 bg-gray-800 text-white py-3 px-6 rounded font-medium hover:bg-black transition-colors"
+            class="lg:hidden w-full mt-6 bg-gray-800 text-white py-4 px-6 rounded font-medium hover:bg-black transition-colors"
           >
             Actualizar carrito
-          </button>
-        </form>
-      </div>
-
-      <!-- Order Summary -->
-      <div class="lg:col-span-1">
-        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 sticky top-4">
-          <h2 class="text-xl font-medium mb-4">Resumen del pedido</h2>
-          
-          <div class="space-y-3 pb-4 border-b border-gray-300">
-            <div class="flex justify-between text-gray-600">
-              <span>Subtotal ({{ cart.item_count }} artículos)</span>
-              <span>{{ cart.total_price | money_with_currency }}</span>
-            </div>
-            {% if cart.total_discount > 0 %}
-              <div class="flex justify-between text-green-600">
-                <span>Descuento</span>
-                <span>-{{ cart.total_discount | money_with_currency }}</span>
-              </div>
-            {% endif %}
-            <p class="text-sm text-gray-500">Los impuestos y envío se calculan al finalizar la compra</p>
-          </div>
-
-          <div class="flex justify-between text-lg font-medium py-4">
-            <span>Total</span>
-            <span>{{ cart.total_price | money_with_currency }}</span>
-          </div>
-
-          <!-- Checkout Button -->
-          <button 
-            type="submit" 
-            name="checkout"
-            form="cart-form"
-            class="w-full bg-black text-white py-4 px-6 rounded font-medium hover:bg-neutral-800 transition-colors mb-3"
-          >
-            Proceder al pago
-          </button>
-
-          <!-- Update Cart Button (Desktop) -->
-          <button 
-            type="submit"
-            name="update"
-            form="cart-form"
-            class="hidden lg:block w-full border border-gray-600 text-gray-600 py-3 px-6 rounded font-medium hover:bg-gray-600 hover:text-white transition-colors"
-          >
-            Actualizar carrito
-          </button>
-
-          <!-- Trust Badges -->
-          <div class="mt-6 pt-6 border-t border-gray-300 space-y-3">
-            <div class="flex items-center gap-3 text-sm text-gray-600">
-              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <span>Compra 100% segura</span>
-            </div>
-            <div class="flex items-center gap-3 text-sm text-gray-600">
-              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
-              </svg>
-              <span>Envío gratis en pedidos +$1000</span>
-            </div>
-            <div class="flex items-center gap-3 text-sm text-gray-600">
-              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-              </svg>
-              <span>Devoluciones en 30 días</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <script>
-    // Cart quantity controls
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.getElementById('cart-form');
-      
-      // Decrease quantity
-      document.querySelectorAll('[data-qty-decrease]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const line = this.dataset.line;
-          const input = document.querySelector(`[data-qty-input][data-line="${line}"]`);
-          const currentVal = parseInt(input.value);
-          if (currentVal > 1) {
-            input.value = currentVal - 1;
-            updateCart();
-          }
-        });
-      });
-
-      // Increase quantity
-      document.querySelectorAll('[data-qty-increase]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const line = this.dataset.line;
-          const input = document.querySelector(`[data-qty-input][data-line="${line}"]`);
-          input.value = parseInt(input.value) + 1;
-          updateCart();
-        });
-      });
-
-      // Remove item
-      document.querySelectorAll('[data-remove-item]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const line = this.dataset.line;
-          const input = document.querySelector(`[data-qty-input][data-line="${line}"]`);
-          input.value = 0;
-          updateCart();
-        });
-      });
-
-      // Auto-update on quantity input change
-      document.querySelectorAll('[data-qty-input]').forEach(input => {
-        input.addEventListener('change', function() {
-          if (parseInt(this.value) < 0) {
-            this.value = 0;
-          }
-          updateCart();
-        });
-      });
-
-      function updateCart() {
-        const updates = {};
-        document.querySelectorAll('[data-qty-input]').forEach((input, index) => {
-          updates[index + 1] = parseInt(input.value) || 0;
-        });
-
-        fetch('/cart/update.js', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ updates: updates })
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Reload to show updated cart
-          window.location.reload();
-        })
-        .catch(error => {
-          console.error('Error updating cart:', error);
-          alert('Hubo un error al actualizar el carrito. Por favor, recarga la página.');
-        });
-      }
-    });
-  </script>
 
 {% else %}
-  <div class="max-w-6xl h-96 my-10 mx-auto px-4 flex items-center justify-center">
+  <div class="max-w-5xl h-96 my-10 mx-auto px-4 flex items-center justify-center">
     <div class="text-center">
-      <svg class="w-24 h-24 mx-auto text-gray-300 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+      <svg class="w-32 h-32 mx-auto text-gray-300 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
       </svg>
-      <h1 class="text-3xl font-medium text-gray-900 mb-4">Tu carrito está vacío</h1>
-      <p class="text-gray-600 mb-8">¡Descubre nuestras hermosas joyas y encuentra tu pieza perfecta!</p>
+      <h1 class="text-4xl font-semibold text-gray-900 mb-4">Tu carrito está vacío</h1>
+      <p class="text-gray-600 mb-10 text-lg">¡Descubre nuestras hermosas joyas y encuentra tu pieza perfecta!</p>
       <a 
         href="{{ routes.all_products_collection_url }}" 
-        class="inline-block bg-black text-white px-8 py-3 rounded font-medium hover:bg-neutral-800 transition-colors"
+        class="inline-block bg-black text-white px-10 py-4 rounded-md font-semibold hover:bg-gray-800 transition-colors text-base"
       >
         Explorar productos
       </a>
