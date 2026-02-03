@@ -6,74 +6,74 @@
     endif
 %}
 
-<footer style="background-color: #2d2d2d; color: white;">
-  <div style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+<footer class="footer-main">
+  <div class="footer-container">
     
     <!-- Header Section -->
-    <div style="padding-top: 4rem; padding-bottom: 3rem; text-align: center;">
-      <h2 style="font-family: Georgia, serif; font-size: 2.5rem; font-weight: 400; color: white; margin-bottom: 1rem; line-height: 1.3;">
+    <div class="footer-header">
+      <h2 class="footer-title">
         Bienvenida a un lujo accesible, inclusivo y real.
       </h2>
-      <p style="font-family: Georgia, serif; font-size: 1.125rem; font-style: italic; color: #D4A574; margin: 0;">
+      <p class="footer-subtitle">
         Un lujo que se adapta a tu vida. Un lujo que te acompaña.
       </p>
     </div>
 
     <!-- Main Footer Content -->
-    <div style="padding-top: 3rem; padding-bottom: 3rem;">
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem;">
+    <div class="footer-content">
+      <div class="footer-grid">
         
         <!-- Brand Column -->
-        <div>
-          <h3 style="font-family: Georgia, serif; font-size: 1.5rem; font-weight: 400; color: white; margin-bottom: 1.5rem; letter-spacing: 0.3em;">
+        <div class="footer-column">
+          <h3 class="footer-column-title footer-brand">
             MUNIER
           </h3>
-          <p style="font-size: 0.875rem; color: #b8b8b8; line-height: 1.8; margin-bottom: 1.5rem;">
+          <p class="footer-text">
             Piezas que brillan con tu luz cada día — lujo que te acompaña todos los días.
           </p>
-          <p style="font-family: Georgia, serif; font-size: 0.875rem; font-style: italic; color: #D4A574;">
+          <p class="footer-tagline">
             Tú eres la ocasión especial.
           </p>
         </div>
 
         <!-- Explorar Column -->
-        <div>
-          <h3 style="font-size: 0.75rem; font-weight: 600; color: #b8b8b8; margin-bottom: 1.5rem; letter-spacing: 0.1em;">
+        <div class="footer-column">
+          <h3 class="footer-column-title">
             EXPLORAR
           </h3>
-          <nav style="display: flex; flex-direction: column; gap: 0.75rem;">
-            <a href="{{ routes.collections_url }}" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+          <nav class="footer-nav">
+            <a href="{{ routes.collections_url }}" class="footer-link">
               Colecciones
             </a>
-            <a href="{{ routes.collections_url }}/aretes" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+            <a href="{{ routes.collections_url }}/aretes" class="footer-link">
               Aretes
             </a>
-            <a href="{{ routes.collections_url }}/collares" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+            <a href="{{ routes.collections_url }}/collares" class="footer-link">
               Collares
             </a>
           </nav>
         </div>
 
         <!-- Munier Column -->
-        <div>
-          <h3 style="font-size: 0.75rem; font-weight: 600; color: #b8b8b8; margin-bottom: 1.5rem; letter-spacing: 0.1em;">
+        <div class="footer-column">
+          <h3 class="footer-column-title">
             MUNIER
           </h3>
-          <nav style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <nav class="footer-nav">
             {% if footer_menu_linklist.size > 0 %}
               {% for link in footer_menu_linklist %}
-                <a href="{{ link.url }}" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+                <a href="{{ link.url }}" class="footer-link">
                   {{ link.title }}
                 </a>
               {% endfor %}
             {% else %}
-              <a href="{{ routes.search_url }}" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+              <a href="{{ routes.search_url }}" class="footer-link">
                 Buscar
               </a>
-              <a href="{{ routes.account_url }}" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+              <a href="{{ routes.account_url }}" class="footer-link">
                 Mi Cuenta
               </a>
-              <a href="/pages/contact" style="font-size: 0.9375rem; color: #d4d4d4; text-decoration: none; transition: color 0.2s;">
+              <a href="/pages/contact" class="footer-link">
                 Contacto
               </a>
             {% endif %}
@@ -84,17 +84,260 @@
     </div>
     
     <!-- Bottom Bar -->
-    <div style="border-top: 1px solid #4a4a4a; padding-top: 2rem; padding-bottom: 2rem; text-align: center;">
-      <p style="font-size: 0.875rem; color: #888; margin-bottom: 0.5rem;">
+    <div class="footer-bottom">
+      <p class="footer-copyright">
         © 2026 Munier. Todos los derechos reservados.
       </p>
-      <p style="font-size: 0.8125rem; color: #666;">
+      <p class="footer-info">
         Joyería Panameña • Oro 9K & 18K • Diamantes de Laboratorio
       </p>
     </div>
 
   </div>
 </footer>
+
+<style>
+/* ========================================
+   FOOTER BASE STYLES
+   ======================================== */
+.footer-main {
+  background-color: #AFC4AE;
+  color: #2d2d2d;
+  overflow-x: hidden;
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   HEADER SECTION
+   ======================================== */
+.footer-header {
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.footer-title {
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #2d2d2d;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.footer-subtitle {
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #5a7058;
+  margin: 0;
+}
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+.footer-content {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.footer-column {
+  text-align: center;
+}
+
+.footer-column-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #5a7058;
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.footer-brand {
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.3em;
+  color: #2d2d2d;
+}
+
+.footer-text {
+  font-size: 0.85rem;
+  color: #3d523c;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.footer-tagline {
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #5a7058;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.footer-link {
+  font-size: 0.9rem;
+  color: #3d523c;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #2d2d2d;
+}
+
+/* ========================================
+   BOTTOM BAR
+   ======================================== */
+.footer-bottom {
+  border-top: 1px solid rgba(93, 112, 88, 0.3);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  text-align: center;
+}
+
+.footer-copyright {
+  font-size: 0.8rem;
+  color: #5a7058;
+  margin-bottom: 0.5rem;
+}
+
+.footer-info {
+  font-size: 0.75rem;
+  color: #6b8068;
+}
+
+/* ========================================
+   TABLET (640px+)
+   ======================================== */
+@media (min-width: 640px) {
+  .footer-container {
+    padding: 0 1.5rem;
+  }
+  
+  .footer-header {
+    padding-top: 3rem;
+    padding-bottom: 2.5rem;
+  }
+  
+  .footer-title {
+    font-size: 1.75rem;
+  }
+  
+  .footer-subtitle {
+    font-size: 1rem;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+  
+  .footer-column:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ========================================
+   DESKTOP (768px+)
+   ======================================== */
+@media (min-width: 768px) {
+  .footer-container {
+    padding: 0 2rem;
+  }
+  
+  .footer-header {
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+  }
+  
+  .footer-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  
+  .footer-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .footer-content {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+  }
+  
+  .footer-column {
+    text-align: left;
+  }
+  
+  .footer-column:first-child {
+    grid-column: auto;
+  }
+  
+  .footer-column-title {
+    font-size: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-brand {
+    font-size: 1.5rem;
+  }
+  
+  .footer-text {
+    font-size: 0.875rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-tagline {
+    font-size: 0.875rem;
+  }
+  
+  .footer-nav {
+    gap: 0.75rem;
+  }
+  
+  .footer-link {
+    font-size: 0.9375rem;
+  }
+  
+  .footer-bottom {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .footer-copyright {
+    font-size: 0.875rem;
+  }
+  
+  .footer-info {
+    font-size: 0.8125rem;
+  }
+}
+</style>
 
 {% schema %}
 {
