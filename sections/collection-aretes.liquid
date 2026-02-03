@@ -95,16 +95,7 @@ function filterProducts(filterType) {
     const visibleCountElement = document.getElementById('visible-count');
     let visibleCount = 0;
 
-    // Actualizar estilos de botones
-    filterButtons.forEach(btn => {
-        btn.style.backgroundColor = '#e8e8e8';
-        btn.style.color = '#666';
-    });
-    
-    const activeButton = document.getElementById('filter-' + filterType);
-    activeButton.style.backgroundColor = '#2d2d2d';
-    activeButton.style.color = 'white';
-clases de botones
+    // Actualizar clases de botones
     filterButtons.forEach(btn => btn.classList.remove('filter-btn--active'));
     document.getElementById('filter-' + filterType).classList.add('filter-btn--active');
 
@@ -133,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
    ======================================== */
 .aretes-hero {
     background-color: #F5F1E8;
-    padding: 3rem 1rem;
+    padding: 2.5rem 1rem;
     text-align: center;
 }
 
@@ -143,26 +134,26 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .aretes-hero__subtitle {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     color: #8B7355;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .aretes-hero__title {
     font-family: Georgia, serif;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 400;
     color: #2d2d2d;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
+    margin-bottom: 1rem;
+    line-height: 1.2;
 }
 
 .aretes-hero__description {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: #8B7355;
-    line-height: 1.8;
+    line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -178,37 +169,41 @@ document.addEventListener('DOMContentLoaded', function() {
 .aretes-products__container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 0.75rem;
 }
 
 /* ========================================
    FILTROS RESPONSIVE
    ======================================== */
 .aretes-filters {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .aretes-filters__buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 500px;
 }
 
 .filter-btn {
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.25rem;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     transition: all 0.2s;
     background-color: #e8e8e8;
     color: #666;
     border: none;
     cursor: pointer;
     border-radius: 0;
+    flex: 1 1 auto;
+    min-width: 90px;
 }
 
 .filter-btn--active {
@@ -221,17 +216,17 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .aretes-filters__count {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: #999;
 }
 
 /* ========================================
-   GRID RESPONSIVE
+   GRID RESPONSIVE - MÓVIL PRIMERO
    ======================================== */
 .aretes-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .product-item {
@@ -243,18 +238,18 @@ document.addEventListener('DOMContentLoaded', function() {
    ======================================== */
 .aretes-empty {
     text-align: center;
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
 }
 
 .aretes-empty__icon {
-    width: 4rem;
-    height: 4rem;
+    width: 3.5rem;
+    height: 3.5rem;
     margin: 0 auto 1rem;
     color: #ddd;
 }
 
 .aretes-empty__title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #2d2d2d;
     margin-bottom: 0.5rem;
@@ -262,21 +257,76 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .aretes-empty__text {
     color: #888;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
 }
 
 .aretes-empty__button {
     display: inline-block;
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.25rem;
     background-color: #2d2d2d;
     color: white;
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.2s;
+    font-size: 0.9rem;
 }
 
 .aretes-empty__button:hover {
     background-color: #1a1a1a;
+}
+
+/* ========================================
+   MÓVIL PEQUEÑO (480px+)
+   ======================================== */
+@media (min-width: 480px) {
+    .aretes-products__container {
+        padding: 0 1rem;
+    }
+    
+    .aretes-grid {
+        gap: 1rem;
+    }
+    
+    .filter-btn {
+        flex: 0 1 auto;
+        min-width: 100px;
+    }
+}
+
+/* ========================================
+   TABLET PEQUEÑA (640px+)
+   ======================================== */
+@media (min-width: 640px) {
+    .aretes-hero {
+        padding: 3rem 1.5rem;
+    }
+    
+    .aretes-hero__title {
+        font-size: 2.75rem;
+    }
+    
+    .aretes-hero__description {
+        font-size: 1rem;
+    }
+    
+    .aretes-products__container {
+        padding: 0 1.5rem;
+    }
+    
+    .aretes-filters {
+        gap: 1rem;
+    }
+    
+    .filter-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .aretes-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
 }
 
 /* ========================================
@@ -287,13 +337,20 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 4rem 2rem;
     }
     
+    .aretes-hero__subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+    
     .aretes-hero__title {
         font-size: 3.5rem;
+        margin-bottom: 1.5rem;
     }
     
     .aretes-hero__description {
         font-size: 1.125rem;
         max-width: 700px;
+        line-height: 1.8;
     }
     
     .aretes-products {
@@ -317,8 +374,11 @@ document.addEventListener('DOMContentLoaded', function() {
         font-size: 0.9375rem;
     }
     
+    .aretes-filters__count {
+        font-size: 0.875rem;
+    }
+    
     .aretes-grid {
-        grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
     }
     
@@ -333,6 +393,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     .aretes-empty__title {
         font-size: 1.5rem;
+    }
+    
+    .aretes-empty__text {
+        font-size: 1rem;
+    }
+    
+    .aretes-empty__button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
     }
 }
 
@@ -384,7 +453,25 @@ document.addEventListener('DOMContentLoaded', function() {
     .aretes-empty__text {
         margin-bottom: 2rem;
     }
-        "type": "text",
+}
+
+/* ========================================
+   DESKTOP GRANDE (1280px+)
+   ======================================== */
+@media (min-width: 1280px) {
+    .aretes-grid {
+        gap: 2.5rem;
+    }
+}
+</style>
+
+{% schema %}
+{
+    "name": "Aretes (Filtrado por Tag)",
+    "class": "shopify-section--aretes",
+    "settings": [
+        {
+            "type": "text",
             "id": "filter_tag",
             "label": "Tag para filtrar",
             "default": "aretes",
