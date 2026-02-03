@@ -4,7 +4,7 @@
         <a href="{{ product.url }}" class="block w-full h-full">
             {% if product.featured_image %}
                 <img 
-                    class="w-full h-full object-cover" 
+                    class="w-full h-full object-contain" 
                     src="{{ product.featured_image | image_url: width: 800 }}" 
                     alt="{{ product.featured_image.alt }}" 
                     width="800" 
