@@ -223,27 +223,26 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 /* ========================================
-   GRID RESPONSIVE - UNA COLUMNA VERTICAL
+   GRID RESPONSIVE - MÓVIL PRIMERO
    ======================================== */
 .aretes-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
     width: 100%;
     max-width: 100%;
-    padding: 0;
+    box-sizing: border-box;
 }
 
 .product-item {
     transition: opacity 0.3s ease;
-    width: 100% !important;
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
+    min-width: 0;
+    overflow: hidden;
+    max-width: 100%;
 }
 
-.product-item .product-card {
-    width: 100% !important;
-    max-width: 100% !important;
+.product-item * {
+    box-sizing: border-box;
 }
 
 /* ========================================
@@ -298,6 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     .aretes-grid {
+        grid-template-columns: 1fr;
         gap: 1rem;
     }
     
@@ -367,6 +367,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     .aretes-products__container {
         padding: 0 2rem;
+    }
+    
+    .aretes-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
     }
     
     .aretes-filters {
@@ -441,6 +446,17 @@ document.addEventListener('DOMContentLoaded', function() {
     .aretes-filters {
         margin-bottom: 3rem;
         gap: 1.5rem;
+    }
+    
+    .aretes-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 2rem;
+        max-width: 100%;
+    }
+    
+    .product-item {
+        max-width: 100%;
+        width: 100%;
     }
     
     .aretes-empty__icon {
