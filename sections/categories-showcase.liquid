@@ -25,7 +25,7 @@
     <!-- Carousel Container -->
     <div class="carousel-wrapper max-w-6xl mx-auto mb-12" style="max-width: 100%; overflow-x: hidden;">
       <!-- Carousel Track -->
-      <div class="relative overflow-hidden" style="height: 500px; max-width: 100%;">
+      <div class="relative overflow-hidden" style="height: 500px; max-width: 100%; display: flex; align-items: center; justify-content: center;">
         <div class="carousel-track absolute inset-0 flex items-center justify-center">
           {% assign cards = (1..6) %}
           {% for i in cards %}
@@ -355,8 +355,8 @@
       slides.forEach((slide, index) => {
         const style = getSlideStyle(index, currentIndex);
         
-        // Apply transforms
-        slide.style.transform = `translateX(${style.x}px) translateY(-50%) scale(${style.scale})`;
+        // Apply transforms - centered positioning
+        slide.style.transform = `translate(calc(-50% + ${style.x}px), -50%) scale(${style.scale})`;
         slide.style.opacity = style.opacity;
         slide.style.zIndex = style.zIndex;
         slide.style.top = '50%';
