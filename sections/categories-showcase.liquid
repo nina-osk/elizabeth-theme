@@ -413,14 +413,44 @@
       dot.addEventListener('click', () => goToSlide(index));
     });
 
-    // Slide click navigation
+    // Slide click/tap navigation - advance to next slide on mobile
     slides.forEach((slide, index) => {
+      // Touch support for mobile
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchEndX = 0;
+      let touchEndY = 0;
+      
+      slide.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+      }, { passive: true });
+      
+      slide.addEventListener('touchend', (e) => {
+        // Don't navigate if touching a button or link
+        if (e.target.closest('button') || e.target.closest('a')) {
+          return;
+        }
+        
+        touchEndX = e.changedTouches[0].clientX;
+        touchEndY = e.changedTouches[0].clientY;
+        
+        const diffX = Math.abs(touchEndX - touchStartX);
+        const diffY = Math.abs(touchEndY - touchStartY);
+        
+        // If it's a tap (not a swipe), advance to next slide
+        if (diffX < 10 && diffY < 10) {
+          nextSlide();
+        }
+      }, { passive: true });
+      
+      // Click support for desktop
       slide.addEventListener('click', (e) => {
         // Don't navigate if clicking on a button or link
         if (e.target.closest('button') || e.target.closest('a')) {
           return;
         }
-        goToSlide(index);
+        nextSlide();
       });
       
       // Make slides focusable with keyboard
@@ -428,7 +458,7 @@
       slide.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          goToSlide(index);
+          nextSlide();
         }
       });
     });
