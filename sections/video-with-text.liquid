@@ -26,10 +26,12 @@
                 {% elsif section.settings.video_file != blank %}
                     <video 
                         class="absolute top-0 left-0 w-full h-full object-cover"
-                        controls
+                        autoplay
+                        muted
+                        loop
                         playsinline
                         poster="{{ section.settings.video_poster |  image_url: width: 1200  }}">
-                        <source src="{{ section.settings.video_file }}" type="video/mp4">
+                        <source src="{{ section.settings.video_file | file_url }}" type="video/mp4">
                         Tu navegador no soporta el elemento de video.
                     </video>
                 {% else %}
