@@ -1,7 +1,7 @@
 <div class="product-card bg-white rounded-lg overflow-hidden transition-all duration-300 w-full">
     <!-- Product Image with Actions -->
-    <div class="relative bg-neutral-100 aspect-square group">
-        <a href="{{ product.url }}" class="block w-full h-full">
+    <div class="relative bg-neutral-100 group product-image-container">
+        <a href="{{ product.url }}" class="block w-full h-full p-3 md:p-4">
             {% if product.featured_image %}
                 <img 
                     class="w-full h-full object-contain" 
@@ -91,3 +91,22 @@
         </p>
     </div>
 </div>
+
+<style>
+.product-image-container {
+    aspect-ratio: 1 / 1;
+    min-height: 280px;
+}
+
+@media (min-width: 640px) {
+    .product-image-container {
+        min-height: 320px;
+    }
+}
+
+@media (min-width: 768px) {
+    .product-image-container {
+        min-height: auto;
+    }
+}
+</style>
