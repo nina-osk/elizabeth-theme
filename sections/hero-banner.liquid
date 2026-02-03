@@ -1,29 +1,29 @@
-<div style="width: 100%; background-color: #F5F1E8;">
+<div style="width: 100%; background-color: #AFC4AE;">
   <div style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem;">
     <div style="max-width: 900px; margin: 0 auto; text-align: center;">
       
       <!-- Subtitle -->
-      <p style="font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; color: #8B7355; margin-bottom: 2rem; opacity: 0;" class="hero-subtitle">
+      <p style="font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; color: #2d2d2d; margin-bottom: 2rem; opacity: 0;" class="hero-subtitle">
         {{ section.settings.subtitle }}
       </p>
       
       <!-- Title -->
       <h1 style="font-family: Georgia, serif; line-height: 1.15; color: #2d2d2d; margin-bottom: 2rem;">
         <span style="display: block; font-size: 4.5rem; font-weight: 400; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
-        <span style="display: block; font-size: 4.5rem; font-style: italic; color: #D4A574; font-weight: 400; opacity: 0;" class="hero-title-part2">{{ section.settings.title_part2 }}</span>
+        <span style="display: block; font-size: 4.5rem; font-style: italic; color: #2d2d2d; font-weight: 400; opacity: 0;" class="hero-title-part2">{{ section.settings.title_part2 }}</span>
       </h1>
       
       <!-- Description -->
-      <p style="font-size: 1rem; color: #6B6B6B; line-height: 1.7; max-width: 650px; margin: 0 auto 3rem; opacity: 0;" class="hero-description">
+      <p style="font-size: 1rem; color: #2d2d2d; line-height: 1.7; max-width: 650px; margin: 0 auto 3rem; opacity: 0;" class="hero-description">
         {{ section.settings.description }}
       </p>
       
       <!-- Buttons -->
-      <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0;" class="hero-buttons">
-        <a href="{{ section.settings.button1_link }}" style="padding: 1rem 2.5rem; background-color: #2d2d2d; color: white; text-decoration: none; font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.05em; transition: all 0.3s; text-transform: uppercase; border-radius: 0;">
+      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0;" class="hero-buttons">
+        <a href="{{ section.settings.button1_link }}" class="hero-btn hero-btn-active">
           {{ section.settings.button1_text }}
         </a>
-        <a href="{{ section.settings.button2_link }}" style="padding: 1rem 2.5rem; background-color: transparent; color: #2d2d2d; text-decoration: none; font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.05em; border: 2px solid #2d2d2d; transition: all 0.3s; text-transform: uppercase; border-radius: 0;">
+        <a href="{{ section.settings.button2_link }}" class="hero-btn hero-btn-outline">
           {{ section.settings.button2_text }}
         </a>
       </div>
@@ -34,6 +34,47 @@
 
 
 <style>
+  /* Button Styles */
+  .hero-btn {
+    padding: 0.875rem 3rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    border: 2px solid transparent;
+    display: inline-block;
+    min-width: 180px;
+    text-align: center;
+  }
+
+  .hero-btn-active {
+    background-color: #C8A882;
+    color: #2d2d2d;
+    border-color: #C8A882;
+  }
+
+  .hero-btn-active:hover {
+    background-color: #B89872;
+    border-color: #B89872;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .hero-btn-outline {
+    background-color: white;
+    color: #2d2d2d;
+    border-color: #e8e8e8;
+    border-width: 2px;
+  }
+
+  .hero-btn-outline:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
   /* Fade In Animations */
   @keyframes fadeIn {
     from {
@@ -66,35 +107,6 @@
     animation: fadeIn 1s ease-out 1.4s forwards;
   }
 
-  /* Hover effects for buttons */
-  a[href] {
-    position: relative;
-    overflow: hidden;
-  }
-
-  a[href]::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-  }
-
-  a[href]:hover::before {
-    width: 300px;
-    height: 300px;
-  }
-
-  a[href]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .hero-title-part1 {
@@ -103,6 +115,12 @@
     
     .hero-title-part2 {
       font-size: 3rem !important;
+    }
+
+    .hero-btn {
+      padding: 0.75rem 2rem;
+      font-size: 0.8125rem;
+      min-width: 150px;
     }
   }
 </style>
