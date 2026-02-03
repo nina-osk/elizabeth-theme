@@ -179,7 +179,7 @@
     
     .carousel-wrapper .relative {
       overflow: hidden !important;
-      height: 520px !important;
+      height: 600px !important;
     }
     
     .slide-card {
@@ -188,17 +188,24 @@
       height: 420px;
     }
     
-    /* Adjust image container on mobile */
+    /* Adjust image container on mobile - make it larger */
     .carousel-slide .relative[style*="height: 340px"] {
-      height: 300px !important;
+      height: 420px !important;
     }
     
-    /* Ensure image is centered and not cropped */
+    /* Fill the entire card with the image - no padding */
     .carousel-slide img {
-      object-fit: contain !important;
-      padding: 1rem !important;
+      object-fit: cover !important;
+      padding: 0 !important;
       width: 100% !important;
       height: 100% !important;
+    }
+    
+    /* Make the slide card larger on mobile */
+    .slide-card {
+      width: 90vw !important;
+      max-width: 360px !important;
+      height: 500px !important;
     }
     
     /* Hide non-active slides on mobile - move them off screen */
