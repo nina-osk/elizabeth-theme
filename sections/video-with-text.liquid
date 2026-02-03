@@ -1,12 +1,12 @@
-<div class="py-16 px-4">
+<div class="py-8 md:py-16 px-4" style="background-color: #F5F1E8;">
     <div class="max-w-7xl mx-auto">
         <!-- Contenedor principal -->
-        <div class="p-8 md:p-12">
+        <div class="p-4 md:p-8 lg:p-12">
             
             <!-- Header con título y descripción -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-8">
                 <div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">{{ section.settings.title }}</h2>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{{ section.settings.title }}</h2>
                 </div>
                 <div class="flex items-center">
                     <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ section.settings.description }}</p>
@@ -14,7 +14,7 @@
             </div>
 
             <!-- Video Section -->
-            <div class="relative w-full bg-purple-300 rounded-lg overflow-hidden" style="padding-bottom: 56.25%;">
+            <div class="relative w-full bg-gray-200 overflow-hidden" style="padding-bottom: 56.25%;">
                 {% if section.settings.video_url != blank %}
                     <iframe 
                         class="absolute top-0 left-0 w-full h-full"
@@ -27,15 +27,16 @@
                     <video 
                         class="absolute top-0 left-0 w-full h-full object-cover"
                         controls
-                        poster="{{ section.settings.video_poster |  image_url: width: 600  }}">
+                        playsinline
+                        poster="{{ section.settings.video_poster |  image_url: width: 1200  }}">
                         <source src="{{ section.settings.video_file }}" type="video/mp4">
                         Tu navegador no soporta el elemento de video.
                     </video>
                 {% else %}
                     <!-- Placeholder con botón de play -->
-                    <div class="absolute top-0 left-0 w-full h-full bg-purple-300 flex items-center justify-center">
-                        <div class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center">
-                            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="absolute top-0 left-0 w-full h-full bg-gray-200 flex items-center justify-center">
+                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-gray-700 flex items-center justify-center">
+                            <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-700 ml-1" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </div>
@@ -44,8 +45,8 @@
             </div>
 
             <!-- Título inferior grande -->
-            <div class="mt-8">
-                <h3 class="text-3xl md:text-5xl font-bold text-gray-900">{{ section.settings.bottom_title }}</h3>
+            <div class="mt-6 md:mt-8">
+                <h3 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900">{{ section.settings.bottom_title }}</h3>
             </div>
 
         </div>
