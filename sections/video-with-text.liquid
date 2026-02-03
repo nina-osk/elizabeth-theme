@@ -1,29 +1,33 @@
-<div class="relative py-16 md:py-24 px-4 overflow-hidden" style="min-height: 600px;">
+<div class="relative py-16 md:py-24 px-4 overflow-hidden video-with-text" style="min-height: 600px;">
     <!-- Video de fondo -->
-    <div class="absolute inset-0 w-full h-full overflow-hidden">
+    <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
         {% if section.settings.video_file != blank %}
             <video 
                 class="absolute top-0 left-0 w-full h-full object-cover"
                 autoplay
                 muted
                 loop
-                playsinline>
+                playsinline
+                preload="auto"
+                style="width: 100%; height: 100%; object-fit: cover;">
                 <source src="{{ section.settings.video_file | file_url }}" type="video/mp4">
+                Tu navegador no soporta video HTML5.
             </video>
         {% elsif section.settings.video_url != blank %}
             <iframe 
                 class="absolute top-0 left-0 w-full h-full"
-                src="{{ section.settings.video_url }}?autoplay=1&mute=1&loop=1&controls=0"
+                src="{{ section.settings.video_url }}?autoplay=1&mute=1&loop=1&controls=0&playlist={{ section.settings.video_url | split: '/' | last }}"
                 frameborder="0"
-                allow="autoplay; encrypted-media"
-                style="pointer-events: none;">
+                allow="autoplay; encrypted-media; fullscreen"
+                allowfullscreen
+                style="pointer-events: none; width: 100%; height: 100%;">
             </iframe>
         {% else %}
             <div class="absolute top-0 left-0 w-full h-full bg-gray-200"></div>
         {% endif %}
         
         <!-- Overlay oscuro para mejorar legibilidad del texto -->
-        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div class="absolute inset-0 bg-black bg-opacity-40 z-5"></div>
     </div>
 
     <!-- Contenido sobre el video -->
@@ -48,6 +52,18 @@
         </div>
     </div>
 </div>
+
+<script>
+// Asegurar autoplay del video en desktop
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('.video-with-text video');
+    if (video) {
+        video.play().catch(function(error) {
+            console.log('Autoplay prevented:', error);
+        });
+    }
+});
+</script>
 
 {% schema %}
 {
