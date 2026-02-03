@@ -9,7 +9,6 @@
 <!-- Hero Section Responsive -->
 <div class="collares-hero">
     <div class="collares-hero__container">
-        <p class="collares-hero__subtitle">COLECCIÓN</p>
         <h1 class="collares-hero__title">{{ section.settings.title | default: "Collares" }}</h1>
         {% if section.settings.description != blank %}
             <div class="collares-hero__description">{{ section.settings.description }}</div>
@@ -126,36 +125,32 @@ document.addEventListener('DOMContentLoaded', function() {
     background-color: #F5F1E8;
     padding: 2.5rem 1rem;
     text-align: center;
+    overflow-x: hidden;
 }
 
 .collares-hero__container {
     max-width: 1280px;
     margin: 0 auto;
-}
-
-.collares-hero__subtitle {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    color: #8B7355;
-    margin-bottom: 1rem;
+    width: 100%;
 }
 
 .collares-hero__title {
     font-family: Georgia, serif;
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 400;
     color: #2d2d2d;
     margin-bottom: 1rem;
     line-height: 1.2;
+    word-wrap: break-word;
 }
 
 .collares-hero__description {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #8B7355;
     line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
+    word-wrap: break-word;
 }
 
 /* ========================================
@@ -164,12 +159,15 @@ document.addEventListener('DOMContentLoaded', function() {
 .collares-products {
     background-color: white;
     padding: 2rem 0;
+    overflow-x: hidden;
 }
 
 .collares-products__container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 0.75rem;
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* ========================================
@@ -227,10 +225,14 @@ document.addEventListener('DOMContentLoaded', function() {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .product-item {
     transition: opacity 0.3s ease;
+    min-width: 0;
+    overflow: hidden;
 }
 
 /* ========================================
@@ -276,7 +278,15 @@ document.addEventListener('DOMContentLoaded', function() {
     background-color: #1a1a1a;
 }
 
-/* ========================================
+/* ===========hero__title {
+        font-size: 2rem;
+    }
+    
+    .collares-hero__description {
+        font-size: 0.95rem;
+    }
+    
+    .collares-=============================
    MÓVIL PEQUEÑO (480px+)
    ======================================== */
 @media (min-width: 480px) {
