@@ -308,9 +308,9 @@
         };
       }
       
-      // Right side previews
+      // Right side previews - REDUCED SPACING
       if (normalizedDiff > 0 && normalizedDiff <= 2) {
-        const offset = normalizedDiff * 200 + 50; // Spacing between slides
+        const offset = normalizedDiff * 150 + 30; // Reduced from 200+50
         const scale = normalizedDiff === 1 ? 0.85 : 0.75;
         const opacity = normalizedDiff === 1 ? 0.75 : 0.5;
         const zIndex = 30 - (normalizedDiff * 10);
@@ -324,9 +324,9 @@
         };
       }
       
-      // Left side previews
+      // Left side previews - REDUCED SPACING
       if (normalizedDiff < 0 && normalizedDiff >= -2) {
-        const offset = normalizedDiff * 200 - 50;
+        const offset = normalizedDiff * 150 - 30; // Reduced from 200+50
         const scale = normalizedDiff === -1 ? 0.85 : 0.75;
         const opacity = normalizedDiff === -1 ? 0.75 : 0.5;
         const zIndex = 30 - (Math.abs(normalizedDiff) * 10);
@@ -340,9 +340,9 @@
         };
       }
       
-      // Hidden slides
+      // Hidden slides - REDUCED OFFSET
       return {
-        x: normalizedDiff > 0 ? 600 : -600,
+        x: normalizedDiff > 0 ? 400 : -400,
         scale: 0.5,
         opacity: 0,
         zIndex: 1,
