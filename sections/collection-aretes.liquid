@@ -1,116 +1,90 @@
 {% comment %}
-  Este template muestra productos filtrados por el tag "aretes"
-  desde todos los productos de la tienda
-  y luego permite filtrar por subtags: stud, huggies
+  Template refactorizado para mostrar productos filtrados por tag
+  Con diseño responsive optimizado para móvil y desktop
 {% endcomment %}
 
-{% comment %} Tag principal para filtrar productos {% endcomment %}
 {% assign target_tag = section.settings.filter_tag | default: "Aretes" %}
 {% assign target_tag_lower = target_tag | downcase %}
 
-<!-- Hero Section -->
-<div style="background-color: #F5F1E8; padding: 6rem 2rem; text-align: center;">
-    <div style="max-width: 1280px; margin: 0 auto;">
-        
-        <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; color: #8B7355; margin-bottom: 2rem;">
-            COLECCIÓN
-        </p>
-        
-        <h1 style="font-family: Georgia, serif; font-size: 5rem; font-weight: 400; color: #2d2d2d; margin-bottom: 2rem; line-height: 1.1;">
-            {{ section.settings.title | default: "Aretes" }}
-        </h1>
-        
+<!-- Hero Section Responsive -->
+<div class="aretes-hero">
+    <div class="aretes-hero__container">
+        <p class="aretes-hero__subtitle">COLECCIÓN</p>
+        <h1 class="aretes-hero__title">{{ section.settings.title | default: "Aretes" }}</h1>
         {% if section.settings.description != blank %}
-            <div style="font-size: 1.125rem; color: #8B7355; line-height: 1.8; max-width: 800px; margin: 0 auto;">
-                {{ section.settings.description }}
-            </div>
+            <div class="aretes-hero__description">{{ section.settings.description }}</div>
         {% endif %}
-        
     </div>
 </div>
 
-<div style="background-color: white; padding: 4rem 0;">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
-        
-        {% comment %} Obtenemos todos los productos {% endcomment %}
+<!-- Products Section -->
+<div class="aretes-products">
+    <div class="aretes-products__container">
         {% assign all_products = collections.all.products %}
 
-            <!-- Filtros -->
-            <div style="margin-bottom: 3rem;">
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
-                        <button onclick="filterProducts('all')" id="filter-all" class="filter-btn" style="padding: 0.75rem 2rem; font-weight: 500; transition: all 0.2s; background-color: #2d2d2d; color: white; border: none; cursor: pointer; font-size: 0.9375rem;">
-                            Todos
-                        </button>
-                        <button onclick="filterProducts('stud')" id="filter-stud" class="filter-btn" style="padding: 0.75rem 2rem; font-weight: 500; transition: all 0.2s; background-color: #e8e8e8; color: #666; border: none; cursor: pointer; font-size: 0.9375rem;">
-                            Stud
-                        </button>
-                        <button onclick="filterProducts('huggies')" id="filter-huggies" class="filter-btn" style="padding: 0.75rem 2rem; font-weight: 500; transition: all 0.2s; background-color: #e8e8e8; color: #666; border: none; cursor: pointer; font-size: 0.9375rem;">
-                            Huggies
-                        </button>
-                    </div>
-                    
-                    <!-- Nombre del filtro activo -->
-                    <div style="margin-top: 1.5rem; font-size: 0.875rem; color: #999;">
-                        <span id="visible-count"></span> productos encontrados
-                    </div>
-                </div>
+        <!-- Filtros Responsive -->
+        <div class="aretes-filters">
+            <div class="aretes-filters__buttons">
+                <button onclick="filterProducts('all')" id="filter-all" class="filter-btn filter-btn--active">
+                    Todos
+                </button>
+                <button onclick="filterProducts('stud')" id="filter-stud" class="filter-btn">
+                    Stud
+                </button>
+                <button onclick="filterProducts('huggies')" id="filter-huggies" class="filter-btn">
+                    Huggies
+                </button>
             </div>
+            <div class="aretes-filters__count">
+                <span id="visible-count"></span> productos encontrados
+            </div>
+        </div>
 
-            <!-- Grid de productos - 4 columnas -->
-            {% comment %} Contar productos que tienen el tag {% endcomment %}
-            {% assign aretes_count = 0 %}
-            {% for product in all_products %}
-                {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
-                {% for tag in product_tags_lower %}
-                    {% assign tag_trimmed = tag | strip %}
-                    {% if tag_trimmed == target_tag_lower %}
-                        {% assign aretes_count = aretes_count | plus: 1 %}
-                        {% break %}
-                    {% endif %}
-                {% endfor %}
+        <!-- Grid de productos responsive -->
+        {% assign aretes_count = 0 %}
+        {% for product in all_products %}
+            {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
+            {% for tag in product_tags_lower %}
+                {% assign tag_trimmed = tag | strip %}
+                {% if tag_trimmed == target_tag_lower %}
+                    {% assign aretes_count = aretes_count | plus: 1 %}
+                    {% break %}
+                {% endif %}
             {% endfor %}
-            
-            {% if aretes_count > 0 %}
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;" id="products-grid">
-                    {% for product in all_products %}
-                        {% comment %} Verificar si el producto tiene el tag {% endcomment %}
-                        {% assign has_tag = false %}
-                        {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
-                        {% for tag in product_tags_lower %}
-                            {% assign tag_trimmed = tag | strip %}
-                            {% if tag_trimmed == target_tag_lower %}
-                                {% assign has_tag = true %}
-                                {% break %}
-                            {% endif %}
-                        {% endfor %}
-                        
-                        {% if has_tag %}
-                            {% assign product_tags = product.tags | join: ',' | downcase %}
-                            <div class="product-item" data-tags="{{ product_tags }}">
-                                {% render 'product-card', product: product %}
-                            </div>
+        {% endfor %}
+        
+        {% if aretes_count > 0 %}
+            <div class="aretes-grid" id="products-grid">
+                {% for product in all_products %}
+                    {% assign has_tag = false %}
+                    {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
+                    {% for tag in product_tags_lower %}
+                        {% assign tag_trimmed = tag | strip %}
+                        {% if tag_trimmed == target_tag_lower %}
+                            {% assign has_tag = true %}
+                            {% break %}
                         {% endif %}
                     {% endfor %}
-                </div>
-            {% else %}
-                <!-- Estado vacío -->
-                <div style="text-align: center; padding: 4rem 0;">
-                    <svg style="width: 6rem; height: 6rem; margin: 0 auto 1.5rem; color: #ddd;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
-                    </svg>
-                    <h2 style="font-size: 1.5rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.5rem;">
-                        No hay productos con el tag "{{ target_tag }}"
-                    </h2>
-                    <p style="color: #888; margin-bottom: 2rem;">
-                        No se encontraron productos con esta etiqueta. Asegúrate de tener productos etiquetados con "{{ target_tag }}".
-                    </p>
-                    <a href="{{ routes.all_products_url }}" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #2d2d2d; color: white; font-weight: 600; text-decoration: none; transition: background-color 0.2s;">
-                        Ver todos los productos
-                    </a>
-                </div>
-            {% endif %}
-
+                    
+                    {% if has_tag %}
+                        {% assign product_tags = product.tags | join: ',' | downcase %}
+                        <div class="product-item" data-tags="{{ product_tags }}">
+                            {% render 'product-card', product: product %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Estado vacío -->
+            <div class="aretes-empty">
+                <svg class="aretes-empty__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                </svg>
+                <h2 class="aretes-empty__title">No hay productos con el tag "{{ target_tag }}"</h2>
+                <p class="aretes-empty__text">No se encontraron productos con esta etiqueta.</p>
+                <a href="{{ routes.all_products_url }}" class="aretes-empty__button">Ver todos los productos</a>
+            </div>
+        {% endif %}
     </div>
 </div>
 
@@ -130,27 +104,23 @@ function filterProducts(filterType) {
     const activeButton = document.getElementById('filter-' + filterType);
     activeButton.style.backgroundColor = '#2d2d2d';
     activeButton.style.color = 'white';
+clases de botones
+    filterButtons.forEach(btn => btn.classList.remove('filter-btn--active'));
+    document.getElementById('filter-' + filterType).classList.add('filter-btn--active');
 
     // Filtrar productos
     productItems.forEach(item => {
         const tags = item.dataset.tags;
+        const shouldShow = filterType === 'all' || tags.includes(filterType);
         
-        if (filterType === 'all') {
-            item.style.display = 'block';
-            visibleCount++;
-        } else if (tags.includes(filterType)) {
-            item.style.display = 'block';
-            visibleCount++;
-        } else {
-            item.style.display = 'none';
-        }
+        item.style.display = shouldShow ? 'block' : 'none';
+        if (shouldShow) visibleCount++;
     });
 
-    // Actualizar contador
     visibleCountElement.textContent = visibleCount;
 }
 
-// Inicializar con todos los productos visibles
+// Inicializar contador
 document.addEventListener('DOMContentLoaded', function() {
     const totalProducts = document.querySelectorAll('.product-item').length;
     document.getElementById('visible-count').textContent = totalProducts;
@@ -158,22 +128,263 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-    .filter-btn:hover {
-        opacity: 0.9;
+/* ========================================
+   HERO SECTION RESPONSIVE
+   ======================================== */
+.aretes-hero {
+    background-color: #F5F1E8;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.aretes-hero__container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.aretes-hero__subtitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: #8B7355;
+    margin-bottom: 1.5rem;
+}
+
+.aretes-hero__title {
+    font-family: Georgia, serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #2d2d2d;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.aretes-hero__description {
+    font-size: 1rem;
+    color: #8B7355;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   PRODUCTS SECTION
+   ======================================== */
+.aretes-products {
+    background-color: white;
+    padding: 2rem 0;
+}
+
+.aretes-products__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ========================================
+   FILTROS RESPONSIVE
+   ======================================== */
+.aretes-filters {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.aretes-filters__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    background-color: #e8e8e8;
+    color: #666;
+    border: none;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.filter-btn--active {
+    background-color: #2d2d2d;
+    color: white;
+}
+
+.filter-btn:hover {
+    opacity: 0.9;
+}
+
+.aretes-filters__count {
+    font-size: 0.875rem;
+    color: #999;
+}
+
+/* ========================================
+   GRID RESPONSIVE
+   ======================================== */
+.aretes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.product-item {
+    transition: opacity 0.3s ease;
+}
+
+/* ========================================
+   ESTADO VACÍO
+   ======================================== */
+.aretes-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.aretes-empty__icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1rem;
+    color: #ddd;
+}
+
+.aretes-empty__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d2d2d;
+    margin-bottom: 0.5rem;
+}
+
+.aretes-empty__text {
+    color: #888;
+    margin-bottom: 1.5rem;
+}
+
+.aretes-empty__button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #2d2d2d;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.aretes-empty__button:hover {
+    background-color: #1a1a1a;
+}
+
+/* ========================================
+   TABLET (768px+)
+   ======================================== */
+@media (min-width: 768px) {
+    .aretes-hero {
+        padding: 4rem 2rem;
     }
     
-    .product-item {
-        transition: opacity 0.3s ease;
+    .aretes-hero__title {
+        font-size: 3.5rem;
     }
-</style>
+    
+    .aretes-hero__description {
+        font-size: 1.125rem;
+        max-width: 700px;
+    }
+    
+    .aretes-products {
+        padding: 3rem 0;
+    }
+    
+    .aretes-products__container {
+        padding: 0 2rem;
+    }
+    
+    .aretes-filters {
+        margin-bottom: 2.5rem;
+    }
+    
+    .aretes-filters__buttons {
+        gap: 1rem;
+    }
+    
+    .filter-btn {
+        padding: 0.75rem 2rem;
+        font-size: 0.9375rem;
+    }
+    
+    .aretes-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .aretes-empty {
+        padding: 4rem 2rem;
+    }
+    
+    .aretes-empty__icon {
+        width: 5rem;
+        height: 5rem;
+    }
+    
+    .aretes-empty__title {
+        font-size: 1.5rem;
+    }
+}
 
-{% schema %}
-{
-    "name": "Aretes (Filtrado por Tag)",
-    "class": "shopify-section--aretes",
-    "settings": [
-        {
-            "type": "text",
+/* ========================================
+   DESKTOP (1024px+)
+   ======================================== */
+@media (min-width: 1024px) {
+    .aretes-hero {
+        padding: 6rem 2rem;
+    }
+    
+    .aretes-hero__title {
+        font-size: 5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .aretes-hero__description {
+        max-width: 800px;
+    }
+    
+    .aretes-hero__subtitle {
+        margin-bottom: 2rem;
+    }
+    
+    .aretes-products {
+        padding: 4rem 0;
+    }
+    
+    .aretes-filters {
+        margin-bottom: 3rem;
+        gap: 1.5rem;
+    }
+    
+    .aretes-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+    
+    .aretes-empty__icon {
+        width: 6rem;
+        height: 6rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .aretes-empty__title {
+        margin-bottom: 0.5rem;
+    }
+    
+    .aretes-empty__text {
+        margin-bottom: 2rem;
+    }
+        "type": "text",
             "id": "filter_tag",
             "label": "Tag para filtrar",
             "default": "aretes",
