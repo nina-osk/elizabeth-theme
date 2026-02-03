@@ -232,8 +232,8 @@ body {
    GRID RESPONSIVE - MÓVIL PRIMERO
    ======================================== */
 .collares-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: grid !important;
+    grid-template-columns: 1fr !important;
     gap: 0.75rem;
     width: 100%;
     max-width: 100%;
@@ -245,6 +245,7 @@ body {
     min-width: 0;
     overflow: hidden;
     max-width: 100%;
+    box-sizing: border-box;
 }
 
 .product-item * {
