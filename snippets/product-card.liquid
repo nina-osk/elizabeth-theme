@@ -95,12 +95,18 @@
 <style>
 .product-image-container {
     aspect-ratio: 1 / 1;
-    min-height: 280px;
+    min-height: 350px;
+}
+
+@media (min-width: 480px) {
+    .product-image-container {
+        min-height: 400px;
+    }
 }
 
 @media (min-width: 640px) {
     .product-image-container {
-        min-height: 320px;
+        min-height: 450px;
     }
 }
 
