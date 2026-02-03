@@ -1,54 +1,48 @@
-<div class="py-8 md:py-16 px-4" style="background-color: #F5F1E8;">
-    <div class="max-w-7xl mx-auto">
-        <!-- Contenedor principal -->
+<div class="relative py-16 md:py-24 px-4 overflow-hidden" style="min-height: 600px;">
+    <!-- Video de fondo -->
+    <div class="absolute inset-0 w-full h-full overflow-hidden">
+        {% if section.settings.video_file != blank %}
+            <video 
+                class="absolute top-0 left-0 w-full h-full object-cover"
+                autoplay
+                muted
+                loop
+                playsinline>
+                <source src="{{ section.settings.video_file | file_url }}" type="video/mp4">
+            </video>
+        {% elsif section.settings.video_url != blank %}
+            <iframe 
+                class="absolute top-0 left-0 w-full h-full"
+                src="{{ section.settings.video_url }}?autoplay=1&mute=1&loop=1&controls=0"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                style="pointer-events: none;">
+            </iframe>
+        {% else %}
+            <div class="absolute top-0 left-0 w-full h-full bg-gray-200"></div>
+        {% endif %}
+        
+        <!-- Overlay oscuro para mejorar legibilidad del texto -->
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    </div>
+
+    <!-- Contenido sobre el video -->
+    <div class="max-w-7xl mx-auto relative z-10">
         <div class="p-4 md:p-8 lg:p-12">
             
             <!-- Header con título y descripción -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-8">
                 <div>
-                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{{ section.settings.title }}</h2>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white drop-shadow-lg">{{ section.settings.title }}</h2>
                 </div>
                 <div class="flex items-center">
-                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">{{ section.settings.description }}</p>
+                    <p class="text-white text-sm md:text-base leading-relaxed drop-shadow-md">{{ section.settings.description }}</p>
                 </div>
-            </div>
-
-            <!-- Video Section -->
-            <div class="relative w-full bg-gray-200 overflow-hidden" style="padding-bottom: 56.25%;">
-                {% if section.settings.video_url != blank %}
-                    <iframe 
-                        class="absolute top-0 left-0 w-full h-full"
-                        src="{{ section.settings.video_url }}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                {% elsif section.settings.video_file != blank %}
-                    <video 
-                        class="absolute top-0 left-0 w-full h-full object-cover"
-                        autoplay
-                        muted
-                        loop
-                        playsinline
-                        poster="{{ section.settings.video_poster |  image_url: width: 1200  }}">
-                        <source src="{{ section.settings.video_file | file_url }}" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                    </video>
-                {% else %}
-                    <!-- Placeholder con botón de play -->
-                    <div class="absolute top-0 left-0 w-full h-full bg-gray-200 flex items-center justify-center">
-                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-gray-700 flex items-center justify-center">
-                            <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-700 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </div>
-                    </div>
-                {% endif %}
             </div>
 
             <!-- Título inferior grande -->
-            <div class="mt-6 md:mt-8">
-                <h3 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900">{{ section.settings.bottom_title }}</h3>
+            <div class="mt-12 md:mt-16">
+                <h3 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg">{{ section.settings.bottom_title }}</h3>
             </div>
 
         </div>
