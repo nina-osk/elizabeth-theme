@@ -312,7 +312,8 @@ body {
     }
     
     .collares-grid {
-        gap: 1rem;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
     }
     
     .filter-btn {
@@ -406,7 +407,8 @@ body {
     }
     
     .collares-grid {
-        gap: 1.5rem;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1.5rem !important;
     }
     
     .collares-empty {
@@ -464,8 +466,9 @@ body {
     
     .collares-grid {
         grid-template-columns: repeat(4, 1fr) !important;
-        gap: 2rem;
+        gap: 2rem !important;
         max-width: 100%;
+        display: grid !important;
     }
     
     .product-item {
@@ -493,7 +496,17 @@ body {
    ======================================== */
 @media (min-width: 1280px) {
     .collares-grid {
-        gap: 2.5rem;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 2.5rem !important;
+    }
+    
+    .collares-products__container {
+        max-width: 1280px;
+    }
+}
+    
+    .collares-products__container {
+        max-width: 1280px;
     }
 }
 </style>
