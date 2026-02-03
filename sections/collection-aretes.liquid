@@ -226,19 +226,24 @@ document.addEventListener('DOMContentLoaded', function() {
    GRID RESPONSIVE - UNA COLUMNA VERTICAL
    ======================================== */
 .aretes-grid {
-    display: grid;
-    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 1.5rem;
-    max-width: 100%;
-    margin: 0 auto;
     width: 100%;
+    max-width: 100%;
     padding: 0;
 }
 
 .product-item {
     transition: opacity 0.3s ease;
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+}
+
+.product-item .product-card {
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 /* ========================================
