@@ -53,7 +53,7 @@
         {% endfor %}
         
         {% if aretes_count > 0 %}
-            <div class="aretes-grid" id="products-grid">
+            <div class="aretes-grid" id="products-grid" style="display: grid !important;">
                 {% for product in all_products %}
                     {% assign has_tag = false %}
                     {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
@@ -450,8 +450,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     .aretes-grid {
         grid-template-columns: repeat(4, 1fr) !important;
-        gap: 2rem;
+        gap: 2rem !important;
         max-width: 100%;
+        display: grid !important;
     }
     
     .product-item {
