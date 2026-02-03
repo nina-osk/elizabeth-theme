@@ -119,6 +119,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <style>
 /* ========================================
+   PREVENCIÓN DE SCROLL HORIZONTAL
+   ======================================== */
+body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* ========================================
    HERO SECTION RESPONSIVE
    ======================================== */
 .collares-hero {
@@ -126,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     padding: 2.5rem 1rem;
     text-align: center;
     overflow-x: hidden;
+    max-width: 100vw;
 }
 
 .collares-hero__container {
@@ -160,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
     background-color: white;
     padding: 2rem 0;
     overflow-x: hidden;
+    max-width: 100vw;
 }
 
 .collares-products__container {
@@ -226,6 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
 }
 
@@ -233,6 +244,12 @@ document.addEventListener('DOMContentLoaded', function() {
     transition: opacity 0.3s ease;
     min-width: 0;
     overflow: hidden;
+    max-width: 100%;
+}
+
+.product-item * {
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* ========================================
