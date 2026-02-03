@@ -99,7 +99,6 @@
         "title": "Joyería Atemporal De Oro9k",
         "description": "Munier crea piezas elegantes, versátiles y duraderas que se sienten tan naturales como tu propia esencia. Joyas que se mueven contigo, desde lo cotidiano hasta lo inolvidable.",
         "video_url": "",
-        "video_file": "shopify://files/videos/Gifts.mp4",
         "video_poster": "shopify://shop_images/200400px_wide_2k_202601302226.jpg",
         "bottom_title": "Lujo Discreto Y De Calidad"
       }
@@ -201,7 +200,7 @@
         "description": "",
         "use_video": true,
         "faq_video": "",
-        "faq_video_file": "https://cdn.shopify.com/videos/c/o/v/4e77268bff9b477fab16fb40616afd43.mp4",
+        "faq_video_file": "https://cdn.shopify.com/videos/c/o/v/96e78604111e4e5f81923657cd416f11.mp4",
         "show_contact_field": true,
         "contact_placeholder": "Tienes otras preguntas? Dejanos un mensaje",
         "contact_button_text": "PREGUNTAS",
@@ -252,45 +251,40 @@
         "post_wwJkk7": {
           "type": "post",
           "settings": {
-            "post_url": "https://www.instagram.com/p/DTyIF7Mkgbe/",
-            "post_caption": ""
+            "instagram_url": "https://www.instagram.com/p/DTpWLpBlDdn/"
+          }
+        },
+        "post_nMGAiA": {
+          "type": "post",
+          "settings": {
+            "instagram_url": "https://www.instagram.com/p/DSO8-vhDqiW/"
           }
         },
         "post_hAWkdB": {
           "type": "post",
           "settings": {
-            "post_url": "https://www.instagram.com/p/DSO8-vhDqiW/",
-            "post_caption": ""
+            "instagram_url": "https://www.instagram.com/p/DSO87ecDloD/"
           }
         },
         "post_JNLL6X": {
           "type": "post",
           "settings": {
-            "post_url": "https://www.instagram.com/p/DSO87ecDloD/",
-            "post_caption": ""
+            "instagram_url": "https://www.instagram.com/p/DSO826-jmgX/"
           }
         },
         "post_mckGhE": {
           "type": "post",
           "settings": {
-            "post_url": "https://www.instagram.com/p/DSO826-jmgX/",
-            "post_caption": ""
-          }
-        },
-        "post_YWzAqQ": {
-          "type": "post",
-          "settings": {
-            "post_url": "",
-            "post_caption": ""
+            "instagram_url": "https://www.instagram.com/p/DTyIF7Mkgbe/"
           }
         }
       },
       "block_order": [
         "post_wwJkk7",
+        "post_nMGAiA",
         "post_hAWkdB",
         "post_JNLL6X",
-        "post_mckGhE",
-        "post_YWzAqQ"
+        "post_mckGhE"
       ],
       "name": "Instagram Feed",
       "settings": {
