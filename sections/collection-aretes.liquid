@@ -53,7 +53,7 @@
         {% endfor %}
         
         {% if aretes_count > 0 %}
-            <div class="aretes-grid" id="products-grid" style="display: grid !important;">
+            <div class="aretes-grid" id="products-grid">
                 {% for product in all_products %}
                     {% assign has_tag = false %}
                     {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
@@ -230,8 +230,8 @@ document.addEventListener('DOMContentLoaded', function() {
    GRID RESPONSIVE - MÓVIL PRIMERO
    ======================================== */
 .aretes-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
     gap: 0.75rem;
     width: 100%;
     max-width: 100%;
@@ -243,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
     min-width: 0;
     overflow: hidden;
     max-width: 100%;
+    box-sizing: border-box;
 }
 
 .product-item * {
@@ -301,8 +302,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     .aretes-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
     }
     
     .filter-btn {
@@ -480,7 +481,12 @@ document.addEventListener('DOMContentLoaded', function() {
    ======================================== */
 @media (min-width: 1280px) {
     .aretes-grid {
-        gap: 2.5rem;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 2.5rem !important;
+    }
+    
+    .aretes-products__container {
+        max-width: 1280px;
     }
 }
 </style>
