@@ -1,5 +1,5 @@
-<div style="width: 100%; background-color: #F5F1E8;">
-  <div style="max-width: 1280px; margin: 0 auto; padding: 3rem 1rem 2rem;">
+<div style="width: 100%; background-color: #F5F1E8; overflow-x: hidden;">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 3rem 1rem 2rem; overflow-x: hidden;">
     <!-- Header -->
     <div style="text-align: center; margin-bottom: 2rem;">
       <p class="categories-hero-header" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; color: #8B7355; margin-bottom: 2.5rem;">
@@ -23,9 +23,9 @@
     </div>
 
     <!-- Carousel Container -->
-    <div class="carousel-wrapper max-w-6xl mx-auto mb-12">
+    <div class="carousel-wrapper max-w-6xl mx-auto mb-12" style="max-width: 100%; overflow-x: hidden;">
       <!-- Carousel Track -->
-      <div class="relative overflow-hidden" style="height: 500px;">
+      <div class="relative overflow-hidden" style="height: 500px; max-width: 100%;">
         <div class="carousel-track absolute inset-0 flex items-center justify-center">
           {% assign cards = (1..6) %}
           {% for i in cards %}
@@ -243,7 +243,12 @@
   
   @media (min-width: 769px) {
     .carousel-wrapper .relative {
-      overflow: visible !important;
+      overflow: hidden !important;
+    }
+    
+    .carousel-wrapper {
+      max-width: 100% !important;
+      overflow-x: hidden !important;
     }
   }
 
