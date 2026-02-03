@@ -1,10 +1,10 @@
 <div class="product-card bg-white rounded-lg overflow-hidden transition-all duration-300 w-full">
     <!-- Product Image with Actions -->
     <div class="relative bg-neutral-100 group product-image-container">
-        <a href="{{ product.url }}" class="block w-full h-full p-3 md:p-4">
+        <a href="{{ product.url }}" class="block w-full h-full">
             {% if product.featured_image %}
                 <img 
-                    class="w-full h-full object-contain" 
+                    class="w-full h-full object-cover" 
                     src="{{ product.featured_image | image_url: width: 800 }}" 
                     alt="{{ product.featured_image.alt }}" 
                     width="800" 
