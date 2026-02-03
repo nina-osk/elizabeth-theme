@@ -36,7 +36,7 @@
             data-collection-handle="{{ collection.handle }}">
             
             {% if collection.products.size > 0 %}
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              <div class="collections-grid">
                 {% for product in collection.products %}
                   {% render 'product-card', product: product %}
                 {% endfor %}
@@ -93,6 +93,67 @@
 
   .collection-products-group.hidden {
     display: none;
+  }
+
+  /* ========================================
+     GRID RESPONSIVE - MÓVIL PRIMERO
+     ======================================== */
+  .collections-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .collections-grid > * {
+    min-width: 0;
+    overflow: hidden;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ========================================
+     MÓVIL PEQUEÑO (480px+)
+     ======================================== */
+  @media (min-width: 480px) {
+    .collections-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1rem !important;
+    }
+  }
+
+  /* ========================================
+     TABLET (768px+)
+     ======================================== */
+  @media (min-width: 768px) {
+    .collections-grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 1.5rem !important;
+    }
+  }
+
+  /* ========================================
+     DESKTOP (1024px+)
+     ======================================== */
+  @media (min-width: 1024px) {
+    .collections-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 2rem !important;
+      max-width: 100%;
+      display: grid !important;
+    }
+  }
+
+  /* ========================================
+     DESKTOP GRANDE (1280px+)
+     ======================================== */
+  @media (min-width: 1280px) {
+    .collections-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 2.5rem !important;
+    }
   }
 </style>
 
