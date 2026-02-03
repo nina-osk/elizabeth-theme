@@ -98,20 +98,16 @@ function filterProducts(filterType) {
     filterButtons.forEach(btn => btn.classList.remove('filter-btn--active'));
     document.getElementById('filter-' + filterType).classList.add('filter-btn--active');
 
-    // Filtrar productos - NO cambiar display, usar opacity y visibility
+    // Filtrar productos - usar display para grid correcto
     productItems.forEach(item => {
         const tags = item.dataset.tags;
         const shouldShow = filterType === 'all' || tags.includes(filterType);
         
         if (shouldShow) {
-            item.style.opacity = '1';
-            item.style.visibility = 'visible';
-            item.style.position = 'relative';
+            item.style.display = '';  // Resetear a valor por defecto (grid item)
             visibleCount++;
         } else {
-            item.style.opacity = '0';
-            item.style.visibility = 'hidden';
-            item.style.position = 'absolute';
+            item.style.display = 'none';  // Ocultar completamente
         }
     });
 
