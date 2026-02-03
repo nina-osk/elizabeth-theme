@@ -35,12 +35,39 @@
             "question": "¿Su joyería es hipoalergénica?",
             "answer": "Sí, nuestras piezas de oro 9K son gentiles con la piel y adecuadas para personas con sensibilidad. Los materiales utilizados son de alta calidad y libres de níquel."
           }
+        },
+        "faq_item_DzNtWe": {
+          "type": "faq_item",
+          "settings": {
+            "icon": "💎",
+            "question": "¿Cómo debo cuidar mi joyería?",
+            "answer": "Para mantener tu joya como nueva:\nEvitá el contacto directo con perfumes, cremas y productos químicos\nLimpiala suavemente con un baño de agua tibia y jabón suave. Puedes usar un cepillo de cerdas suaves (recomendamos los cepillos de dientes de bebe).\nGuardá cada pieza por separado en sus empaques originales para evitar rayaduras\nPuedes consultar nuestra Guía de Cuidado de Joyas para más detalles."
+          }
+        },
+        "faq_item_e83VTM": {
+          "type": "faq_item",
+          "settings": {
+            "icon": "🔁",
+            "question": "¿Ofrecen devoluciones o cambios?",
+            "answer": "Todas las compras en Munier son ventas finales, por lo que no ofrecemos devoluciones por preferencia personal. Sin embargo, entendemos que cambies de opinión, por ello ofrecemos a nuestros clientes la cortesia de poder cambiar su pieza por otra prenda de igual o mayor valor dentro de los primeros 5 dias de haber realizado su compra. Tus piezas cuentan con una garantía de 3 años que cubre reparaciones por daños derivados del uso normal y diario."
+          }
+        },
+        "faq_item_diJApN": {
+          "type": "faq_item",
+          "settings": {
+            "icon": "📦",
+            "question": "¿Cuánto tardará mi pedido en llegar?",
+            "answer": "Los pedidos se procesan y se envian en 1 a 2 días hábiles  para entras en la ciudad de panama (panama centro y ciudad radial) una vez confirmado el pago.\nPara envíos al interior del país el tiempo de entrega estimado son de 3 a 5 días hábiles dependiendo de la ubicación.\n."
+          }
         }
       },
       "block_order": [
         "faq_item_gtPngB",
         "faq_item_Hw3gNK",
-        "faq_item_H96wcq"
+        "faq_item_H96wcq",
+        "faq_item_DzNtWe",
+        "faq_item_e83VTM",
+        "faq_item_diJApN"
       ],
       "name": "FAQ",
       "settings": {
