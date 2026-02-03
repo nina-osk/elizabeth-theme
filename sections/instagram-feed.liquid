@@ -19,11 +19,12 @@
     </div>
 
     <!-- Grid de publicaciones - 5 columnas en una fila -->
-    <div class="flex flex-nowrap gap-3 md:gap-4 overflow-x-auto md:overflow-visible justify-start md:justify-center">
+    <div style="display: flex; flex-wrap: nowrap; gap: 1rem; overflow-x: auto; justify-content: center;">
       {% for block in section.blocks limit:5 %}
         <a href="{{ block.settings.post_url | default: '#' }}" 
            target="_blank"
-           class="group relative flex-shrink-0 w-64 h-64 md:w-auto md:flex-1 overflow-hidden rounded-lg bg-gray-100 hover:opacity-90 transition-opacity">
+           style="position: relative; flex: 0 0 auto; width: calc(20% - 0.8rem); min-width: 200px; aspect-ratio: 1; overflow: hidden; border-radius: 0.5rem; background-color: #f3f4f6;"
+           class="group hover:opacity-90 transition-opacity">
           
           {% if block.settings.post_image %}
             {{ block.settings.post_image | image_url: width: 600 | image_tag: alt: block.settings.post_caption, class: 'w-full h-full object-cover', loading: 'lazy', width: 600, height: 600 }}
