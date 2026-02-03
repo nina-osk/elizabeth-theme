@@ -248,12 +248,6 @@
     "instagram_feed_W4QMhe": {
       "type": "instagram-feed",
       "blocks": {
-        "post_wwJkk7": {
-          "type": "post",
-          "settings": {
-            "instagram_url": "https://www.instagram.com/p/DTpWLpBlDdn/"
-          }
-        },
         "post_nMGAiA": {
           "type": "post",
           "settings": {
@@ -271,20 +265,12 @@
           "settings": {
             "instagram_url": "https://www.instagram.com/p/DSO826-jmgX/"
           }
-        },
-        "post_mckGhE": {
-          "type": "post",
-          "settings": {
-            "instagram_url": "https://www.instagram.com/p/DTyIF7Mkgbe/"
-          }
         }
       },
       "block_order": [
-        "post_wwJkk7",
         "post_nMGAiA",
         "post_hAWkdB",
-        "post_JNLL6X",
-        "post_mckGhE"
+        "post_JNLL6X"
       ],
       "name": "Instagram Feed",
       "settings": {
