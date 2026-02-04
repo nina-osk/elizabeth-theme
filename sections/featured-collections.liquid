@@ -79,9 +79,11 @@
                         </div>
 
                         <!-- Shopping Bag Icon - Bottom Right -->
-                        <div class="absolute bottom-2 right-2 z-10">
-                          <a href="{{ product.url }}" class="block bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors">
-                            {% render 'icon-shopping-bag' %}
+                        <div class="absolute bottom-2 right-2 z-20">
+                          <a href="{{ product.url }}" class="flex items-center justify-center bg-white rounded-full p-2.5 shadow-lg hover:bg-gray-100 hover:scale-110 transition-all duration-200" style="width: 40px; height: 40px;">
+                            <div style="width: 20px; height: 20px; color: #2d2d2d;">
+                              {% render 'icon-shopping-bag' %}
+                            </div>
                           </a>
                         </div>
 
