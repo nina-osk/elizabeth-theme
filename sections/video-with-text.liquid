@@ -10,8 +10,11 @@
                 playsinline
                 preload="auto"
                 id="background-video"
+                webkit-playsinline
+                x-webkit-airplay="allow"
                 {% if section.settings.video_poster %}poster="{{ section.settings.video_poster | image_url: width: 1920 }}"{% endif %}
-                style="width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+                style="width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+                onloadedmetadata="this.muted = true; this.play();">
                 <source src="{{ section.settings.video_file }}" type="video/mp4">
                 Tu navegador no soporta video HTML5.
             </video>
@@ -76,28 +79,101 @@
 </div>
 
 <script>
-// Asegurar autoplay del video en desktop
-document.addEventListener('DOMContentLoaded', function() {
-    const video = document.querySelector('.video-with-text video');
-    if (video) {
-        // Intentar reproducir el video
-        video.play().catch(function(error) {
-            console.log('Autoplay prevented:', error);
-        });
+// Debug y autoplay del video
+(function() {
+    console.log('=== VIDEO DEBUG START ===');
+    console.log('Video file setting:', '{{ section.settings.video_file }}');
+    console.log('Video URL setting:', '{{ section.settings.video_url }}');
+    
+    function forceVideoPlay() {
+        const videoElement = document.querySelector('#background-video');
+        const iframeElement = document.querySelector('.video-with-text iframe');
         
-        // Log para debugging
-        video.addEventListener('loadeddata', function() {
-            console.log('Video loaded successfully');
-        });
+        console.log('Video element found:', !!videoElement);
+        console.log('Iframe element found:', !!iframeElement);
         
-        video.addEventListener('error', function(e) {
-            console.error('Error loading video:', e);
-            console.error('Video source:', video.querySelector('source').src);
-        });
-    } else {
-        console.log('No video element found');
+        if (videoElement) {
+            const source = videoElement.querySelector('source');
+            console.log('Video source:', source ? source.src : 'No source');
+            
+            // Forzar mute y play múltiples veces
+            videoElement.muted = true;
+            videoElement.volume = 0;
+            videoElement.defaultMuted = true;
+            
+            videoElement.addEventListener('loadeddata', function() {
+                console.log('✅ Video loaded successfully');
+                videoElement.muted = true;
+                videoElement.play().then(function() {
+                    console.log('✅ Video playing after loadeddata');
+                }).catch(function(error) {
+                    console.error('❌ Play failed after loadeddata:', error);
+                });
+            });
+            
+            videoElement.addEventListener('canplay', function() {
+                console.log('Video can play');
+                videoElement.muted = true;
+                videoElement.play().catch(function(error) {
+                    console.error('❌ Play failed on canplay:', error);
+                });
+            });
+            
+            videoElement.addEventListener('error', function(e) {
+                console.error('❌ Error loading video:', e);
+                console.error('Video element state:', {
+                    networkState: videoElement.networkState,
+                    readyState: videoElement.readyState,
+                    error: videoElement.error
+                });
+            });
+            
+            // Intentar reproducir inmediatamente
+            videoElement.play().then(function() {
+                console.log('✅ Video playing immediately');
+            }).catch(function(error) {
+                console.error('❌ Immediate play prevented:', error);
+                
+                // Si falla, intentar después de un pequeño delay
+                setTimeout(function() {
+                    videoElement.muted = true;
+                    videoElement.play().then(function() {
+                        console.log('✅ Video playing after delay');
+                    }).catch(function(err) {
+                        console.error('❌ Delayed play failed:', err);
+                    });
+                }, 100);
+            });
+            
+            // Forzar reproducción en interacción del usuario
+            document.addEventListener('click', function playOnClick() {
+                videoElement.muted = true;
+                videoElement.play().then(function() {
+                    console.log('✅ Video playing after user interaction');
+                    document.removeEventListener('click', playOnClick);
+                }).catch(function(error) {
+                    console.error('❌ Play on click failed:', error);
+                });
+            }, { once: true });
+        }
+        
+        if (iframeElement) {
+            console.log('Iframe src:', iframeElement.src);
+        }
+        
+        if (!videoElement && !iframeElement) {
+            console.warn('⚠️ No video or iframe element found. Check settings.');
+        }
     }
-});
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', forceVideoPlay);
+    } else {
+        forceVideoPlay();
+    }
+    
+    console.log('=== VIDEO DEBUG END ===');
+})();
 </script>
 
 {% schema %}
