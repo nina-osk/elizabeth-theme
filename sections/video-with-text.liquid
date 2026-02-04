@@ -1,6 +1,6 @@
 <div class="relative py-16 md:py-24 px-4 overflow-hidden video-with-text" style="min-height: 600px;">
     <!-- Video de fondo -->
-    <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
+    <div class="absolute inset-0 w-full h-full overflow-hidden" style="z-index: 0;">
         {% if section.settings.video_file != blank %}
             <video 
                 class="absolute top-0 left-0 w-full h-full object-cover"
@@ -13,11 +13,14 @@
                 webkit-playsinline
                 x-webkit-airplay="allow"
                 {% if section.settings.video_poster %}poster="{{ section.settings.video_poster | image_url: width: 1920 }}"{% endif %}
-                style="width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+                style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;"
                 onloadedmetadata="this.muted = true; this.play();">
                 <source src="{{ section.settings.video_file }}" type="video/mp4">
                 Tu navegador no soporta video HTML5.
             </video>
+            
+            <!-- Overlay oscuro para mejorar legibilidad del texto - SOLO sobre el video -->
+            <div class="absolute inset-0 bg-black" style="opacity: 0.4; z-index: 2; pointer-events: none;"></div>
         {% elsif section.settings.video_url != blank %}
             {% assign video_url = section.settings.video_url %}
             {% if video_url contains 'youtube.com' or video_url contains 'youtu.be' %}
@@ -36,6 +39,9 @@
                     allowfullscreen
                     style="pointer-events: none; width: 100%; height: 100%; z-index: 1;">
                 </iframe>
+                
+                <!-- Overlay oscuro -->
+                <div class="absolute inset-0 bg-black" style="opacity: 0.4; z-index: 2; pointer-events: none;"></div>
             {% elsif video_url contains 'vimeo.com' %}
                 {% assign video_id = video_url | split: 'vimeo.com/' | last | split: '/' | first %}
                 <iframe 
@@ -46,13 +52,13 @@
                     allowfullscreen
                     style="pointer-events: none; width: 100%; height: 100%; z-index: 1;">
                 </iframe>
+                
+                <!-- Overlay oscuro -->
+                <div class="absolute inset-0 bg-black" style="opacity: 0.4; z-index: 2; pointer-events: none;"></div>
             {% endif %}
         {% else %}
             <div class="absolute top-0 left-0 w-full h-full bg-gray-900"></div>
         {% endif %}
-        
-        <!-- Overlay oscuro para mejorar legibilidad del texto -->
-        <div class="absolute inset-0 bg-black bg-opacity-40" style="z-index: 2;"></div>
     </div>
 
     <!-- Contenido sobre el video -->
