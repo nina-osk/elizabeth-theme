@@ -107,6 +107,15 @@
       
       <!-- User Account & Cart - Right side -->
       <div style="display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0;" class="desktop-nav">
+        <!-- Search -->
+        <a 
+          href="{{ routes.search_url }}" 
+          style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;"
+          title="Buscar"
+        >
+          {% render 'icon-search' %}
+        </a>
+        
         <!-- User Account -->
         <a 
           href="{{ routes.account_url }}" 
