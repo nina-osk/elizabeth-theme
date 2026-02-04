@@ -147,7 +147,7 @@
                 placeholder="{{ contact_placeholder }}"
                 aria-label="{{ contact_placeholder }}"
                 class="faq-section__contact-input"
-                style="background-color: #AFC4AE !important; color: white !important; border: 1px solid #9BB49A !important;">
+                style="background-color: #AFC4AE !important; color: #2d2d2d !important; border: 1px solid #9BB49A !important;">
               {% if contact_link != blank %}
                 <a 
                   href="{{ contact_link }}" 
@@ -285,7 +285,7 @@
     padding: 0.75rem 0;
     background: none;
     border: none;
-    color: white;
+    color: white !important;
     cursor: pointer;
     transition: color 0.2s ease;
   }
@@ -303,6 +303,7 @@
     font-size: 1rem;
     font-weight: 500;
     padding-right: 1rem;
+    color: white !important;
   }
 
   @media (min-width: 768px) {

@@ -18,11 +18,11 @@
       {% endif %}
     </div>
 
-    <!-- Grid de publicaciones - 5 posts de Instagram -->
-    <div style="display: flex; flex-wrap: nowrap; gap: 1rem; overflow-x: auto; justify-content: center;">
-      {% for block in section.blocks limit:5 %}
+    <!-- Grid de publicaciones - 3 posts de Instagram en desktop -->
+    <div class="instagram-posts-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 100%;">
+      {% for block in section.blocks limit:3 %}
         {% if block.settings.instagram_url != blank %}
-          <div style="flex: 0 0 auto; width: calc(20% - 0.8rem); min-width: 250px;">
+          <div style="width: 100%; max-width: 100%;">
             <blockquote class="instagram-media" 
                         data-instgrm-permalink="{{ block.settings.instagram_url }}" 
                         data-instgrm-version="14"
@@ -32,6 +32,14 @@
         {% endif %}
       {% endfor %}
     </div>
+    
+    <style>
+      @media (min-width: 768px) {
+        .instagram-posts-grid {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+      }
+    </style>
     
     <script async src="//www.instagram.com/embed.js"></script>
 
