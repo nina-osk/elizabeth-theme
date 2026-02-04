@@ -78,8 +78,15 @@
                           {% endif %}
                         </div>
 
+                        <!-- Shopping Bag Icon - Bottom Right -->
+                        <div class="absolute bottom-2 right-2 z-10">
+                          <a href="{{ product.url }}" class="block bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors">
+                            {% render 'icon-shopping-bag' %}
+                          </a>
+                        </div>
+
                         <!-- Add to Cart Button - Always visible on mobile, hover on desktop -->
-                        <div class="absolute bottom-0 left-0 right-0 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 z-20 add-to-cart-overlay">
+                        <div class="absolute bottom-0 left-0 right-0 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 z-20 add-to-cart-overlay" style="display: none;">
                           <form action="{{ routes.cart_add_url }}" method="post" class="add-to-cart-form">
                             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                             <button 
@@ -87,6 +94,7 @@
                               class="w-full bg-black text-white font-medium py-2.5 px-4 hover:bg-gray-800 transition-colors text-xs uppercase tracking-wide flex items-center justify-between gap-2"
                               {% unless product.available %}disabled{% endunless %}>
                               {% if product.available %}
+                                <span>Agregar al carrito</span>
                                 {% render 'icon-shopping-bag' %}
                               {% else %}
                                 SOLD OUT
