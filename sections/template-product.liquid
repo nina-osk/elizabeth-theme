@@ -56,7 +56,7 @@
 
 
      <div class="product--information sticky top-5 p-2">
-            {% form 'product', product %}
+            {% form 'product', product, id: 'product-form' %}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                                {% for block in section.blocks %}
                     {% case block.type %}
