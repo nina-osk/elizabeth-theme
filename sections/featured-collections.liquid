@@ -84,7 +84,7 @@
                             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                             <button 
                               type="submit"
-                              class="w-full bg-black text-white font-medium py-2.5 px-4 hover:bg-gray-800 transition-colors text-xs uppercase tracking-wide flex items-center justify-center gap-2"
+                              class="w-full bg-black text-white font-medium py-2.5 px-4 hover:bg-gray-800 transition-colors text-xs uppercase tracking-wide flex items-center justify-between gap-2"
                               {% unless product.available %}disabled{% endunless %}>
                               {% if product.available %}
                                 {% render 'icon-shopping-bag' %}
