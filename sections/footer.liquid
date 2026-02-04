@@ -12,10 +12,10 @@
     <!-- Header Section -->
     <div class="footer-header">
       <h2 class="footer-title">
-        Bienvenida a un lujo accesible, inclusivo y real.
+        {{ section.settings.header_title | default: "Bienvenida a un lujo accesible, inclusivo y real." }}
       </h2>
       <p class="footer-subtitle">
-        Un lujo que se adapta a tu vida. Un lujo que te acompaña.
+        {{ section.settings.header_subtitle | default: "Un lujo que se adapta a tu vida. Un lujo que te acompaña." }}
       </p>
     </div>
 
@@ -26,20 +26,20 @@
         <!-- Brand Column -->
         <div class="footer-column">
           <h3 class="footer-column-title footer-brand">
-            MUNIER
+            {{ section.settings.brand_title | default: "MUNIER" }}
           </h3>
           <p class="footer-text">
-            Piezas que brillan con tu luz cada día — lujo que te acompaña todos los días.
+            {{ section.settings.brand_description | default: "Piezas que brillan con tu luz cada día — lujo que te acompaña todos los días." }}
           </p>
           <p class="footer-tagline">
-            Tú eres la ocasión especial.
+            {{ section.settings.brand_tagline | default: "Tú eres la ocasión especial." }}
           </p>
         </div>
 
         <!-- Explorar Column -->
         <div class="footer-column">
           <h3 class="footer-column-title">
-            EXPLORAR
+            {{ section.settings.explore_title | default: "EXPLORAR" }}
           </h3>
           <nav class="footer-nav">
             <a href="{{ routes.collections_url }}" class="footer-link">
@@ -57,7 +57,7 @@
         <!-- Munier Column -->
         <div class="footer-column">
           <h3 class="footer-column-title">
-            MUNIER
+            {{ section.settings.menu_title | default: "MUNIER" }}
           </h3>
           <nav class="footer-nav">
             {% if footer_menu_linklist.size > 0 %}
@@ -344,11 +344,69 @@
   "name": "Footer",
   "settings": [
     {
+      "type": "header",
+      "content": "Encabezado del Footer"
+    },
+    {
+      "type": "text",
+      "id": "header_title",
+      "label": "Título principal",
+      "default": "Bienvenida a un lujo accesible, inclusivo y real."
+    },
+    {
+      "type": "text",
+      "id": "header_subtitle",
+      "label": "Subtítulo",
+      "default": "Un lujo que se adapta a tu vida. Un lujo que te acompaña."
+    },
+    {
+      "type": "header",
+      "content": "Columna de Marca (Izquierda)"
+    },
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Título de marca",
+      "default": "MUNIER"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Descripción de marca",
+      "default": "Piezas que brillan con tu luz cada día — lujo que te acompaña todos los días."
+    },
+    {
+      "type": "text",
+      "id": "brand_tagline",
+      "label": "Eslogan",
+      "default": "Tú eres la ocasión especial."
+    },
+    {
+      "type": "header",
+      "content": "Columna Explorar (Centro)"
+    },
+    {
+      "type": "text",
+      "id": "explore_title",
+      "label": "Título de Explorar",
+      "default": "EXPLORAR"
+    },
+    {
+      "type": "header",
+      "content": "Columna del Menú (Derecha)"
+    },
+    {
+      "type": "text",
+      "id": "menu_title",
+      "label": "Título del menú",
+      "default": "MUNIER"
+    },
+    {
       "type": "link_list",
       "id": "footer_menu",
       "label": "Menú del Footer",
       "default": "footer",
-      "info": "Menú para la columna 'Munier' del footer"
+      "info": "Menú para la columna derecha del footer"
     }
   ]
 }
