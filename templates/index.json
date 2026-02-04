@@ -197,12 +197,12 @@
       ],
       "settings": {
         "title": "Preguntas Frecuentes",
-        "description": "",
+        "description": "¿Tienes preguntas?",
         "use_video": true,
         "faq_video": "",
         "faq_video_file": "https://cdn.shopify.com/videos/c/o/v/96e78604111e4e5f81923657cd416f11.mp4",
         "show_contact_field": true,
-        "contact_placeholder": "Tienes otras preguntas? Dejanos un mensaje",
+        "contact_placeholder": "Tienes otras preguntas?",
         "contact_button_text": "PREGUNTAS",
         "contact_link": "/pages/contact"
       }
