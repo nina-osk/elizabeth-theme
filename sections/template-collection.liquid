@@ -5,37 +5,37 @@
 {% endif %}
 
 <!-- Hero Section -->
-<div style="background-color: #F5F1E8; min-height: 70vh; display: flex; align-items: center;">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; width: 100%;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+<div class="collection-hero">
+    <div class="collection-hero__container">
+        <div class="collection-hero__grid">
             
             <!-- Left Side - Large Letter -->
-            <div style="display: flex; align-items: center; justify-content: center;">
+            <div class="collection-hero__letter">
                 {% assign first_letter = selected_collection.title | slice: 0 %}
-                <span style="font-size: 20rem; font-family: Georgia, serif; color: #E8DCC8; line-height: 0.8; font-weight: 400;">
+                <span class="collection-hero__letter-text">
                     {{ first_letter }}
                 </span>
             </div>
             
             <!-- Right Side - Collection Info -->
-            <div style="padding: 2rem 0;">
+            <div class="collection-hero__content">
                 {% if section.settings.subtitle != blank %}
-                    <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; color: #D4A574; margin-bottom: 1.5rem;">
+                    <p class="collection-hero__subtitle">
                         {{ section.settings.subtitle | upcase }}
                     </p>
                 {% endif %}
                 
-                <h1 style="font-family: Georgia, serif; font-size: 4rem; font-weight: 400; color: #2d2d2d; margin-bottom: 2rem; line-height: 1.1;">
+                <h1 class="collection-hero__title">
                     {{ selected_collection.title }}
                 </h1>
                 
                 {% if selected_collection.description != blank %}
-                    <div style="font-size: 1rem; color: #8B7355; line-height: 1.8; margin-bottom: 2.5rem; max-width: 500px;">
+                    <div class="collection-hero__description">
                         {{ selected_collection.description }}
                     </div>
                 {% endif %}
 
-                <a href="#productos" style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: #2d2d2d; text-decoration: none; letter-spacing: 0.05em;">
+                <a href="#productos" class="collection-hero__link">
                     VER COLECCIÓN
                     <svg style="width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
@@ -47,14 +47,14 @@
     </div>
 </div>
 
-<div style="background-color: white; padding: 4rem 0;" id="productos">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+<div class="collection-products" id="productos">
+    <div class="collection-products__container">
         
         {% paginate selected_collection.products by section.settings.products_per_page %}
         
             <!-- Botón de retornar -->
-            <div style="margin-bottom: 2rem;">
-                <a href="{{ routes.collections_url }}" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #666; text-decoration: none; font-size: 0.9375rem; font-weight: 500;">
+            <div class="collection-products__back">
+                <a href="{{ routes.collections_url }}" class="collection-back-link">
                     <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
@@ -62,15 +62,13 @@
                 </a>
             </div>
         
-            <div style="text-align: center; margin-bottom: 3rem;">
-                <p style="font-size: 0.875rem; color: #999;">
-                    {{ paginate.items }} productos
-                </p>
+            <div class="collection-products__count">
+                <p>{{ paginate.items }} productos</p>
             </div>
 
             <!-- Grid de productos -->
             {% if selected_collection.products.size > 0 %}
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                <div class="collection-products__grid">
                     {% for product in selected_collection.products %}
                         {% render 'product-card', product: product %}
                     {% endfor %}
@@ -78,23 +76,23 @@
 
                 <!-- Paginación -->
                 {% if paginate.pages > 1 %}
-                    <div style="margin-top: 3rem;">
+                    <div class="collection-products__pagination">
                         {% render 'pagination', pagination: paginate %}
                     </div>
                 {% endif %}
             {% else %}
                 <!-- Estado vacío -->
-                <div style="text-align: center; padding: 4rem 0;">
+                <div class="collection-products__empty">
                     <svg style="width: 6rem; height: 6rem; margin: 0 auto 1.5rem; color: #ddd;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
                     </svg>
-                    <h2 style="font-size: 1.5rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.5rem;">
+                    <h2 class="collection-empty__title">
                         No hay productos en esta colección
                     </h2>
-                    <p style="color: #888; margin-bottom: 2rem;">
+                    <p class="collection-empty__text">
                         Esta colección está vacía actualmente
                     </p>
-                    <a href="{{ routes.all_products_url }}" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #2d2d2d; color: white; font-weight: 600; text-decoration: none; transition: background-color 0.2s;">
+                    <a href="{{ routes.all_products_url }}" class="collection-empty__button">
                         Ver todos los productos
                     </a>
                 </div>
@@ -104,6 +102,267 @@
 
     </div>
 </div>
+
+<style>
+/* ========================================
+   HERO SECTION - MOBILE FIRST
+   ======================================== */
+.collection-hero {
+    background-color: #F5F1E8;
+    padding: 2rem 1rem;
+}
+
+.collection-hero__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.collection-hero__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.collection-hero__letter {
+    display: none;
+}
+
+.collection-hero__content {
+    padding: 0;
+}
+
+.collection-hero__subtitle {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: #D4A574;
+    margin-bottom: 1rem;
+}
+
+.collection-hero__title {
+    font-family: Georgia, serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #2d2d2d;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.collection-hero__description {
+    font-size: 0.875rem;
+    color: #8B7355;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.collection-hero__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2d2d2d;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+
+/* ========================================
+   PRODUCTS SECTION - MOBILE FIRST
+   ======================================== */
+.collection-products {
+    background-color: white;
+    padding: 2rem 0;
+}
+
+.collection-products__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.collection-products__back {
+    margin-bottom: 1.5rem;
+}
+
+.collection-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.collection-products__count {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.collection-products__count p {
+    font-size: 0.875rem;
+    color: #999;
+}
+
+.collection-products__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.collection-products__pagination {
+    margin-top: 2rem;
+}
+
+.collection-products__empty {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.collection-empty__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d2d2d;
+    margin-bottom: 0.5rem;
+}
+
+.collection-empty__text {
+    color: #888;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.collection-empty__button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #2d2d2d;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    font-size: 0.875rem;
+}
+
+.collection-empty__button:hover {
+    background-color: #1a1a1a;
+}
+
+/* ========================================
+   TABLET (768px+)
+   ======================================== */
+@media (min-width: 768px) {
+    .collection-hero {
+        padding: 3rem 2rem;
+        min-height: 50vh;
+        display: flex;
+        align-items: center;
+    }
+    
+    .collection-hero__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+    
+    .collection-hero__letter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .collection-hero__letter-text {
+        font-size: 12rem;
+        font-family: Georgia, serif;
+        color: #E8DCC8;
+        line-height: 0.8;
+        font-weight: 400;
+    }
+    
+    .collection-hero__title {
+        font-size: 3rem;
+    }
+    
+    .collection-hero__description {
+        font-size: 0.9375rem;
+    }
+    
+    .collection-products {
+        padding: 3rem 0;
+    }
+    
+    .collection-products__container {
+        padding: 0 2rem;
+    }
+    
+    .collection-products__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .collection-products__back {
+        margin-bottom: 2rem;
+    }
+    
+    .collection-products__count {
+        margin-bottom: 3rem;
+    }
+    
+    .collection-products__pagination {
+        margin-top: 3rem;
+    }
+    
+    .collection-products__empty {
+        padding: 4rem 0;
+    }
+    
+    .collection-empty__title {
+        font-size: 1.5rem;
+    }
+}
+
+/* ========================================
+   DESKTOP (1024px+)
+   ======================================== */
+@media (min-width: 1024px) {
+    .collection-hero {
+        min-height: 70vh;
+        padding: 4rem 2rem;
+    }
+    
+    .collection-hero__grid {
+        gap: 4rem;
+    }
+    
+    .collection-hero__letter-text {
+        font-size: 20rem;
+    }
+    
+    .collection-hero__title {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+    }
+    
+    .collection-hero__description {
+        font-size: 1rem;
+        margin-bottom: 2.5rem;
+        max-width: 500px;
+    }
+    
+    .collection-hero__content {
+        padding: 2rem 0;
+    }
+    
+    .collection-products {
+        padding: 4rem 0;
+    }
+    
+    .collection-products__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+</style>
 
 {% schema %}
 {
