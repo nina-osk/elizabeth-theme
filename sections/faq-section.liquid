@@ -57,13 +57,18 @@
         {% elsif use_video and faq_video_file %}
           <video 
             class="faq-section__video"
+            id="faq-background-video"
             autoplay
             muted
             loop
             playsinline
+            webkit-playsinline
+            x-webkit-airplay="allow"
+            preload="auto"
             width="500"
-            height="450">
-            <source src="{{ faq_video_file | file_url }}" type="video/mp4">
+            height="450"
+            onloadedmetadata="this.muted = true; this.play();">
+            <source src="{{ faq_video_file }}" type="video/mp4">
             Tu navegador no soporta el video.
           </video>
         {% elsif faq_image %}
@@ -164,6 +169,74 @@
 
   </div>
 </section>
+
+<script>
+// Forzar reproducción del video FAQ
+(function() {
+    function initFaqVideo() {
+        const videoElement = document.querySelector('#faq-background-video');
+        
+        if (videoElement) {
+            console.log('FAQ Video found, forcing play...');
+            
+            // Forzar mute y configuración
+            videoElement.muted = true;
+            videoElement.volume = 0;
+            videoElement.defaultMuted = true;
+            
+            // Event listeners
+            videoElement.addEventListener('loadeddata', function() {
+                console.log('FAQ Video loaded');
+                videoElement.muted = true;
+                videoElement.play().catch(function(error) {
+                    console.error('FAQ Video play failed on loadeddata:', error);
+                });
+            });
+            
+            videoElement.addEventListener('canplay', function() {
+                videoElement.muted = true;
+                videoElement.play().catch(function(error) {
+                    console.error('FAQ Video play failed on canplay:', error);
+                });
+            });
+            
+            // Intentar reproducir inmediatamente
+            videoElement.play().then(function() {
+                console.log('FAQ Video playing immediately');
+            }).catch(function(error) {
+                console.error('FAQ Video immediate play prevented:', error);
+                
+                // Retry after delay
+                setTimeout(function() {
+                    videoElement.muted = true;
+                    videoElement.play().catch(function(err) {
+                        console.error('FAQ Video delayed play failed:', err);
+                    });
+                }, 100);
+            });
+            
+            // Reproducir en interacción del usuario
+            document.addEventListener('click', function playOnClick() {
+                videoElement.muted = true;
+                videoElement.play().then(function() {
+                    console.log('FAQ Video playing after user interaction');
+                    document.removeEventListener('click', playOnClick);
+                }).catch(function(error) {
+                    console.error('FAQ Video play on click failed:', error);
+                });
+            }, { once: true });
+        } else {
+            console.log('FAQ Video element not found');
+        }
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initFaqVideo);
+    } else {
+        initFaqVideo();
+    }
+})();
+</script>
 
 <style>
   /* FAQ Section - Component Styles */
