@@ -472,8 +472,15 @@
         
         // Actualizar el link del producto
         const productLink = document.getElementById('carousel-product-link');
-        if (productLink && productData[currentIndex].url) {
+        if (productData[currentIndex].url && productData[currentIndex].url !== '') {
           productLink.href = productData[currentIndex].url;
+          productLink.onclick = function(e) {
+            e.preventDefault();
+            window.location.href = this.href;
+          };
+        } else {
+          productLink.href = '#';
+          productLink.onclick = function(e) { e.preventDefault(); };
         }
       }
     }
