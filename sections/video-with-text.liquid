@@ -1,4 +1,4 @@
-<div class="relative py-16 md:py-24 px-4 overflow-hidden video-with-text" style="min-height: 600px;">
+<div class="relative py-16 md:py-24 px-4 overflow-hidden video-with-text" style="min-height: 600px; display: flex; flex-direction: column;">
     <!-- Video de fondo -->
     <div class="absolute inset-0 w-full h-full overflow-hidden" style="z-index: 0;">
         {% if section.settings.video_file != blank %}
@@ -19,7 +19,6 @@
                 Tu navegador no soporta video HTML5.
             </video>
             
-            <!-- Overlay oscuro para mejorar legibilidad del texto - SOLO sobre el video -->
             <div class="absolute inset-0 bg-black" style="opacity: 0.4; z-index: 2; pointer-events: none;"></div>
         {% elsif section.settings.video_url != blank %}
             {% assign video_url = section.settings.video_url %}
@@ -40,7 +39,6 @@
                     style="pointer-events: none; width: 100%; height: 100%; z-index: 1;">
                 </iframe>
                 
-                <!-- Overlay oscuro -->
                 <div class="absolute inset-0 bg-black" style="opacity: 0.4; z-index: 2; pointer-events: none;"></div>
             {% elsif video_url contains 'vimeo.com' %}
                 {% assign video_id = video_url | split: 'vimeo.com/' | last | split: '/' | first %}
@@ -53,7 +51,6 @@
                     style="pointer-events: none; width: 100%; height: 100%; z-index: 1;">
                 </iframe>
                 
-                <!-- Overlay oscuro -->
                 <div class="absolute inset-0 bg-black" style="opacity: 0.4; z-index: 2; pointer-events: none;"></div>
             {% endif %}
         {% else %}
@@ -62,8 +59,8 @@
     </div>
 
     <!-- Contenido sobre el video -->
-    <div class="max-w-7xl mx-auto relative" style="z-index: 10;">
-        <div class="p-4 md:p-8 lg:p-12">
+    <div class="max-w-7xl mx-auto relative flex-1" style="z-index: 10; display: flex; flex-direction: column;">
+        <div class="p-4 md:p-8 lg:p-12 flex-1">
             
             <!-- Header con título y descripción -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-8">
@@ -74,13 +71,13 @@
                     <p class="text-white text-sm md:text-base leading-relaxed drop-shadow-md">{{ section.settings.description }}</p>
                 </div>
             </div>
-
-            <!-- Título inferior grande -->
-            <div class="mt-24 md:mt-32 text-right">
-                <h3 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg">{{ section.settings.bottom_title }}</h3>
-            </div>
-
         </div>
+
+        <!-- Título inferior en el borde inferior -->
+        <div class="p-4 md:p-8 lg:p-12 border-t border-white border-opacity-30">
+            <h3 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg text-right">{{ section.settings.bottom_title }}</h3>
+        </div>
+
     </div>
 </div>
 
