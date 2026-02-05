@@ -68,7 +68,7 @@
             width="500"
             height="450"
             onloadedmetadata="this.muted = true; this.play();">
-            <source src="{{ faq_video_file }}" type="video/mp4">
+            <source src="{{ faq_video_file | file_url }}" type="video/mp4">
             Tu navegador no soporta el video.
           </video>
         {% elsif faq_image %}
