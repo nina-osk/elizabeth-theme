@@ -37,7 +37,7 @@
                  data-index="{{ forloop.index0 }}"
                  data-title="{{ prod.title | escape }}"
                  data-price="{% if prod.selected_or_first_available_variant %}{{ prod.selected_or_first_available_variant.price | money_with_currency }}{% else %}$0.00{% endif %}"
-                 data-url="{% if prod %}{{ prod.url }}{% endif %}"
+                 data-url="{% if prod != blank %}{{ prod.url }}{% else %}#{% endif %}"
                  role="group"
                  aria-roledescription="slide"
                  aria-label="Slide {{ forloop.index }} of {{ cards.size }}">
