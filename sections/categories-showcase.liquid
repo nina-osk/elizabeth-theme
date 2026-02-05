@@ -2,7 +2,7 @@
   <div style="max-width: 1280px; margin: 0 auto; padding: 3rem 1rem 2rem; overflow-x: hidden;">
     <!-- Header -->
     <div style="text-align: center; margin-bottom: 2rem;">
-      <p class="categories-hero-header" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; color: #8B7355; margin-bottom: 2.5rem;">
+      <p class="categories-hero-header" style="font-size: 1.25rem; font-weight: 700; letter-spacing: 0.12em; color: #8B7355; margin-bottom: 2.5rem; text-transform: uppercase;">
         {{ section.settings.header_small | default: "SOMOS MUNIER" }}
       </p>
       
@@ -108,17 +108,27 @@
       <div class="flex justify-center gap-4">
         <button 
           id="carousel-prev" 
-          class="px-8 py-3 font-semibold text-sm uppercase tracking-wider transition-all bg-white text-gray-800 border-2 border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2" 
+          style="display: flex; align-items: center; gap: 0.75rem; color: #2d2d2d; background: #AFC4AE; border: none; border-radius: 2rem; font-size: 1.15rem; font-weight: 600; padding: 1rem 2.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); cursor: pointer; transition: background 0.2s; text-align: center; min-width: 180px; justify-content: center;"
+          onmouseover="this.style.background='#9BB49A'"
+          onmouseout="this.style.background='#AFC4AE'"
           aria-label="Previous slide"
         >
+          <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
           Anterior
         </button>
         <button 
           id="carousel-next" 
-          class="px-8 py-3 font-semibold text-sm uppercase tracking-wider transition-all bg-[#C8A882] text-white border-2 border-[#C8A882] hover:bg-[#B89872] focus:outline-none focus:ring-2 focus:ring-[#C8A882] focus:ring-offset-2" 
+          style="display: flex; align-items: center; gap: 0.75rem; color: #2d2d2d; background: #AFC4AE; border: none; border-radius: 2rem; font-size: 1.15rem; font-weight: 600; padding: 1rem 2.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); cursor: pointer; transition: background 0.2s; text-align: center; min-width: 180px; justify-content: center;"
+          onmouseover="this.style.background='#9BB49A'"
+          onmouseout="this.style.background='#AFC4AE'"
           aria-label="Next slide"
         >
           Siguiente
+          <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7-7 7M21 12H3"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -575,7 +585,7 @@
       "type": "textarea",
       "id": "quote_part1",
       "label": "Texto de la cita (Parte 1 - antes de la palabra destacada)",
-      "default": "\"Somos Munier, una joyeria panameña creada para celebrar lo que te hace "
+      "default": "\"Una joyeria panameña creada para celebrar lo que te hace "
     },
     {
       "type": "text",
@@ -593,7 +603,7 @@
       "type": "text",
       "id": "signature",
       "label": "Firma",
-      "default": "Munier"
+      "default": "with Love Munier"
     },
     
     { "type": "text", "id": "category_1_label", "label": "Categoría 1 - Etiqueta", "default": "Aretes" },
