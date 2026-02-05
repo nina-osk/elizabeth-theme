@@ -12,5 +12,9 @@
                 "announcement_text": "Envío gratis en pedidos superiores a $50"
             }
         }
-    }
+    },
+    "order": [
+        "header",
+        "template-gift-card"
+    ]
 }

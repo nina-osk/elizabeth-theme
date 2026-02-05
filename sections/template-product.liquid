@@ -210,3 +210,28 @@
   });
 })();
 </script>
+
+{% schema %}
+{
+  "name": "Product Template",
+  "settings": [],
+  "blocks": [
+    { "type": "title", "name": "Title", "settings": [] },
+    { "type": "price", "name": "Price", "settings": [] },
+    { "type": "description", "name": "Description", "settings": [] },
+    { "type": "checkout_buttons", "name": "Checkout Buttons", "settings": [] }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Product Template",
+      "blocks": [
+        { "type": "title" },
+        { "type": "price" },
+        { "type": "description" },
+        { "type": "checkout_buttons" }
+      ]
+    }
+  ]
+}
+{% endschema %}
