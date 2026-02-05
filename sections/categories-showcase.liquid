@@ -45,9 +45,11 @@
               <div class="slide-card rounded-xl overflow-hidden shadow-lg" style="background: #E7E5DE;">
                 <!-- Category Label -->
                 <div class="absolute top-4 left-4 z-10">
-                  <span class="text-xs font-medium text-gray-700 uppercase tracking-wide px-2 py-1 bg-white/80 rounded">
-                    {{ section.settings[label_key] | default: 'Producto' }}
-                  </span>
+                  <a href="#" id="carousel-category-link" style="text-decoration: none; cursor: pointer;">
+                    <span class="text-xs font-medium text-gray-700 uppercase tracking-wide px-2 py-1 bg-white/80 rounded">
+                      {{ section.settings[label_key] | default: 'Producto' }}
+                    </span>
+                  </a>
                 </div>
 
                 {% if prod != blank and prod.featured_media %}
@@ -114,6 +116,7 @@
         </button>
       </div>
     </div>
+
   </div>
 </div>
 
