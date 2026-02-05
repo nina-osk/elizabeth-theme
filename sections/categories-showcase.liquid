@@ -108,10 +108,10 @@
 
       <!-- Navigation Controls -->
       <div class="flex justify-center gap-4">
-        <button class="carrusel-btn">
+        <button id="carousel-prev" class="carrusel-btn">
           &larr; Anterior
         </button>
-        <button class="carrusel-btn">
+        <button id="carousel-next" class="carrusel-btn">
           Siguiente &rarr;
         </button>
       </div>
@@ -491,6 +491,29 @@
 
     if (nextBtn) {
       nextBtn.addEventListener('click', nextSlide);
+    }
+
+    // Make product title and price clickeable
+    const productLink = document.getElementById('carousel-product-link');
+    const titleElement = document.getElementById('carousel-product-title');
+    const priceElement = document.getElementById('carousel-product-price');
+    
+    if (titleElement) {
+      titleElement.style.cursor = 'pointer';
+      titleElement.addEventListener('click', function() {
+        if (productData[currentIndex] && productData[currentIndex].url) {
+          window.location.href = productData[currentIndex].url;
+        }
+      });
+    }
+    
+    if (priceElement) {
+      priceElement.style.cursor = 'pointer';
+      priceElement.addEventListener('click', function() {
+        if (productData[currentIndex] && productData[currentIndex].url) {
+          window.location.href = productData[currentIndex].url;
+        }
+      });
     }
 
     // Dot navigation
