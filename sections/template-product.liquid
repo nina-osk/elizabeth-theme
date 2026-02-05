@@ -184,7 +184,7 @@
 
 
 <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
-  <button onclick="window.history.back()" 
+  <button id="back-to-collection-btn"
     style="display: flex; align-items: center; gap: 0.75rem; color: #2d2d2d; background: #AFC4AE; border: none; border-radius: 2rem; font-size: 1.15rem; font-weight: 600; padding: 1rem 2.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); cursor: pointer; transition: background 0.2s; text-align: center; min-width: 220px; justify-content: center;"
     onmouseover="this.style.background='#9BB49A'"
     onmouseout="this.style.background='#AFC4AE'">
@@ -194,151 +194,18 @@
     Volver
   </button>
 </div>
-
-
 <script>
-    class VariantSelector extends HTMLElement {
-        constructor() {
-            super();
-            this.addEventListener("change", this.onVariantChange);
-        }
-
-        onVariantChange() {
-            this.getSelectedOptions();
-            this.getSelectedVariant();
-
-            if(this.currentVariant) {
-                this.updateURL();
-                this.updateFormID();
-                this.updatePrice();
-            }
-        }
-
-        getSelectedOptions() {
-            this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
-            console.log(this.options);
-        }
-
-        getVariantJSON() {
-            this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
-            return this.variantData;
-        }
-
-        getSelectedVariant() {
-            this.currentVariant = this.getVariantJSON().find(
-                (variant) => {
-                    const findings = !variant.options.map(
-                        (option, index) => {
-                            return this.options[index] === option;
-                        }
-                    ).includes(false);
-
-                    if(findings) return variant;
-                }
-            );
-
-            console.log(this.currentVariant);
-        }
-
-        updateURL() {
-            if(!this.currentVariant) return;
-            window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
-        }
-
-        updateFormID() {
-            const form_input = document.querySelector("#product-form").querySelector('input[name="id"]');
-            form_input.value = this.currentVariant.id;
-        }
-
-        updatePrice() {
-            fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
-            .then((response) => response.text())
-            .then((responseText) => {
-                const id = `price-${this.dataset.section}`;
-                const html = new DOMParser().parseFromString(responseText, 'text/html');
-
-                const oldPrice = document.getElementById(id);
-                const newPrice = html.getElementById(id);
-
-                if(oldPrice && newPrice) oldPrice.innerHTML = newPrice.innerHTML;
-            });
-        }
+(function() {
+  var btn = document.getElementById('back-to-collection-btn');
+  if (!btn) return;
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    var params = new URLSearchParams(window.location.search);
+    var collection = params.get('collection');
+    if (collection) {
+      window.location.href = '/collections/' + collection;
+    } else {
+      window.history.back();
     }
-
-    customElements.define("variant-selector", VariantSelector);
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
-<script defer>
-    document.addEventListener('DOMContentLoaded', function() {
-        const swiper = new Swiper('.desktop-swiper', {
-            direction: 'horizontal',
-            loop: false,
-            slidesPerView: 1,
-            spaceBetween: 0,
-
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-                dynamicBullets: true
-            },
-
-            navigation: {
-                prevEl: '.swiper-button-prev',
-                nextEl: '.swiper-button-next'
-            },
-            
-            keyboard: {
-                enabled: true,
-            },
-
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true
-            }
-        });
-    });
-</script>
-
-{% schema %}
-{
-    "name": "Product",
-    "blocks": [
-        {
-            "type": "vendor",
-            "name": "Vendor",
-            "limit": 1
-        },
-        {
-            "type": "title",
-            "name": "Nombre del producto",
-            "limit": 1
-        },
-        {
-            "type": "price",
-            "name": "Precio",
-            "limit": 1
-        },
-        {
-            "type": "variant_selector",
-            "name": "Selector de variante",
-            "limit": 1
-        },
-        {
-            "type": "quantity",
-            "name": "Cantidad",
-            "limit": 1
-        },
-        {
-            "type": "description",
-            "name": "Descripción",
-            "limit": 1
-        },
-        {
-            "type": "checkout_buttons",
-            "name": "Botones de pago",
-            "limit": 1
-        }
-    ]
-}
-{% endschema %}
+  });
+})();
