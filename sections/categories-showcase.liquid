@@ -106,29 +106,11 @@
 
       <!-- Navigation Controls -->
       <div class="flex justify-center gap-4">
-        <button 
-          id="carousel-prev" 
-          style="display: flex; align-items: center; gap: 0.75rem; color: #2d2d2d; background: #AFC4AE; border: none; border-radius: 2rem; font-size: 1.15rem; font-weight: 600; padding: 1rem 2.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); cursor: pointer; transition: background 0.2s; text-align: center; min-width: 180px; justify-content: center;"
-          onmouseover="this.style.background='#9BB49A'"
-          onmouseout="this.style.background='#AFC4AE'"
-          aria-label="Previous slide"
-        >
-          <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-          </svg>
-          Anterior
+        <button class="carrusel-btn">
+          &larr; Anterior
         </button>
-        <button 
-          id="carousel-next" 
-          style="display: flex; align-items: center; gap: 0.75rem; color: #2d2d2d; background: #AFC4AE; border: none; border-radius: 2rem; font-size: 1.15rem; font-weight: 600; padding: 1rem 2.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); cursor: pointer; transition: background 0.2s; text-align: center; min-width: 180px; justify-content: center;"
-          onmouseover="this.style.background='#9BB49A'"
-          onmouseout="this.style.background='#AFC4AE'"
-          aria-label="Next slide"
-        >
-          Siguiente
-          <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7-7 7M21 12H3"/>
-          </svg>
+        <button class="carrusel-btn">
+          Siguiente &rarr;
         </button>
       </div>
     </div>
@@ -306,6 +288,26 @@
     color: #222121;
     background: #f7f9fb;
   }
+  .carrusel-btn {
+    background: #f7f9fb;
+    border: 1px solid #d1d5db;
+    color: #222;
+    border-radius: 1.5rem;
+    padding: 1rem 2.5rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: none;
+    transition: border-color 0.2s;
+    justify-content: center;
+  }
+  .carrusel-btn:hover {
+    border-color: #a3a3a3;
+    background: #f7f9fb;
+    text-decoration: underline;
 </style>
 
 <script>
