@@ -355,7 +355,7 @@
     const nextBtn = document.getElementById('carousel-next');
     const titleElement = document.getElementById('carousel-product-title');
     const priceElement = document.getElementById('carousel-product-price');
-    const productLink = document.getElementById('carousel-product-link'); // Aquí, FUERA
+    const productLink = document.getElementById('carousel-product-link');
     const carouselTrack = document.querySelector('.carousel-track');
 
     if (slides.length === 0) return;
@@ -365,10 +365,11 @@
     
     // Store product data from data attributes
     const productData = Array.from(slides).map(slide => {
+      const url = slide.dataset.url || '';
       return {
         title: slide.dataset.title || 'Producto',
         price: slide.dataset.price || '$0.00',
-        url: slide.dataset.url || null
+        url: url.trim() // Eliminar espacios en blanco
       };
     });
 
@@ -472,12 +473,12 @@
         priceElement.textContent = productData[currentIndex].price;
         
         // Actualizar el link del producto
-        if (productLink) {
-          if (productData[currentIndex].url && productData[currentIndex].url !== '') {
-            productLink.href = productData[currentIndex].url;
-          } else {
-            productLink.href = '#';
-          }
+        if (productLink && productData[currentIndex].url) {
+          productLink.href = productData[currentIndex].url;
+          productLink.style.pointerEvents = 'auto';
+        } else {
+          productLink.href = '#';
+          productLink.style.pointerEvents = 'none';
         }
       }
     }
