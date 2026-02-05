@@ -1,0 +1,23 @@
+{% comment %}
+  Shopify Gift Card Template
+  This is the default template for gift cards. You can customize the design as needed.
+{% endcomment %}
+
+<div class="gift-card-container" style="max-width: 500px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.08); text-align: center;">
+  <h1 class="text-3xl font-bold mb-4">¡Felicidades!</h1>
+  <p class="mb-6">Has recibido una tarjeta de regalo para usar en nuestra tienda.</p>
+  <div class="gift-card-code" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 0.1em; background: #f3f3f3; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+    {{ gift_card.code | format_code }}
+  </div>
+  <p class="mb-4">Saldo disponible: <span style="font-weight: bold;">{{ gift_card.balance | money }}</span></p>
+  <a href="{{ shop.url }}" class="btn" style="display: inline-block; background: #AFC4AE; color: #222; padding: 0.75rem 2rem; border-radius: 2rem; font-weight: 600; text-decoration: none;">Comprar ahora</a>
+  <div class="mt-6">
+    <img src="{{ 'gift-card.png' | asset_url }}" alt="Gift Card" style="max-width: 100%; border-radius: 0.5rem; margin-top: 1.5rem;" width="400" height="250" />
+  </div>
+</div>
+
+<style>
+.gift-card-container .btn:hover {
+  background: #9BB49A;
+}
+</style>
