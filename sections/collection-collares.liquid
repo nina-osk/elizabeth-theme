@@ -33,6 +33,9 @@
                 <button onclick="filterProducts('9k')" id="filter-9k" class="filter-btn">
                     9K
                 </button>
+                <button onclick="filterProducts('dijes')" id="filter-dijes" class="filter-btn">
+                    Dijes
+                </button>
             </div>
             <div class="collares-filters__count">
                 <span id="visible-count"></span> productos encontrados
@@ -96,13 +99,14 @@ function filterProducts(filterType) {
 
     // Actualizar clases de botones
     filterButtons.forEach(btn => btn.classList.remove('filter-btn--active'));
-    document.getElementById('filter-' + filterType).classList.add('filter-btn--active');
+    if(document.getElementById('filter-' + filterType)) {
+        document.getElementById('filter-' + filterType).classList.add('filter-btn--active');
+    }
 
     // Filtrar productos
     productItems.forEach(item => {
         const tags = item.dataset.tags;
         const shouldShow = filterType === 'all' || tags.includes(filterType);
-        
         item.style.display = shouldShow ? 'block' : 'none';
         if (shouldShow) visibleCount++;
     });
