@@ -229,7 +229,7 @@
 </div>
 
 
-<div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+<div style="display: flex; justify-content: center; margin-bottom: 2rem; margin-top: 2rem;">
   <button id="back-to-collection-btn"
     style="padding: 0.75rem 1.5rem; border: 2px solid #000; background: transparent; color: #000; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; min-height: 45px;"
     onmouseover="this.style.background='rgba(0,0,0,0.05)'"
@@ -237,6 +237,7 @@
     ← ANTERIOR
   </button>
 </div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const backBtn = document.getElementById('back-to-collection-btn');
@@ -244,15 +245,21 @@
     if (backBtn) {
       backBtn.addEventListener('click', function(e) {
         e.preventDefault();
+        e.stopPropagation();
         
         // Obtener la URL anterior del documento
         const referrer = document.referrer;
         
+        console.log('Referrer:', referrer);
+        console.log('Current hostname:', window.location.hostname);
+        
         // Si viene de una colección o página anterior, regresar
-        if (referrer && referrer.includes(window.location.hostname)) {
+        if (referrer && referrer.length > 0 && referrer.includes(window.location.hostname)) {
+          console.log('Regresando al historial');
           window.history.back();
         } else {
           // Si no hay referrer o viene de otro sitio, ir a colecciones
+          console.log('Ir a colecciones');
           window.location.href = '/collections';
         }
       });
