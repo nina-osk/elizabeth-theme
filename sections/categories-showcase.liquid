@@ -493,29 +493,6 @@
       nextBtn.addEventListener('click', nextSlide);
     }
 
-    // Make product title and price clickeable
-    const productLink = document.getElementById('carousel-product-link');
-    const titleElement = document.getElementById('carousel-product-title');
-    const priceElement = document.getElementById('carousel-product-price');
-    
-    if (titleElement) {
-      titleElement.style.cursor = 'pointer';
-      titleElement.addEventListener('click', function() {
-        if (productData[currentIndex] && productData[currentIndex].url) {
-          window.location.href = productData[currentIndex].url;
-        }
-      });
-    }
-    
-    if (priceElement) {
-      priceElement.style.cursor = 'pointer';
-      priceElement.addEventListener('click', function() {
-        if (productData[currentIndex] && productData[currentIndex].url) {
-          window.location.href = productData[currentIndex].url;
-        }
-      });
-    }
-
     // Dot navigation
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => goToSlide(index));
