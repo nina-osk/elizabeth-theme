@@ -86,8 +86,8 @@
 
       <!-- Product Info (centered below carousel) -->
       <div class="text-center mt-8 mb-6">
-        <h3 id="carousel-product-title" class="text-xl md:text-2xl font-semibold text-gray-900 mb-2">
-          <a id="carousel-product-link" href="#" style="color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;">Producto</a>
+        <h3 id="carousel-product-title" class="text-xl md:text-2xl font-semibold text-gray-900 mb-2" style="cursor: pointer;">
+          <a id="carousel-product-link" href="#" style="color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; transition: color 0.3s ease;">Producto</a>
         </h3>
         <p id="carousel-product-price" class="text-lg md:text-xl font-bold text-gray-900">
           $0.00
@@ -467,6 +467,12 @@
       if (productData[currentIndex]) {
         titleElement.textContent = productData[currentIndex].title;
         priceElement.textContent = productData[currentIndex].price;
+        
+        // Actualizar el link del producto
+        const productLink = document.getElementById('carousel-product-link');
+        if (productLink && productData[currentIndex].url) {
+          productLink.href = productData[currentIndex].url;
+        }
       }
     }
 
