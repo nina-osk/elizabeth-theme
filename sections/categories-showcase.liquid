@@ -348,8 +348,14 @@
 </style>
 
 <script>
+  console.log('Script iniciado');
+  
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM cargado');
+    
     const slides = document.querySelectorAll('.carousel-slide');
+    console.log('Slides encontrados:', slides.length);
+    
     const dots = document.querySelectorAll('.carousel-dot');
     const prevBtn = document.getElementById('carousel-prev');
     const nextBtn = document.getElementById('carousel-next');
@@ -358,299 +364,97 @@
     const productLink = document.getElementById('carousel-product-link');
     const carouselTrack = document.querySelector('.carousel-track');
 
-    if (slides.length === 0) return;
+    console.log('prevBtn:', prevBtn);
+    console.log('nextBtn:', nextBtn);
+    console.log('titleElement:', titleElement);
+    console.log('productLink:', productLink);
+
+    if (slides.length === 0) {
+      console.error('No slides found!');
+      return;
+    }
 
     let currentIndex = 0;
     const totalSlides = slides.length;
     
-    // Store product data from data attributes
-    const productData = Array.from(slides).map(slide => {
-      const url = slide.dataset.url || '';
-      return {
-        title: slide.dataset.title || 'Producto',
-        price: slide.dataset.price || '$0.00',
-        url: url.trim() // Eliminar espacios en blanco
-      };
-    });
+    const productData = Array.from(slides).map(slide => ({
+      title: slide.dataset.title || 'Producto',
+      price: slide.dataset.price || '$0.00',
+      url: (slide.dataset.url || '').trim()
+    }));
 
     console.log('Product Data:', productData);
 
-    // Function to calculate slide position and styling
     function getSlideStyle(index, activeIndex) {
       const diff = index - activeIndex;
       const normalizedDiff = diff > totalSlides / 2 ? diff - totalSlides : 
                             diff < -totalSlides / 2 ? diff + totalSlides : diff;
       
-      // Center (active) slide
       if (normalizedDiff === 0) {
-        return {
-          x: 0,
-          scale: 1,
-          opacity: 1,
-          zIndex: 50,
-          isActive: true
-        };
+        return { x: 0, scale: 1, opacity: 1, zIndex: 50, isActive: true };
       }
       
-      // Right side previews - REDUCED SPACING
       if (normalizedDiff > 0 && normalizedDiff <= 2) {
-        const offset = normalizedDiff * 150 + 30; // Reduced from 200+50
-        const scale = normalizedDiff === 1 ? 0.85 : 0.75;
-        const opacity = normalizedDiff === 1 ? 0.75 : 0.5;
-        const zIndex = 30 - (normalizedDiff * 10);
-        
+        const offset = normalizedDiff * 150 + 30;
         return {
           x: offset,
-          scale: scale,
-          opacity: opacity,
-          zIndex: zIndex,
+          scale: normalizedDiff === 1 ? 0.85 : 0.75,
+          opacity: normalizedDiff === 1 ? 0.75 : 0.5,
+          zIndex: 30 - (normalizedDiff * 10),
           isActive: false
         };
       }
       
-      // Left side previews - REDUCED SPACING
       if (normalizedDiff < 0 && normalizedDiff >= -2) {
-        const offset = normalizedDiff * 150 - 30; // Reduced from 200+50
-        const scale = normalizedDiff === -1 ? 0.85 : 0.75;
-        const opacity = normalizedDiff === -1 ? 0.75 : 0.5;
-        const zIndex = 30 - (Math.abs(normalizedDiff) * 10);
-        
+        const offset = normalizedDiff * 150 - 30;
         return {
           x: offset,
-          scale: scale,
-          opacity: opacity,
-          zIndex: zIndex,
+          scale: normalizedDiff === -1 ? 0.85 : 0.75,
+          opacity: normalizedDiff === -1 ? 0.75 : 0.5,
+          zIndex: 30 - (Math.abs(normalizedDiff) * 10),
           isActive: false
         };
       }
       
-      // Hidden slides - REDUCED OFFSET
-      return {
-        x: normalizedDiff > 0 ? 400 : -400,
-        scale: 0.5,
-        opacity: 0,
-        zIndex: 1,
-        isActive: false
-      };
+      return { x: normalizedDiff > 0 ? 400 : -400, scale: 0.5, opacity: 0, zIndex: 1, isActive: false };
     }
 
-    // Update carousel display
-    function updateCarousel(animate = true) {
+    function updateCarousel() {
       slides.forEach((slide, index) => {
         const style = getSlideStyle(index, currentIndex);
-        
-        // Apply transforms - centered positioning
         slide.style.transform = `translate(calc(-50% + ${style.x}px), -50%) scale(${style.scale})`;
         slide.style.opacity = style.opacity;
         slide.style.zIndex = style.zIndex;
         slide.style.top = '50%';
         slide.style.left = '50%';
         
-        // Add/remove active class
-        if (style.isActive) {
-          slide.classList.add('is-active');
-          slide.setAttribute('aria-hidden', 'false');
-        } else {
-          slide.classList.remove('is-active');
-          slide.setAttribute('aria-hidden', 'true');
-        }
+        style.isActive ? slide.classList.add('is-active') : slide.classList.remove('is-active');
       });
 
-      // Update dots
       dots.forEach((dot, index) => {
-        if (index === currentIndex) {
-          dot.classList.add('is-active');
-          dot.setAttribute('aria-current', 'true');
-        } else {
-          dot.classList.remove('is-active');
-          dot.removeAttribute('aria-current');
-        }
+        index === currentIndex ? dot.classList.add('is-active') : dot.classList.remove('is-active');
       });
 
-      // Update product info
       if (productData[currentIndex]) {
-        titleElement.textContent = productData[currentIndex].title;
-        priceElement.textContent = productData[currentIndex].price;
-        
-        // Actualizar el link del producto
+        if (titleElement) titleElement.textContent = productData[currentIndex].title;
+        if (priceElement) priceElement.textContent = productData[currentIndex].price;
         if (productLink && productData[currentIndex].url) {
           productLink.href = productData[currentIndex].url;
-          productLink.style.pointerEvents = 'auto';
-        } else {
-          productLink.href = '#';
-          productLink.style.pointerEvents = 'none';
         }
       }
     }
 
-    // Navigation functions
     function goToSlide(index) {
       currentIndex = (index + totalSlides) % totalSlides;
       updateCarousel();
     }
 
-    function nextSlide() {
-      goToSlide(currentIndex + 1);
-    }
+    if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+    dots.forEach((dot, index) => dot.addEventListener('click', () => goToSlide(index)));
 
-    function prevSlide() {
-      goToSlide(currentIndex - 1);
-    }
-
-    // Event listeners for controls
-    if (prevBtn) {
-      prevBtn.addEventListener('click', prevSlide);
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', nextSlide);
-    }
-
-    // Dot navigation
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => goToSlide(index));
-    });
-
-    // Slide click/tap navigation - advance to next slide on mobile
-    slides.forEach((slide, index) => {
-      // Touch support for mobile
-      let touchStartX = 0;
-      let touchStartY = 0;
-      let touchEndX = 0;
-      let touchEndY = 0;
-      
-      slide.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].clientX;
-        touchStartY = e.changedTouches[0].clientY;
-      }, { passive: true });
-      
-      slide.addEventListener('touchend', (e) => {
-        // Don't navigate if touching a button or link
-        if (e.target.closest('button') || e.target.closest('a')) {
-          return;
-        }
-        
-        touchEndX = e.changedTouches[0].clientX;
-        touchEndY = e.changedTouches[0].clientY;
-        
-        const diffX = Math.abs(touchEndX - touchStartX);
-        const diffY = Math.abs(touchEndY - touchStartY);
-        
-        // If it's a tap (not a swipe), advance to next slide
-        if (diffX < 10 && diffY < 10) {
-          nextSlide();
-        }
-      }, { passive: true });
-      
-      // Click support for desktop
-      slide.addEventListener('click', (e) => {
-        // Don't navigate if clicking on a button or link
-        if (e.target.closest('button') || e.target.closest('a')) {
-          return;
-        }
-        nextSlide();
-      });
-      
-      // Make slides focusable with keyboard
-      slide.setAttribute('tabindex', '0');
-      slide.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          nextSlide();
-        }
-      });
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.target.closest('.carousel-wrapper')) {
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          prevSlide();
-        } else if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          nextSlide();
-        }
-      }
-    });
-
-    // Touch/swipe support
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    carouselTrack.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    carouselTrack.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-      const swipeThreshold = 50;
-      const diff = touchStartX - touchEndX;
-      
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-      }
-    }
-
-    // Mouse drag support (optional)
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragCurrentX = 0;
-
-    carouselTrack.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      dragStartX = e.clientX;
-      carouselTrack.style.cursor = 'grabbing';
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      dragCurrentX = e.clientX;
-    });
-
-    document.addEventListener('mouseup', () => {
-      if (!isDragging) return;
-      
-      const dragThreshold = 50;
-      const diff = dragStartX - dragCurrentX;
-      
-      if (Math.abs(diff) > dragThreshold) {
-        if (diff > 0) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-      }
-      
-      isDragging = false;
-      dragStartX = 0;
-      dragCurrentX = 0;
-      carouselTrack.style.cursor = 'grab';
-    });
-
-    // Initialize carousel
-    updateCarousel(false);
-    
-    // Optional: Auto-play (uncomment if desired)
-    // const autoplayInterval = 5000;
-    // let autoplayTimer = setInterval(nextSlide, autoplayInterval);
-    
-    // // Pause on hover
-    // carouselTrack.addEventListener('mouseenter', () => {
-    //   clearInterval(autoplayTimer);
-    // });
-    
-    // carouselTrack.addEventListener('mouseleave', () => {
-    //   autoplayTimer = setInterval(nextSlide, autoplayInterval);
-    // });
+    updateCarousel();
+    console.log('Carrusel inicializado');
   });
 </script>
 
