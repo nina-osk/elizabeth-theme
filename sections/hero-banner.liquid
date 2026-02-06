@@ -30,7 +30,7 @@
     class="hero-model-below-left hero-card"
     width="250"
     height="400"
-    style="position: absolute; left: 18%; top: 35%; width: 250px; height: auto; z-index: 2;"
+    style="position: absolute; left: 18%; top: 35%; width: 250px; height: auto; z-index: 2; pointer-events: auto;"
     loading="lazy"
   />
   
@@ -41,12 +41,12 @@
     class="hero-model-below-right hero-card"
     width="250"
     height="400"
-    style="position: absolute; right: 18%; top: 40%; width: 250px; height: auto; z-index: 3;"
+    style="position: absolute; right: 18%; top: 40%; width: 250px; height: auto; z-index: 3; pointer-events: auto;"
     loading="lazy"
   />
 
   <!-- Content WITHOUT GIF Background -->
-  <div style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; position: relative; z-index: 5;">
+  <div style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; position: relative; z-index: 4; pointer-events: none;">
     <div style="max-width: 900px; margin: 0 auto; text-align: center;">
       
       <!-- Subtitle -->
@@ -58,7 +58,7 @@
       <!-- Moved inside video container below -->
 
       <!-- Title Part 2 WITH GIF Background -->
-      <div class="hero-video-container" style="position: relative; margin-bottom: 5rem; margin-top: 3rem; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; aspect-ratio: 3/2;">
+      <div class="hero-video-container" style="position: relative; margin-bottom: 5rem; margin-top: 3rem; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; aspect-ratio: 3/2;">
         <!-- GIF Background -->
         <img 
           src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Un_video_cinematogrfico_1080p_202602061806.gif?v=1770413515" 
@@ -82,7 +82,7 @@
       </div>
       
       <!-- Buttons -->
-      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0; margin-top: 3rem; margin-bottom: 3rem; position: relative; z-index: 15;" class="hero-buttons">
+      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0; margin-top: 3rem; margin-bottom: 3rem; position: relative; z-index: 15; pointer-events: auto;" class="hero-buttons">
         <a href="{{ section.settings.button1_link }}" class="hero-btn hero-btn-active">
           {{ section.settings.button1_text }}
         </a>
