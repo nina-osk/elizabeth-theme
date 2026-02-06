@@ -40,7 +40,7 @@
       <div class="hero-video-container" style="position: relative; margin-bottom: 5rem; margin-top: 3rem; height: 200px; display: flex; align-items: center; justify-content: center;">
         <!-- GIF Background -->
         <img 
-          src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Gift_Home_Page.gif?v=1770377792" 
+          src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Gift_Home_Page.gif?v=1770382713" 
           alt="Gift Animation" 
           class="hero-gif-background"
           width="1200"
@@ -67,6 +67,11 @@
       <!-- Description -->
       <p style="font-size: 1rem; color: #2d2d2d; line-height: 1.7; max-width: 650px; margin: 0 auto; opacity: 0; font-style: italic;" class="hero-description">
         {{ section.settings.description }}
+      </p>
+
+      <!-- Description 2 -->
+      <p style="font-size: 1rem; color: #2d2d2d; line-height: 1.7; max-width: 650px; margin: 2rem auto 0; opacity: 0; font-style: italic;" class="hero-description-2">
+        {{ section.settings.description_2 }}
       </p>
       
     </div>
@@ -142,6 +147,10 @@
 
   .hero-description {
     animation: fadeIn 1s ease-out 1.1s forwards;
+  }
+
+  .hero-description-2 {
+    animation: fadeIn 1s ease-out 1.4s forwards;
   }
 
   .hero-buttons {
@@ -272,6 +281,12 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "description",
       "label": "Descripción",
       "default": "Creemos que el lujo no está en la ocasión, sino en quien la vive. Joyas diseñadas para acompañarte todos los días."
+    },
+    {
+      "type": "textarea",
+      "id": "description_2",
+      "label": "Descripción 2",
+      "default": ""
     },
     {
       "type": "text",
