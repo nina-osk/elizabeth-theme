@@ -38,7 +38,7 @@
             {% if collection.products.size > 0 %}
               <div class="collections-grid">
                 {% for product in collection.products %}
-                  {% render 'product-card', product: product %}
+                  {% render 'product-card', product: product, collection_handle: '' %}
                 {% endfor %}
               </div>
             {% else %}

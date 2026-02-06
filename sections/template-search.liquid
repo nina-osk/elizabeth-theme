@@ -19,7 +19,7 @@
                         {% for item in search.results %}
                             {% case item.object_type %}
                                 {% when 'product' %}
-                                    {% render 'product-card', product: item %}
+                                    {% render 'product-card', product: item, collection_handle: 'search' %}
                                 {% else %}
                                     
                             {% endcase %}
