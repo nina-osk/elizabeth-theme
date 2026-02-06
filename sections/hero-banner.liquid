@@ -245,12 +245,31 @@
     border-radius: 12px;
     overflow: hidden;
     filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.1));
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.5s ease-in-out;
+    animation: cardFloat 3s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+
+  /* Rotation classes for side models */
+  .hero-model-right.hero-card {
+    transform: rotate(6deg);
+  }
+
+  .hero-model-left.hero-card {
+    transform: rotate(-12deg);
+  }
+
+  .hero-model-below-right.hero-card {
+    transform: rotate(6deg);
+  }
+
+  .hero-model-below-left.hero-card {
+    transform: rotate(-12deg);
   }
 
   .hero-card:hover {
-    transform: translateY(-25px) scale(1.05);
-    filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.25));
+    transform: translateY(-50px) scale(1.2) rotate(0deg) !important;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.3));
   }
 
   /* Card Float Animation for Below Models */
