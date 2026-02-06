@@ -185,47 +185,47 @@
     }
   }
 
-  /* Twinkling Animation */
-  @keyframes twinkle {
+  /* Glitter Animation - More visible effect */
+  @keyframes glitter {
     0%, 100% {
-      opacity: 1;
-      text-shadow: 0 0 20px rgba(212, 165, 116, 0.5), 0 0 35px rgba(212, 165, 116, 0.2);
+      text-shadow: 
+        0 0 10px rgba(212, 165, 116, 0.8),
+        0 0 20px rgba(212, 165, 116, 0.6),
+        0 0 30px rgba(212, 165, 116, 0.4);
     }
-    10% {
-      opacity: 0.7;
-      text-shadow: 0 0 15px rgba(212, 165, 116, 0.3);
-    }
-    20% {
-      opacity: 1;
-      text-shadow: 0 0 25px rgba(212, 165, 116, 0.6), 0 0 40px rgba(212, 165, 116, 0.3);
+    15% {
+      text-shadow: 
+        0 0 20px rgba(212, 165, 116, 0.5),
+        0 0 30px rgba(212, 165, 116, 0.3),
+        0 0 40px rgba(212, 165, 116, 0.1);
     }
     30% {
-      opacity: 0.6;
-      text-shadow: 0 0 10px rgba(212, 165, 116, 0.2);
+      text-shadow: 
+        0 0 30px rgba(212, 165, 116, 1),
+        0 0 40px rgba(212, 165, 116, 0.7),
+        0 0 50px rgba(212, 165, 116, 0.5);
     }
-    40% {
-      opacity: 1;
-      text-shadow: 0 0 30px rgba(212, 165, 116, 0.7), 0 0 45px rgba(212, 165, 116, 0.4);
-    }
-    50% {
-      opacity: 0.8;
-      text-shadow: 0 0 20px rgba(212, 165, 116, 0.4);
+    45% {
+      text-shadow: 
+        0 0 20px rgba(212, 165, 116, 0.6),
+        0 0 30px rgba(212, 165, 116, 0.4);
     }
     60% {
-      opacity: 1;
-      text-shadow: 0 0 25px rgba(212, 165, 116, 0.6), 0 0 40px rgba(212, 165, 116, 0.3);
+      text-shadow: 
+        0 0 25px rgba(212, 165, 116, 0.9),
+        0 0 35px rgba(212, 165, 116, 0.6),
+        0 0 45px rgba(212, 165, 116, 0.3);
     }
-    70% {
-      opacity: 0.7;
-      text-shadow: 0 0 15px rgba(212, 165, 116, 0.3);
-    }
-    80% {
-      opacity: 1;
-      text-shadow: 0 0 30px rgba(212, 165, 116, 0.7);
+    75% {
+      text-shadow: 
+        0 0 15px rgba(212, 165, 116, 0.5),
+        0 0 25px rgba(212, 165, 116, 0.2);
     }
     90% {
-      opacity: 0.8;
-      text-shadow: 0 0 20px rgba(212, 165, 116, 0.5);
+      text-shadow: 
+        0 0 35px rgba(212, 165, 116, 1),
+        0 0 45px rgba(212, 165, 116, 0.7),
+        0 0 55px rgba(212, 165, 116, 0.4);
     }
   }
 
@@ -257,7 +257,7 @@
   }
 
   .hero-title-part1 {
-    animation: sparkleIn 2s ease-out 0.5s forwards, twinkle 3s ease-in-out 2.5s infinite;
+    animation: sparkleIn 2s ease-out 0.5s forwards, glitter 2.5s ease-in-out 2.5s infinite;
   }
 
   .hero-title-part2 {
