@@ -203,7 +203,7 @@
         "faq_video_file": "https://cdn.shopify.com/videos/c/o/v/a01f21e3a63c47808187d521b2b691e5.mp4",
         "show_contact_field": true,
         "contact_placeholder": "Tienes otras preguntas?",
-        "contact_button_text": "PREGUNTAS",
+        "contact_button_text": "Contactanos",
         "contact_link": "/pages/contact"
       }
     },
