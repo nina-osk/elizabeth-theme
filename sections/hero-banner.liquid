@@ -25,11 +25,6 @@
         <span style="display: block; font-size: 3.5rem; font-style: italic; color: #D4A574; font-weight: 400; opacity: 0;" class="hero-title-part2">{{ section.settings.title_part2 }}</span>
       </h1>
       
-      <!-- Description -->
-      <p style="font-size: 1rem; color: #2d2d2d; line-height: 1.7; max-width: 650px; margin: 0 auto 3rem; opacity: 0;" class="hero-description">
-        {{ section.settings.description }}
-      </p>
-      
       <!-- Buttons -->
       <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0;" class="hero-buttons">
         <a href="{{ section.settings.button1_link }}" class="hero-btn hero-btn-active">
@@ -39,6 +34,11 @@
           {{ section.settings.button2_text }}
         </a>
       </div>
+
+      <!-- Description -->
+      <p style="font-size: 1rem; color: #2d2d2d; line-height: 1.7; max-width: 650px; margin: 2rem auto 0; opacity: 0;" class="hero-description">
+        {{ section.settings.description }}
+      </p>
       
     </div>
   </div>
