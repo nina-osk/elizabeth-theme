@@ -32,6 +32,21 @@
   </div>
 </div>
 
+<!-- GIF Section with Scroll Animation -->
+<div class="hero-gif-section" style="width: 100%; background-color: white; padding: 4rem 2rem; overflow: hidden;">
+  <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+    <img 
+      src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Gift_Home_Page.gif?v=1770376323" 
+      alt="Gift Animation" 
+      class="hero-gif-image"
+      width="1200"
+      height="800"
+      style="max-width: 100%; height: auto; opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out;"
+      loading="lazy"
+    />
+  </div>
+</div>
+
 
 <style>
   /* Button Styles */
@@ -123,7 +138,36 @@
       min-width: 150px;
     }
   }
+
+  /* GIF Animation Styles */
+  .hero-gif-image.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const gifImage = document.querySelector('.hero-gif-image');
+  
+  if (gifImage) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Agregar la clase visible cuando el elemento entra en el viewport
+          gifImage.classList.add('visible');
+          // Dejar de observar después de que se dispara la animación
+          observer.unobserve(gifImage);
+        }
+      });
+    }, {
+      threshold: 0.1 // Se dispara cuando el 10% del elemento es visible
+    });
+    
+    observer.observe(gifImage);
+  }
+});
+</script>
 
 {% schema %}
 {
