@@ -1,7 +1,7 @@
 <div class="product-card bg-white rounded-lg overflow-hidden transition-all duration-300 w-full">
     <!-- Product Image with Actions -->
     <div class="relative bg-neutral-100 group product-image-container">
-        <a href="{{ product.url }}" class="block w-full h-full" onclick="console.log('DEBUG: Guardando URL de colección (imagen): ', window.location.href); sessionStorage.setItem('previousCollectionUrl', window.location.href);">
+        <a href="{{ product.url }}" class="block w-full h-full collection-product-link" data-product-url="{{ product.url }}">
             {% if product.featured_image %}
                 <img 
                     class="w-full h-full object-cover" 
@@ -60,7 +60,7 @@
     <!-- Product Info -->
     <div class="p-2 md:p-4 text-left">
         <!-- Product Title -->
-        <a href="{{ product.url }}" class="block text-neutral-900 font-normal text-sm md:text-base mb-1 md:mb-2 hover:text-neutral-700 transition-colors line-clamp-2" onclick="console.log('DEBUG: Guardando URL de colección (título): ', window.location.href); sessionStorage.setItem('previousCollectionUrl', window.location.href);">
+        <a href="{{ product.url }}" class="block text-neutral-900 font-normal text-sm md:text-base mb-1 md:mb-2 hover:text-neutral-700 transition-colors line-clamp-2 collection-product-link" data-product-url="{{ product.url }}">
             {{ product.title }}
         </a>
         
@@ -116,3 +116,26 @@
     }
 }
 </style>
+
+<script>
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    var productLinks = document.querySelectorAll('.collection-product-link');
+    console.log('DEBUG: Encontrados', productLinks.length, 'enlaces de producto');
+    
+    productLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var currentUrl = window.location.href;
+        console.log('DEBUG: Click en enlace de producto - URL actual:', currentUrl);
+        console.log('DEBUG: Guardando en sessionStorage...');
+        sessionStorage.setItem('previousCollectionUrl', currentUrl);
+        console.log('DEBUG: Verificando guardado:', sessionStorage.getItem('previousCollectionUrl'));
+        var productUrl = this.getAttribute('href') || this.getAttribute('data-product-url');
+        console.log('DEBUG: Navegando a:', productUrl);
+        window.location.href = productUrl;
+      });
+    });
+  });
+})();
+</script>
