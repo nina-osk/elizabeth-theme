@@ -37,7 +37,7 @@
       </h1>
 
       <!-- Title Part 2 WITH GIF Background -->
-      <div style="position: relative; margin-bottom: 5rem; margin-top: 3rem; height: 200px; display: flex; align-items: center; justify-content: center;">
+      <div class="hero-video-container" style="position: relative; margin-bottom: 5rem; margin-top: 3rem; height: 200px; display: flex; align-items: center; justify-content: center;">
         <!-- GIF Background -->
         <img 
           src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Gift_Home_Page.gif?v=1770377792" 
@@ -194,6 +194,12 @@
       font-size: 0.8125rem;
       min-width: 150px;
     }
+
+    /* GIF full screen on mobile */
+    .hero-gif-background {
+      width: 100% !important;
+      height: 100% !important;
+    }
   }
 
   /* GIF Animation Styles */
@@ -203,6 +209,15 @@
 
   .hero-gif-background.visible {
     opacity: 1 !important;
+  }
+
+    .hero-model-right {
+      display: none !important;
+    }
+
+    .hero-model-left {
+      display: none !important;
+    }
   }
 </style>
 
