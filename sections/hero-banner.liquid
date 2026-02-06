@@ -8,14 +8,31 @@
         {{ section.settings.subtitle }}
       </p>
       
-      <!-- Title -->
+      <!-- Title Part 1 -->
       <h1 style="font-family: Georgia, serif; line-height: 1.15; color: #2d2d2d; margin-bottom: 2rem;">
         <span style="display: block; font-size: 5rem; font-weight: 400; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}  </span>
-        <span style="display: block; font-size: 3.5rem; font-style: italic; color: #D4A574; font-weight: 400; opacity: 0;" class="hero-title-part2">{{ section.settings.title_part2 }}</span>
       </h1>
+
+      <!-- Title Part 2 WITH GIF Background -->
+      <div style="position: relative; margin-bottom: 2rem;">
+        <!-- GIF Background -->
+        <img 
+          src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Gift_Home_Page.gif?v=1770377792" 
+          alt="Gift Animation" 
+          class="hero-gif-background"
+          width="1200"
+          height="800"
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: auto; opacity: 0; z-index: 0;"
+          loading="lazy"
+        />
+        <!-- Title Part 2 -->
+        <h1 style="font-family: Georgia, serif; line-height: 1.15; color: #2d2d2d; position: relative; z-index: 1;">
+          <span style="display: block; font-size: 3.5rem; font-style: italic; color: #D4A574; font-weight: 400; opacity: 0;" class="hero-title-part2">{{ section.settings.title_part2 }}</span>
+        </h1>
+      </div>
       
       <!-- Buttons -->
-      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0;" class="hero-buttons">
+      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0; position: relative; z-index: 1;" class="hero-buttons">
         <a href="{{ section.settings.button1_link }}" class="hero-btn hero-btn-active">
           {{ section.settings.button1_text }}
         </a>
@@ -31,19 +48,6 @@
       
     </div>
   </div>
-</div>
-
-<!-- GIF Section - Separate from content -->
-<div style="width: 100%; background-color: #AFC4AE; position: relative; overflow: hidden; padding: 3rem 2rem;">
-  <img 
-    src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Gift_Home_Page.gif?v=1770377792" 
-    alt="Gift Animation" 
-    class="hero-gif-background"
-    width="1200"
-    height="800"
-    style="max-width: 100%; height: auto; opacity: 0; margin: 0 auto; display: block;"
-    loading="lazy"
-  />
 </div>
 
 
