@@ -1,7 +1,7 @@
 <div class="product-card bg-white rounded-lg overflow-hidden transition-all duration-300 w-full">
     <!-- Product Image with Actions -->
     <div class="relative bg-neutral-100 group product-image-container">
-        <a href="{{ product.url }}" class="block w-full h-full" onclick="sessionStorage.setItem('previousCollectionUrl', window.location.href);">
+        <a href="{{ product.url }}" class="block w-full h-full" onclick="console.log('DEBUG: Guardando URL de colección (imagen): ', window.location.href); sessionStorage.setItem('previousCollectionUrl', window.location.href);">
             {% if product.featured_image %}
                 <img 
                     class="w-full h-full object-cover" 
@@ -60,7 +60,7 @@
     <!-- Product Info -->
     <div class="p-2 md:p-4 text-left">
         <!-- Product Title -->
-        <a href="{{ product.url }}" class="block text-neutral-900 font-normal text-sm md:text-base mb-1 md:mb-2 hover:text-neutral-700 transition-colors line-clamp-2" onclick="sessionStorage.setItem('previousCollectionUrl', window.location.href);">
+        <a href="{{ product.url }}" class="block text-neutral-900 font-normal text-sm md:text-base mb-1 md:mb-2 hover:text-neutral-700 transition-colors line-clamp-2" onclick="console.log('DEBUG: Guardando URL de colección (título): ', window.location.href); sessionStorage.setItem('previousCollectionUrl', window.location.href);">
             {{ product.title }}
         </a>
         
