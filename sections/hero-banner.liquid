@@ -185,47 +185,47 @@
     }
   }
 
-  /* Glitter Animation - More visible effect */
-  @keyframes glitter {
+  /* Typewriter Animation with Sprinkles */
+  @keyframes typewriter {
+    0% {
+      max-width: 0;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      max-width: 100%;
+      opacity: 1;
+    }
+  }
+
+  @keyframes sprinkles {
     0%, 100% {
-      text-shadow: 
-        0 0 10px rgba(212, 165, 116, 0.8),
-        0 0 20px rgba(212, 165, 116, 0.6),
-        0 0 30px rgba(212, 165, 116, 0.4);
+      text-shadow: 0 0 0px transparent;
     }
-    15% {
+    20% {
       text-shadow: 
-        0 0 20px rgba(212, 165, 116, 0.5),
-        0 0 30px rgba(212, 165, 116, 0.3),
-        0 0 40px rgba(212, 165, 116, 0.1);
+        0 0 15px rgba(212, 165, 116, 0.8),
+        0 0 25px rgba(212, 165, 116, 0.5);
     }
-    30% {
+    40% {
       text-shadow: 
-        0 0 30px rgba(212, 165, 116, 1),
-        0 0 40px rgba(212, 165, 116, 0.7),
-        0 0 50px rgba(212, 165, 116, 0.5);
-    }
-    45% {
-      text-shadow: 
-        0 0 20px rgba(212, 165, 116, 0.6),
-        0 0 30px rgba(212, 165, 116, 0.4);
+        0 0 20px rgba(212, 165, 116, 1),
+        0 0 35px rgba(212, 165, 116, 0.6),
+        0 0 50px rgba(212, 165, 116, 0.3);
     }
     60% {
       text-shadow: 
         0 0 25px rgba(212, 165, 116, 0.9),
-        0 0 35px rgba(212, 165, 116, 0.6),
-        0 0 45px rgba(212, 165, 116, 0.3);
+        0 0 40px rgba(212, 165, 116, 0.5),
+        -5px 5px 15px rgba(212, 165, 116, 0.4),
+        5px 5px 15px rgba(212, 165, 116, 0.4);
     }
-    75% {
+    80% {
       text-shadow: 
-        0 0 15px rgba(212, 165, 116, 0.5),
-        0 0 25px rgba(212, 165, 116, 0.2);
-    }
-    90% {
-      text-shadow: 
-        0 0 35px rgba(212, 165, 116, 1),
-        0 0 45px rgba(212, 165, 116, 0.7),
-        0 0 55px rgba(212, 165, 116, 0.4);
+        0 0 15px rgba(212, 165, 116, 0.7),
+        0 0 25px rgba(212, 165, 116, 0.4);
     }
   }
 
@@ -257,7 +257,10 @@
   }
 
   .hero-title-part1 {
-    animation: sparkleIn 2s ease-out 0.5s forwards, glitter 2.5s ease-in-out 2.5s infinite;
+    animation: typewriter 2.5s steps(20, end) 0.5s forwards, sprinkles 2.5s ease-in-out 0.5s forwards;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 0;
   }
 
   .hero-title-part2 {
