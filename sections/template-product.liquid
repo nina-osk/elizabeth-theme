@@ -239,6 +239,7 @@
 </div>
 
 <script>
+  // Guardar la URL anterior cuando se abre el producto
   document.addEventListener('DOMContentLoaded', function() {
     const backBtn = document.getElementById('back-to-collection-btn');
     
@@ -247,23 +248,48 @@
         e.preventDefault();
         e.stopPropagation();
         
-        // Obtener la URL anterior del documento
-        const referrer = document.referrer;
+        // Obtener la URL guardada del sessionStorage
+        const previousUrl = sessionStorage.getItem('previousCollectionUrl');
         
-        console.log('Referrer:', referrer);
-        console.log('Current hostname:', window.location.hostname);
+        console.log('Previous URL from sessionStorage:', previousUrl);
+        console.log('Referrer:', document.referrer);
         
-        // Si viene de una colección o página anterior, regresar
-        if (referrer && referrer.length > 0 && referrer.includes(window.location.hostname)) {
+        // Prioridad:
+        // 1. Si hay URL guardada en sessionStorage (vino desde una colección)
+        if (previousUrl && previousUrl.length > 0) {
+          console.log('Regresando a la colección guardada:', previousUrl);
+          window.location.href = previousUrl;
+        }
+        // 2. Si hay referrer y viene del mismo sitio
+        else if (document.referrer && document.referrer.length > 0 && document.referrer.includes(window.location.hostname)) {
           console.log('Regresando al historial');
           window.history.back();
-        } else {
-          // Si no hay referrer o viene de otro sitio, ir a colecciones
+        }
+        // 3. Por defecto, ir a colecciones
+        else {
           console.log('Ir a colecciones');
           window.location.href = '/collections';
         }
       });
+      
+      // Limpiar sessionStorage después de usarlo
+      sessionStorage.removeItem('previousCollectionUrl');
     }
+  });
+  
+  // Script para Swiper (carrusel de imágenes)
+  const swiper = new Swiper('.desktop-swiper', {
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    loop: false,
+    spaceBetween: 10,
   });
 </script>
 
