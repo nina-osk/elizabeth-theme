@@ -201,10 +201,7 @@
   btn.addEventListener('click', function(e) {
     e.preventDefault();
     var previousUrl = sessionStorage.getItem('previousCollectionUrl');
-    console.log('DEBUG: URL guardada en sessionStorage:', previousUrl);
-    console.log('DEBUG: URL actual (window.location.href):', window.location.href);
     if (previousUrl) {
-      console.log('DEBUG: Redirigiendo a:', previousUrl);
       sessionStorage.removeItem('previousCollectionUrl');
       window.location.href = previousUrl;
     } else {

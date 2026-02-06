@@ -1,0 +1,83 @@
+<div class="page-template">
+  <div class="page-template__container max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
+    
+    {% if page.title %}
+      <h1 class="page-template__title" style="font-family: Georgia, serif; font-size: 2.5rem; font-weight: 400; color: #2d2d2d; margin-bottom: 2rem; text-align: center;">
+        {{ page.title }}
+      </h1>
+    {% endif %}
+
+    {% if page.content %}
+      <div class="page-template__content" style="font-size: 1rem; line-height: 1.8; color: #2d2d2d;">
+        {{ page.content }}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<style>
+  .page-template {
+    width: 100%;
+    background-color: #ffffff;
+  }
+
+  .page-template__container {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #2d2d2d;
+  }
+
+  .page-template__title {
+    margin-bottom: 2rem;
+  }
+
+  .page-template__content {
+    word-break: break-word;
+  }
+
+  .page-template__content h2 {
+    font-size: 1.875rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem;
+    color: #2d2d2d;
+  }
+
+  .page-template__content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem;
+    color: #2d2d2d;
+  }
+
+  .page-template__content p {
+    margin-bottom: 1rem;
+  }
+
+  .page-template__content a {
+    color: #C8A882;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .page-template__content a:hover {
+    color: #B89872;
+    text-decoration: underline;
+  }
+
+  .page-template__content ul,
+  .page-template__content ol {
+    margin: 1rem 0 1rem 2rem;
+  }
+
+  .page-template__content li {
+    margin-bottom: 0.5rem;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Page Template",
+  "settings": []
+}
+{% endschema %}
