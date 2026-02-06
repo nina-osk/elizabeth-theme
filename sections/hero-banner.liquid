@@ -1,5 +1,17 @@
-<div style="width: 100%; background-color: #AFC4AE;">
-  <div style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem;">
+<div style="width: 100%; background-color: #AFC4AE; position: relative; overflow: hidden;">
+  <!-- GIF Background -->
+  <img 
+    src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Gift_Home_Page.gif?v=1770377064" 
+    alt="Gift Animation" 
+    class="hero-gif-background"
+    width="1200"
+    height="800"
+    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: auto; opacity: 0; z-index: 0;"
+    loading="lazy"
+  />
+  
+  <!-- Content -->
+  <div style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; position: relative; z-index: 1;">
     <div style="max-width: 900px; margin: 0 auto; text-align: center;">
       
       <!-- Subtitle -->
@@ -29,21 +41,6 @@
       </div>
       
     </div>
-  </div>
-</div>
-
-<!-- GIF Section with Scroll Animation -->
-<div class="hero-gif-section" style="width: 100%; background-color: white; padding: 4rem 2rem; overflow: hidden;">
-  <div style="max-width: 900px; margin: 0 auto; text-align: center;">
-    <img 
-      src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Gift_Home_Page.gif?v=1770376323" 
-      alt="Gift Animation" 
-      class="hero-gif-image"
-      width="1200"
-      height="800"
-      style="max-width: 100%; height: auto; opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out;"
-      loading="lazy"
-    />
   </div>
 </div>
 
@@ -140,15 +137,18 @@
   }
 
   /* GIF Animation Styles */
-  .hero-gif-image.visible {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
+  .hero-gif-background {
+    transition: opacity 0.8s ease-out !important;
+  }
+
+  .hero-gif-background.visible {
+    opacity: 0.7 !important;
   }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const gifImage = document.querySelector('.hero-gif-image');
+  const gifImage = document.querySelector('.hero-gif-background');
   
   if (gifImage) {
     const observer = new IntersectionObserver((entries) => {
