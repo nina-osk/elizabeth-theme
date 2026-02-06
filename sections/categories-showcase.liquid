@@ -452,17 +452,6 @@
     if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
     if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
     dots.forEach((dot, index) => dot.addEventListener('click', () => goToSlide(index)));
-    
-    // Add click listener to product link
-    if (productLink) {
-      productLink.addEventListener('click', (e) => {
-        const url = productLink.href;
-        if (url && url !== '#' && url !== window.location.href) {
-          e.preventDefault();
-          window.location.href = url;
-        }
-      });
-    }
 
     updateCarousel();
     console.log('Carrusel inicializado');
