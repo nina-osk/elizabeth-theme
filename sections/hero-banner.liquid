@@ -4,10 +4,10 @@
   <img 
     src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_Oro_9K-_Vera.png?v=1769442279" 
     alt="Model Right" 
-    class="hero-model-right"
+    class="hero-model-right hero-card"
     width="400"
     height="600"
-    style="position: absolute; right: 8%; top: -100%; width: 300px; height: auto; opacity: 0.95; z-index: 1;"
+    style="position: absolute; right: 15%; top: -100%; width: 300px; height: auto; opacity: 0.95; z-index: 1;"
     loading="lazy"
   />
   
@@ -15,10 +15,10 @@
   <img 
     src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloRight-Aretes_-OroBlanco9K-Aura.png?v=1770041849" 
     alt="Model Left" 
-    class="hero-model-left"
+    class="hero-model-left hero-card"
     width="400"
     height="600"
-    style="position: absolute; left: 8%; top: -100%; width: 300px; height: auto; opacity: 0.95; z-index: 1;"
+    style="position: absolute; left: 15%; top: -100%; width: 300px; height: auto; opacity: 0.95; z-index: 1;"
     loading="lazy"
   />
 
@@ -30,7 +30,7 @@
     class="hero-model-below-left"
     width="250"
     height="400"
-    style="position: absolute; left: 12%; top: 35%; width: 250px; height: auto; opacity: 0; z-index: 2;"
+    style="position: absolute; left: 18%; top: 35%; width: 250px; height: auto; opacity: 0; z-index: 2; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);" class="hero-card"
     loading="lazy"
   />
   
@@ -41,7 +41,7 @@
     class="hero-model-below-right"
     width="250"
     height="400"
-    style="position: absolute; right: 12%; top: 40%; width: 250px; height: auto; opacity: 0; z-index: 3;"
+    style="position: absolute; right: 18%; top: 40%; width: 250px; height: auto; opacity: 0; z-index: 3; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);" class="hero-card"
     loading="lazy"
   />
 
@@ -229,7 +229,35 @@
     }
   }
 
-  /* Slide Up Animation for Below Images */
+  /* Card Float Animation - Michael Andreuzza Style */
+  @keyframes cardFloat {
+    0%, 100% {
+      transform: translateY(0px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+      transform: translateY(-15px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .hero-card {
+    border-radius: 12px;
+    overflow: hidden;
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.1));
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .hero-card:hover {
+    transform: translateY(-25px) scale(1.05);
+    filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.25));
+  }
+
+  /* Card Float Animation for Below Models */
+  .hero-model-below-left.hero-card,
+  .hero-model-below-right.hero-card {
+    animation: cardFloat 4s ease-in-out infinite;
+  }
   @keyframes slideUpLeft {
     from {
       opacity: 0;
