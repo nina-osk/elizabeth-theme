@@ -30,7 +30,7 @@
     class="hero-model-below-left hero-card"
     width="250"
     height="400"
-    style="position: absolute; left: 18%; top: 35%; width: 250px; height: auto; opacity: 0; z-index: 2;"
+    style="position: absolute; left: 18%; top: 35%; width: 250px; height: auto; z-index: 2;"
     loading="lazy"
   />
   
@@ -41,7 +41,7 @@
     class="hero-model-below-right hero-card"
     width="250"
     height="400"
-    style="position: absolute; right: 18%; top: 40%; width: 250px; height: auto; opacity: 0; z-index: 3;"
+    style="position: absolute; right: 18%; top: 40%; width: 250px; height: auto; z-index: 3;"
     loading="lazy"
   />
 
@@ -270,17 +270,17 @@
   }
 
   .hero-model-below-right.hero-card {
-    animation: slideUpRight 1s ease-out 1.8s forwards;
+    animation: slideUpRight 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s forwards;
   }
 
   .hero-model-below-left.hero-card {
-    animation: slideUpLeft 1s ease-out 1.8s forwards;
+    animation: slideUpLeft 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s forwards;
   }
 
-  /* Hover effects - resetea rotación y amplía */
+  /* Hover effects - Lexington Themes style */
   .hero-card:hover {
     transform: rotate(0deg) translateY(-48px) scale(1.5) !important;
-    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.3)) !important;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.4)) !important;
     z-index: 100 !important;
   }
   @keyframes slideDownRight {
@@ -312,7 +312,7 @@
   @keyframes slideUpLeft {
     from {
       opacity: 0;
-      transform: translateY(100px) translateX(-50px) rotate(-12deg);
+      transform: translateY(120px) translateX(-80px) rotate(-12deg);
     }
     to {
       opacity: 1;
@@ -323,7 +323,7 @@
   @keyframes slideUpRight {
     from {
       opacity: 0;
-      transform: translateY(100px) translateX(50px) rotate(6deg);
+      transform: translateY(120px) translateX(80px) rotate(6deg);
     }
     to {
       opacity: 1;
