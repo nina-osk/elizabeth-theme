@@ -82,7 +82,7 @@
       </div>
       
       <!-- Buttons -->
-      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0; margin-top: 3rem; margin-bottom: 3rem;" class="hero-buttons">
+      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0; margin-top: 3rem; margin-bottom: 3rem; position: relative; z-index: 15;" class="hero-buttons">
         <a href="{{ section.settings.button1_link }}" class="hero-btn hero-btn-active">
           {{ section.settings.button1_text }}
         </a>
@@ -341,7 +341,7 @@
     .hero-buttons {
       margin-top: 1rem !important;
       position: relative;
-      z-index: 10 !important;
+      z-index: 15 !important;
     }
   }
 
