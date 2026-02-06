@@ -452,6 +452,22 @@
     if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
     if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
     dots.forEach((dot, index) => dot.addEventListener('click', () => goToSlide(index)));
+    
+    // Agregar click en las tarjetas para navegar
+    slides.forEach((slide) => {
+      slide.addEventListener('click', () => {
+        if (slide.classList.contains('is-active')) {
+          // Si es la tarjeta activa, ir al producto
+          const url = slide.dataset.url || '';
+          if (url && url.trim() !== '') {
+            window.location.href = url;
+          }
+        } else {
+          // Si no es la activa, avanzar al siguiente slide
+          goToSlide(currentIndex + 1);
+        }
+      });
+    });
 
     updateCarousel();
     console.log('Carrusel inicializado');

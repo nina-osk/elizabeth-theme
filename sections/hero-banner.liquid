@@ -77,6 +77,31 @@
       <p style="font-size: 1rem; color: #2d2d2d; line-height: 1.7; max-width: 650px; margin: 2rem auto 0; opacity: 0; font-style: italic;" class="hero-description-2">
         {{ section.settings.description_2 }}
       </p>
+
+      <!-- Additional Model Images Below Video -->
+      <div style="display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 4rem; position: relative; z-index: 5;">
+        <!-- Left Model Below -->
+        <img 
+          src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloFront-Aretes_Oro_9K-_Vera.png?v=1770041814" 
+          alt="Model Front" 
+          class="hero-model-below-left"
+          width="250"
+          height="400"
+          style="width: 250px; height: auto; opacity: 0; position: relative;"
+          loading="lazy"
+        />
+        
+        <!-- Right Model Below -->
+        <img 
+          src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png?v=1770041849" 
+          alt="Model Close Up" 
+          class="hero-model-below-right"
+          width="250"
+          height="400"
+          style="width: 250px; height: auto; opacity: 0; position: relative;"
+          loading="lazy"
+        />
+      </div>
       
     </div>
   </div>
@@ -137,6 +162,29 @@
     }
   }
 
+  /* Slide Up Animation for Below Images */
+  @keyframes slideUpLeft {
+    from {
+      opacity: 0;
+      transform: translateY(100px) translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) translateX(0);
+    }
+  }
+
+  @keyframes slideUpRight {
+    from {
+      opacity: 0;
+      transform: translateY(100px) translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) translateX(0);
+    }
+  }
+
   .hero-subtitle {
     animation: fadeIn 0.8s ease-out 0.2s forwards;
   }
@@ -159,6 +207,14 @@
 
   .hero-buttons {
     animation: fadeIn 1s ease-out 1.4s forwards;
+  }
+
+  .hero-model-below-left {
+    animation: slideUpLeft 1s ease-out 1.8s forwards;
+  }
+
+  .hero-model-below-right {
+    animation: slideUpRight 1s ease-out 1.8s forwards;
   }
 
   /* Model Animation - Slide Down from Top */
@@ -255,6 +311,12 @@
 
     .hero-model-left {
       display: none !important;
+    }
+
+    /* Below models responsive */
+    .hero-model-below-left,
+    .hero-model-below-right {
+      width: 150px !important;
     }
   }
 
