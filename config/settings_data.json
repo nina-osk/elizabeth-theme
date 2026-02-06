@@ -19,7 +19,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo": "shopify://shop_images/Improve_this_logo_2k_202602031542-removebg-preview.png",
+          "logo": "shopify://shop_images/Munier_M_verde.jpg",
           "announcement_text": "",
           "menu": "main-menu-1",
           "mobile_menu_label": "Menú"
@@ -28,6 +28,13 @@
       "footer": {
         "type": "footer",
         "settings": {
+          "header_title": "Bienvenida a un lujo accesible, inclusivo y real.",
+          "header_subtitle": "Un lujo que se adapta a tu vida. Un lujo que te acompaña.",
+          "brand_title": "MUNIER",
+          "brand_description": "Piezas que brillan con tu luz cada día — lujo que te acompaña todos los días.",
+          "brand_tagline": "Tú eres la ocasión especial.",
+          "explore_title": "EXPLORAR",
+          "menu_title": "MUNIER",
           "footer_menu": "footermenu"
         }
       }
