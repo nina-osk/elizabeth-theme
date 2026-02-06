@@ -68,9 +68,9 @@
 
             <!-- Grid de productos -->
             {% if selected_collection.products.size > 0 %}
-                <div class="collection-products__grid">
+                <div class="collection-products__grid" data-collection-handle="{{ selected_collection.handle }}">
                     {% for product in selected_collection.products %}
-                        {% render 'product-card', product: product %}
+                        {% render 'product-card', product: product, collection_handle: selected_collection.handle %}
                     {% endfor %}
                 </div>
 
