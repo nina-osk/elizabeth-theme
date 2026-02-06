@@ -1,6 +1,29 @@
-<div style="width: 100%; background-color: #AFC4AE;">
+<div style="width: 100%; background-color: #AFC4AE; position: relative; overflow: hidden;">
+  <!-- Background Model Images -->
+  <!-- Right Model -->
+  <img 
+    src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_Oro_9K-_Vera.png?v=1769442279" 
+    alt="Model Right" 
+    class="hero-model-right"
+    width="400"
+    height="600"
+    style="position: absolute; right: 0; top: -100%; width: 400px; height: auto; opacity: 0.95; z-index: 1;"
+    loading="lazy"
+  />
+  
+  <!-- Left Model -->
+  <img 
+    src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloRight-Aretes_-OroBlanco9K-Aura.png?v=1770041849" 
+    alt="Model Left" 
+    class="hero-model-left"
+    width="400"
+    height="600"
+    style="position: absolute; left: 0; top: -100%; width: 400px; height: auto; opacity: 0.95; z-index: 1;"
+    loading="lazy"
+  />
+
   <!-- Content WITHOUT GIF Background -->
-  <div style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem;">
+  <div style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; position: relative; z-index: 5;">
     <div style="max-width: 900px; margin: 0 auto; text-align: center;">
       
       <!-- Subtitle -->
@@ -123,6 +146,37 @@
 
   .hero-buttons {
     animation: fadeIn 1s ease-out 1.4s forwards;
+  }
+
+  /* Model Animation - Slide Down from Top */
+  @keyframes slideDownRight {
+    from {
+      top: -100%;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 0.95;
+    }
+  }
+
+  @keyframes slideDownLeft {
+    from {
+      top: -100%;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 0.95;
+    }
+  }
+
+  .hero-model-right {
+    animation: slideDownRight 1.5s ease-out 0.3s forwards;
+  }
+
+  .hero-model-left {
+    animation: slideDownLeft 1.5s ease-out 0.3s forwards;
   }
 
   /* Responsive adjustments */
