@@ -294,11 +294,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.875rem 1.5rem;
+    padding: 0.625rem 1.125rem;
     border: 2px solid #000;
     background: transparent;
     color: #000;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-decoration: none;
@@ -306,7 +306,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    min-height: 48px;
+    min-height: 40px;
   }
 
   .carrusel-btn:hover {
@@ -317,9 +317,9 @@
 
   @media (max-width: 768px) {
     .carrusel-btn {
-      padding: 0.625rem 1.25rem;
-      font-size: 0.8rem;
-      min-height: 40px;
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      min-height: 36px;
     }
   }
 
@@ -452,6 +452,17 @@
     if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
     if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
     dots.forEach((dot, index) => dot.addEventListener('click', () => goToSlide(index)));
+    
+    // Add click listener to product link
+    if (productLink) {
+      productLink.addEventListener('click', (e) => {
+        const url = productLink.href;
+        if (url && url !== '#' && url !== window.location.href) {
+          e.preventDefault();
+          window.location.href = url;
+        }
+      });
+    }
 
     updateCarousel();
     console.log('Carrusel inicializado');

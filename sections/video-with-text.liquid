@@ -15,7 +15,7 @@
                 {% if section.settings.video_poster %}poster="{{ section.settings.video_poster | image_url: width: 1920 }}"{% endif %}
                 style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;"
                 onloadedmetadata="this.muted = true; this.play();">
-                <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
+                <source src="{{ section.settings.video_file }}" type="video/mp4">
                 Tu navegador no soporta video HTML5.
             </video>
             
