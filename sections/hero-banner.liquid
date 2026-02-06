@@ -22,7 +22,7 @@
           class="hero-gif-background"
           width="1200"
           height="800"
-          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: auto; opacity: 0; z-index: 0;"
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: auto; opacity: 0; z-index: 0; pointer-events: none;"
           loading="lazy"
         />
         <!-- Title Part 2 -->
@@ -155,8 +155,9 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const gifImage = document.querySelector('.hero-gif-background');
+  const heroContainer = document.querySelector('[style*="min-height: 85vh"]');
   
-  if (gifImage) {
+  if (gifImage && heroContainer) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -170,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
       threshold: 0.1 // Se dispara cuando el 10% del elemento es visible
     });
     
-    observer.observe(gifImage);
+    observer.observe(heroContainer);
   }
 });
 </script>
