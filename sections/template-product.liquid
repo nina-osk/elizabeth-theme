@@ -200,10 +200,10 @@
   if (!btn) return;
   btn.addEventListener('click', function(e) {
     e.preventDefault();
-    var params = new URLSearchParams(window.location.search);
-    var collection = params.get('collection');
-    if (collection) {
-      window.location.href = '/collections/' + collection;
+    var previousUrl = sessionStorage.getItem('previousCollectionUrl');
+    if (previousUrl) {
+      sessionStorage.removeItem('previousCollectionUrl');
+      window.location.href = previousUrl;
     } else {
       window.history.back();
     }
