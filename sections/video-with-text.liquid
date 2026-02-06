@@ -15,7 +15,7 @@
                 {% if section.settings.video_poster %}poster="{{ section.settings.video_poster | image_url: width: 1920 }}"{% endif %}
                 style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;"
                 onloadedmetadata="this.muted = true; this.play();">
-                <source src="{{ section.settings.video_file }}" type="video/mp4">
+                <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
                 Tu navegador no soporta video HTML5.
             </video>
             
@@ -202,10 +202,9 @@
             "info": "Ejemplo: https://www.youtube.com/embed/VIDEO_ID"
         },
         {
-            "type": "text",
+            "type": "video",
             "id": "video_file",
-            "label": "URL del archivo de video (MP4)",
-            "info": "1. Ve a Settings > Files en tu admin de Shopify. 2. Sube tu video .mp4. 3. Haz clic en el archivo subido para abrir. 4. Copia la URL que aparece en la barra de direcciones. 5. Pega esa URL aquí."
+            "label": "Archivo de video (MP4)"
         },
         {
             "type": "image_picker",

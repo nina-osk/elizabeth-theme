@@ -37,7 +37,7 @@
                  data-index="{{ forloop.index0 }}"
                  data-title="{{ prod.title | escape }}"
                  data-price="{% if prod.selected_or_first_available_variant %}{{ prod.selected_or_first_available_variant.price | money_with_currency }}{% else %}$0.00{% endif %}"
-                 data-url="{% if prod != blank %}{{ prod.url }}{% else %}#{% endif %}"
+                 data-url="{% if prod != blank %}{{ prod.url | prepend: shop.url }}{% else %}#{% endif %}"
                  role="group"
                  aria-roledescription="slide"
                  aria-label="Slide {{ forloop.index }} of {{ cards.size }}">
@@ -294,11 +294,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem 2.5rem;
+    padding: 0.875rem 1.5rem;
     border: 2px solid #000;
     background: transparent;
     color: #000;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-decoration: none;
@@ -306,7 +306,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    min-height: 60px;
+    min-height: 48px;
   }
 
   .carrusel-btn:hover {
@@ -317,9 +317,9 @@
 
   @media (max-width: 768px) {
     .carrusel-btn {
-      padding: 1rem 1.5rem;
-      font-size: 0.9rem;
-      min-height: 50px;
+      padding: 0.625rem 1.25rem;
+      font-size: 0.8rem;
+      min-height: 40px;
     }
   }
 
