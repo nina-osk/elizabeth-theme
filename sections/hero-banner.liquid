@@ -185,6 +185,50 @@
     }
   }
 
+  /* Twinkling Animation */
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 1;
+      text-shadow: 0 0 20px rgba(212, 165, 116, 0.5), 0 0 35px rgba(212, 165, 116, 0.2);
+    }
+    10% {
+      opacity: 0.7;
+      text-shadow: 0 0 15px rgba(212, 165, 116, 0.3);
+    }
+    20% {
+      opacity: 1;
+      text-shadow: 0 0 25px rgba(212, 165, 116, 0.6), 0 0 40px rgba(212, 165, 116, 0.3);
+    }
+    30% {
+      opacity: 0.6;
+      text-shadow: 0 0 10px rgba(212, 165, 116, 0.2);
+    }
+    40% {
+      opacity: 1;
+      text-shadow: 0 0 30px rgba(212, 165, 116, 0.7), 0 0 45px rgba(212, 165, 116, 0.4);
+    }
+    50% {
+      opacity: 0.8;
+      text-shadow: 0 0 20px rgba(212, 165, 116, 0.4);
+    }
+    60% {
+      opacity: 1;
+      text-shadow: 0 0 25px rgba(212, 165, 116, 0.6), 0 0 40px rgba(212, 165, 116, 0.3);
+    }
+    70% {
+      opacity: 0.7;
+      text-shadow: 0 0 15px rgba(212, 165, 116, 0.3);
+    }
+    80% {
+      opacity: 1;
+      text-shadow: 0 0 30px rgba(212, 165, 116, 0.7);
+    }
+    90% {
+      opacity: 0.8;
+      text-shadow: 0 0 20px rgba(212, 165, 116, 0.5);
+    }
+  }
+
   /* Slide Up Animation for Below Images */
   @keyframes slideUpLeft {
     from {
@@ -213,7 +257,7 @@
   }
 
   .hero-title-part1 {
-    animation: sparkleIn 2s ease-out 0.5s forwards;
+    animation: sparkleIn 2s ease-out 0.5s forwards, twinkle 3s ease-in-out 2.5s infinite;
   }
 
   .hero-title-part2 {
@@ -273,10 +317,6 @@
 
   .hero-subtitle {
     animation: fadeIn 0.8s ease-out 0.2s forwards;
-  }
-
-  .hero-title-part1 {
-    animation: fadeIn 1s ease-out 0.5s forwards;
   }
 
   .hero-title-part2 {
