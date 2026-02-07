@@ -1,4 +1,4 @@
-<div style="width: 100%; background-color: #AFC4AE; position: relative; overflow: visible;" class="hero-wrapper">
+<div style="width: 100%; background-color: #AFC4AE; display: flex; flex-direction: column; position: relative; overflow: visible;" class="hero-wrapper">
   <!-- Card Overlay Modal -->
   <div class="card-overlay" id="cardOverlay">
     <button class="card-close-btn" id="cardCloseBtn">×</button>
@@ -108,18 +108,18 @@
     data-model-name="ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png"
   />
 
-  <!-- Title Part 1 - Separate Container for Mobile Ordering -->
-  <div class="hero-title-container" style="text-align: center; margin-bottom: 3rem; order: -1;">
-    <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); width: 100%; margin: 0;">
-      <span style="display: block; font-size: 9rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
-    </h1>
-  </div>
-
-  <!-- Subtitle - Visible Section (between cards and video) -->
-  <div class="hero-subtitle-container" style="text-align: center; padding: 2rem 1rem; order: 0.5; background-color: rgba(175, 196, 174, 0.5);">
+  <!-- Subtitle - Visible Section (TOP) -->
+  <div class="hero-subtitle-container" style="text-align: center; padding: 2rem 1rem; order: -1; background-color: rgba(175, 196, 174, 0.5);">
     <p style="font-size: 1.25rem; font-weight: 400; color: #2d2d2d; margin: 0; font-style: italic;" class="hero-subtitle-main">
       {{ section.settings.subtitle }}
     </p>
+  </div>
+
+  <!-- Title Part 1 - Separate Container for Mobile Ordering -->
+  <div class="hero-title-container" style="text-align: center; margin-bottom: 3rem; order: -0.5;">
+    <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); width: 100%; margin: 0;">
+      <span style="display: block; font-size: 9rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
+    </h1>
   </div>
 
   <!-- Content WITHOUT GIF Background -->
@@ -578,6 +578,22 @@
     display: block;
   }
 
+  .hero-subtitle-container {
+    order: -1;
+  }
+
+  .hero-title-container {
+    order: -0.5;
+  }
+
+  .hero-models-mobile-container {
+    order: 0;
+  }
+
+  .hero-content-wrapper {
+    order: 1;
+  }
+
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .hero-wrapper {
@@ -586,12 +602,12 @@
     }
 
     .hero-title-container {
-      order: -1 !important;
+      order: -0.5 !important;
       padding: 2rem 1rem !important;
     }
 
     .hero-subtitle-container {
-      order: 0.5 !important;
+      order: -1 !important;
       display: flex !important;
       align-items: center;
       justify-content: center;
