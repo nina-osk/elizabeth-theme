@@ -109,17 +109,10 @@
   />
 
   <!-- Subtitle - Visible Section (TOP) -->
-  <div class="hero-subtitle-container" style="text-align: center; padding: 2rem 1rem; order: -1; background-color: rgba(175, 196, 174, 0.5); position: relative; z-index: 0;">
+  <div class="hero-subtitle-container" style="text-align: center; padding: 2rem 1rem; order: -1; background-color: transparent; position: relative; z-index: 0; width: 100%;">
     <p style="font-size: 1.25rem; font-weight: 400; color: #2d2d2d; margin: 0; font-style: italic;" class="hero-subtitle-main">
       <span class="hero-subtitle-animated">{{ section.settings.subtitle }}</span>
     </p>
-  </div>
-
-  <!-- Title Part 1 - Separate Container for Mobile Ordering -->
-  <div class="hero-title-container" style="text-align: center; margin-bottom: 3rem; order: -0.5;">
-    <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); width: 100%; margin: 0;">
-      <span style="display: block; font-size: 9rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
-    </h1>
   </div>
 
   <!-- Content WITHOUT GIF Background -->
@@ -138,6 +131,11 @@
           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none;"
           loading="lazy"
         />
+        
+        <!-- Title Part 1 - Inside Video Container as Overlay -->
+        <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1; margin: 0; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+          <span style="display: block; font-size: 9rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
+        </h1>
         
         <!-- Title Part 2 -->
         <h1 style="font-family: Georgia, serif; line-height: 1.15; color: #2d2d2d; position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1; margin: 0;">
@@ -546,7 +544,7 @@
   }
 
   .hero-subtitle-main {
-    opacity: 0;
+    opacity: 1;
   }
 
   .hero-subtitle-container {
@@ -589,6 +587,10 @@
   .hero-subtitle-container {
     order: -1;
     background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 
   .hero-subtitle-main {
@@ -597,10 +599,6 @@
 
   .hero-subtitle-animated {
     animation: textGenerate 1.5s ease-in-out 0.3s forwards;
-  }
-
-  .hero-title-container {
-    order: -0.5;
   }
 
   .hero-models-mobile-container {
@@ -618,9 +616,8 @@
       flex-direction: column;
     }
 
-    .hero-title-container {
-      order: -0.5 !important;
-      padding: 2rem 1rem !important;
+    .hero-title-part1 {
+      font-size: 5.5rem !important;
     }
 
     .hero-subtitle-container {
