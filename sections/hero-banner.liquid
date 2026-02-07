@@ -117,8 +117,12 @@
         {{ section.settings.subtitle }}
       </p>
       
-      <!-- Title Part 1 -->
-      <!-- Moved inside video container below -->
+      <!-- Title Part 1 - Separate Container for Mobile Ordering -->
+      <div class="hero-title-container" style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); width: 100%; margin: 0;">
+          <span style="display: block; font-size: 11rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
+        </h1>
+      </div>
 
       <!-- Title Part 2 WITH GIF Background -->
       <div class="hero-video-container" style="position: relative; margin-bottom: 5rem; margin-top: 3rem; width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; aspect-ratio: 3/2; border-radius: 24px; overflow: hidden;">
@@ -132,11 +136,6 @@
           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none;"
           loading="lazy"
         />
-        
-        <!-- Title Part 1 - Inside Video Container -->
-        <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; position: absolute; top: 15%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1; margin: 0;">
-          <span style="display: block; font-size: 10rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
-        </h1>
         
         <!-- Title Part 2 -->
         <h1 style="font-family: Georgia, serif; line-height: 1.15; color: #2d2d2d; position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1; margin: 0;">
@@ -581,7 +580,7 @@
       gap: 1rem;
       padding: 2rem 1rem;
       grid-template-columns: repeat(2, 1fr);
-      order: -1;
+      order: 0;
     }
 
     .hero-model-mobile {
@@ -599,8 +598,15 @@
       display: none !important;
     }
 
+    .hero-title-container {
+      order: -1 !important;
+      padding: 2rem 1rem !important;
+      background: linear-gradient(135deg, #AFC4AE 0%, rgba(175, 196, 174, 0.8) 100%);
+      margin: 0 !important;
+    }
+
     .hero-title-part1 {
-      font-size: 3rem !important;
+      font-size: 5.5rem !important;
     }
     
     .hero-title-part2 {
