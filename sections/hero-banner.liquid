@@ -108,21 +108,21 @@
     data-model-name="ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png"
   />
 
+  <!-- Title Part 1 - Separate Container for Mobile Ordering -->
+  <div class="hero-title-container" style="text-align: center; margin-bottom: 3rem; order: -1;">
+    <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); width: 100%; margin: 0;">
+      <span style="display: block; font-size: 9rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
+    </h1>
+  </div>
+
   <!-- Content WITHOUT GIF Background -->
-  <div style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; position: relative; z-index: 4; pointer-events: none;">
+  <div class="hero-content-wrapper" style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; position: relative; z-index: 4; pointer-events: none;">
     <div style="max-width: 900px; margin: 0 auto; text-align: center;">
       
       <!-- Subtitle -->
       <p style="font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; color: #2d2d2d; margin-bottom: 2rem; opacity: 0;" class="hero-subtitle">
         {{ section.settings.subtitle }}
       </p>
-      
-      <!-- Title Part 1 - Separate Container for Mobile Ordering -->
-      <div class="hero-title-container" style="text-align: center; margin-bottom: 3rem;">
-        <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); width: 100%; margin: 0;">
-          <span style="display: block; font-size: 11rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
-        </h1>
-      </div>
 
       <!-- Title Part 2 WITH GIF Background -->
       <div class="hero-video-container" style="position: relative; margin-bottom: 5rem; margin-top: 3rem; width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; aspect-ratio: 3/2; border-radius: 24px; overflow: hidden;">
@@ -575,12 +575,21 @@
       flex-direction: column;
     }
 
+    .hero-title-container {
+      order: -1 !important;
+      padding: 2rem 1rem !important;
+    }
+
     .hero-models-mobile-container {
       display: grid;
       gap: 1rem;
       padding: 2rem 1rem;
       grid-template-columns: repeat(2, 1fr);
-      order: 0;
+      order: 0 !important;
+    }
+
+    .hero-content-wrapper {
+      order: 1 !important;
     }
 
     .hero-model-mobile {
@@ -596,13 +605,6 @@
 
     .hero-model-desktop {
       display: none !important;
-    }
-
-    .hero-title-container {
-      order: -1 !important;
-      padding: 2rem 1rem !important;
-      background: linear-gradient(135deg, #AFC4AE 0%, rgba(175, 196, 174, 0.8) 100%);
-      margin: 0 !important;
     }
 
     .hero-title-part1 {
