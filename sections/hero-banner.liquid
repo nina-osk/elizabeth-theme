@@ -87,7 +87,7 @@
         
         <!-- Title Part 1 - Inside Video Container -->
         <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; position: absolute; top: 15%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1; margin: 0;">
-          <span style="display: block; font-size: 7rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
+          <span style="display: block; font-size: 9rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
         </h1>
         
         <!-- Title Part 2 -->
@@ -203,14 +203,14 @@
   /* Text Generate Animation */
   @keyframes textGenerate {
     0% {
-      max-width: 0;
+      clip-path: inset(0 100% 0 0);
       opacity: 0;
     }
-    5% {
+    1% {
       opacity: 1;
     }
     100% {
-      max-width: 100%;
+      clip-path: inset(0 0 0 0);
       opacity: 1;
     }
   }
@@ -486,9 +486,10 @@
   }
 
   .hero-title-part1 {
-    animation: textGenerate 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards, subtleSparkle 3s ease-in-out 0.5s infinite;
+    animation: textGenerate 2.5s ease-in-out 0.5s forwards;
     overflow: hidden;
     white-space: nowrap;
+    display: block;
   }
 
   .hero-subtitle {
