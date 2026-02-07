@@ -606,20 +606,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const cardData = {
     'ModeloCloseUp-Aretes_Oro_9K-_Vera.png': {
-      title: 'Aretes Oro 9K Vera',
-      description: 'Elegancia pura con nuestros aretes en oro 9K. Diseñados para brillar todos los días con un toque de sofisticación.'
+      title: '{{ section.settings.card1_title }}',
+      description: '{{ section.settings.card1_description }}'
     },
     'ModeloRight-Aretes_-OroBlanco9K-Aura.png': {
-      title: 'Aretes Oro Blanco Aura',
-      description: 'La perfección del oro blanco 9K en unos aretes que resaltan tu belleza natural con un brillo cautivador.'
+      title: '{{ section.settings.card2_title }}',
+      description: '{{ section.settings.card2_description }}'
     },
     'ModeloFront-Aretes_Oro_9K-_Vera.png': {
-      title: 'Aretes Oro 9K Vista Frontal',
-      description: 'Contempla la belleza detallada de nuestros aretes en oro 9K desde una perspectiva única.'
+      title: '{{ section.settings.card3_title }}',
+      description: '{{ section.settings.card3_description }}'
     },
     'ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png': {
-      title: 'Aretes Oro Blanco Aura Vista Cercana',
-      description: 'Descubre los detalles exquisitos de nuestros aretes en oro blanco 9K con laboratorio diamantes.'
+      title: '{{ section.settings.card4_title }}',
+      description: '{{ section.settings.card4_description }}'
     }
   };
 
@@ -729,6 +729,54 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "url",
       "id": "button2_link",
       "label": "Link Botón 2"
+    },
+    {
+      "type": "text",
+      "id": "card1_title",
+      "label": "Tarjeta 1 - Título",
+      "default": "Aretes Oro 9K Vera"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_description",
+      "label": "Tarjeta 1 - Descripción",
+      "default": "Elegancia pura con nuestros aretes en oro 9K. Diseñados para brillar todos los días con un toque de sofisticación."
+    },
+    {
+      "type": "text",
+      "id": "card2_title",
+      "label": "Tarjeta 2 - Título",
+      "default": "Aretes Oro Blanco Aura"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_description",
+      "label": "Tarjeta 2 - Descripción",
+      "default": "La perfección del oro blanco 9K en unos aretes que resaltan tu belleza natural con un brillo cautivador."
+    },
+    {
+      "type": "text",
+      "id": "card3_title",
+      "label": "Tarjeta 3 - Título",
+      "default": "Aretes Oro 9K Vista Frontal"
+    },
+    {
+      "type": "textarea",
+      "id": "card3_description",
+      "label": "Tarjeta 3 - Descripción",
+      "default": "Contempla la belleza detallada de nuestros aretes en oro 9K desde una perspectiva única."
+    },
+    {
+      "type": "text",
+      "id": "card4_title",
+      "label": "Tarjeta 4 - Título",
+      "default": "Aretes Oro Blanco Aura Vista Cercana"
+    },
+    {
+      "type": "textarea",
+      "id": "card4_description",
+      "label": "Tarjeta 4 - Descripción",
+      "default": "Descubre los detalles exquisitos de nuestros aretes en oro blanco 9K con laboratorio diamantes."
     }
   ],
   "presets": [
