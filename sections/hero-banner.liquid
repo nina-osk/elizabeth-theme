@@ -3,7 +3,7 @@
   <div class="card-overlay" id="cardOverlay">
     <button class="card-close-btn" id="cardCloseBtn">×</button>
     <div class="expanded-card-container" id="expandedCardContainer">
-      <img id="expandedCardImage" class="expanded-card-image" src="" alt="Expanded View">
+      <img id="expandedCardImage" class="expanded-card-image" src="" alt="Expanded View" width="600" height="400">
       <div class="expanded-card-content">
         <h3 id="expandedCardTitle">Joyería Exclusiva</h3>
         <p id="expandedCardDescription">Descubre la belleza y elegancia de nuestras joyas diseñadas especialmente para ti.</p>
@@ -20,6 +20,7 @@
     height="600"
     style="position: absolute; right: 15%; top: -100%; width: 300px; height: auto; opacity: 0.95; z-index: 1;"
     loading="lazy"
+    data-model-name="ModeloCloseUp-Aretes_Oro_9K-_Vera.png"
   />
   
   <!-- Left Model -->
@@ -31,6 +32,7 @@
     height="600"
     style="position: absolute; left: 15%; top: -100%; width: 300px; height: auto; opacity: 0.95; z-index: 1;"
     loading="lazy"
+    data-model-name="ModeloRight-Aretes_-OroBlanco9K-Aura.png"
   />
 
   <!-- Additional Model Images - Superimposed with Video -->
@@ -43,6 +45,7 @@
     height="400"
     style="position: absolute; left: 8%; top: 35%; width: 250px; height: auto; z-index: 2; pointer-events: auto;"
     loading="lazy"
+    data-model-name="ModeloFront-Aretes_Oro_9K-_Vera.png"
   />
   
   <!-- Right Model Below -->
@@ -54,6 +57,7 @@
     height="400"
     style="position: absolute; right: 8%; top: 40%; width: 250px; height: auto; z-index: 3; pointer-events: auto;"
     loading="lazy"
+    data-model-name="ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png"
   />
 
   <!-- Content WITHOUT GIF Background -->
@@ -625,7 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Obtener la URL de la imagen
       const imgSrc = this.src;
-      const imgName = imgSrc.split('/').pop().split('?')[0];
+      const imgName = this.getAttribute('data-model-name') || imgSrc.split('/').pop().split('?')[0];
       
       // Obtener datos de la tarjeta
       const data = cardData[imgName] || {
