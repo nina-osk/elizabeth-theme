@@ -1,4 +1,15 @@
 <div style="width: 100%; background-color: #AFC4AE; position: relative; overflow: visible;">
+  <!-- Card Overlay Modal -->
+  <div class="card-overlay" id="cardOverlay">
+    <button class="card-close-btn" id="cardCloseBtn">×</button>
+    <div class="expanded-card-container" id="expandedCardContainer">
+      <img id="expandedCardImage" class="expanded-card-image" src="" alt="Expanded View">
+      <div class="expanded-card-content">
+        <h3 id="expandedCardTitle">Joyería Exclusiva</h3>
+        <p id="expandedCardDescription">Descubre la belleza y elegancia de nuestras joyas diseñadas especialmente para ti.</p>
+      </div>
+    </div>
+  </div>
   <!-- Background Model Images -->
   <!-- Right Model -->
   <img 
@@ -72,7 +83,7 @@
         
         <!-- Title Part 1 - Inside Video Container -->
         <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; position: absolute; top: 15%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1; margin: 0;">
-          <span style="display: block; font-size: 5.5rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
+          <span style="display: block; font-size: 7rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
         </h1>
         
         <!-- Title Part 2 -->
@@ -188,14 +199,14 @@
   /* Text Generate Animation */
   @keyframes textGenerate {
     0% {
-      clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+      max-width: 0;
       opacity: 0;
     }
     5% {
       opacity: 1;
     }
     100% {
-      clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+      max-width: 100%;
       opacity: 1;
     }
   }
@@ -300,28 +311,111 @@
     cursor: pointer;
   }
 
-  /* Rotation classes for side models - REMOVED since rotation now in animations */
-  .hero-model-right.hero-card {
-    /* Rotation handled in slideDownRight keyframes */
-  }
-
-  .hero-model-left.hero-card {
-    /* Rotation handled in slideDownLeft keyframes */
-  }
-
-  .hero-model-below-right.hero-card {
-    animation: slideUpRight 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
-  }
-
-  .hero-model-below-left.hero-card {
-    animation: slideUpLeft 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
-  }
-
-  /* Hover effects - Michael Andreuzza style */
+  /* Expandable Card Styles */
   .hero-card:hover {
     transform: rotate(0deg) translateY(-50px) scale(1.6);
     filter: drop-shadow(0 50px 100px rgba(0, 0, 0, 0.5)) !important;
     z-index: 100 !important;
+  }
+
+  /* Modal Overlay */
+  .card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeInOverlay 0.3s ease-out;
+    backdrop-filter: blur(4px);
+  }
+
+  .card-overlay.active {
+    display: flex;
+  }
+
+  @keyframes fadeInOverlay {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .expanded-card-container {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    animation: expandCard 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes expandCard {
+    from {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .expanded-card-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+
+  .expanded-card-content {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .expanded-card-content h3 {
+    font-size: 1.5rem;
+    color: #2d2d2d;
+    margin: 0 0 1rem 0;
+    font-family: Georgia, serif;
+    font-style: italic;
+  }
+
+  .expanded-card-content p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 1001;
+  }
+
+  .card-close-btn:hover {
+    background: white;
+    transform: rotate(90deg);
   }
   @keyframes slideDownRight {
     from {
@@ -377,6 +471,14 @@
 
   .hero-model-left {
     animation: slideDownLeft 1.5s ease-out 0.3s forwards;
+  }
+
+  .hero-model-below-right.hero-card {
+    animation: slideUpRight 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+  }
+
+  .hero-model-below-left.hero-card {
+    animation: slideUpLeft 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
   }
 
   .hero-title-part1 {
@@ -491,6 +593,78 @@ document.addEventListener('DOMContentLoaded', function() {
       gifImage.classList.add('visible');
     }, 300);
   }
+
+  // Expandable Card On Click Functionality
+  const cardOverlay = document.getElementById('cardOverlay');
+  const cardCloseBtn = document.getElementById('cardCloseBtn');
+  const cards = document.querySelectorAll('.hero-card');
+
+  const cardData = {
+    'ModeloCloseUp-Aretes_Oro_9K-_Vera.png': {
+      title: 'Aretes Oro 9K Vera',
+      description: 'Elegancia pura con nuestros aretes en oro 9K. Diseñados para brillar todos los días con un toque de sofisticación.'
+    },
+    'ModeloRight-Aretes_-OroBlanco9K-Aura.png': {
+      title: 'Aretes Oro Blanco Aura',
+      description: 'La perfección del oro blanco 9K en unos aretes que resaltan tu belleza natural con un brillo cautivador.'
+    },
+    'ModeloFront-Aretes_Oro_9K-_Vera.png': {
+      title: 'Aretes Oro 9K Vista Frontal',
+      description: 'Contempla la belleza detallada de nuestros aretes en oro 9K desde una perspectiva única.'
+    },
+    'ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png': {
+      title: 'Aretes Oro Blanco Aura Vista Cercana',
+      description: 'Descubre los detalles exquisitos de nuestros aretes en oro blanco 9K con laboratorio diamantes.'
+    }
+  };
+
+  cards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      // Prevenir que se propague el evento
+      e.stopPropagation();
+      
+      // Obtener la URL de la imagen
+      const imgSrc = this.src;
+      const imgName = imgSrc.split('/').pop().split('?')[0];
+      
+      // Obtener datos de la tarjeta
+      const data = cardData[imgName] || {
+        title: 'Joyería Exclusiva',
+        description: 'Descubre la belleza y elegancia de nuestras joyas diseñadas especialmente para ti.'
+      };
+      
+      // Actualizar contenido del modal
+      document.getElementById('expandedCardImage').src = imgSrc;
+      document.getElementById('expandedCardTitle').textContent = data.title;
+      document.getElementById('expandedCardDescription').textContent = data.description;
+      
+      // Mostrar overlay
+      cardOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Cerrar modal
+  function closeModal() {
+    cardOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  cardCloseBtn.addEventListener('click', closeModal);
+  
+  // Cerrar modal cuando se haga clic en el overlay
+  cardOverlay.addEventListener('click', function(e) {
+    if (e.target === cardOverlay) {
+      closeModal();
+    }
+  });
+
+  // Cerrar con tecla ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && cardOverlay.classList.contains('active')) {
+      closeModal();
+    }
+  });
 });
 </script>
 
