@@ -8,13 +8,10 @@
                 muted
                 loop
                 playsinline
-                preload="auto"
+                preload="metadata"
                 id="background-video"
-                webkit-playsinline
-                x-webkit-airplay="allow"
                 {% if section.settings.video_poster %}poster="{{ section.settings.video_poster | image_url: width: 1920 }}"{% endif %}
-                style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;"
-                onloadedmetadata="this.muted = true; this.play();">
+                style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;">
                 <source src="{{ section.settings.video_file }}" type="video/mp4">
                 Tu navegador no soporta video HTML5.
             </video>
@@ -82,100 +79,32 @@
 </div>
 
 <script>
-// Debug y autoplay del video
+// Inicializar video con política de autoplay mejorada
 (function() {
-    console.log('=== VIDEO DEBUG START ===');
-    console.log('Video file setting:', '{{ section.settings.video_file }}');
-    console.log('Video URL setting:', '{{ section.settings.video_url }}');
+    const videoElement = document.querySelector('#background-video');
     
-    function forceVideoPlay() {
-        const videoElement = document.querySelector('#background-video');
-        const iframeElement = document.querySelector('.video-with-text iframe');
+    if (videoElement) {
+        // Asegurar que está muteado (requerido para autoplay)
+        videoElement.muted = true;
+        videoElement.defaultMuted = true;
         
-        console.log('Video element found:', !!videoElement);
-        console.log('Iframe element found:', !!iframeElement);
+        // Intentar reproducir cuando el video esté listo
+        const playVideo = () => {
+            const playPromise = videoElement.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Autoplay fue prevenido por el navegador:', error);
+                });
+            }
+        };
         
-        if (videoElement) {
-            const source = videoElement.querySelector('source');
-            console.log('Video source:', source ? source.src : 'No source');
-            
-            // Forzar mute y play múltiples veces
-            videoElement.muted = true;
-            videoElement.volume = 0;
-            videoElement.defaultMuted = true;
-            
-            videoElement.addEventListener('loadeddata', function() {
-                console.log('✅ Video loaded successfully');
-                videoElement.muted = true;
-                videoElement.play().then(function() {
-                    console.log('✅ Video playing after loadeddata');
-                }).catch(function(error) {
-                    console.error('❌ Play failed after loadeddata:', error);
-                });
-            });
-            
-            videoElement.addEventListener('canplay', function() {
-                console.log('Video can play');
-                videoElement.muted = true;
-                videoElement.play().catch(function(error) {
-                    console.error('❌ Play failed on canplay:', error);
-                });
-            });
-            
-            videoElement.addEventListener('error', function(e) {
-                console.error('❌ Error loading video:', e);
-                console.error('Video element state:', {
-                    networkState: videoElement.networkState,
-                    readyState: videoElement.readyState,
-                    error: videoElement.error
-                });
-            });
-            
-            // Intentar reproducir inmediatamente
-            videoElement.play().then(function() {
-                console.log('✅ Video playing immediately');
-            }).catch(function(error) {
-                console.error('❌ Immediate play prevented:', error);
-                
-                // Si falla, intentar después de un pequeño delay
-                setTimeout(function() {
-                    videoElement.muted = true;
-                    videoElement.play().then(function() {
-                        console.log('✅ Video playing after delay');
-                    }).catch(function(err) {
-                        console.error('❌ Delayed play failed:', err);
-                    });
-                }, 100);
-            });
-            
-            // Forzar reproducción en interacción del usuario
-            document.addEventListener('click', function playOnClick() {
-                videoElement.muted = true;
-                videoElement.play().then(function() {
-                    console.log('✅ Video playing after user interaction');
-                    document.removeEventListener('click', playOnClick);
-                }).catch(function(error) {
-                    console.error('❌ Play on click failed:', error);
-                });
-            }, { once: true });
+        // Intentar justo después de cargar
+        if (videoElement.readyState >= 3) {
+            playVideo();
         }
         
-        if (iframeElement) {
-            console.log('Iframe src:', iframeElement.src);
-        }
-        
-        if (!videoElement && !iframeElement) {
-            console.warn('⚠️ No video or iframe element found. Check settings.');
-        }
+        videoElement.addEventListener('canplay', playVideo, { once: true });
     }
-    
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', forceVideoPlay);
-    } else {
-        forceVideoPlay();
-    }
-    
-    console.log('=== VIDEO DEBUG END ===');
 })();
 </script>
 
