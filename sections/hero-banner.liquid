@@ -185,6 +185,18 @@
     }
   }
 
+  /* Text Reveal Animation */
+  @keyframes textReveal {
+    0% {
+      clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+      opacity: 0;
+    }
+    100% {
+      clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+      opacity: 1;
+    }
+  }
+
   /* Typewriter Animation with Sprinkles */
   @keyframes typewriter {
     0% {
@@ -340,10 +352,9 @@
   }
 
   .hero-title-part1 {
-    animation: typewriter 2.5s steps(20, end) 0.5s forwards, sprinkles 2.5s ease-in-out 0.5s forwards;
+    animation: textReveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards, sprinkles 2.5s ease-in-out 0.5s forwards;
     overflow: hidden;
     white-space: nowrap;
-    max-width: 0;
   }
 
   .hero-subtitle {
@@ -351,7 +362,7 @@
   }
 
   .hero-title-part2 {
-    animation: fadeIn 1s ease-out 0.8s forwards;
+    animation: textReveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) 0.8s forwards;
   }
 
   .hero-description {
