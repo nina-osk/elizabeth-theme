@@ -623,17 +623,23 @@
       object-fit: cover !important;
     }
 
-    .hero-model-right {
+    /* Models Mobile - Should be Visible */
+    .hero-model-mobile {
+      display: block !important;
+    }
+
+    /* Hide Desktop Models on Mobile */
+    .hero-model-desktop.hero-model-right {
       display: none !important;
     }
 
-    .hero-model-left {
+    .hero-model-desktop.hero-model-left {
       display: none !important;
     }
 
-    /* Below models responsive */
-    .hero-model-below-left,
-    .hero-model-below-right {
+    /* Below models responsive - only desktop */
+    .hero-model-desktop.hero-model-below-left,
+    .hero-model-desktop.hero-model-below-right {
       display: none !important;
       width: 150px !important;
       top: 35% !important;
@@ -641,7 +647,7 @@
       right: auto !important;
     }
 
-    .hero-model-below-right {
+    .hero-model-desktop.hero-model-below-right {
       left: auto !important;
       right: 5% !important;
     }
