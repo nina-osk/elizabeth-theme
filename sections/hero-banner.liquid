@@ -1,4 +1,4 @@
-<div style="width: 100%; background-color: #AFC4AE; position: relative; overflow: visible;">
+<div style="width: 100%; background-color: #AFC4AE; position: relative; overflow: visible;" class="hero-wrapper">
   <!-- Card Overlay Modal -->
   <div class="card-overlay" id="cardOverlay">
     <button class="card-close-btn" id="cardCloseBtn">×</button>
@@ -10,12 +10,60 @@
       </div>
     </div>
   </div>
-  <!-- Background Model Images -->
+  
+  <!-- Models Container for Mobile -->
+  <div class="hero-models-mobile-container">
+    <!-- Right Model -->
+    <img 
+      src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_Oro_9K-_Vera.png?v=1769442279" 
+      alt="Model Right" 
+      class="hero-model-right hero-card hero-model-mobile"
+      width="400"
+      height="600"
+      loading="lazy"
+      data-model-name="ModeloCloseUp-Aretes_Oro_9K-_Vera.png"
+    />
+    
+    <!-- Left Model -->
+    <img 
+      src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloRight-Aretes_-OroBlanco9K-Aura.png?v=1770041849" 
+      alt="Model Left" 
+      class="hero-model-left hero-card hero-model-mobile"
+      width="400"
+      height="600"
+      loading="lazy"
+      data-model-name="ModeloRight-Aretes_-OroBlanco9K-Aura.png"
+    />
+
+    <!-- Left Model Below -->
+    <img 
+      src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloFront-Aretes_Oro_9K-_Vera.png?v=1770041814" 
+      alt="Model Front" 
+      class="hero-model-below-left hero-card hero-model-mobile"
+      width="250"
+      height="400"
+      loading="lazy"
+      data-model-name="ModeloFront-Aretes_Oro_9K-_Vera.png"
+    />
+    
+    <!-- Right Model Below -->
+    <img 
+      src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png?v=1770041849" 
+      alt="Model Close Up" 
+      class="hero-model-below-right hero-card hero-model-mobile"
+      width="250"
+      height="400"
+      loading="lazy"
+      data-model-name="ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png"
+    />
+  </div>
+
+  <!-- Background Model Images for Desktop -->
   <!-- Right Model -->
   <img 
     src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_Oro_9K-_Vera.png?v=1769442279" 
     alt="Model Right" 
-    class="hero-model-right hero-card"
+    class="hero-model-right hero-card hero-model-desktop"
     width="400"
     height="600"
     style="position: absolute; right: 15%; top: -100%; width: 300px; height: auto; opacity: 0.95; z-index: 1;"
@@ -27,7 +75,7 @@
   <img 
     src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloRight-Aretes_-OroBlanco9K-Aura.png?v=1770041849" 
     alt="Model Left" 
-    class="hero-model-left hero-card"
+    class="hero-model-left hero-card hero-model-desktop"
     width="400"
     height="600"
     style="position: absolute; left: 15%; top: -100%; width: 300px; height: auto; opacity: 0.95; z-index: 1;"
@@ -40,7 +88,7 @@
   <img 
     src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloFront-Aretes_Oro_9K-_Vera.png?v=1770041814" 
     alt="Model Front" 
-    class="hero-model-below-left hero-card"
+    class="hero-model-below-left hero-card hero-model-desktop"
     width="250"
     height="400"
     style="position: absolute; left: 8%; top: 35%; width: 250px; height: auto; z-index: 2; pointer-events: auto;"
@@ -52,7 +100,7 @@
   <img 
     src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png?v=1770041849" 
     alt="Model Close Up" 
-    class="hero-model-below-right hero-card"
+    class="hero-model-below-right hero-card hero-model-desktop"
     width="250"
     height="400"
     style="position: absolute; right: 8%; top: 40%; width: 250px; height: auto; z-index: 3; pointer-events: auto;"
@@ -514,6 +562,34 @@
 
   /* Responsive adjustments */
   @media (max-width: 768px) {
+    .hero-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-models-mobile-container {
+      display: grid;
+      gap: 1rem;
+      padding: 2rem 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      order: -1;
+    }
+
+    .hero-model-mobile {
+      position: static !important;
+      width: 100% !important;
+      height: auto !important;
+      opacity: 1 !important;
+      z-index: auto !important;
+      filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.1)) !important;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .hero-model-desktop {
+      display: none !important;
+    }
+
     .hero-title-part1 {
       font-size: 4.5rem !important;
     }
@@ -537,6 +613,8 @@
       height: auto !important;
       aspect-ratio: 4/5 !important;
       margin-bottom: 2rem !important;
+      margin-top: 2rem !important;
+      order: 1;
     }
 
     .hero-gif-background {
@@ -584,6 +662,15 @@
 
   .hero-gif-background.visible {
     opacity: 1;
+  }
+
+  /* Models Mobile Container */
+  .hero-models-mobile-container {
+    display: none;
+  }
+
+  .hero-model-desktop {
+    display: block;
   }
 </style>
 
