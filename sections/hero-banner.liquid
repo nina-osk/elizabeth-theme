@@ -109,9 +109,9 @@
   />
 
   <!-- Subtitle - Visible Section (TOP) -->
-  <div class="hero-subtitle-container" style="text-align: center; padding: 2rem 1rem; order: -1; background-color: rgba(175, 196, 174, 0.5);">
+  <div class="hero-subtitle-container" style="text-align: center; padding: 2rem 1rem; order: -1; background-color: rgba(175, 196, 174, 0.5); position: relative; z-index: 0;">
     <p style="font-size: 1.25rem; font-weight: 400; color: #2d2d2d; margin: 0; font-style: italic;" class="hero-subtitle-main">
-      {{ section.settings.subtitle }}
+      <span class="hero-subtitle-animated">{{ section.settings.subtitle }}</span>
     </p>
   </div>
 
@@ -553,6 +553,12 @@
     display: none;
   }
 
+  .hero-subtitle-animated {
+    animation: textGenerate 1.5s ease-in-out 0.3s forwards;
+    overflow: hidden;
+    display: inline-block;
+  }
+
   .hero-title-part2 {
     animation: textGenerate 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards, subtleSparkle 3s ease-in-out 0.8s infinite;
   }
@@ -580,6 +586,15 @@
 
   .hero-subtitle-container {
     order: -1;
+    background-color: transparent;
+  }
+
+  .hero-subtitle-main {
+    display: inline-block;
+  }
+
+  .hero-subtitle-animated {
+    animation: textGenerate 1.5s ease-in-out 0.3s forwards;
   }
 
   .hero-title-container {
@@ -611,11 +626,14 @@
       display: flex !important;
       align-items: center;
       justify-content: center;
-      animation: fadeIn 0.8s ease-out 0.5s forwards;
     }
 
     .hero-subtitle-main {
       opacity: 1 !important;
+    }
+
+    .hero-subtitle-animated {
+      animation: textGenerate 1.5s ease-in-out 0.3s forwards;
     }
 
     .hero-models-mobile-container {
