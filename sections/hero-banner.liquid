@@ -72,7 +72,7 @@
         
         <!-- Title Part 1 - Inside Video Container -->
         <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; position: absolute; top: 15%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1; margin: 0;">
-          <span style="display: block; font-size: 4rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
+          <span style="display: block; font-size: 5.5rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
         </h1>
         
         <!-- Title Part 2 -->
@@ -185,15 +185,43 @@
     }
   }
 
-  /* Text Reveal Animation */
-  @keyframes textReveal {
+  /* Text Generate Animation */
+  @keyframes textGenerate {
     0% {
       clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
       opacity: 0;
     }
+    5% {
+      opacity: 1;
+    }
     100% {
       clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
       opacity: 1;
+    }
+  }
+
+  /* Subtle Sparkle Effect */
+  @keyframes subtleSparkle {
+    0%, 100% {
+      text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0),
+        0 0 20px rgba(212, 165, 116, 0);
+    }
+    25% {
+      text-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.3),
+        0 0 25px rgba(212, 165, 116, 0.2);
+    }
+    50% {
+      text-shadow: 
+        0 0 25px rgba(255, 255, 255, 0.5),
+        0 0 40px rgba(212, 165, 116, 0.3),
+        -2px 2px 8px rgba(212, 165, 116, 0.2);
+    }
+    75% {
+      text-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.4),
+        0 0 30px rgba(212, 165, 116, 0.2);
     }
   }
 
@@ -352,7 +380,7 @@
   }
 
   .hero-title-part1 {
-    animation: textReveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards, sprinkles 2.5s ease-in-out 0.5s forwards;
+    animation: textGenerate 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards, subtleSparkle 3s ease-in-out 0.5s infinite;
     overflow: hidden;
     white-space: nowrap;
   }
