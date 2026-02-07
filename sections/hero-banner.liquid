@@ -115,14 +115,16 @@
     </h1>
   </div>
 
+  <!-- Subtitle - Visible Section (between cards and video) -->
+  <div class="hero-subtitle-container" style="text-align: center; padding: 2rem 1rem; order: 0.5; background-color: rgba(175, 196, 174, 0.5);">
+    <p style="font-size: 1.25rem; font-weight: 400; color: #2d2d2d; margin: 0; font-style: italic;" class="hero-subtitle-main">
+      {{ section.settings.subtitle }}
+    </p>
+  </div>
+
   <!-- Content WITHOUT GIF Background -->
   <div class="hero-content-wrapper" style="min-height: 85vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; position: relative; z-index: 4; pointer-events: none;">
     <div style="max-width: 900px; margin: 0 auto; text-align: center;">
-      
-      <!-- Subtitle -->
-      <p style="font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; color: #2d2d2d; margin-bottom: 2rem; opacity: 0;" class="hero-subtitle">
-        {{ section.settings.subtitle }}
-      </p>
 
       <!-- Title Part 2 WITH GIF Background -->
       <div class="hero-video-container" style="position: relative; margin-bottom: 5rem; margin-top: 3rem; width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; aspect-ratio: 3/2; border-radius: 24px; overflow: hidden;">
@@ -543,6 +545,14 @@
     animation: fadeIn 0.8s ease-out 0.2s forwards;
   }
 
+  .hero-subtitle-main {
+    opacity: 0;
+  }
+
+  .hero-subtitle-container {
+    display: none;
+  }
+
   .hero-title-part2 {
     animation: textGenerate 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards, subtleSparkle 3s ease-in-out 0.8s infinite;
   }
@@ -578,6 +588,18 @@
     .hero-title-container {
       order: -1 !important;
       padding: 2rem 1rem !important;
+    }
+
+    .hero-subtitle-container {
+      order: 0.5 !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.8s ease-out 0.5s forwards;
+    }
+
+    .hero-subtitle-main {
+      opacity: 1 !important;
     }
 
     .hero-models-mobile-container {
@@ -782,19 +804,19 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "text",
       "id": "subtitle",
       "label": "Subtítulo",
-      "default": "JOYERÍA PANAMEÑA • ORO 9K • DIAMANTES DE LABORATORIO"
+      "default": "Brilla todos los días"
     },
     {
       "type": "text",
       "id": "title_part1",
-      "label": "Título - Parte 1",
-      "default": "Brilla todos los días"
+      "label": "Título - Parte 1 (Grande)",
+      "default": "Tu eres"
     },
     {
       "type": "text",
       "id": "title_part2",
       "label": "Título - Parte 2 (en dorado itálico)",
-      "default": "ocasión especial"
+      "default": "la ocasión especial"
     },
     {
       "type": "textarea",
