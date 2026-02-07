@@ -13,14 +13,22 @@
       "type": "hero-banner",
       "settings": {
         "subtitle": "Brilla todo los días",
-        "title_part1": "Tu eres la",
-        "title_part2": "ocasión especial",
+        "title_part1": "Tu eres",
+        "title_part2": "la ocasión especial",
         "description": "Creemos que el lujo no está en la ocasión, sino en quien la vive.",
         "description_2": "Joyas diseñadas para acompañarte todos los días.",
         "button1_text": "EXPLORAR COLECCIONES",
         "button1_link": "shopify://collections",
         "button2_text": "NUESTRA HISTORIA",
-        "button2_link": "shopify://pages/nuestra-historia"
+        "button2_link": "shopify://pages/nuestra-historia",
+        "card1_title": "Aretes Oro 9K Vera",
+        "card1_description": "Elegancia pura con nuestros aretes en oro 9K. Diseñados para brillar todos los días con un toque de sofisticación.",
+        "card2_title": "Aretes Oro Blanco Aura",
+        "card2_description": "La perfección del oro blanco 9K en unos aretes que resaltan tu belleza natural con un brillo cautivador.",
+        "card3_title": "Aretes Oro 9K Vista Frontal",
+        "card3_description": "Contempla la belleza detallada de nuestros aretes en oro 9K desde una perspectiva única.",
+        "card4_title": "Aretes Oro Blanco Aura Vista Cercana",
+        "card4_description": "Descubre los detalles exquisitos de nuestros aretes en oro blanco 9K con laboratorio diamantes."
       }
     },
     "categories-showcase": {
