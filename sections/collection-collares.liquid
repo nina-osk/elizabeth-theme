@@ -111,9 +111,9 @@ function filterProducts(filterType) {
         if (filterType === 'all') {
             shouldShow = true;
         } else {
-            // Dividir tags por coma y buscar coincidencia exacta
-            const tagArray = tags.split(',').map(tag => tag.trim());
-            shouldShow = tagArray.includes(filterType);
+            // Dividir tags por coma y buscar coincidencia exacta (insensible a mayúsculas)
+            const tagArray = tags.split(',').map(tag => tag.trim().toLowerCase());
+            shouldShow = tagArray.includes(filterType.toLowerCase());
         }
         
         item.style.display = shouldShow ? 'block' : 'none';
