@@ -3,8 +3,8 @@
   Con diseño responsive optimizado para móvil y desktop
 {% endcomment %}
 
-{% assign target_tag = section.settings.filter_tag | default: "Collares" %}
-{% assign target_tag_lower = target_tag | downcase %}
+{% assign target_collection = collections[section.settings.collection_handle] %}
+{% assign all_products = target_collection.products %}
 
 <!-- Hero Section Responsive -->
 <div class="collares-hero">
@@ -43,37 +43,15 @@
         </div>
 
         <!-- Grid de productos responsive -->
-        {% assign collares_count = 0 %}
-        {% for product in all_products %}
-            {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
-            {% for tag in product_tags_lower %}
-                {% assign tag_trimmed = tag | strip %}
-                {% if tag_trimmed == target_tag_lower %}
-                    {% assign collares_count = collares_count | plus: 1 %}
-                    {% break %}
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
+        {% assign collares_count = all_products.size %}
         
         {% if collares_count > 0 %}
             <div class="collares-grid" id="products-grid">
                 {% for product in all_products %}
-                    {% assign has_tag = false %}
-                    {% assign product_tags_lower = product.tags | join: ',' | downcase | split: ',' %}
-                    {% for tag in product_tags_lower %}
-                        {% assign tag_trimmed = tag | strip %}
-                        {% if tag_trimmed == target_tag_lower %}
-                            {% assign has_tag = true %}
-                            {% break %}
-                        {% endif %}
-                    {% endfor %}
-                    
-                    {% if has_tag %}
-                        {% assign product_tags = product.tags | join: ',' | downcase %}
-                        <div class="product-item" data-tags="{{ product_tags }}">
-                            {% render 'product-card', product: product, collection_handle: collection.handle %}
-                        </div>
-                    {% endif %}
+                    {% assign product_tags = product.tags | join: ',' | downcase %}
+                    <div class="product-item" data-tags="{{ product_tags }}">
+                        {% render 'product-card', product: product, collection_handle: target_collection.handle %}
+                    </div>
                 {% endfor %}
             </div>
         {% else %}
@@ -82,8 +60,8 @@
                 <svg class="collares-empty__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
                 </svg>
-                <h2 class="collares-empty__title">No hay productos con el tag "{{ target_tag }}"</h2>
-                <p class="collares-empty__text">No se encontraron productos con esta etiqueta.</p>
+                <h2 class="collares-empty__title">No hay collares disponibles</h2>
+                <p class="collares-empty__text">Por favor, intenta más tarde.</p>
                 <a href="{{ routes.all_products_url }}" class="collares-empty__button">Ver todos los productos</a>
             </div>
         {% endif %}
@@ -527,15 +505,15 @@ body {
 
 {% schema %}
 {
-    "name": "Collares por Tag",
+    "name": "Collares",
     "class": "shopify-section--collares",
     "settings": [
         {
             "type": "text",
-            "id": "filter_tag",
-            "label": "Tag para filtrar",
-            "default": "Collares",
-            "info": "Muestra solo productos que tengan este tag. Asegúrate de etiquetar tus productos con 'Collares'"
+            "id": "collection_handle",
+            "label": "Handle de la colección",
+            "default": "collares",
+            "info": "Ejemplo: 'collares' para mostrar productos de esa colección"
         },
         {
             "type": "text",
@@ -551,7 +529,7 @@ body {
         },
         {
             "type": "paragraph",
-            "content": "✅ Esta sección muestra TODOS los productos filtrados por el tag 'Collares'. Los botones de filtro (18K, 9K) funcionan en el frontend filtrando por subtags adicionales. Etiqueta tus productos con: 'Collares' y opcionalmente '18k' o '9k'."
+            "content": "✅ Los botones de filtro (18K, 9K, Dijes) funcionan filtrando los productos por sus tags. Asegúrate de que los productos tengan los tags: '18k', '9k', o 'dije' para que el filtrado funcione correctamente."
         }
     ]
 }
