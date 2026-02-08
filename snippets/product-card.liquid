@@ -17,7 +17,7 @@
         </a>
         
         <!-- Actions Bar at Bottom of Image -->
-        <div class="absolute bottom-0 left-0 right-0 bg-white/95 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div class="absolute bottom-4 left-0 right-0 bg-white/95 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div class="flex items-center justify-between gap-2">
                 <!-- Compare/Size Icon -->
                 <button class="flex items-center justify-center w-10 h-10 hover:bg-neutral-100 rounded transition-colors" aria-label="Compare sizes">
@@ -87,13 +87,16 @@
 
 /* Mobile - Mostrar siempre el botón en mobile */
 @media (max-width: 767px) {
-    .product-image-container .absolute.bottom-0 {
+    .product-image-container .absolute.bottom-4 {
         opacity: 1 !important;
-        background: rgba(255, 255, 255, 0.98) !important;
+        background: transparent !important;
+        bottom: 1rem !important;
+        left: 0 !important;
+        right: 0 !important;
+        padding: 0 !important;
     }
     
-    .product-image-container .absolute.bottom-0.left-0 {
-        position: static !important;
+    .product-image-container .absolute.bottom-4 .flex {
         display: flex !important;
         justify-content: center !important;
         padding: 0.75rem !important;
@@ -110,6 +113,11 @@
     
     .product-image-container button[type="submit"]:hover {
         background: linear-gradient(135deg, #9BB49A 0%, #8BA08B 100%) !important;
+    }
+    
+    /* Ocultar botones que no son submit */
+    .product-image-container .absolute.bottom-4 button:not([type="submit"]) {
+        display: none !important;
     }
 }
 
