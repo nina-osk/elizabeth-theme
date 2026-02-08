@@ -1,11 +1,3 @@
-{% liquid 
-    if section.settings.footer_menu.links == blank
-        assign footer_menu_linklist = linklists[section.settings.footer_menu].links
-    else
-        assign footer_menu_linklist = section.settings.footer_menu.links
-    endif
-%}
-
 <footer class="footer-main">
   <div class="footer-container">
     
@@ -66,7 +58,7 @@
             <a href="/pages/costo-del-envio" class="footer-link">
               Costo de Envío
             </a>
-            <a href="/pages/politica-devoluciones" class="footer-link">
+            <a href="/pages/page-politica-devoluciones" class="footer-link">
               Política de Devoluciones y Cambios
             </a>
             <a href="https://wa.me/50768697555" target="_blank" class="footer-link">
@@ -412,13 +404,6 @@
       "id": "menu_title",
       "label": "Título del menú",
       "default": "MUNIER"
-    },
-    {
-      "type": "link_list",
-      "id": "footer_menu",
-      "label": "Menú del Footer",
-      "default": "footer",
-      "info": "Menú para la columna derecha del footer"
     }
   ]
 }
