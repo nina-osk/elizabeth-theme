@@ -85,7 +85,7 @@
     min-height: 350px;
 }
 
-/* Mobile - Botón visible y aparece mejor on hover */
+/* Mobile - Botón aparece solo on hover */
 @media (max-width: 767px) {
     .product-image-container .absolute.bottom-4 {
         background: transparent !important;
@@ -93,8 +93,14 @@
         left: 0 !important;
         right: 0 !important;
         padding: 0 !important;
-        opacity: 1 !important;
+        opacity: 0 !important;
         transition: opacity 0.3s ease-in-out !important;
+        pointer-events: none !important;
+    }
+    
+    .product-image-container:hover .absolute.bottom-4 {
+        opacity: 1 !important;
+        pointer-events: auto !important;
     }
     
     .product-image-container .absolute.bottom-4 .flex {
