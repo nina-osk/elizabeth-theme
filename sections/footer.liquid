@@ -45,10 +45,10 @@
             <a href="{{ routes.collections_url }}" class="footer-link">
               Colecciones
             </a>
-            <a href="{{ routes.collections_url }}/aretes" class="footer-link">
+            <a href="/pages/aretes" class="footer-link">
               Aretes
             </a>
-            <a href="{{ routes.collections_url }}/collares" class="footer-link">
+            <a href="/pages/collares" class="footer-link">
               Collares
             </a>
           </nav>
@@ -66,29 +66,19 @@
                   {{ link.title }}
                 </a>
               {% endfor %}
-              <a href="https://wa.me/50768697555" target="_blank" class="footer-link">
-                WhatsApp Business
-              </a>
-            {% else %}
-              <a href="{{ routes.search_url }}" class="footer-link">
-                Buscar
-              </a>
-              <a href="{{ routes.account_url }}" class="footer-link">
-                Mi Cuenta
-              </a>
-              <a href="/pages/contact" class="footer-link">
-                Contacto
-              </a>
-              <a href="/pages/costo-del-envio" class="footer-link">
-                Costo de Envío
-              </a>
-              <a href="/pages/politica-devoluciones" class="footer-link">
-                Política de Devoluciones y Cambios
-              </a>
-              <a href="https://wa.me/50768697555" target="_blank" class="footer-link">
-                WhatsApp Business
-              </a>
             {% endif %}
+            <a href="/pages/contact" class="footer-link">
+              Contacto
+            </a>
+            <a href="/pages/costo-del-envio" class="footer-link">
+              Costo de Envío
+            </a>
+            <a href="/pages/politica-devoluciones" class="footer-link">
+              Política de Devoluciones y Cambios
+            </a>
+            <a href="https://wa.me/50768697555" target="_blank" class="footer-link">
+              WhatsApp Business
+            </a>
           </nav>
         </div>
 
