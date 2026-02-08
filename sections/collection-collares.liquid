@@ -3,7 +3,8 @@
   Con diseño responsive optimizado para móvil y desktop
 {% endcomment %}
 
-{% assign all_products = collections.all.products %}
+{% assign target_collection = collections[section.settings.collection_handle] %}
+{% assign all_products = target_collection.products %}
 
 <!-- Hero Section Responsive -->
 <div class="collares-hero">
@@ -40,23 +41,15 @@
         </div>
 
         <!-- Grid de productos responsive -->
-        {% assign collares_count = 0 %}
-        {% for product in all_products %}
-            {% if product.tags | join: ',' | downcase contains "collares" %}
-                {% assign collares_count = collares_count | plus: 1 %}
-            {% endif %}
-        {% endfor %}
+        {% assign collares_count = all_products.size %}
         
         {% if collares_count > 0 %}
             <div class="collares-grid" id="products-grid">
                 {% for product in all_products %}
-                    {% assign product_tags_lower = product.tags | join: ',' | downcase %}
-                    {% if product_tags_lower contains "collares" %}
-                        {% assign product_tags = product.tags | join: ',' | downcase %}
-                        <div class="product-item" data-tags="{{ product_tags }}">
-                            {% render 'product-card', product: product, collection_handle: 'collares' %}
-                        </div>
-                    {% endif %}
+                    {% assign product_tags = product.tags | join: ',' | downcase %}
+                    <div class="product-item" data-tags="{{ product_tags }}">
+                        {% render 'product-card', product: product, collection_handle: target_collection.handle %}
+                    </div>
                 {% endfor %}
             </div>
         {% else %}
