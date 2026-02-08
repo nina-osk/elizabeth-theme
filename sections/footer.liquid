@@ -45,10 +45,10 @@
             <a href="{{ routes.collections_url }}" class="footer-link">
               Colecciones
             </a>
-            <a href="/pages/aretes" class="footer-link">
+            <a href="/pages/page-aretes" class="footer-link">
               Aretes
             </a>
-            <a href="/pages/collares" class="footer-link">
+            <a href="/pages/page-collares" class="footer-link">
               Collares
             </a>
           </nav>
@@ -60,13 +60,6 @@
             {{ section.settings.menu_title | default: "MUNIER" }}
           </h3>
           <nav class="footer-nav">
-            {% if footer_menu_linklist.size > 0 %}
-              {% for link in footer_menu_linklist %}
-                <a href="{{ link.url }}" class="footer-link">
-                  {{ link.title }}
-                </a>
-              {% endfor %}
-            {% endif %}
             <a href="/pages/contact" class="footer-link">
               Contacto
             </a>

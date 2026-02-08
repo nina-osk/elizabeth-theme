@@ -15,7 +15,7 @@
                 <div class="flex flex-col items-center text-center px-6 py-8 bg-gray-50 rounded-lg hover:bg-amber-50 transition-colors duration-300">
                     <!-- Ícono -->
                     <div class="mb-6">
-                        <a href="{% if forloop.index == 1 %}/collections/aretes{% elsif forloop.index == 2 %}/collections/collares{% elsif forloop.index == 3 %}/products/pulsera{% else %}#{% endif %}" style="display:inline-block; border-radius:50%; overflow:hidden;">
+                        <a href="{% if forloop.index == 1 %}/pages/page-aretes{% elsif forloop.index == 2 %}/pages/page-collares{% elsif forloop.index == 3 %}/products/pulsera{% else %}#{% endif %}" style="display:inline-block; border-radius:50%; overflow:hidden;">
                         {% if block.settings.icon_image %}
                             <img src="{{ block.settings.icon_image |  image_url: width: 80 }}" 
                                  alt="{{ block.settings.feature_title }}"
