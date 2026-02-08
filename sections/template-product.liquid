@@ -97,7 +97,7 @@
         }
     }
 </style>
-<div class="max-w-6xl mx-auto my-8 px-4">
+<div class="max-w-6xl mx-auto my-8 px-4" style="margin-bottom: 0; padding-bottom: 0;">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="product--medias">
             <!-- Product Image Carousel -->
@@ -119,7 +119,7 @@
         </div>
 
 
-     <div class="product--information sticky top-5 p-2">
+     <div class="product--information sticky top-5">
             {% form 'product', product, id: 'product-form' %}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                                {% for block in section.blocks %}
