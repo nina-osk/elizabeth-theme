@@ -43,17 +43,11 @@
         </div>
 
         <!-- Grid de productos responsive -->
-        {% assign collares_products = "" | split: "," %}
-        {% for product in all_products %}
-            {% assign product_tags_lower = product.tags | join: ',' | downcase %}
-            {% if product_tags_lower contains "collares" %}
-                {% assign collares_products = collares_products | push: product %}
-            {% endif %}
-        {% endfor %}
+        {% assign collares_count = all_products.size %}
         
-        {% if collares_products.size > 0 %}
+        {% if collares_count > 0 %}
             <div class="collares-grid" id="products-grid">
-                {% for product in collares_products %}
+                {% for product in all_products %}
                     {% assign product_tags = product.tags | join: ',' | downcase %}
                     <div class="product-item" data-tags="{{ product_tags }}">
                         {% render 'product-card', product: product, collection_handle: target_collection.handle %}
