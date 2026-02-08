@@ -62,19 +62,30 @@
     .add-to-cart-btn {
         width: 100%;
         padding: 1rem 2.5rem;
-        background: linear-gradient(135deg, #AFC4AE 0%, #9BB49A 100%);
-        color: #2d2d2d;
-        border: none;
+        background: linear-gradient(135deg, #AFC4AE 0%, #9BB49A 100%) !important;
+        color: #2d2d2d !important;
+        border: none !important;
         font-weight: 700;
         font-size: 0.8125rem;
         letter-spacing: 0.05em;
         transition: all 0.3s;
         text-transform: uppercase;
-        border-radius: 4px;
+        border-radius: 0 !important;
         cursor: pointer;
         position: relative;
-        overflow: hidden;
-        box-shadow: none;
+        overflow: hidden !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    .add-to-cart-btn:hover {
+        box-shadow: none !important;
+    }
+    
+    .my-3 button {
+        box-shadow: none !important;
     }
     
     @media (max-width: 640px) {
@@ -229,12 +240,13 @@
                             </div>
 
                         {% when 'checkout_buttons' %}
-                            <div class="my-3">
+                            <div class="my-3" style="margin: 0; padding: 0; background: transparent;">
                                 <button 
                                     class="add-to-cart-btn"
                                     type="submit" 
                                     name="add" 
-                                    onmouseover="this.style.background='linear-gradient(135deg, #9BB49A 0%, #8BA08B 100%)'; this.style.transform='translateY(-3px)'"
+                                    style="width: 100%; box-shadow: none; border-radius: 0;"
+                                    onmouseover="this.style.background='linear-gradient(135deg, #9BB49A 0%, #8BA08B 100%)'; this.style.transform='translateY(0)'"
                                     onmouseout="this.style.background='linear-gradient(135deg, #AFC4AE 0%, #9BB49A 100%)'; this.style.transform='translateY(0)'"
                                     {% if selected_variant.available == false %}
                                         disabled
