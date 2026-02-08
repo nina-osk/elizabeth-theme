@@ -19,15 +19,6 @@
 <!-- Products Section -->
 <div class="collares-products">
     <div class="collares-products__container">
-        <!-- Filtrado por tag Collares en servidor -->
-        {% assign collares_products = "" | split: "," %}
-        {% for product in all_products %}
-            {% assign product_tags_lower = product.tags | join: ',' | downcase %}
-            {% if product_tags_lower contains "collares" %}
-                {% assign collares_products = collares_products | push: product %}
-            {% endif %}
-        {% endfor %}
-
         <!-- Filtros Responsive -->
         <div class="collares-filters">
             <div class="collares-filters__buttons">
@@ -50,15 +41,23 @@
         </div>
 
         <!-- Grid de productos responsive -->
-        {% assign collares_count = collares_products.size %}
+        {% assign collares_count = 0 %}
+        {% for product in all_products %}
+            {% if product.tags | join: ',' | downcase contains "collares" %}
+                {% assign collares_count = collares_count | plus: 1 %}
+            {% endif %}
+        {% endfor %}
         
         {% if collares_count > 0 %}
             <div class="collares-grid" id="products-grid">
-                {% for product in collares_products %}
-                    {% assign product_tags = product.tags | join: ',' | downcase %}
-                    <div class="product-item" data-tags="{{ product_tags }}">
-                        {% render 'product-card', product: product, collection_handle: target_collection.handle %}
-                    </div>
+                {% for product in all_products %}
+                    {% assign product_tags_lower = product.tags | join: ',' | downcase %}
+                    {% if product_tags_lower contains "collares" %}
+                        {% assign product_tags = product.tags | join: ',' | downcase %}
+                        <div class="product-item" data-tags="{{ product_tags }}">
+                            {% render 'product-card', product: product, collection_handle: target_collection.handle %}
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         {% else %}
