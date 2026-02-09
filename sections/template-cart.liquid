@@ -2,7 +2,6 @@
   <div class="max-w-6xl mx-auto px-4 py-10 cart-container" style="padding-bottom: 30rem; min-height: calc(100vh - 200px);">
     <div class="flex items-center justify-between mb-10">
       <h1 class="text-3xl font-semibold">Tu Carrito ({{ cart.item_count }})</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="text-blue-600 hover:text-blue-800 underline text-sm">Continúa comprando</a>
     </div>
 
     <form action="{{ routes.cart_url }}" method="POST" id="cart-form">
@@ -61,6 +60,9 @@
 
         <!-- Summary -->
         <div class="lg:col-span-1">
+          <div class="mb-4">
+            <a href="{{ routes.all_products_collection_url }}" class="text-blue-600 hover:text-blue-800 underline text-sm">← Continúa comprando</a>
+          </div>
           <div class="bg-gray-50 rounded-lg p-6 sticky top-4">
             <h2 class="text-xl font-semibold mb-4">Resumen del pedido</h2>
             
