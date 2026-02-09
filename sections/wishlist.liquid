@@ -127,16 +127,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('#wishlist-container > div');
     const emptyMessage = document.getElementById('empty-message');
     
+    console.log('DEBUG: Cargando wishlist, cantidad:', wishlist.length);
+    console.log('DEBUG: Empty message element:', emptyMessage);
+    console.log('DEBUG: Container element:', container);
+    
     if (wishlist.length === 0) {
-      emptyMessage.style.display = 'block';
-      container.innerHTML = '';
+      console.log('DEBUG: Wishlist vacío, mostrando mensaje');
+      if (emptyMessage) {
+        emptyMessage.style.display = 'block';
+      }
+      if (container) {
+        container.innerHTML = '';
+      }
       return;
     }
     
-    emptyMessage.style.display = 'none';
-    container.innerHTML = '';
+    console.log('DEBUG: Wishlist tiene', wishlist.length, 'productos');
+    if (emptyMessage) {
+      emptyMessage.style.display = 'none';
+    }
+    if (container) {
+      container.innerHTML = '';
+    }
     
     wishlist.forEach(item => {
+      if (!container) {
+        console.error('Container no encontrado');
+        return;
+      }
+      
       const productCard = document.createElement('div');
       productCard.style.cssText = `
         background: white;
@@ -186,7 +205,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // Global functions para los botones
   window.removeFromWishlist = function(productId) {
     let wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
-    const filtered = wishlist.filter(item => item.id != productId && item.id !== productId);
+    console.log('DEBUG: Wishlist antes:', wishlist);
+    console.log('DEBUG: Removiendo ID:', productId);
+    
+    const filtered = wishlist.filter(item => item.id != productId);
+    console.log('DEBUG: Wishlist después:', filtered);
+    
     localStorage.setItem('munier_wishlist', JSON.stringify(filtered));
     
     // Sincronizar con Shopify si es cliente registrado
@@ -195,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
       syncWishlistToShopify(filtered);
     }
     
+    // Actualizar UI inmediatamente
     loadWishlistFromLocalStorage();
     showNotification('Producto removido de la lista');
   };
@@ -203,6 +228,12 @@ document.addEventListener('DOMContentLoaded', function() {
   window.syncWishlistToShopify = function(wishlist) {
     const customerId = '{{ customer.id | escape }}';
     if (!customerId || customerId === '') return;
+    
+    // Escapar correctamente el JSON
+    const jsonValue = JSON.stringify(wishlist).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n');
+    
+    console.log('DEBUG: Sincronizando con Shopify, cantidad:', wishlist.length);
+    console.log('DEBUG: JSON value:', jsonValue);
     
     const mutation = `
       mutation {
@@ -214,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 namespace: "munier"
                 key: "wishlist"
                 type: "json"
-                value: "${JSON.stringify(wishlist).replace(/"/g, '\\"')}"
+                value: "${jsonValue}"
               }
             ]
           }
@@ -230,12 +261,23 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     `;
     
+    console.log('DEBUG: Enviando mutation a Shopify');
     fetch('/admin/api/2024-01/graphql.json', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ query: mutation })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.errors) {
+        console.error('ERROR en Shopify:', data.errors);
+      } else if (data.data && data.data.customerUpdate && data.data.customerUpdate.userErrors && data.data.customerUpdate.userErrors.length > 0) {
+        console.error('User errors:', data.data.customerUpdate.userErrors);
+      } else {
+        console.log('✅ Sincronización exitosa con Shopify');
+      }
     })
     .catch(err => {
       console.warn('Sincronización con Shopify fallida:', err);
