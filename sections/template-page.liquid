@@ -5,8 +5,8 @@
       <h1 class="page-title">{{ page.title }}</h1>
     {% endif %}
 
-    {% if page.content %}
-      <div style="font-size: 1rem; line-height: 1.8; color: #555; word-break: break-word;">
+  {% if page.content %}
+      <div style="font-size: 1rem; line-height: 1.8; color: #555; word-break: break-word; text-align: justify;">
         {{ page.content }}
       </div>
     {% endif %}
@@ -59,9 +59,11 @@
   h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    margin: 2rem 0 1rem;
-    color: #1a1a1a;
+    margin: 3rem 0 1.5rem;
+    color: #D4A574;
     font-family: Georgia, serif;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
   }
 
   @media (min-width: 768px) {
@@ -73,8 +75,8 @@
   h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    margin: 1.5rem 0 0.75rem;
-    color: #1a1a1a;
+    margin: 2rem 0 1rem;
+    color: #D4A574;
     font-family: Georgia, serif;
   }
 
