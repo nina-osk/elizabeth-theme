@@ -211,33 +211,50 @@ function toggleWishlist(button, event) {
 
 // Image navigation for product cards - Cambiar entre imágenes del producto
 function changeProductImage(card, direction) {
-  const images = card.querySelectorAll('img');
-  if (images.length <= 1) return;
+  const images = card.querySelectorAll('a img');
+  if (!images || images.length <= 1) return;
   
-  const currentImg = card.querySelector('a img');
-  if (!currentImg) return;
-  
-  const allImages = Array.from(product.media).slice(0, 3);
+  // Obtener índice de imagen actual
   let currentIndex = 0;
-  
-  // Encontrar índice actual
-  for (let i = 0; i < images.length; i++) {
-    if (images[i] === currentImg) {
-      currentIndex = i;
-      break;
-    }
-  }
+  const dataCardsrc = card.getAttribute('data-current-image') || '0';
+  currentIndex = parseInt(dataCardsrc);
   
   // Calcular siguiente índice
   let nextIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
   if (nextIndex >= images.length) nextIndex = 0;
   if (nextIndex < 0) nextIndex = images.length - 1;
   
-  // Cambiar imagen
-  if (images[nextIndex]) {
-    currentImg.src = images[nextIndex].src;
-    currentImg.alt = images[nextIndex].alt;
+  // Obtener imagen siguiente
+  const nextImage = images[nextIndex];
+  if (!nextImage) return;
+  
+  // Cambiar imagen principal
+  const mainImg = card.querySelector('a img');
+  if (mainImg) {
+    mainImg.src = nextImage.currentSrc || nextImage.src;
+    mainImg.alt = nextImage.alt;
   }
+  
+  // Guardar índice actual
+  card.setAttribute('data-current-image', nextIndex.toString());
+  
+  // Actualizar dots
+  updateImageDots(card, nextIndex);
+  
+  console.log('Cambió a imagen:', nextIndex);
+}
+
+function updateImageDots(card, activeIndex) {
+  const dots = card.querySelectorAll('.image-dot');
+  dots.forEach((dot, i) => {
+    if (i === activeIndex) {
+      dot.classList.remove('bg-neutral-400');
+      dot.classList.add('bg-black');
+    } else {
+      dot.classList.remove('bg-black');
+      dot.classList.add('bg-neutral-400');
+    }
+  });
 }
 
 function nextProductImage(button, event) {
@@ -245,7 +262,7 @@ function nextProductImage(button, event) {
   event.stopPropagation();
   
   const card = button.closest('.product-card');
-  changeProductImage(card, 'next');
+  if (card) changeProductImage(card, 'next');
 }
 
 function previousProductImage(button, event) {
@@ -253,7 +270,7 @@ function previousProductImage(button, event) {
   event.stopPropagation();
   
   const card = button.closest('.product-card');
-  changeProductImage(card, 'prev');
+  if (card) changeProductImage(card, 'prev');
 }
 
 function goToProductImage(dot, event) {
@@ -262,24 +279,17 @@ function goToProductImage(dot, event) {
   
   const card = dot.closest('.product-card');
   const index = parseInt(dot.getAttribute('data-index'));
-  const images = card.querySelectorAll('img');
-  const currentImg = card.querySelector('a img');
+  const images = card.querySelectorAll('a img');
   
-  if (images[index] && currentImg) {
-    currentImg.src = images[index].src;
-    currentImg.alt = images[index].alt;
+  if (images[index]) {
+    const mainImg = card.querySelector('a img');
+    mainImg.src = images[index].currentSrc || images[index].src;
+    mainImg.alt = images[index].alt;
     
-    // Actualizar dots activos
-    const dots = card.querySelectorAll('.image-dot');
-    dots.forEach((d, i) => {
-      if (i === index) {
-        d.classList.add('bg-black');
-        d.classList.remove('bg-neutral-400');
-      } else {
-        d.classList.remove('bg-black');
-        d.classList.add('bg-neutral-400');
-      }
-    });
+    card.setAttribute('data-current-image', index.toString());
+    updateImageDots(card, index);
+    
+    console.log('Cambió a imagen:', index);
   }
 }
 
