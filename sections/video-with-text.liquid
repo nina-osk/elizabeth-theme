@@ -1,6 +1,6 @@
-<div class="relative py-16 md:py-24 px-4 overflow-hidden video-with-text" style="min-height: 600px; display: flex; flex-direction: column;">
+<div class="relative py-16 md:py-24 px-4 overflow-hidden video-with-text" style="min-height: 600px; display: flex; flex-direction: column; position: relative;">
     <!-- Video de fondo -->
-    <div class="absolute inset-0 w-full h-full overflow-hidden" style="z-index: 0;">
+    <div class="absolute inset-0 w-full h-full overflow-hidden" style="z-index: 0; position: absolute; top: 0; left: 0;">
         {% if section.settings.video_file != blank %}
             <video 
                 class="absolute top-0 left-0 w-full h-full object-cover"
@@ -78,6 +78,33 @@
     </div>
 </div>
 
+<style>
+    .video-with-text {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .video-with-text video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    
+    .video-with-text iframe {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+    
+    @media (max-width: 768px) {
+        .video-with-text {
+            min-height: 400px;
+        }
+    }
+</style>
+
 <script>
 // Inicializar video con política de autoplay mejorada
 (function() {
@@ -87,6 +114,11 @@
         // Asegurar que está muteado (requerido para autoplay)
         videoElement.muted = true;
         videoElement.defaultMuted = true;
+        videoElement.playsinline = true;
+        videoElement.webkit-playsinline = true;
+        
+        // Forzar load del video en mobile
+        videoElement.load();
         
         // Intentar reproducir cuando el video esté listo
         const playVideo = () => {
@@ -94,6 +126,8 @@
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
                     console.log('Autoplay fue prevenido por el navegador:', error);
+                    // Fallback en caso de que autoplay no sea permitido
+                    videoElement.style.display = 'block';
                 });
             }
         };
@@ -104,6 +138,7 @@
         }
         
         videoElement.addEventListener('canplay', playVideo, { once: true });
+        videoElement.addEventListener('loadedmetadata', playVideo, { once: true });
     }
 })();
 </script>
