@@ -39,19 +39,42 @@
                 </form>
                 
                 <!-- Wishlist Icon -->
-                <button class="flex items-center justify-center w-10 h-10 hover:bg-neutral-100 rounded transition-colors" aria-label="Add to wishlist">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <button 
+                    class="flex items-center justify-center w-10 h-10 hover:bg-neutral-100 rounded transition-colors wishlist-btn" 
+                    aria-label="Add to wishlist"
+                    data-product-id="{{ product.id }}"
+                    data-product-handle="{{ product.handle }}"
+                    data-product-title="{{ product.title }}"
+                    data-product-image="{{ product.featured_image | image_url: width: 300 }}"
+                    data-product-price="{{ product.price | money }}"
+                    onclick="toggleWishlist(this, event)"
+                >
+                    <svg class="w-5 h-5 wishlist-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                     </svg>
                 </button>
             </div>
         </div>
         
+        <!-- Image Navigation Arrows -->
+        {% if product.media.size > 1 %}
+            <button class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100" aria-label="Previous image" onclick="previousProductImage(this, event)">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100" aria-label="Next image" onclick="nextProductImage(this, event)">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        {% endif %}
+        
         <!-- Image Pagination Dots -->
         {% if product.media.size > 1 %}
-            <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5">
+            <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 image-dots" data-product-id="{{ product.id }}">
                 {% for media in product.media limit: 3 %}
-                    <div class="w-2 h-2 rounded-full {% if forloop.first %}bg-black{% else %}bg-neutral-400{% endif %}"></div>
+                    <button class="w-2 h-2 rounded-full image-dot {% if forloop.first %}bg-black{% else %}bg-neutral-400{% endif %}" data-index="{{ forloop.index0 }}" onclick="goToProductImage(this, event)"></button>
                 {% endfor %}
             </div>
         {% endif %}
@@ -148,6 +171,206 @@
 </style>
 
 <script>
+// Wishlist functionality
+function toggleWishlist(button, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  
+  const productId = button.getAttribute('data-product-id');
+  const productHandle = button.getAttribute('data-product-handle');
+  const productTitle = button.getAttribute('data-product-title');
+  const productImage = button.getAttribute('data-product-image');
+  const productPrice = button.getAttribute('data-product-price');
+  
+  let wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
+  
+  // Check if product is already in wishlist
+  const existingIndex = wishlist.findIndex(item => item.id === productId);
+  
+  if (existingIndex > -1) {
+    // Remove from wishlist
+    wishlist.splice(existingIndex, 1);
+    button.classList.remove('wishlist-active');
+    showNotification('Removido de la lista de deseos');
+  } else {
+    // Add to wishlist
+    wishlist.push({
+      id: productId,
+      handle: productHandle,
+      title: productTitle,
+      image: productImage,
+      price: productPrice,
+      addedAt: new Date().toISOString()
+    });
+    button.classList.add('wishlist-active');
+    showNotification('Agregado a la lista de deseos ❤️');
+  }
+  
+  localStorage.setItem('munier_wishlist', JSON.stringify(wishlist));
+  updateWishlistUI();
+  
+  // Update Shopify metafield if customer is logged in
+  syncWishlistToShopifyMetafield(wishlist);
+}
+
+// Image navigation for product cards
+function getProductImageForCard(card) {
+  return card?.querySelector('img')?.src || '';
+}
+
+function nextProductImage(button, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  
+  const card = button.closest('.product-card');
+  const link = card.querySelector('a.collection-product-link');
+  const productUrl = link.getAttribute('data-product-url');
+  window.location.href = productUrl;
+}
+
+function previousProductImage(button, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  
+  const card = button.closest('.product-card');
+  const link = card.querySelector('a.collection-product-link');
+  const productUrl = link.getAttribute('data-product-url');
+  window.location.href = productUrl;
+}
+
+function goToProductImage(dot, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  
+  const card = dot.closest('.product-card');
+  const link = card.querySelector('a.collection-product-link');
+  const productUrl = link.getAttribute('data-product-url');
+  window.location.href = productUrl;
+}
+
+// Show notification
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #2d2d2d;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    z-index: 9999;
+    animation: slideIn 0.3s ease-out;
+  `;
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease-out';
+    setTimeout(() => notification.remove(), 300);
+  }, 2000);
+}
+
+// Update wishlist UI (highlight hearts if in wishlist)
+function updateWishlistUI() {
+  const wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
+  const wishlistIds = new Set(wishlist.map(item => item.id));
+  
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    const productId = btn.getAttribute('data-product-id');
+    if (wishlistIds.has(productId)) {
+      btn.classList.add('wishlist-active');
+      btn.querySelector('.wishlist-icon').setAttribute('fill', 'currentColor');
+    } else {
+      btn.classList.remove('wishlist-active');
+      btn.querySelector('.wishlist-icon').setAttribute('fill', 'none');
+    }
+  });
+}
+
+// Sync with Shopify metafield
+function syncWishlistToShopifyMetafield(wishlist) {
+  const customerId = '{{ customer.id | escape }}';
+  if (!customerId || customerId === '') return;
+  
+  const mutation = `
+    mutation {
+      customerUpdate(
+        input: {
+          id: "gid://shopify/Customer/${customerId}"
+          metafields: [
+            {
+              namespace: "munier"
+              key: "wishlist"
+              type: "json"
+              value: "${JSON.stringify(wishlist).replace(/"/g, '\\"')}"
+            }
+          ]
+        }
+      ) {
+        customer {
+          id
+        }
+        userErrors {
+          field
+          message
+        }
+      }
+    }
+  `;
+  
+  fetch('/admin/api/2024-01/graphql.json', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query: mutation })
+  })
+  .catch(err => {
+    console.warn('Sincronización con Shopify fallida, usando localStorage:', err);
+  });
+}
+
+// Initialize wishlist UI on page load
+document.addEventListener('DOMContentLoaded', updateWishlistUI);
+
+// Add styles for animations
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideIn {
+    from {
+      transform: translateX(400px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(400px);
+      opacity: 0;
+    }
+  }
+  
+  .wishlist-btn.wishlist-active .wishlist-icon {
+    fill: #D4A574;
+    stroke: #D4A574;
+  }
+  
+  .wishlist-btn:hover {
+    background-color: #D4A574 !important;
+    color: white;
+  }
+`;
+document.head.appendChild(style);
+
 (function() {
   document.addEventListener('DOMContentLoaded', function() {
     var productLinks = document.querySelectorAll('.collection-product-link');
