@@ -249,12 +249,12 @@
                             </div>
 
                         {% when 'checkout_buttons' %}
-                            <div class="my-3" style="margin: 2rem 0 0 0; padding: 0; background: transparent; display: flex; justify-content: center;">
+                            <div class="my-3" style="margin: 2rem 0 0 0; padding: 0; background: transparent; display: flex; gap: 1rem; justify-content: center; align-items: center;">
                                 <button 
                                     class="add-to-cart-btn"
                                     type="submit" 
                                     name="add" 
-                                    style="box-shadow: none;"
+                                    style="box-shadow: none; flex: 1;"
                                     onmouseover="this.style.background='linear-gradient(135deg, #9BB49A 0%, #8BA08B 100%)'"
                                     onmouseout="this.style.background='linear-gradient(135deg, #AFC4AE 0%, #9BB49A 100%)'"
                                     {% if selected_variant.available == false %}
@@ -266,6 +266,22 @@
                                     {% else %}
                                         Agregar al carrito
                                     {% endif %}
+                                </button>
+                                
+                                <!-- Save for Later Button -->
+                                <form action="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" method="POST" id="save-for-later-form" style="display: none;"></form>
+                                
+                                <button 
+                                    id="save-for-later-btn"
+                                    type="button"
+                                    title="Guardar para después"
+                                    style="width: 50px; height: 50px; border-radius: 8px; border: 2px solid #AFC4AE; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s;"
+                                    onmouseover="this.style.background='#F5F1E8'; this.style.borderColor='#D4A574';"
+                                    onmouseout="this.style.background='white'; this.style.borderColor='#AFC4AE';"
+                                >
+                                    <svg class="wishlist-heart" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
                                 </button>
                             </div>
                         {% else %}
@@ -350,5 +366,227 @@ document.addEventListener('DOMContentLoaded', function() {
       crossFade: true
     }
   });
+  
+  // Save for Later Functionality
+  const saveForLaterBtn = document.getElementById('save-for-later-btn');
+  const saveForLaterForm = document.getElementById('save-for-later-form');
+  const productId = '{{ product.id }}';
+  const productHandle = '{{ product.handle }}';
+  const isLoggedIn = {% if customer %}true{% else %}false{% endif %};
+  
+  if (saveForLaterBtn) {
+    // Cargar estado guardado del localStorage
+    function updateWishlistUI() {
+      const wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
+      const isSaved = wishlist.some(item => item.id === productId);
+      const heart = saveForLaterBtn.querySelector('.wishlist-heart');
+      
+      if (isSaved) {
+        heart.style.fill = '#D4A574';
+        heart.style.stroke = '#D4A574';
+        saveForLaterBtn.style.backgroundColor = '#F5F1E8';
+        saveForLaterBtn.style.borderColor = '#D4A574';
+        saveForLaterBtn.title = 'Quitar de la lista de deseos';
+      } else {
+        heart.style.fill = 'none';
+        heart.style.stroke = '#AFC4AE';
+        saveForLaterBtn.style.backgroundColor = 'white';
+        saveForLaterBtn.style.borderColor = '#AFC4AE';
+        saveForLaterBtn.title = 'Guardar en la lista de deseos';
+      }
+    }
+    
+    // Inicializar UI
+    updateWishlistUI();
+    
+    // Click handler
+    saveForLaterBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      if (isLoggedIn) {
+        // Si está registrado, usaremos Save for Later de Shopify
+        // Enviar al servidor para guardar en la cuenta del cliente
+        addProductToWishlist(productId, productHandle, true);
+      } else {
+        // Si NO está registrado, guardar en localStorage
+        addProductToLocalWishlist(productId, productHandle);
+      }
+    });
+  }
+  
+  // Guardar en localStorage (para usuarios no registrados)
+  function addProductToLocalWishlist(id, handle) {
+    const wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
+    const existsIndex = wishlist.findIndex(item => item.id === id);
+    
+    if (existsIndex >= 0) {
+      // Remover si ya existe
+      wishlist.splice(existsIndex, 1);
+      showNotification('Removido de la lista de deseos');
+    } else {
+      // Agregar nuevo
+      wishlist.push({
+        id: id,
+        handle: handle,
+        title: '{{ product.title }}',
+        image: '{{ product.featured_image | image_url: width: 200 }}',
+        price: '{{ selected_variant.price | money }}',
+        addedAt: new Date().toISOString()
+      });
+      showNotification('Guardado en la lista de deseos');
+    }
+    
+    localStorage.setItem('munier_wishlist', JSON.stringify(wishlist));
+    updateWishlistUI();
+  }
+  
+  // Guardar en la cuenta de Shopify (para usuarios registrados)
+  function addProductToWishlist(productId, handle, isRegistered) {
+    if (isRegistered) {
+      // Enviar datos a metafield del cliente en Shopify
+      syncWishlistToShopify(productId, handle);
+    }
+  }
+  
+  // Sincronizar wishlist con Shopify GraphQL API
+  function syncWishlistToShopify(productId, handle) {
+    const wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
+    const existsIndex = wishlist.findIndex(item => item.id === productId);
+    const customerId = '{{ customer.id }}';
+    
+    if (existsIndex >= 0) {
+      wishlist.splice(existsIndex, 1);
+      showNotification('Removido de la lista de deseos');
+    } else {
+      wishlist.push({
+        id: productId,
+        handle: handle,
+        title: '{{ product.title }}',
+        image: '{{ product.featured_image | image_url: width: 200 }}',
+        price: '{{ selected_variant.price | money }}',
+        addedAt: new Date().toISOString()
+      });
+      showNotification('Guardado en la lista de deseos');
+    }
+    
+    localStorage.setItem('munier_wishlist', JSON.stringify(wishlist));
+    
+    // Guardar en metafield de Shopify usando GraphQL
+    if (customerId) {
+      saveWishlistToShopifyMetafield(customerId, wishlist);
+    }
+    
+    updateWishlistUI();
+  }
+  
+  // Guardar en metafield de Shopify usando GraphQL
+  function saveWishlistToShopifyMetafield(customerId, wishlist) {
+    const mutation = `
+      mutation {
+        customerUpdate(
+          input: {
+            id: "gid://shopify/Customer/${customerId}"
+            metafields: [
+              {
+                namespace: "munier"
+                key: "wishlist"
+                type: "json"
+                value: "${JSON.stringify(JSON.stringify(wishlist)).replace(/"/g, '\\"')}"
+              }
+            ]
+          }
+        ) {
+          customer {
+            id
+            metafields(first: 10) {
+              edges {
+                node {
+                  namespace
+                  key
+                  value
+                }
+              }
+            }
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+    
+    fetch('/admin/api/2024-01/graphql.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query: mutation })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.data && data.data.customerUpdate) {
+        console.log('✅ Wishlist guardado en Shopify:', data.data.customerUpdate.customer.id);
+      }
+      if (data.errors) {
+        console.error('❌ Error GraphQL:', data.errors);
+      }
+    })
+    .catch(error => {
+      console.warn('No se pudo guardar en Shopify, usando localStorage:', error);
+    });
+  }
+  
+  // Mostrar notificación
+  function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #2d2d2d;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      z-index: 1000;
+      animation: slideInUp 0.3s ease-out;
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.style.animation = 'slideOutDown 0.3s ease-out';
+      setTimeout(() => notification.remove(), 300);
+    }, 2000);
+  }
+  
+  // Agregar estilos de animación
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideOutDown {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+  `;
+  document.head.appendChild(style);
 });
 </script>

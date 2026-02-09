@@ -107,6 +107,18 @@
       
       <!-- User Account & Cart - Right side -->
       <div style="display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0;" class="desktop-nav">
+        <!-- Wishlist -->
+        <a 
+          href="/pages/wishlist" 
+          style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; position: relative;"
+          title="Mi lista de deseos"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span id="wishlist-count" style="font-size: 0.7rem; background: #D4A574; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; position: absolute; top: -8px; right: -8px; display: none;">0</span>
+        </a>
+        
         <!-- Search -->
         <a 
           href="{{ routes.search_url }}" 
@@ -295,6 +307,94 @@
     }
   }
 </style>
+
+<script>
+// Actualizar contador de wishlist en el header + Cargar desde Shopify
+document.addEventListener('DOMContentLoaded', function() {
+  const isLoggedIn = {% if customer %}true{% else %}false{% endif %};
+  const customerId = '{{ customer.id }}';
+  
+  // Cargar wishlist del cliente desde Shopify GraphQL
+  function loadWishlistFromShopify() {
+    if (!isLoggedIn || !customerId) return;
+    
+    const query = `
+      {
+        customer {
+          id
+          metafields(first: 10, namespace: "munier") {
+            edges {
+              node {
+                namespace
+                key
+                value
+              }
+            }
+          }
+        }
+      }
+    `;
+    
+    fetch('/admin/api/2024-01/graphql.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query: query })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.data && data.data.customer && data.data.customer.metafields) {
+        const wishlistMetafield = data.data.customer.metafields.edges.find(
+          edge => edge.node.key === 'wishlist'
+        );
+        
+        if (wishlistMetafield) {
+          const wishlist = JSON.parse(wishlistMetafield.node.value);
+          localStorage.setItem('munier_wishlist', JSON.stringify(wishlist));
+          updateWishlistCount();
+          console.log('✅ Wishlist del cliente sincronizado:', wishlist.length, 'productos');
+          return;
+        }
+      }
+      
+      // Si no hay en Shopify, usar localStorage
+      updateWishlistCount();
+    })
+    .catch(error => {
+      console.warn('No se pudo cargar desde Shopify, usando localStorage:', error);
+      updateWishlistCount();
+    });
+  }
+  
+  function updateWishlistCount() {
+    const wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
+    const counter = document.getElementById('wishlist-count');
+    
+    if (counter && wishlist.length > 0) {
+      counter.textContent = wishlist.length;
+      counter.style.display = 'flex';
+    } else if (counter) {
+      counter.style.display = 'none';
+    }
+  }
+  
+  // Si el cliente está registrado, cargar desde Shopify
+  if (isLoggedIn) {
+    loadWishlistFromShopify();
+  } else {
+    updateWishlistCount();
+  }
+  
+  // Escuchar cambios en localStorage
+  window.addEventListener('storage', updateWishlistCount);
+  
+  // Sincronizar con Shopify cada 5 minutos si está registrado
+  if (isLoggedIn) {
+    setInterval(loadWishlistFromShopify, 300000); // 5 minutos
+  }
+});
+</script>
 
 {%  schema %}
 {

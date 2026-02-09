@@ -1,0 +1,278 @@
+{% comment %}
+  Wishlist Page - Lista de Deseos
+  Muestra los productos guardados por el cliente
+{% endcomment %}
+
+<div class="w-full bg-white" style="background-color: #F5F1E8;">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <h1 style="font-family: Georgia, serif; font-size: 3rem; color: #2d2d2d; margin-bottom: 0.5rem; font-weight: 400;">
+        Mi Lista de Deseos
+      </h1>
+      <p style="color: #666; font-size: 1rem;">
+        {% if customer %}
+          Guardados para comprar después
+        {% else %}
+          <a href="{{ routes.account_login_url }}" style="color: #D4A574; text-decoration: underline;">Inicia sesión</a> para ver tu lista de deseos
+        {% endif %}
+      </p>
+    </div>
+
+    {% if customer %}
+      <!-- Wishlist Container -->
+      <div id="wishlist-container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem;">
+          <!-- Los productos se cargarán aquí con JavaScript -->
+        </div>
+        <p style="text-align: center; color: #999; margin-top: 2rem; font-size: 1.1rem;" id="empty-message">
+          Tu lista de deseos está vacía
+        </p>
+      </div>
+
+      <!-- Back Button -->
+      <div style="display: flex; justify-content: center; margin-top: 3rem;">
+        <a href="{{ routes.all_products_collection_url }}" 
+           style="display: inline-flex; align-items: center; gap: 0.75rem; color: #2d2d2d; background: #AFC4AE; border: none; border-radius: 2rem; font-size: 1rem; font-weight: 600; padding: 1rem 2.5rem; text-decoration: none; transition: background 0.2s;"
+           onmouseover="this.style.background='#9BB49A'"
+           onmouseout="this.style.background='#AFC4AE'">
+          <svg style="width: 1.5rem; height: 1.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Continuar comprando
+        </a>
+      </div>
+    {% else %}
+      <!-- Login Prompt -->
+      <div style="text-align: center; padding: 3rem 1rem;">
+        <p style="color: #666; font-size: 1rem; margin-bottom: 2rem;">
+          Debes estar registrado para ver tu lista de deseos
+        </p>
+        <a href="{{ routes.account_login_url }}"
+           style="display: inline-block; background: #2d2d2d; color: white; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: background 0.2s;"
+           onmouseover="this.style.background='#000'"
+           onmouseout="this.style.background='#2d2d2d'">
+          Iniciar sesión
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const isLoggedIn = {% if customer %}true{% else %}false{% endif %};
+  const customerId = '{{ customer.id }}';
+  
+  if (isLoggedIn) {
+    loadWishlistFromServer();
+  } else {
+    loadWishlistFromLocalStorage();
+  }
+  
+  // Cargar wishlist desde Shopify GraphQL (para usuarios registrados)
+  function loadWishlistFromServer() {
+    const query = `
+      {
+        customer {
+          id
+          metafields(first: 10, namespace: "munier") {
+            edges {
+              node {
+                namespace
+                key
+                value
+              }
+            }
+          }
+        }
+      }
+    `;
+    
+    fetch('/admin/api/2024-01/graphql.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query: query })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.data && data.data.customer && data.data.customer.metafields) {
+        const wishlistMetafield = data.data.customer.metafields.edges.find(
+          edge => edge.node.key === 'wishlist'
+        );
+        
+        if (wishlistMetafield) {
+          const wishlist = JSON.parse(wishlistMetafield.node.value);
+          localStorage.setItem('munier_wishlist', JSON.stringify(wishlist));
+          loadWishlistFromLocalStorage();
+          console.log('✅ Wishlist cargado desde Shopify:', wishlist.length, 'productos');
+          return;
+        }
+      }
+      
+      // Si no hay en Shopify, cargar de localStorage
+      loadWishlistFromLocalStorage();
+    })
+    .catch(error => {
+      console.warn('No se pudo cargar desde Shopify, usando localStorage:', error);
+      loadWishlistFromLocalStorage();
+    });
+  }
+  
+  function loadWishlistFromLocalStorage() {
+    const wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
+    const container = document.querySelector('#wishlist-container > div');
+    const emptyMessage = document.getElementById('empty-message');
+    
+    if (wishlist.length === 0) {
+      emptyMessage.style.display = 'block';
+      return;
+    }
+    
+    emptyMessage.style.display = 'none';
+    container.innerHTML = '';
+    
+    wishlist.forEach(item => {
+      const productCard = document.createElement('div');
+      productCard.style.cssText = `
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      `;
+      productCard.onmouseover = () => {
+        productCard.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
+        productCard.style.transform = 'translateY(-4px)';
+      };
+      productCard.onmouseout = () => {
+        productCard.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+        productCard.style.transform = 'translateY(0)';
+      };
+      
+      productCard.innerHTML = `
+        <a href="/products/${item.handle}" style="text-decoration: none; color: inherit;">
+          <div style="width: 100%; height: 250px; overflow: hidden; background: #f5f5f5;">
+            <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="padding: 1rem;">
+            <h3 style="font-size: 0.95rem; color: #2d2d2d; margin: 0 0 0.5rem 0; line-height: 1.4; font-weight: 600;">
+              ${item.title}
+            </h3>
+            <p style="color: #D4A574; font-weight: 600; margin: 0.5rem 0 0 0;">
+              ${item.price}
+            </p>
+          </div>
+        </a>
+        <div style="padding: 0 1rem 1rem 1rem; display: flex; gap: 0.5rem;">
+          <button onclick="removeFromWishlist('${item.id}')" style="flex: 1; background: #f5f5f5; border: none; padding: 0.5rem; border-radius: 6px; color: #999; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#e8e8e8'; this.style.color='#666'" onmouseout="this.style.background='#f5f5f5'; this.style.color='#999'">
+            Remover
+          </button>
+          <button onclick="addProductToCart('${item.id}')" style="flex: 1; background: #AFC4AE; border: none; padding: 0.5rem; border-radius: 6px; color: #2d2d2d; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#9BB49A'" onmouseout="this.style.background='#AFC4AE'">
+            Agregar
+          </button>
+        </div>
+      `;
+      
+      container.appendChild(productCard);
+    });
+  }
+  
+  // Global functions para los botones
+  window.removeFromWishlist = function(productId) {
+    const wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
+    const filtered = wishlist.filter(item => item.id !== productId);
+    localStorage.setItem('munier_wishlist', JSON.stringify(filtered));
+    loadWishlistFromLocalStorage();
+    showNotification('Producto removido de la lista');
+  };
+  
+  window.addProductToCart = function(productId) {
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        items: [{
+          id: productId,
+          quantity: 1
+        }]
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      showNotification('Producto agregado al carrito');
+      // Opcional: redirigir al carrito
+      // window.location.href = '/cart';
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showNotification('Error al agregar al carrito', true);
+    });
+  };
+  
+  window.showNotification = function(message, isError = false) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: ${isError ? '#e74c3c' : '#2d2d2d'};
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      z-index: 1000;
+      animation: slideInUp 0.3s ease-out;
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.style.animation = 'slideOutDown 0.3s ease-out';
+      setTimeout(() => notification.remove(), 300);
+    }, 2000);
+  };
+  
+  // Estilos de animación
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideOutDown {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+});
+</script>
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "class": "shopify-section--wishlist",
+  "settings": []
+}
+{% endschema %}
