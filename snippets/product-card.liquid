@@ -27,7 +27,7 @@
                         width="800" 
                         height="800" 
                         loading="lazy"
-                        data-index="{{ forloop.index0 }}"
+                        data-index="{{ forloop.index0 | plus: 1 }}"
                     >
                 {% endfor %}
             </div>
