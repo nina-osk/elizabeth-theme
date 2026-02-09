@@ -84,7 +84,7 @@
         <!-- Image Pagination Dots -->
         {% if product.media.size > 0 %}
             <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 image-dots" data-product-id="{{ product.id }}">
-                {% assign total_images = 1 | plus: product.media.size | at_most: 3 %}
+                {% assign total_images = product.media.size | at_most: 3 %}
                 {% for i in (0..2) %}
                     {% if i < total_images %}
                         <button class="w-2 h-2 rounded-full image-dot {% if i == 0 %}bg-black{% else %}bg-neutral-400{% endif %}" data-index="{{ i }}" onclick="goToProductImage(this, event)"></button>
