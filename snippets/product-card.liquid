@@ -34,15 +34,8 @@
         </a>
         
         <!-- Actions Bar at Bottom of Image -->
-        <div class="absolute bottom-4 left-0 right-0 bg-white/95 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div class="absolute bottom-4 left-0 right-0 bg-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div class="flex items-center justify-between gap-2">
-                <!-- Compare/Size Icon -->
-                <button class="flex items-center justify-center w-10 h-10 hover:bg-neutral-100 rounded transition-colors" aria-label="Compare sizes">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
-                    </svg>
-                </button>
-                
                 <!-- Add to Cart Button -->
                 {% assign current_variant = product.selected_or_first_available_variant %}
                 <form action="{{ routes.cart_add_url }}" method="post" class="flex-1" data-product-form>
