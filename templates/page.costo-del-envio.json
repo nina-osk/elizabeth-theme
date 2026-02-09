@@ -1,12 +1,11 @@
 {
   "sections": {
     "main": {
-      "type": "template-page",
+      "type": "main-page",
       "settings": {}
     },
   },
   "order": [
-    "main",
-    "shipping_info"
+    "main"
   ]
 }
