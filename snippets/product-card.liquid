@@ -82,16 +82,23 @@
         {% endif %}
         
         <!-- Image Pagination Dots -->
-        {% if product.media.size > 0 %}
-            <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 image-dots" data-product-id="{{ product.id }}">
-                {% assign total_images = product.media.size | at_most: 3 %}
-                {% for i in (0..2) %}
-                    {% if i < total_images %}
-                        <button class="w-2 h-2 rounded-full image-dot {% if i == 0 %}bg-black{% else %}bg-neutral-400{% endif %}" data-index="{{ i }}" onclick="goToProductImage(this, event)"></button>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        {% endif %}
+        <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 image-dots" data-product-id="{{ product.id }}">
+            <!-- Calcula cuántas imágenes se van a renderizar realmente -->
+            {% assign rendered_images = 1 %}
+            {% if product.media.size > 1 %}
+                {% assign rendered_images = rendered_images | plus: 1 %}
+            {% endif %}
+            {% if product.media.size > 2 %}
+                {% assign rendered_images = rendered_images | plus: 1 %}
+            {% endif %}
+            
+            <!-- Crear dots solo para las imágenes que se renderizan -->
+            {% for i in (0..2) %}
+                {% if i < rendered_images %}
+                    <button class="w-2 h-2 rounded-full image-dot {% if i == 0 %}bg-black{% else %}bg-neutral-400{% endif %}" data-index="{{ i }}" onclick="goToProductImage(this, event)"></button>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
     
     <!-- Product Info -->
