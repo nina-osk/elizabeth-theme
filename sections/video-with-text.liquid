@@ -8,10 +8,13 @@
                 muted
                 loop
                 playsinline
+                webkit-playsinline
+                x5-playsinline
                 preload="metadata"
                 id="background-video"
+                controls="false"
                 {% if section.settings.video_poster %}poster="{{ section.settings.video_poster | image_url: width: 1920 }}"{% endif %}
-                style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;">
+                style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; -webkit-user-select: none; user-select: none;">
                 <source src="{{ section.settings.video_file }}" type="video/mp4">
                 Tu navegador no soporta video HTML5.
             </video>
@@ -98,15 +101,27 @@
         display: block;
     }
     
-    @media (max-width: 768px) {
+    @media (max-width: 640px) {
         .video-with-text {
-            min-height: 400px;
+            min-height: 300px !important;
+        }
+    }
+    
+    @media (min-width: 641px) and (max-width: 1024px) {
+        .video-with-text {
+            min-height: 450px !important;
+        }
+    }
+    
+    @media (min-width: 1025px) {
+        .video-with-text {
+            min-height: 600px !important;
         }
     }
 </style>
 
 <script>
-// Inicializar video con política de autoplay mejorada
+// Inicializar video con política de autoplay mejorada para iOS/Safari
 (function() {
     const videoElement = document.querySelector('#background-video');
     
@@ -114,31 +129,83 @@
         // Asegurar que está muteado (requerido para autoplay)
         videoElement.muted = true;
         videoElement.defaultMuted = true;
+        
+        // Establecer atributos playsinline correctamente
         videoElement.playsinline = true;
-        videoElement.webkit-playsinline = true;
+        videoElement.setAttribute('webkit-playsinline', 'true');
+        videoElement.setAttribute('x5-playsinline', 'true');
         
-        // Forzar load del video en mobile
+        // Log inicial
+        console.log('🎬 Video MP4 inicializado:', {
+            videoFile: videoElement.src || videoElement.querySelector('source')?.src,
+            muted: videoElement.muted,
+            playsinline: videoElement.playsinline
+        });
+        
+        // Forzar carga del video
         videoElement.load();
+        console.log('📦 Cargando video desde:', videoElement.querySelector('source')?.src);
         
-        // Intentar reproducir cuando el video esté listo
+        // Función para intentar reproducir
         const playVideo = () => {
+            console.log('▶️  Intentando reproducir... Estado:', videoElement.readyState);
+            
             const playPromise = videoElement.play();
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log('Autoplay fue prevenido por el navegador:', error);
-                    // Fallback en caso de que autoplay no sea permitido
-                    videoElement.style.display = 'block';
-                });
+                playPromise
+                    .then(() => {
+                        console.log('✅ Video reproduciendo correctamente');
+                    })
+                    .catch(error => {
+                        console.warn('⚠️  Error de reproducción:', error.message);
+                        // Fallback: asegurar visibilidad
+                        videoElement.style.display = 'block';
+                        videoElement.style.visibility = 'visible';
+                    });
             }
         };
         
-        // Intentar justo después de cargar
+        // Intentar reproducir inmediatamente si ya está listo
         if (videoElement.readyState >= 3) {
+            console.log('⚡ Video ya cargado, reproduciendo inmediatamente');
             playVideo();
         }
         
-        videoElement.addEventListener('canplay', playVideo, { once: true });
-        videoElement.addEventListener('loadedmetadata', playVideo, { once: true });
+        // Escuchadores para eventos de carga
+        videoElement.addEventListener('canplay', () => {
+            console.log('🎥 Video listo para reproducir (canplay)');
+            playVideo();
+        }, { once: true });
+        
+        videoElement.addEventListener('loadedmetadata', () => {
+            console.log('📹 Metadatos cargados');
+            playVideo();
+        }, { once: true });
+        
+        videoElement.addEventListener('loadeddata', () => {
+            console.log('💾 Datos de video cargados');
+            playVideo();
+        }, { once: true });
+        
+        // Detectar error en carga
+        videoElement.addEventListener('error', (e) => {
+            console.error('❌ Error cargando video:', {
+                errorCode: e.target.error?.code,
+                errorMsg: e.target.error?.message,
+                src: e.target.src || e.target.querySelector('source')?.src
+            });
+        });
+        
+        // Fallback de timeout
+        setTimeout(() => {
+            if (videoElement.readyState < 2) {
+                console.warn('⏱️  Video no cargó en 5 segundos');
+                console.warn('URL del video:', videoElement.querySelector('source')?.src);
+                console.warn('¿La URL es accesible? Verifica en Settings > Files de Shopify');
+            }
+        }, 5000);
+    } else {
+        console.error('❌ Elemento de video #background-video no encontrado');
     }
 })();
 </script>
