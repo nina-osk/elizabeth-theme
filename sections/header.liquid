@@ -109,7 +109,7 @@
       <div style="display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0;" class="desktop-nav">
         <!-- Wishlist -->
         <a 
-          href="/pages/wishlist" 
+          href="/pages/mi-lista-de-deseos" 
           style="font-size: 0.875rem; font-weight: 500; color: #2d2d2d; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; position: relative;"
           title="Mi lista de deseos"
         >
@@ -225,6 +225,17 @@
           <!-- MOBILE ACCOUNT & CART -->
           <div class="pt-4 mt-4">
             <div class="flex flex-col space-y-3">
+              <a 
+                href="/pages/mi-lista-de-deseos" 
+                class="flex items-center justify-between p-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                <span>Mi Lista de Deseos</span>
+                <span class="flex items-center gap-2">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                  </svg>
+                </span>
+              </a>
               <a 
                 href="{{ routes.account_url }}" 
                 class="flex items-center justify-between p-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
