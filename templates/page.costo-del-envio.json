@@ -4,10 +4,6 @@
       "type": "template-page",
       "settings": {}
     },
-    "shipping_info": {
-      "type": "service-features",
-      "settings": {}
-    }
   },
   "order": [
     "main",
