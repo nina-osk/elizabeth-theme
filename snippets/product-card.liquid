@@ -56,20 +56,6 @@
             </div>
         </div>
         
-        <!-- Image Navigation Arrows -->
-        {% if product.media.size > 1 %}
-            <button class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100" aria-label="Previous image" onclick="previousProductImage(this, event)">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-                </svg>
-            </button>
-            <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100" aria-label="Next image" onclick="nextProductImage(this, event)">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-                </svg>
-            </button>
-        {% endif %}
-        
         <!-- Image Pagination Dots -->
         {% if product.media.size > 1 %}
             <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 image-dots" data-product-id="{{ product.id }}">
@@ -208,40 +194,8 @@ function toggleWishlist(button, event) {
   syncWishlistToShopifyMetafield(wishlist);
 }
 
-// Image navigation for product cards
-function getProductImageForCard(card) {
-  return card?.querySelector('img')?.src || '';
-}
 
-function nextProductImage(button, event) {
-  event.preventDefault();
-  event.stopPropagation();
-  
-  const card = button.closest('.product-card');
-  const link = card.querySelector('a.collection-product-link');
-  const productUrl = link.getAttribute('data-product-url');
-  window.location.href = productUrl;
-}
-
-function previousProductImage(button, event) {
-  event.preventDefault();
-  event.stopPropagation();
-  
-  const card = button.closest('.product-card');
-  const link = card.querySelector('a.collection-product-link');
-  const productUrl = link.getAttribute('data-product-url');
-  window.location.href = productUrl;
-}
-
-function goToProductImage(dot, event) {
-  event.preventDefault();
-  event.stopPropagation();
-  
-  const card = dot.closest('.product-card');
-  const link = card.querySelector('a.collection-product-link');
-  const productUrl = link.getAttribute('data-product-url');
-  window.location.href = productUrl;
-}
+// Image navigation for product cards - REMOVED (arrows functionality no longer needed)
 
 // Show notification
 function showNotification(message) {
