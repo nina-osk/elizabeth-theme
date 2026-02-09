@@ -54,8 +54,8 @@
 
                 {% if prod != blank and prod.featured_media %}
                   <!-- Product Image -->
-                  <div class="relative w-full" style="height: 340px;">
-                    {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full h-full object-contain', loading: 'lazy', width: 600, height: 600 }}
+                  <div class="relative w-full" style="height: 340px; overflow: hidden;">
+                    {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full h-full object-cover', loading: 'lazy', width: 600, height: 600 }}
                     
                     <!-- Action Icons (visible only on active slide) -->
                     <div class="slide-actions absolute bottom-4 left-0 right-0 flex justify-between px-4 opacity-0 transition-opacity duration-300">
@@ -132,6 +132,7 @@
     width: 280px;
     height: 380px;
     will-change: transform, opacity;
+    flex-shrink: 0;
   }
 
   /* Active slide gets border */
@@ -173,33 +174,27 @@
     
     .carousel-wrapper .relative {
       overflow: hidden !important;
-      height: 560px !important;
-    }
-    
-    .slide-card {
-      width: 90vw;
-      max-width: 320px;
-      height: 420px;
-    }
-    
-    /* Adjust image container on mobile - make it larger */
-    .carousel-slide .relative[style*="height: 340px"] {
-      height: 380px !important;
-    }
-    
-    /* Fill the entire card with the image - no padding */
-    .carousel-slide img {
-      object-fit: cover !important;
-      padding: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
+      height: 420px !important;
     }
     
     /* Make the slide card fit on mobile with visible borders */
     .slide-card {
       width: 85vw !important;
       max-width: 340px !important;
-      height: 460px !important;
+      height: 420px !important;
+    }
+    
+    /* Adjust image container on mobile */
+    .carousel-slide .relative[style*="height: 340px"] {
+      height: 340px !important;
+    }
+    
+    /* Ensure images fill the container properly */
+    .carousel-slide img {
+      object-fit: cover !important;
+      padding: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
     }
     
     /* Hide non-active slides on mobile - move them off screen */
@@ -238,11 +233,16 @@
   @media (min-width: 769px) {
     .carousel-wrapper .relative {
       overflow: hidden !important;
+      height: 500px !important;
     }
     
     .carousel-wrapper {
       max-width: 100% !important;
       overflow-x: hidden !important;
+    }
+    
+    .slide-card {
+      width: 280px !important;
     }
   }
 
