@@ -19,16 +19,18 @@
                 {% endif %}
                 
                 <!-- Hidden images for carousel -->
-                {% for media in product.media offset: 1 limit: 2 %}
-                    <img 
-                        class="product-carousel-image w-full h-full object-cover hidden" 
-                        src="{{ media | image_url: width: 800 }}" 
-                        alt="{{ media.alt }}" 
-                        width="800" 
-                        height="800" 
-                        loading="lazy"
-                        data-index="{{ forloop.index }}"
-                    >
+                {% for media in product.media limit: 3 %}
+                    {% unless forloop.first %}
+                        <img 
+                            class="product-carousel-image w-full h-full object-cover hidden" 
+                            src="{{ media | image_url: width: 800 }}" 
+                            alt="{{ media.alt }}" 
+                            width="800" 
+                            height="800" 
+                            loading="lazy"
+                            data-index="{{ forloop.index0 }}"
+                        >
+                    {% endunless %}
                 {% endfor %}
             </div>
         </a>
