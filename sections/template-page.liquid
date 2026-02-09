@@ -1,12 +1,14 @@
-<div style="background-color: #F5F1E8 !important; width: 100% !important; padding: 2rem 1.5rem !important; min-height: calc(100vh - 400px) !important;" class="template-page-outer">
+<div style="background-color: #F5F1E8 !important; width: 100% !important; padding: 4rem 1rem !important; min-height: calc(100vh - 400px) !important;" class="template-page-outer">
   <div style="margin: 0 auto; max-width: 56rem;">
     
     {% if page.title %}
-      <h1 class="page-title">{{ page.title }}</h1>
+      <h1 style="font-family: Georgia, serif; font-size: 3.5rem; font-weight: 400; color: #1a1a1a; margin-bottom: 3rem; text-align: left; letter-spacing: -0.5px; line-height: 1.1;">
+        {{ page.title }}
+      </h1>
     {% endif %}
 
-  {% if page.content %}
-      <div style="font-size: 1rem; line-height: 1.8; color: #555; word-break: break-word; text-align: justify;">
+    {% if page.content %}
+      <div style="font-size: 1.0625rem; line-height: 1.8; color: #555; word-break: break-word;">
         {{ page.content }}
       </div>
     {% endif %}
@@ -16,13 +18,7 @@
 
 <style>
   .template-page-outer {
-    padding: 2rem 1.5rem !important;
-  }
-
-  @media (min-width: 640px) {
-    .template-page-outer {
-      padding: 3rem 2rem !important;
-    }
+    padding: 4rem 1rem !important;
   }
 
   @media (min-width: 768px) {
@@ -37,60 +33,20 @@
     }
   }
 
-  /* Page Title */
-  .page-title {
-    font-family: Georgia, serif !important;
-    font-size: 1.875rem !important;
-    font-weight: 400 !important;
-    color: #1a1a1a !important;
-    margin-bottom: 2rem !important;
-    text-align: left !important;
-    letter-spacing: -0.5px !important;
-    line-height: 1.1 !important;
-  }
-
-  @media (min-width: 768px) {
-    .page-title {
-      font-size: 3.5rem !important;
-      margin-bottom: 3rem !important;
-    }
-  }
-
   h2 {
-    font-size: 1.5rem !important;
-    font-weight: 600 !important;
-    margin: 3rem 0 1.5rem !important;
-    color: #D4A574 !important;
-    font-family: Georgia, serif !important;
-    border-bottom: 1px solid #ddd !important;
-    padding-bottom: 1rem !important;
-  }
-
-  @media (min-width: 768px) {
-    h2 {
-      font-size: 1.875rem !important;
-    }
+    font-size: 1.875rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem;
+    color: #1a1a1a;
+    font-family: Georgia, serif;
   }
 
   h3 {
-    font-size: 1.25rem !important;
-    font-weight: 600 !important;
-    margin: 2rem 0 1rem !important;
-    color: #D4A574 !important;
-    font-family: Georgia, serif !important;
-  }
-
-  @media (min-width: 768px) {
-    h3 {
-      font-size: 1.5rem !important;
-    }
-  }
-
-  p {
-    margin-bottom: 1.25rem !important;
-    line-height: 1.8 !important;
-    color: #555 !important;
-    text-align: justify !important;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem;
+    color: #1a1a1a;
+    font-family: Georgia, serif;
   }
 
   a {
@@ -102,19 +58,11 @@
   }
 
   ul, ol {
-    margin-left: 1.5rem;
-    margin-bottom: 1.25rem;
-  }
-
-  @media (min-width: 768px) {
-    ul, ol {
-      margin-left: 2rem;
-    }
+    margin-left: 2rem;
   }
 
   li {
     color: #555;
-    margin-bottom: 0.75rem;
   }
 </style>
 
