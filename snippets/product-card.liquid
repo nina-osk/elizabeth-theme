@@ -19,18 +19,16 @@
                 {% endif %}
                 
                 <!-- Hidden images for carousel -->
-                {% for media in product.media %}
-                    {% if forloop.index > 1 and forloop.index <= 4 %}
-                        <img 
-                            class="product-carousel-image w-full h-full object-cover hidden" 
-                            src="{{ media | image_url: width: 800 }}" 
-                            alt="{{ media.alt }}" 
-                            width="800" 
-                            height="800" 
-                            loading="lazy"
-                            data-index="{{ forloop.index0 }}"
-                        >
-                    {% endif %}
+                {% for media in product.media offset: 1 limit: 2 %}
+                    <img 
+                        class="product-carousel-image w-full h-full object-cover hidden" 
+                        src="{{ media | image_url: width: 800 }}" 
+                        alt="{{ media.alt }}" 
+                        width="800" 
+                        height="800" 
+                        loading="lazy"
+                        data-index="{{ forloop.index0 }}"
+                    >
                 {% endfor %}
             </div>
         </a>
@@ -85,8 +83,8 @@
         <!-- Image Pagination Dots -->
         {% if product.media.size > 1 %}
             <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 image-dots" data-product-id="{{ product.id }}">
-                {% assign max_images = product.media.size | at_most: 4 %}
-                {% for i in (0..max_images) %}
+                {% assign max_images = product.media.size | at_most: 3 %}
+                {% for i in (0..2) %}
                     {% if i < max_images %}
                         <button class="w-2 h-2 rounded-full image-dot {% if i == 0 %}bg-black{% else %}bg-neutral-400{% endif %}" data-index="{{ i }}" onclick="goToProductImage(this, event)"></button>
                     {% endif %}
