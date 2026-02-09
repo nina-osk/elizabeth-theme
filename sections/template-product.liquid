@@ -16,14 +16,6 @@
         align-items: center;
         justify-content: center;
     }
-    
-    /* Ocultar flechas en desktop */
-    @media (min-width: 641px) {
-        .swiper-button-prev, .swiper-button-next {
-            display: none !important;
-        }
-    }
-    
     .swiper-button-prev::after, .swiper-button-next::after {
         font-size: 24px;
         font-weight: bold;
@@ -105,16 +97,7 @@
         align-items: center;
     }
     
-    /* Ocultar botón wishlist en desktop, mostrar en mobile */
-    #save-for-later-btn {
-        display: none !important;
-    }
-    
     @media (max-width: 640px) {
-        #save-for-later-btn {
-            display: flex !important;
-        }
-    }
 
         .add-to-cart-btn {
             padding: 0.75rem 1.5rem;
