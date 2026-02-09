@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (wishlist.length === 0) {
       emptyMessage.style.display = 'block';
+      container.innerHTML = '';
       return;
     }
     
@@ -169,10 +170,10 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         </a>
         <div style="padding: 0 1rem 1rem 1rem; display: flex; gap: 0.5rem;">
-          <button onclick="removeFromWishlist('${item.id}')" style="flex: 1; background: #f5f5f5; border: none; padding: 0.5rem; border-radius: 6px; color: #999; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#e8e8e8'; this.style.color='#666'" onmouseout="this.style.background='#f5f5f5'; this.style.color='#999'">
+          <button onclick="removeFromWishlist(${item.id})" style="flex: 1; background: #f5f5f5; border: none; padding: 0.5rem; border-radius: 6px; color: #999; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#e8e8e8'; this.style.color='#666'" onmouseout="this.style.background='#f5f5f5'; this.style.color='#999'">
             Remover
           </button>
-          <button onclick="addProductToCart('${item.id}')" style="flex: 1; background: #AFC4AE; border: none; padding: 0.5rem; border-radius: 6px; color: #2d2d2d; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#9BB49A'" onmouseout="this.style.background='#AFC4AE'">
+          <button onclick="addProductToCart(${item.id})" style="flex: 1; background: #AFC4AE; border: none; padding: 0.5rem; border-radius: 6px; color: #2d2d2d; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#9BB49A'" onmouseout="this.style.background='#AFC4AE'">
             Agregar
           </button>
         </div>
@@ -184,11 +185,61 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Global functions para los botones
   window.removeFromWishlist = function(productId) {
-    const wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
-    const filtered = wishlist.filter(item => item.id !== productId);
+    let wishlist = JSON.parse(localStorage.getItem('munier_wishlist') || '[]');
+    const filtered = wishlist.filter(item => item.id != productId && item.id !== productId);
     localStorage.setItem('munier_wishlist', JSON.stringify(filtered));
+    
+    // Sincronizar con Shopify si es cliente registrado
+    const customerId = '{{ customer.id | escape }}';
+    if (customerId && customerId !== '') {
+      syncWishlistToShopify(filtered);
+    }
+    
     loadWishlistFromLocalStorage();
     showNotification('Producto removido de la lista');
+  };
+  
+  // Sincronizar wishlist con Shopify
+  window.syncWishlistToShopify = function(wishlist) {
+    const customerId = '{{ customer.id | escape }}';
+    if (!customerId || customerId === '') return;
+    
+    const mutation = `
+      mutation {
+        customerUpdate(
+          input: {
+            id: "gid://shopify/Customer/${customerId}"
+            metafields: [
+              {
+                namespace: "munier"
+                key: "wishlist"
+                type: "json"
+                value: "${JSON.stringify(wishlist).replace(/"/g, '\\"')}"
+              }
+            ]
+          }
+        ) {
+          customer {
+            id
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+    
+    fetch('/admin/api/2024-01/graphql.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query: mutation })
+    })
+    .catch(err => {
+      console.warn('Sincronización con Shopify fallida:', err);
+    });
   };
   
   window.addProductToCart = function(productId) {
