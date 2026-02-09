@@ -1,6 +1,6 @@
 {% if cart.item_count > 0 %}
-  <div class="max-w-6xl mx-auto px-4 py-10 pb-96">
-    <div class="flex items-center justify-between mb-6">
+  <div class="max-w-6xl mx-auto px-4 py-10 cart-container" style="padding-bottom: 30rem; min-height: calc(100vh - 200px);">
+    <div class="flex flex-col items-center justify-center gap-4 mb-10">
       <h1 class="text-3xl font-semibold">Tu Carrito ({{ cart.item_count }})</h1>
       <a href="{{ routes.all_products_collection_url }}" class="text-blue-600 hover:text-blue-800 underline text-sm">Continúa comprando</a>
     </div>
@@ -104,6 +104,13 @@
     </div>
   </div>
 {% endif %}
+
+<style>
+  .cart-container {
+    padding-bottom: 30rem !important;
+    min-height: calc(100vh - 200px);
+  }
+</style>
 
 {% schema %}
 {
