@@ -1,18 +1,20 @@
 <div class="page-template">
-  <div class="page-template__container max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
-    
-    {% if page.title %}
-      <h1 class="page-template__title" style="font-family: Georgia, serif; font-size: 3rem; font-weight: 400; color: #1a1a1a; margin-bottom: 3rem; text-align: left; letter-spacing: -0.5px;">
-        {{ page.title }}
-      </h1>
-    {% endif %}
+  <div class="page-template__wrapper">
+    <div class="page-template__container max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-20 lg:py-24">
+      
+      {% if page.title %}
+        <h1 class="page-template__title" style="font-family: Georgia, serif; font-size: 3.5rem; font-weight: 400; color: #1a1a1a; margin-bottom: 3rem; text-align: left; letter-spacing: -0.5px; line-height: 1.1;">
+          {{ page.title }}
+        </h1>
+      {% endif %}
 
-    {% if page.content %}
-      <div class="page-template__content" style="font-size: 1.0625rem; line-height: 1.8; color: #555;">
-        {{ page.content }}
-      </div>
-    {% endif %}
+      {% if page.content %}
+        <div class="page-template__content" style="font-size: 1.0625rem; line-height: 1.8; color: #555;">
+          {{ page.content }}
+        </div>
+      {% endif %}
 
+    </div>
   </div>
 </div>
 
@@ -20,17 +22,19 @@
   .page-template {
     width: 100%;
     background-color: #F5F1E8;
-    min-height: calc(100vh - 200px);
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    min-height: 100%;
+  }
+
+  .page-template__wrapper {
+    width: 100%;
+    background-color: #F5F1E8;
+    padding-top: 0;
+    padding-bottom: 6rem;
   }
 
   .page-template__container {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #555;
-    flex-grow: 1;
+    width: 100%;
+    background-color: #F5F1E8;
   }
 
   .page-template__title {
@@ -39,6 +43,7 @@
 
   .page-template__content {
     word-break: break-word;
+    background-color: transparent;
   }
 
   .page-template__content h2 {
