@@ -2,9 +2,7 @@
   <div style="margin: 0 auto; max-width: 56rem;">
     
     {% if page.title %}
-      <h1 style="font-family: Georgia, serif; font-size: 2rem; font-weight: 400; color: #1a1a1a; margin-bottom: 2rem; text-align: left; letter-spacing: -0.5px; line-height: 1.1;">
-        {{ page.title }}
-      </h1>
+      <h1 class="page-title">{{ page.title }}</h1>
     {% endif %}
 
     {% if page.content %}
@@ -39,15 +37,22 @@
     }
   }
 
-  h1 {
-    font-size: 1.875rem;
-    margin-bottom: 2rem;
+  /* Page Title */
+  .page-title {
+    font-family: Georgia, serif !important;
+    font-size: 1.875rem !important;
+    font-weight: 400 !important;
+    color: #1a1a1a !important;
+    margin-bottom: 2rem !important;
+    text-align: left !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1.1 !important;
   }
 
   @media (min-width: 768px) {
-    h1 {
-      font-size: 3.5rem;
-      margin-bottom: 3rem;
+    .page-title {
+      font-size: 3.5rem !important;
+      margin-bottom: 3rem !important;
     }
   }
 
