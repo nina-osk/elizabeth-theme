@@ -56,6 +56,20 @@
             </div>
         </div>
         
+        <!-- Image Navigation Arrows -->
+        {% if product.media.size > 1 %}
+            <button class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100" aria-label="Previous image" onclick="previousProductImage(this, event)">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100" aria-label="Next image" onclick="nextProductImage(this, event)">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        {% endif %}
+        
         <!-- Image Pagination Dots -->
         {% if product.media.size > 1 %}
             <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 image-dots" data-product-id="{{ product.id }}">
@@ -195,7 +209,79 @@ function toggleWishlist(button, event) {
 }
 
 
-// Image navigation for product cards - REMOVED (arrows functionality no longer needed)
+// Image navigation for product cards - Cambiar entre imágenes del producto
+function changeProductImage(card, direction) {
+  const images = card.querySelectorAll('img');
+  if (images.length <= 1) return;
+  
+  const currentImg = card.querySelector('a img');
+  if (!currentImg) return;
+  
+  const allImages = Array.from(product.media).slice(0, 3);
+  let currentIndex = 0;
+  
+  // Encontrar índice actual
+  for (let i = 0; i < images.length; i++) {
+    if (images[i] === currentImg) {
+      currentIndex = i;
+      break;
+    }
+  }
+  
+  // Calcular siguiente índice
+  let nextIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+  if (nextIndex >= images.length) nextIndex = 0;
+  if (nextIndex < 0) nextIndex = images.length - 1;
+  
+  // Cambiar imagen
+  if (images[nextIndex]) {
+    currentImg.src = images[nextIndex].src;
+    currentImg.alt = images[nextIndex].alt;
+  }
+}
+
+function nextProductImage(button, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  
+  const card = button.closest('.product-card');
+  changeProductImage(card, 'next');
+}
+
+function previousProductImage(button, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  
+  const card = button.closest('.product-card');
+  changeProductImage(card, 'prev');
+}
+
+function goToProductImage(dot, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  
+  const card = dot.closest('.product-card');
+  const index = parseInt(dot.getAttribute('data-index'));
+  const images = card.querySelectorAll('img');
+  const currentImg = card.querySelector('a img');
+  
+  if (images[index] && currentImg) {
+    currentImg.src = images[index].src;
+    currentImg.alt = images[index].alt;
+    
+    // Actualizar dots activos
+    const dots = card.querySelectorAll('.image-dot');
+    dots.forEach((d, i) => {
+      if (i === index) {
+        d.classList.add('bg-black');
+        d.classList.remove('bg-neutral-400');
+      } else {
+        d.classList.remove('bg-black');
+        d.classList.add('bg-neutral-400');
+      }
+    });
+  }
+}
 
 // Show notification
 function showNotification(message) {
