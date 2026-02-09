@@ -1,4 +1,4 @@
-<div style="background-color: #F5F1E8 !important; width: 100% !important; padding: 4rem 1rem !important; min-height: calc(100vh - 400px) !important;">
+<div style="background-color: #F5F1E8 !important; width: 100% !important; padding: 4rem 1rem !important; min-height: calc(100vh - 400px) !important;" class="template-page-outer">
   <div style="margin: 0 auto; max-width: 56rem;">
     
     {% if page.title %}
@@ -17,6 +17,22 @@
 </div>
 
 <style>
+  .template-page-outer {
+    padding: 4rem 1rem !important;
+  }
+
+  @media (min-width: 768px) {
+    .template-page-outer {
+      padding: 4rem 4rem !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .template-page-outer {
+      padding: 4rem 8rem !important;
+    }
+  }
+
   h2 {
     font-size: 1.875rem;
     font-weight: 600;

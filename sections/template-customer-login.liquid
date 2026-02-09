@@ -46,6 +46,11 @@
                         Iniciar sesión
                     </button>
                 </div>
+                <div class="mt-6 text-center text-sm">
+                    <p class="text-gray-600">¿Aún no tienes cuenta con nosotros? 
+                        <a href="{{ routes.account_register_url }}" class="text-gray-900 font-semibold underline hover:text-gray-700">Registrate</a>
+                    </p>
+                </div>
             {% endform %}
         </div>
         {% if shop.checkout.guest_login %}
