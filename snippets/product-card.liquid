@@ -238,17 +238,23 @@ function toggleWishlist(button, event) {
 function changeProductImage(card, direction) {
   if (!card) return;
   
-  const allImages = card.querySelectorAll('[data-index]');
-  if (allImages.length <= 1) return;
+  // Contar los dots para saber exactamente cuántas imágenes hay
+  const dots = card.querySelectorAll('.image-dot');
+  const maxImages = dots.length;
+  
+  if (maxImages <= 1) return;
   
   let currentIndex = parseInt(card.getAttribute('data-current-image')) || 0;
   
   // Calcular siguiente índice
   let nextIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
-  if (nextIndex >= allImages.length) nextIndex = 0;
-  if (nextIndex < 0) nextIndex = allImages.length - 1;
+  
+  // Hacer wrap-around basado en el número real de dots
+  if (nextIndex >= maxImages) nextIndex = 0;
+  if (nextIndex < 0) nextIndex = maxImages - 1;
   
   // Ocultar todas las imágenes
+  const allImages = card.querySelectorAll('[data-index]');
   allImages.forEach(img => {
     img.classList.add('hidden');
   });
@@ -259,7 +265,7 @@ function changeProductImage(card, direction) {
     nextImage.classList.remove('hidden');
     card.setAttribute('data-current-image', nextIndex.toString());
     updateImageDots(card, nextIndex);
-    console.log('Imagen actual:', nextIndex);
+    console.log('Imagen actual:', nextIndex, 'de', maxImages);
   }
 }
 
