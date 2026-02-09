@@ -78,10 +78,6 @@
         "cta_button_text": "Contáctanos",
         "cta_button_link": ""
       }
-    },
-    "main": {
-      "type": "main-page"
-    }
   },
   "order": [
     "faq_ndbTKz"
