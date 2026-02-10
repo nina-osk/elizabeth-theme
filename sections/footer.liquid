@@ -72,17 +72,14 @@
     
     <!-- Bottom Bar -->
     <div class="footer-bottom">
-      <p class="footer-copyright">
-        © 2026 RobotsConsultant. Todos los derechos reservados.
-      </p>
       <p class="footer-info">
-        Joyería Panameña • Oro 9K & 18K • Diamantes de Laboratorio
+        {{ section.settings.info_text | default: "Joyería Panameña • Oro 9K & 18K • Diamantes de Laboratorio" }}
       </p>
       <p class="footer-legal">
-        Maison Myck, S. A.
+        {{ section.settings.legal_text_1 | default: "Maison Myck, S. A." }}
       </p>
       <p class="footer-legal">
-       Munier Jewelry
+        {{ section.settings.legal_text_2 | default: "Munier Jewelry" }}
       </p>
     </div>
 
@@ -404,6 +401,28 @@
       "id": "menu_title",
       "label": "Título del menú",
       "default": "MUNIER"
+    },
+    {
+      "type": "header",
+      "content": "Pie del Footer"
+    },
+    {
+      "type": "text",
+      "id": "info_text",
+      "label": "Texto de Información",
+      "default": "Joyería Panameña • Oro 9K & 18K • Diamantes de Laboratorio"
+    },
+    {
+      "type": "text",
+      "id": "legal_text_1",
+      "label": "Texto Legal 1",
+      "default": "Maison Myck, S. A."
+    },
+    {
+      "type": "text",
+      "id": "legal_text_2",
+      "label": "Texto Legal 2",
+      "default": "Munier Jewelry"
     }
   ]
 }
