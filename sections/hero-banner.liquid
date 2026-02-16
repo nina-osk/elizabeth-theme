@@ -108,8 +108,21 @@
     data-model-name="ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png"
   />
 
+  <!-- Logo Container -->
+  <div class="hero-logo-container" style="text-align: center; padding: 4rem 2rem 2rem; order: -2; background-color: transparent; position: relative; z-index: 0; width: 100%; display: flex; justify-content: center;">
+    <img 
+      src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Munier_M_verde.jpg?v=1770394247" 
+      alt="Munier Logo" 
+      class="hero-logo"
+      width="80"
+      height="80"
+      loading="lazy"
+      style="max-width: 80px; height: auto; opacity: 0;"
+    />
+  </div>
+
   <!-- Subtitle - Visible Section (TOP) -->
-  <div class="hero-subtitle-container" style="text-align: center; padding: 6rem 2rem 4rem 0; order: -1; background-color: transparent; position: relative; z-index: 0; width: 100%; display: flex; justify-content: center;">
+  <div class="hero-subtitle-container" style="text-align: center; padding: 2rem 2rem 4rem 0; order: -1; background-color: transparent; position: relative; z-index: 0; width: 100%; display: flex; justify-content: center;">
     <p style="font-size: 2.00rem; font-weight: 400; color: white; margin: 0; font-style: italic; font-family: Georgia, serif;" class="hero-subtitle-main">
       <span class="hero-subtitle-animated">{{ section.settings.subtitle }}</span>
     </p>
@@ -580,6 +593,10 @@
     animation: fadeIn 1s ease-out 1.7s forwards;
   }
 
+  .hero-logo {
+    animation: fadeIn 0.8s ease-out 0s forwards;
+  }
+
   /* Default Desktop Styles */
   .hero-models-mobile-container {
     display: none;
@@ -740,6 +757,18 @@
       margin-top: 1rem !important;
       position: relative;
       z-index: 15 !important;
+    }
+
+    /* Logo responsive */
+    .hero-logo {
+      max-width: 60px !important;
+      width: 60px !important;
+      height: auto !important;
+    }
+
+    .hero-logo-container {
+      padding: 3rem 2rem 1rem !important;
+      order: -2 !important;
     }
   }
 
