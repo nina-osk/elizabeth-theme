@@ -123,6 +123,14 @@
                         <td class="border border-gray-200 px-4 py-2">Subtotal</td>
                         <td class="border border-gray-200 px-4 py-2">{{ order.subtotal_price | money }}</td>
                     </tr>
+                    {% if order.discount_applications.size > 0 %}
+                        {% for discount in order.discount_applications %}
+                            <tr>
+                                <td class="border border-gray-200 px-4 py-2 text-green-600">{{ discount.title }}</td>
+                                <td class="border border-gray-200 px-4 py-2 text-green-600">-{{ discount.total_allocated_price | money }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
                     <tr>
                         <td class="border border-gray-200 px-4 py-2">Envío</td>
                         <td class="border border-gray-200 px-4 py-2">{{ order.shipping_price | money }}</td>
