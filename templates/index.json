@@ -13,8 +13,8 @@
       "type": "hero-banner",
       "settings": {
         "subtitle": "Brilla todo los días",
-        "title_part1": "Tu eres",
-        "title_part2": "la ocasión especial",
+        "title_part1": "",
+        "title_part2": "Tú eres la ocasión especial",
         "description": "Creemos que el lujo no está en la ocasión, sino en quien la vive.",
         "description_2": "Joyas diseñadas para acompañarte todos los días.",
         "button1_text": "EXPLORAR COLECCIONES",
@@ -105,11 +105,11 @@
     "video-with-text": {
       "type": "video-with-text",
       "settings": {
-        "title": "Joyería Atemporal De Oro9k",
-        "description": "Munier crea piezas elegantes, versátiles y duraderas que se sienten tan naturales como tu propia esencia. Joyas que se mueven contigo, desde lo cotidiano hasta lo inolvidable.",
+        "title": "",
+        "description": "",
         "video_url": "",
         "video_file": "https://cdn.shopify.com/videos/c/o/v/9fa814a185c74cda85da59b0e2b60657.mp4",
-        "bottom_title": "Lujo Discreto Y De Calidad"
+        "bottom_title": ""
       }
     },
     "features-with-icons": {
