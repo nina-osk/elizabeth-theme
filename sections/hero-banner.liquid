@@ -58,6 +58,13 @@
     />
   </div>
 
+  <!-- Subtitle - Bottom Left of Images -->
+  <div class="hero-subtitle-container" style="text-align: left; padding: 2rem 2rem 2rem 2rem; order: 0; background-color: transparent; position: relative; z-index: 5; width: 100%; display: flex; justify-content: flex-start; align-items: flex-start;">
+    <p style="font-size: 2.00rem; font-weight: 400; color: white; margin: 0; font-style: italic; font-family: Georgia, serif;" class="hero-subtitle-main">
+      <span class="hero-subtitle-animated">{{ section.settings.subtitle }}</span>
+    </p>
+  </div>
+
   <!-- Background Model Images for Desktop -->
   <!-- Right Model -->
   <img 
@@ -117,15 +124,8 @@
       width="135"
       height="135"
       loading="lazy"
-      style="max-width: 135px; height: auto; opacity: 0;"
+      style="max-width: 135px; height: auto; opacity: 1;"
     />
-  </div>
-
-  <!-- Subtitle - Visible Section (TOP) -->
-  <div class="hero-subtitle-container" style="text-align: center; padding: 2rem 2rem 4rem 0; order: -1; background-color: transparent; position: relative; z-index: 0; width: 100%; display: flex; justify-content: center;">
-    <p style="font-size: 2.00rem; font-weight: 400; color: white; margin: 0; font-style: italic; font-family: Georgia, serif;" class="hero-subtitle-main">
-      <span class="hero-subtitle-animated">{{ section.settings.subtitle }}</span>
-    </p>
   </div>
 
   <!-- Content WITHOUT GIF Background -->
@@ -152,17 +152,17 @@
         
         <!-- Title Part 1 - Inside Video Container as Overlay -->
         <h1 style="font-family: Georgia, serif; line-height: 1.15; color: white; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1; margin: 0; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-          <span style="display: block; font-size: 6.5rem; font-weight: 400; font-style: italic; opacity: 0;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
+          <span style="display: block; font-size: 6.5rem; font-weight: 400; font-style: italic; opacity: 1;" class="hero-title-part1">{{ section.settings.title_part1 }}</span>
         </h1>
         
         <!-- Title Part 2 -->
         <h1 style="font-family: Georgia, serif; line-height: 1.15; color: #2d2d2d; position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%); width: 100%; z-index: 1; margin: 0;">
-          <span style="display: block; font-size: 3.5rem; font-style: italic; color: white; font-weight: 400; opacity: 0;" class="hero-title-part2">{{ section.settings.title_part2 }}</span>
+          <span style="display: block; font-size: 3.5rem; font-style: italic; color: white; font-weight: 400; opacity: 1;" class="hero-title-part2">{{ section.settings.title_part2 }}</span>
         </h1>
       </div>
       
       <!-- Buttons -->
-      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0; margin-top: 3rem; margin-bottom: 3rem; position: relative; z-index: 15; pointer-events: auto;" class="hero-buttons">
+      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; opacity: 1; margin-top: 3rem; margin-bottom: 3rem; position: relative; z-index: 15; pointer-events: auto;" class="hero-buttons">
         <a href="{{ section.settings.button1_link }}" class="hero-btn hero-btn-active">
           {{ section.settings.button1_text }}
         </a>
@@ -172,12 +172,12 @@
       </div>
 
       <!-- Description -->
-      <p style="font-size: 1.25rem; color: #000000; line-height: 1.7; max-width: 650px; margin: 0 auto; opacity: 0; font-style: italic;" class="hero-description">
+      <p style="font-size: 1.25rem; color: #000000; line-height: 1.7; max-width: 650px; margin: 0 auto; opacity: 1; font-style: italic;" class="hero-description">
         {{ section.settings.description }}
       </p>
 
       <!-- Description 2 -->
-      <p style="font-size: 1.25rem; color: #000000; line-height: 1.7; max-width: 650px; margin: 2rem auto 0; opacity: 0; font-style: italic;" class="hero-description-2">
+      <p style="font-size: 1.25rem; color: #000000; line-height: 1.7; max-width: 650px; margin: 2rem auto 0; opacity: 1; font-style: italic;" class="hero-description-2">
         {{ section.settings.description_2 }}
       </p>
 
@@ -535,30 +535,40 @@
   }
 
   .hero-model-right {
-    animation: slideDownRight 1.5s ease-out 0.3s forwards;
+    animation: none;
+    top: 0;
+    opacity: 0.95;
+    transform: rotate(6deg);
   }
 
   .hero-model-left {
-    animation: slideDownLeft 1.5s ease-out 0.3s forwards;
+    animation: none;
+    top: 0;
+    opacity: 0.95;
+    transform: rotate(-12deg);
   }
 
   .hero-model-below-right.hero-card {
-    animation: slideUpRight 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+    animation: none;
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotate(6deg);
   }
 
   .hero-model-below-left.hero-card {
-    animation: slideUpLeft 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+    animation: none;
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotate(-12deg);
   }
 
   .hero-title-part1 {
-    animation: textGenerate 2.5s ease-in-out 0.5s forwards;
-    overflow: hidden;
-    white-space: nowrap;
+    animation: none;
+    overflow: visible;
+    white-space: normal;
     display: block;
   }
 
   .hero-subtitle {
-    animation: fadeIn 0.8s ease-out 0.2s forwards;
+    animation: none;
   }
 
   .hero-subtitle-main {
@@ -572,29 +582,29 @@
   }
 
   .hero-subtitle-animated {
-    animation: textGenerate 1.5s ease-in-out 0.3s forwards;
-    overflow: hidden;
+    animation: none;
+    overflow: visible;
     display: inline-block;
   }
 
   .hero-title-part2 {
-    animation: textGenerate 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards, subtleSparkle 3s ease-in-out 0.8s infinite;
+    animation: none;
   }
 
   .hero-description {
-    animation: fadeIn 1s ease-out 1.1s forwards;
+    animation: none;
   }
 
   .hero-description-2 {
-    animation: fadeIn 1s ease-out 1.4s forwards;
+    animation: none;
   }
 
   .hero-buttons {
-    animation: fadeIn 1s ease-out 1.7s forwards;
+    animation: none;
   }
 
   .hero-logo {
-    animation: fadeIn 0.8s ease-out 0s forwards;
+    animation: none;
   }
 
   /* Default Desktop Styles */
@@ -607,12 +617,15 @@
   }
 
   .hero-subtitle-container {
-    order: -1;
+    order: 0;
     background-color: transparent;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     width: 100%;
+    padding: 2rem 2rem;
+    position: relative;
+    z-index: 5;
   }
 
   .hero-subtitle-main {
@@ -645,10 +658,12 @@
     }
 
     .hero-subtitle-container {
-      order: -1 !important;
+      order: 0 !important;
       display: flex !important;
-      align-items: center;
-      justify-content: center;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 2rem 2rem !important;
+      text-align: left;
     }
 
     .hero-subtitle-main {
@@ -682,6 +697,11 @@
       filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.1)) !important;
       border-radius: 12px;
       overflow: hidden;
+    }
+
+    /* Ocultar la última imagen en mobile */
+    .hero-models-mobile-container .hero-model-mobile:nth-child(4) {
+      display: none !important;
     }
 
     .hero-model-desktop {
@@ -775,7 +795,7 @@
   /* GIF Animation Styles */
   .hero-gif-background {
     transition: opacity 1.2s ease-in-out;
-    opacity: 0;
+    opacity: 1;
   }
 
   .hero-gif-background.visible {
@@ -787,12 +807,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   const gifImage = document.querySelector('.hero-gif-background');
   
-  // Iniciar la animación del GIF automáticamente
+  // Mostrar el GIF inmediatamente sin delay
   if (gifImage) {
-    // Usar un pequeno delay para sincronizar con otras animaciones
-    setTimeout(function() {
-      gifImage.classList.add('visible');
-    }, 300);
+    gifImage.classList.add('visible');
   }
 
   // Expandable Card On Click Functionality
