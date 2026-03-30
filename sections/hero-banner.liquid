@@ -17,9 +17,10 @@
     <!-- Images Container -->
     <div class="hero-images-row" style="display: flex; width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
       <!-- Image 1 -->
+      {% assign prod1 = section.settings.image_1_product %}
       <img 
-        src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_Oro_9K-_Vera.png?v=1769442279" 
-        alt="Model 1" 
+        src="{% if prod1 != blank and prod1.featured_image %}{{ prod1.featured_image | image_url: width: 600 }}{% else %}https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_Oro_9K-_Vera.png?v=1769442279{% endif %}" 
+        alt="{% if prod1 != blank %}{{ prod1.title }}{% else %}Model 1{% endif %}" 
         class="hero-card hero-banner-img"
         width="400"
         height="600"
@@ -28,9 +29,10 @@
       />
       
       <!-- Image 2 -->
+      {% assign prod2 = section.settings.image_2_product %}
       <img 
-        src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloRight-Aretes_-OroBlanco9K-Aura.png?v=1770041849" 
-        alt="Model 2" 
+        src="{% if prod2 != blank and prod2.featured_image %}{{ prod2.featured_image | image_url: width: 600 }}{% else %}https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloRight-Aretes_-OroBlanco9K-Aura.png?v=1770041849{% endif %}" 
+        alt="{% if prod2 != blank %}{{ prod2.title }}{% else %}Model 2{% endif %}" 
         class="hero-card hero-banner-img"
         width="400"
         height="600"
@@ -39,9 +41,10 @@
       />
 
       <!-- Image 3 -->
+      {% assign prod3 = section.settings.image_3_product %}
       <img 
-        src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloFront-Aretes_Oro_9K-_Vera.png?v=1770041814" 
-        alt="Model 3" 
+        src="{% if prod3 != blank and prod3.featured_image %}{{ prod3.featured_image | image_url: width: 600 }}{% else %}https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloFront-Aretes_Oro_9K-_Vera.png?v=1770041814{% endif %}" 
+        alt="{% if prod3 != blank %}{{ prod3.title }}{% else %}Model 3{% endif %}" 
         class="hero-card hero-banner-img"
         width="250"
         height="400"
@@ -50,9 +53,10 @@
       />
       
       <!-- Image 4 -->
+      {% assign prod4 = section.settings.image_4_product %}
       <img 
-        src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png?v=1770041849" 
-        alt="Model 4" 
+        src="{% if prod4 != blank and prod4.featured_image %}{{ prod4.featured_image | image_url: width: 600 }}{% else %}https://cdn.shopify.com/s/files/1/0760/2697/0309/files/ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png?v=1770041849{% endif %}" 
+        alt="{% if prod4 != blank %}{{ prod4.title }}{% else %}Model 4{% endif %}" 
         class="hero-card hero-banner-img"
         width="250"
         height="400"
@@ -840,6 +844,26 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "url",
       "id": "button2_link",
       "label": "Link Botón 2"
+    },
+    {
+      "type": "product",
+      "id": "image_1_product",
+      "label": "Imagen 1 - Producto"
+    },
+    {
+      "type": "product",
+      "id": "image_2_product",
+      "label": "Imagen 2 - Producto"
+    },
+    {
+      "type": "product",
+      "id": "image_3_product",
+      "label": "Imagen 3 - Producto"
+    },
+    {
+      "type": "product",
+      "id": "image_4_product",
+      "label": "Imagen 4 - Producto"
     },
     {
       "type": "text",
