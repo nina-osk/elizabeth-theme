@@ -28,14 +28,16 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "header_title": "Bienvenida a un lujo accesible, inclusivo y real.",
-          "header_subtitle": "Un lujo que se adapta a tu vida. Un lujo que te acompaña.",
+          "header_title": "",
+          "header_subtitle": "Creemos que el lujo no esta en la ocacsión, sino en quien la vive. Joyas diseñadas para acompañarte todos los días",
           "brand_title": "MUNIER",
           "brand_description": "Piezas que brillan con tu luz cada día — lujo que te acompaña todos los días.",
           "brand_tagline": "Tú eres la ocasión especial.",
           "explore_title": "EXPLORAR",
           "menu_title": "MUNIER",
-          "footer_menu": "footermenu"
+          "info_text": "Joyería Panameña • Oro 9K & 18K • Diamantes de Laboratorio",
+          "legal_text_1": "Maison Myck, S. A.",
+          "legal_text_2": "Munier Jewelry"
         }
       }
     },
