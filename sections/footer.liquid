@@ -7,13 +7,6 @@
     endif
   %}
   <div class="footer-container">
-    
-    <!-- Header Section -->
-    <div class="footer-header">
-      <p class="footer-subtitle">
-        {{ section.settings.header_subtitle | default: "Creemos que el lujo no está en la ocasión, sino en quien la vive. Joyas diseñadas para acompañarte todos los días." }}
-      </p>
-    </div>
 
     <!-- Main Footer Content -->
     <div class="footer-content">
@@ -117,33 +110,6 @@
 }
 
 /* ========================================
-   HEADER SECTION
-   ======================================== */
-.footer-header {
-  padding-top: 2.5rem;
-  padding-bottom: 2rem;
-  text-align: center;
-}
-
-.footer-title {
-  font-family: Georgia, serif;
-  font-size: 2rem;
-  font-weight: 400;
-  color: #2d2d2d;
-  margin-bottom: 0.5rem;
-  line-height: 1.6;
-}
-
-.footer-subtitle {
-  font-family: Georgia, serif;
-  font-size: 2rem;
-  font-weight: 400;
-  color: #2d2d2d;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* ========================================
    MAIN CONTENT
    ======================================== */
 .footer-content {
@@ -242,19 +208,6 @@
     padding: 0 1.5rem;
   }
   
-  .footer-header {
-    padding-top: 3rem;
-    padding-bottom: 2.5rem;
-  }
-  
-  .footer-title {
-    font-size: 2rem;
-  }
-  
-  .footer-subtitle {
-    font-size: 2rem;
-  }
-  
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
@@ -271,22 +224,6 @@
 @media (min-width: 768px) {
   .footer-container {
     padding: 0 2rem;
-  }
-  
-  .footer-header {
-    padding-top: 4rem;
-    padding-bottom: 3rem;
-  }
-  
-  .footer-title {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
-  }
-  
-  .footer-subtitle {
-    font-size: 2rem;
-    line-height: 1.6;
   }
   
   .footer-content {
@@ -352,16 +289,6 @@
 {
   "name": "Footer",
   "settings": [
-    {
-      "type": "header",
-      "content": "Encabezado del Footer"
-    },
-    {
-      "type": "text",
-      "id": "header_subtitle",
-      "label": "Texto del encabezado",
-      "default": "Creemos que el lujo no está en la ocasión, sino en quien la vive. Joyas diseñadas para acompañarte todos los días."
-    },
     {
       "type": "header",
       "content": "Logo del Footer"
