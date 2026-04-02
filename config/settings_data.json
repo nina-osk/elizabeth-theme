@@ -28,6 +28,11 @@
       "footer": {
         "type": "footer",
         "settings": {
+          "header_title": "",
+          "header_subtitle": "Un lujo que se adapta a tu vida. Un lujo que te acompaña.",
+          "brand_title": "MUNIER",
+          "brand_description": "Piezas que brillan con tu luz cada día — lujo que te acompaña todos los días.",
+          "brand_tagline": "Tú eres la ocasión especial.",
           "explore_title": "EXPLORAR",
           "menu_title": "MUNIER",
           "info_text": "Joyería Panameña • Oro 9K & 18K • Diamantes de Laboratorio",
