@@ -10,11 +10,8 @@
     
     <!-- Header Section -->
     <div class="footer-header">
-      <p class="footer-title">
-        {{ section.settings.header_title | default: "Creemos que el lujo no está en la ocasión, sino en quien la vive." }}
-      </p>
       <p class="footer-subtitle">
-        {{ section.settings.header_subtitle | default: "Joyas diseñadas para acompañarte todos los días." }}
+        {{ section.settings.header_subtitle | default: "Creemos que el lujo no está en la ocasión, sino en quien la vive. Joyas diseñadas para acompañarte todos los días." }}
       </p>
     </div>
 
@@ -30,12 +27,19 @@
                 src="{{ section.settings.footer_logo | image_url: width: 400 }}"
                 alt="{{ shop.name }}"
                 width="200"
-                height="100"
+                height="200"
                 loading="lazy"
                 class="footer-logo-img"
               >
             {% else %}
-              <span class="footer-logo-fallback">{{ shop.name }}</span>
+              <img
+                src="https://cdn.shopify.com/s/files/1/0760/2697/0309/files/Munier_M_verde.jpg?v=1769442279"
+                alt="{{ shop.name }}"
+                width="200"
+                height="200"
+                loading="lazy"
+                class="footer-logo-img"
+              >
             {% endif %}
           </a>
         </div>
@@ -179,15 +183,10 @@
 .footer-logo-img {
   height: auto;
   width: auto;
-  max-height: 4rem;
-  max-width: 200px;
-}
-
-.footer-logo-fallback {
-  font-family: Georgia, serif;
-  font-size: 1.25rem;
-  letter-spacing: 0.3em;
-  color: #2d2d2d;
+  max-height: 8rem;
+  max-width: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .footer-nav {
@@ -318,8 +317,8 @@
   }
   
   .footer-logo-img {
-    max-height: 5rem;
-    max-width: 240px;
+    max-height: 10rem;
+    max-width: 10rem;
   }
   
   .footer-nav {
@@ -359,15 +358,9 @@
     },
     {
       "type": "text",
-      "id": "header_title",
-      "label": "Título principal",
-      "default": "Bienvenida a un lujo accesible, inclusivo y real."
-    },
-    {
-      "type": "text",
       "id": "header_subtitle",
-      "label": "Subtítulo",
-      "default": "Un lujo que se adapta a tu vida. Un lujo que te acompaña."
+      "label": "Texto del encabezado",
+      "default": "Creemos que el lujo no está en la ocasión, sino en quien la vive. Joyas diseñadas para acompañarte todos los días."
     },
     {
       "type": "header",
