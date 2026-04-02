@@ -95,15 +95,6 @@
         {{ section.settings.description_2 }}
       </p>
 
-      <!-- Signature -->
-      <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 2.5rem; margin-bottom: 1rem;">
-        <div style="width: 4rem; height: 1px; background-color: #D4A574;"></div>
-        <p style="font-family: Georgia, serif; font-style: italic; color: #D4A574; font-size: 1.25rem; margin: 0;" class="hero-signature">
-          {{ section.settings.signature | default: 'with love, Munier' }}
-        </p>
-        <div style="width: 4rem; height: 1px; background-color: #D4A574;"></div>
-      </div>
-
     </div>
 </div>
 
@@ -800,12 +791,6 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "description_2",
       "label": "Descripción 2",
       "default": "Joyas diseñadas para acompañarte todos los días."
-    },
-    {
-      "type": "text",
-      "id": "signature",
-      "label": "Firma / Signature",
-      "default": "with love, Munier"
     },
     {
       "type": "text",
