@@ -15,14 +15,12 @@
         "subtitle": "Brilla todos los días",
         "title_part1": "",
         "title_part2": "Tú eres la ocasión especial",
-        "description": "Creemos que el lujo no está en la ocasión, sino en quien la vive.",
-        "description_2": "Joyas diseñadas para acompañarte todos los días.",
         "button1_text": "EXPLORAR COLECCIONES",
         "button1_link": "shopify://collections",
         "button2_text": "NUESTRA HISTORIA",
         "button2_link": "shopify://pages/nuestra-historia",
         "category_1_label": "Modelo 1",
-        "category_1_product": "earring-cami-copia",
+        "category_1_product": "earring-vera-y-gold",
         "category_2_label": "Modelo 2",
         "category_2_product": "colgante-clara-de-oro-9k-copia",
         "category_3_label": "Modelo 3",
@@ -113,11 +111,10 @@
     "video-with-text": {
       "type": "video-with-text",
       "settings": {
-        "title": "",
-        "description": "",
+        "overlay_text_line1": "Joyas que se mueven contigo,",
+        "overlay_text_line2": "desde lo cotidiano a lo inolvidable",
         "video_url": "",
-        "video_file": "https://cdn.shopify.com/videos/c/o/v/6119695090b64ae897dc53b95d293ce1.mp4",
-        "bottom_title": ""
+        "video_file": "https://cdn.shopify.com/videos/c/o/v/6119695090b64ae897dc53b95d293ce1.mp4"
       }
     },
     "features-with-icons": {
