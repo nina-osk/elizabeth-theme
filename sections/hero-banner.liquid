@@ -24,15 +24,18 @@
         {% assign prod = section.settings[prod_key] %}
         {% assign fallback_url = fallback_images[forloop.index0] %}
         
-        <img 
-          src="{% if prod != blank and prod.featured_image %}{{ prod.featured_image | image_url: width: 600 }}{% else %}{{ fallback_url }}{% endif %}" 
-          alt="{% if prod != blank %}{{ prod.title }}{% else %}Model {{ i }}{% endif %}" 
-          class="hero-card hero-banner-img"
-          width="400"
-          height="600"
-          loading="lazy"
-          style="flex: 1; object-fit: cover; object-position: top center; height: 100%;"
-        />
+        <div class="hero-banner-cell" style="flex: 1; overflow: visible; height: 100%; position: relative; cursor: pointer;">
+          <img 
+            src="{% if prod != blank and prod.featured_image %}{{ prod.featured_image | image_url: width: 600 }}{% else %}{{ fallback_url }}{% endif %}" 
+            alt="{% if prod != blank %}{{ prod.title }}{% else %}Model {{ i }}{% endif %}" 
+            class="hero-card hero-banner-img"
+            data-card-index="{{ forloop.index0 }}"
+            width="400"
+            height="600"
+            loading="lazy"
+            style="width: 100%; object-fit: cover; object-position: top center; height: 100%; display: block; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);"
+          />
+        </div>
       {% endfor %}
     </div>
 
@@ -277,20 +280,27 @@
   }
 
   .hero-card {
-    border-radius: 12px;
-    overflow: hidden;
-    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.1));
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    transform-origin: bottom center;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease, border-radius 0.3s ease;
     cursor: pointer;
+    border-radius: 0;
   }
 
-  /* Expandable Card Styles */
+  /* Card hover - lifts up like a physical card */
   .hero-card:hover {
-    transform: rotate(0deg) translateY(-50px) scale(1.6);
-    filter: drop-shadow(0 50px 100px rgba(0, 0, 0, 0.5)) !important;
-    z-index: 9999 !important;
+    transform: scale(1.25) translateY(-20px);
+    z-index: 9999;
     position: relative;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+    border-radius: 12px;
+  }
+
+  .hero-banner-cell {
+    transition: z-index 0s;
+    overflow: visible;
+  }
+
+  .hero-banner-cell:hover {
+    z-index: 10;
   }
 
   /* Modal Overlay */
@@ -542,6 +552,7 @@
     filter: none;
     cursor: pointer;
     border: none;
+    transform-origin: center center;
   }
 
   .hero-text-overlay {
@@ -631,36 +642,33 @@ document.addEventListener('DOMContentLoaded', function() {
   const cardCloseBtn = document.getElementById('cardCloseBtn');
   const cards = document.querySelectorAll('.hero-card');
 
-  const cardData = {
-    'ModeloCloseUp-Aretes_Oro_9K-_Vera.png': {
-      title: '{{ section.settings.card1_title }}',
-      description: '{{ section.settings.card1_description }}'
+  const cardData = [
+    {
+      title: '{{ section.settings.card1_title | escape }}',
+      description: '{{ section.settings.card1_description | escape }}'
     },
-    'ModeloRight-Aretes_-OroBlanco9K-Aura.png': {
-      title: '{{ section.settings.card2_title }}',
-      description: '{{ section.settings.card2_description }}'
+    {
+      title: '{{ section.settings.card2_title | escape }}',
+      description: '{{ section.settings.card2_description | escape }}'
     },
-    'ModeloFront-Aretes_Oro_9K-_Vera.png': {
-      title: '{{ section.settings.card3_title }}',
-      description: '{{ section.settings.card3_description }}'
+    {
+      title: '{{ section.settings.card3_title | escape }}',
+      description: '{{ section.settings.card3_description | escape }}'
     },
-    'ModeloCloseUp-Aretes_-OroBlanco9K-Aura.png': {
-      title: '{{ section.settings.card4_title }}',
-      description: '{{ section.settings.card4_description }}'
+    {
+      title: '{{ section.settings.card4_title | escape }}',
+      description: '{{ section.settings.card4_description | escape }}'
     }
-  };
+  ];
 
   cards.forEach(card => {
     card.addEventListener('click', function(e) {
-      // Prevenir que se propague el evento
       e.stopPropagation();
       
-      // Obtener la URL de la imagen
       const imgSrc = this.src;
-      const imgName = this.getAttribute('data-model-name') || imgSrc.split('/').pop().split('?')[0];
+      const cardIndex = parseInt(this.getAttribute('data-card-index')) || 0;
       
-      // Obtener datos de la tarjeta
-      const data = cardData[imgName] || {
+      const data = cardData[cardIndex] || {
         title: 'Joyería Exclusiva',
         description: 'Descubre la belleza y elegancia de nuestras joyas diseñadas especialmente para ti.'
       };
