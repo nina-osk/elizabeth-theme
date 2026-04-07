@@ -1,10 +1,10 @@
-<div class="py-16 px-4 bg-white">
+<div class="py-16 px-4 bg-white features-section">
     <div class="max-w-6xl mx-auto">
         
         <!-- Título Principal -->
         <div class="text-center mb-8">
-            <h2 style="font-size: 2rem; font-weight: 700; letter-spacing: 0.12em; color: #8B7355; text-transform: uppercase;" class="mb-6">{{ section.settings.title }}</h2>
-            <p style="font-size: 1.1rem; line-height: 1.8; color: #555; max-width: 80rem;" class="mx-auto">
+            <h2 style="font-size: 2rem; font-weight: 700; letter-spacing: 0.12em; color: #8B7355; text-transform: uppercase;" class="mb-6 features-title">{{ section.settings.title }}</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #555; max-width: 80rem;" class="mx-auto features-desc">
                 {{ section.settings.description }}
             </p>
         </div>
@@ -57,6 +57,24 @@
 
     </div>
 </div>
+
+<style>
+    @media (max-width: 640px) {
+        .features-section .features-title {
+            font-size: 1.3rem !important;
+        }
+        .features-section .features-desc {
+            font-size: 0.85rem !important;
+            line-height: 1.6 !important;
+        }
+        .features-section h3 {
+            font-size: 0.95rem !important;
+        }
+        .features-section p {
+            font-size: 0.85rem !important;
+        }
+    }
+</style>
 
 {% schema %}
 {
