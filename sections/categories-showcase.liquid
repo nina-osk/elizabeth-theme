@@ -177,22 +177,23 @@
       height: 420px !important;
     }
     
-    /* Make image container fill the entire card on mobile */
-    .carousel-slide .relative[style*="height: 340px"] {
-      height: 100% !important;
-    }
-    
-    /* Ensure images fill the container properly */
-    .carousel-slide img {
-      object-fit: cover !important;
-      padding: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
+    /* Make image fill entire card on mobile — no background gap */
+    .slide-card {
+      background: none !important;
+      display: flex !important;
+      flex-direction: column !important;
     }
 
-    /* Remove card background margin on mobile */
-    .slide-card {
-      background: transparent !important;
+    .slide-card > .relative {
+      flex: 1 !important;
+      height: 100% !important;
+      min-height: 0 !important;
+    }
+
+    .slide-card img {
+      object-fit: cover !important;
+      width: 100% !important;
+      height: 100% !important;
     }
     
     /* Hide non-active slides on mobile - move them off screen */
