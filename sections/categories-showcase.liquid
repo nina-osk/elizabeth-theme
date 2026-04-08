@@ -178,32 +178,38 @@
 
     .carousel-track-container {
       overflow: hidden;
-      height: 380px;
+      height: 400px;
     }
 
-    /* NUCLEAR: remove .slide-card and .slide-card-image from the box tree entirely */
+    /* Remove .slide-card and .slide-card-image from layout */
     .slide-card,
     .slide-card-image {
       display: contents !important;
     }
 
-    /* The img is now a direct layout child of .carousel-slide */
-    .carousel-slide img {
-      display: block !important;
+    /* Make the slide a fixed-size box that the image fills entirely */
+    .carousel-slide {
       width: 85vw !important;
       max-width: 340px !important;
-      height: auto !important;
-      object-fit: cover !important;
+      height: 370px !important;
+      overflow: hidden !important;
+      background: transparent !important;
       border-radius: 0 !important;
+    }
+
+    /* Image fills the slide box, crops green from the bottom */
+    .carousel-slide img {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: top center !important;
       border: none !important;
       outline: none !important;
       box-shadow: none !important;
+      border-radius: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
-    }
-
-    .carousel-slide {
-      background: transparent !important;
     }
 
     .carousel-slide:not(.is-active) {
@@ -219,7 +225,6 @@
       margin-left: 0;
     }
 
-    /* Hide action buttons and category label on mobile to keep it clean */
     .slide-actions {
       display: none !important;
     }
