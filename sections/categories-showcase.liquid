@@ -501,6 +501,63 @@
     });
 
     updateCarousel();
+    
+    // === FIX MOBILE: eliminar fondo/marco debajo de la imagen ===
+    function fixMobileCards() {
+      if (window.innerWidth > 768) return;
+      
+      // Fix container inline height
+      const container = document.querySelector('.carousel-wrapper .relative');
+      if (container) container.style.height = '380px';
+      
+      slides.forEach(function(slide) {
+        var card = slide.querySelector('.slide-card');
+        var imgDiv = slide.querySelector('.slide-card-image');
+        var img = slide.querySelector('.slide-card-image img');
+        
+        // Force transparent on EVERY element via inline style (highest priority)
+        [slide, card, imgDiv].forEach(function(el) {
+          if (!el) return;
+          el.style.setProperty('background', 'transparent', 'important');
+          el.style.setProperty('background-color', 'transparent', 'important');
+          el.style.setProperty('border', 'none', 'important');
+          el.style.setProperty('outline', 'none', 'important');
+          el.style.setProperty('box-shadow', 'none', 'important');
+          el.style.setProperty('border-radius', '0', 'important');
+        });
+        
+        if (card) {
+          card.style.setProperty('height', 'auto', 'important');
+          card.style.setProperty('overflow', 'hidden', 'important');
+          card.style.setProperty('line-height', '0', 'important');
+          card.style.setProperty('font-size', '0', 'important');
+          card.style.setProperty('padding', '0', 'important');
+        }
+        
+        if (imgDiv) {
+          imgDiv.style.setProperty('height', 'auto', 'important');
+          imgDiv.style.setProperty('overflow', 'hidden', 'important');
+          imgDiv.style.setProperty('line-height', '0', 'important');
+          imgDiv.style.setProperty('font-size', '0', 'important');
+        }
+        
+        if (img) {
+          img.style.setProperty('display', 'block', 'important');
+          img.style.setProperty('width', '100%', 'important');
+          img.style.setProperty('height', 'auto', 'important');
+          img.style.setProperty('aspect-ratio', 'auto', 'important');
+          img.style.setProperty('background', 'transparent', 'important');
+          img.style.setProperty('border-radius', '0', 'important');
+          // Remove Shopify width/height attributes that force aspect ratio
+          img.removeAttribute('width');
+          img.removeAttribute('height');
+        }
+      });
+    }
+    
+    fixMobileCards();
+    window.addEventListener('resize', fixMobileCards);
+    
     console.log('Carrusel inicializado');
   });
 </script>
