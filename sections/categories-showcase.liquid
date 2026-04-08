@@ -48,7 +48,7 @@
                 {% if prod != blank and prod.featured_media %}
                   <!-- Product Image -->
                   <div class="relative w-full slide-card-image">
-                    {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full h-full object-cover', loading: 'lazy', width: 600, height: 600 }}
+                    {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full object-cover', loading: 'lazy' }}
                     
                     <!-- Action Icons (visible only on active slide) -->
                     <div class="slide-actions absolute bottom-4 left-0 right-0 flex justify-between px-4 opacity-0 transition-opacity duration-300">
@@ -202,19 +202,21 @@
       height: auto !important;
       max-height: none !important;
       min-height: 0 !important;
-      overflow: visible !important;
+      overflow: hidden !important;
       border-radius: 0 !important;
       padding: 0 !important;
       margin: 0 !important;
+      line-height: 0 !important;
+      font-size: 0 !important;
     }
 
     .slide-card-image {
       height: auto !important;
       max-height: none !important;
       min-height: 0 !important;
-      line-height: 0;
-      font-size: 0;
-      overflow: visible !important;
+      line-height: 0 !important;
+      font-size: 0 !important;
+      overflow: hidden !important;
       padding: 0 !important;
     }
 
@@ -223,6 +225,7 @@
       width: 100% !important;
       height: auto !important;
       max-height: none !important;
+      aspect-ratio: auto !important;
       object-fit: cover;
       border-radius: 0 !important;
       padding: 0 !important;
