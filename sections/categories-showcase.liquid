@@ -48,10 +48,10 @@
                 {% if prod != blank and prod.featured_media %}
                   <!-- Product Image -->
                   <div class="relative w-full slide-card-image" style="line-height: 0; font-size: 0;">
-                    <img src="{{ prod.featured_media | image_url: width: 600 }}" 
+                    <img src="{{ prod.featured_media | image_url: width: 800 }}" 
                          alt="{{ prod.title | escape }}" 
                          loading="lazy"
-                         style="display: block; width: 100%; height: auto; object-fit: cover; border: none; outline: none; background: transparent; border-radius: 0; margin: 0; padding: 0;">
+                         style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; border: none; outline: none; background: transparent; border-radius: 0; margin: 0; padding: 0;">
                     
                     <!-- Action Icons (visible only on active slide) -->
                     <div class="slide-actions absolute bottom-4 left-0 right-0 flex justify-between px-4 opacity-0 transition-opacity duration-300">
@@ -457,6 +457,9 @@
           productLink.href = productData[currentIndex].url;
         }
       }
+      
+      // Re-aplicar fix mobile después de cada update del carrusel
+      if (typeof fixMobileCards === 'function') fixMobileCards();
     }
 
     function goToSlide(index) {
@@ -486,25 +489,64 @@
 
     updateCarousel();
     
-    // === FIX MOBILE: eliminar fondo/marco debajo de la imagen ===
+    // === FIX MOBILE: forzar todo por JS inline styles ===
     function fixMobileCards() {
       if (window.innerWidth > 768) return;
       
-      document.querySelectorAll('.slide-card-image img').forEach(function(img) {
-        // Remove ANY Shopify-injected width/height/style attributes
-        img.removeAttribute('width');
-        img.removeAttribute('height');
-        img.removeAttribute('srcset');
-        img.removeAttribute('sizes');
-        var existingStyle = img.getAttribute('style') || '';
-        if (existingStyle.indexOf('aspect-ratio') !== -1) {
+      slides.forEach(function(slide) {
+        // El slide es el contenedor visible - darle tamaño fijo
+        slide.style.setProperty('width', '85vw', 'important');
+        slide.style.setProperty('max-width', '340px', 'important');
+        slide.style.setProperty('height', '370px', 'important');
+        slide.style.setProperty('overflow', 'hidden', 'important');
+        slide.style.setProperty('background', 'transparent', 'important');
+        slide.style.setProperty('background-color', 'transparent', 'important');
+        slide.style.setProperty('border', 'none', 'important');
+        slide.style.setProperty('border-radius', '0', 'important');
+        
+        // Hacer que slide-card y slide-card-image NO generen caja visual
+        var card = slide.querySelector('.slide-card');
+        if (card) card.style.setProperty('display', 'contents', 'important');
+        var imgDiv = slide.querySelector('.slide-card-image');
+        if (imgDiv) imgDiv.style.setProperty('display', 'contents', 'important');
+        
+        // Ocultar action icons
+        var actions = slide.querySelector('.slide-actions');
+        if (actions) actions.style.setProperty('display', 'none', 'important');
+        
+        // La imagen llena TODO el slide, recorta lo sobrante desde abajo
+        var img = slide.querySelector('img');
+        if (img) {
+          img.removeAttribute('width');
+          img.removeAttribute('height');
+          img.removeAttribute('srcset');
+          img.removeAttribute('sizes');
+          img.style.setProperty('display', 'block', 'important');
+          img.style.setProperty('width', '100%', 'important');
+          img.style.setProperty('height', '100%', 'important');
+          img.style.setProperty('object-fit', 'cover', 'important');
+          img.style.setProperty('object-position', 'top center', 'important');
+          img.style.setProperty('border', 'none', 'important');
+          img.style.setProperty('border-radius', '0', 'important');
+          img.style.setProperty('outline', 'none', 'important');
+          img.style.setProperty('margin', '0', 'important');
+          img.style.setProperty('padding', '0', 'important');
+          img.style.setProperty('background', 'transparent', 'important');
           img.style.setProperty('aspect-ratio', 'auto', 'important');
         }
       });
+      
+      // Ajustar contenedor del track
+      var trackContainer = document.querySelector('.carousel-track-container');
+      if (trackContainer) {
+        trackContainer.style.setProperty('height', '400px', 'important');
+      }
     }
     
     fixMobileCards();
     window.addEventListener('resize', fixMobileCards);
+    // Ejecutar de nuevo después de que las imágenes carguen
+    window.addEventListener('load', fixMobileCards);
     
     console.log('Carrusel inicializado');
   });
