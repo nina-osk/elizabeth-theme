@@ -177,9 +177,9 @@
       height: 420px !important;
     }
     
-    /* Adjust image container on mobile */
+    /* Make image container fill the entire card on mobile */
     .carousel-slide .relative[style*="height: 340px"] {
-      height: 340px !important;
+      height: 100% !important;
     }
     
     /* Ensure images fill the container properly */
@@ -188,6 +188,11 @@
       padding: 0 !important;
       width: 100% !important;
       height: 100% !important;
+    }
+
+    /* Remove card background margin on mobile */
+    .slide-card {
+      background: transparent !important;
     }
     
     /* Hide non-active slides on mobile - move them off screen */
