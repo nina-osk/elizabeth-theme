@@ -18,7 +18,7 @@
     <!-- Carousel Container -->
     <div class="carousel-wrapper max-w-6xl mx-auto mb-12" style="max-width: 100%; overflow-x: hidden;">
       <!-- Carousel Track -->
-      <div class="relative overflow-hidden" style="height: 500px; max-width: 100%; display: flex; align-items: center; justify-content: center;">
+      <div class="carousel-track-container relative overflow-hidden" style="max-width: 100%; display: flex; align-items: center; justify-content: center;">
         <div class="carousel-track absolute inset-0 flex items-center justify-center">
           {% assign cards = (1..6) %}
           {% for i in cards %}
@@ -47,8 +47,11 @@
 
                 {% if prod != blank and prod.featured_media %}
                   <!-- Product Image -->
-                  <div class="relative w-full slide-card-image">
-                    {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full object-cover', loading: 'lazy' }}
+                  <div class="relative w-full slide-card-image" style="line-height: 0; font-size: 0;">
+                    <img src="{{ prod.featured_media | image_url: width: 600 }}" 
+                         alt="{{ prod.title | escape }}" 
+                         loading="lazy"
+                         style="display: block; width: 100%; height: auto; object-fit: cover; border: none; outline: none; background: transparent; border-radius: 0; margin: 0; padding: 0;">
                     
                     <!-- Action Icons (visible only on active slide) -->
                     <div class="slide-actions absolute bottom-4 left-0 right-0 flex justify-between px-4 opacity-0 transition-opacity duration-300">
@@ -173,63 +176,56 @@
       width: 3rem;
     }
 
-    .carousel-wrapper .relative {
+    .carousel-track-container {
       overflow: hidden;
       height: 380px;
-    }
-
-    .carousel-slide,
-    .carousel-slide *,
-    .slide-card,
-    .slide-card *,
-    .slide-card-image,
-    .slide-card-image * {
-      border: none !important;
-      border-width: 0 !important;
-      border-color: transparent !important;
-      outline: none !important;
-      outline-width: 0 !important;
-      box-shadow: none !important;
-      background-color: transparent !important;
-      background: transparent !important;
-      -webkit-tap-highlight-color: transparent !important;
-      -webkit-touch-callout: none !important;
     }
 
     .slide-card {
       width: 85vw !important;
       max-width: 340px !important;
       height: auto !important;
-      max-height: none !important;
-      min-height: 0 !important;
       overflow: hidden !important;
       border-radius: 0 !important;
       padding: 0 !important;
       margin: 0 !important;
       line-height: 0 !important;
       font-size: 0 !important;
+      background: none !important;
+      background-color: transparent !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
     }
 
     .slide-card-image {
       height: auto !important;
-      max-height: none !important;
-      min-height: 0 !important;
       line-height: 0 !important;
       font-size: 0 !important;
       overflow: hidden !important;
       padding: 0 !important;
+      background: none !important;
+      background-color: transparent !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
     }
 
     .slide-card-image img {
       display: block !important;
       width: 100% !important;
       height: auto !important;
-      max-height: none !important;
       aspect-ratio: auto !important;
-      object-fit: cover;
+      object-fit: cover !important;
       border-radius: 0 !important;
       padding: 0 !important;
       margin: 0 !important;
+      background: transparent !important;
+    }
+
+    .carousel-slide {
+      background: none !important;
+      background-color: transparent !important;
     }
 
     .carousel-slide:not(.is-active) {
@@ -254,7 +250,7 @@
 
   /* ========== DESKTOP (min-width: 769px) ========== */
   @media (min-width: 769px) {
-    .carousel-wrapper .relative {
+    .carousel-track-container {
       overflow: hidden;
       height: 500px;
     }
@@ -506,51 +502,15 @@
     function fixMobileCards() {
       if (window.innerWidth > 768) return;
       
-      // Fix container inline height
-      const container = document.querySelector('.carousel-wrapper .relative');
-      if (container) container.style.height = '380px';
-      
-      slides.forEach(function(slide) {
-        var card = slide.querySelector('.slide-card');
-        var imgDiv = slide.querySelector('.slide-card-image');
-        var img = slide.querySelector('.slide-card-image img');
-        
-        // Force transparent on EVERY element via inline style (highest priority)
-        [slide, card, imgDiv].forEach(function(el) {
-          if (!el) return;
-          el.style.setProperty('background', 'transparent', 'important');
-          el.style.setProperty('background-color', 'transparent', 'important');
-          el.style.setProperty('border', 'none', 'important');
-          el.style.setProperty('outline', 'none', 'important');
-          el.style.setProperty('box-shadow', 'none', 'important');
-          el.style.setProperty('border-radius', '0', 'important');
-        });
-        
-        if (card) {
-          card.style.setProperty('height', 'auto', 'important');
-          card.style.setProperty('overflow', 'hidden', 'important');
-          card.style.setProperty('line-height', '0', 'important');
-          card.style.setProperty('font-size', '0', 'important');
-          card.style.setProperty('padding', '0', 'important');
-        }
-        
-        if (imgDiv) {
-          imgDiv.style.setProperty('height', 'auto', 'important');
-          imgDiv.style.setProperty('overflow', 'hidden', 'important');
-          imgDiv.style.setProperty('line-height', '0', 'important');
-          imgDiv.style.setProperty('font-size', '0', 'important');
-        }
-        
-        if (img) {
-          img.style.setProperty('display', 'block', 'important');
-          img.style.setProperty('width', '100%', 'important');
-          img.style.setProperty('height', 'auto', 'important');
+      document.querySelectorAll('.slide-card-image img').forEach(function(img) {
+        // Remove ANY Shopify-injected width/height/style attributes
+        img.removeAttribute('width');
+        img.removeAttribute('height');
+        img.removeAttribute('srcset');
+        img.removeAttribute('sizes');
+        var existingStyle = img.getAttribute('style') || '';
+        if (existingStyle.indexOf('aspect-ratio') !== -1) {
           img.style.setProperty('aspect-ratio', 'auto', 'important');
-          img.style.setProperty('background', 'transparent', 'important');
-          img.style.setProperty('border-radius', '0', 'important');
-          // Remove Shopify width/height attributes that force aspect ratio
-          img.removeAttribute('width');
-          img.removeAttribute('height');
         }
       });
     }
