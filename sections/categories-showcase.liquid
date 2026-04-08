@@ -170,33 +170,26 @@
 
     .carousel-wrapper .relative {
       overflow: hidden;
-      height: 420px;
+      height: 380px;
     }
 
     .slide-card {
       width: 85vw;
       max-width: 340px;
-      height: 420px;
+      height: auto;
       background: transparent;
+      overflow: hidden;
     }
 
     .slide-card-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
       height: auto;
-      width: auto;
     }
 
     .slide-card-image img {
-      object-fit: cover;
+      display: block;
       width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
+      height: auto;
+      object-fit: cover;
     }
 
     .carousel-slide:not(.is-active) {
