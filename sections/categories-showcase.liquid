@@ -126,7 +126,7 @@
     height: 380px;
     will-change: transform, opacity;
     flex-shrink: 0;
-    background: #E7E5DE;
+    background: transparent;
     position: relative;
   }
 
@@ -177,8 +177,10 @@
       width: 85vw;
       max-width: 340px;
       height: auto;
-      background: transparent;
+      background: transparent !important;
       overflow: hidden;
+      border-radius: 0 !important;
+      box-shadow: none !important;
     }
 
     .slide-card-image {
@@ -190,6 +192,7 @@
       width: 100%;
       height: auto;
       object-fit: cover;
+      border-radius: 0;
     }
 
     .carousel-slide:not(.is-active) {
@@ -230,6 +233,7 @@
 
     .slide-card {
       width: 280px;
+      background: #E7E5DE;
     }
   }
 
