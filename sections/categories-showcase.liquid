@@ -35,7 +35,7 @@
                  aria-roledescription="slide"
                  aria-label="Slide {{ forloop.index }} of {{ cards.size }}">
               
-              <div class="slide-card rounded-xl overflow-hidden shadow-lg">
+              <div class="slide-card overflow-hidden">
                 <!-- Category Label -->
                 <div class="absolute top-4 left-4 z-10">
                   <a href="#" id="carousel-category-link" style="text-decoration: none; cursor: pointer;">
@@ -177,14 +177,16 @@
       width: 85vw;
       max-width: 340px;
       height: auto;
-      background: transparent !important;
+      background: transparent;
       overflow: hidden;
-      border-radius: 0 !important;
-      box-shadow: none !important;
+      border-radius: 0;
+      box-shadow: none;
     }
 
     .slide-card-image {
       height: auto;
+      line-height: 0;
+      font-size: 0;
     }
 
     .slide-card-image img {
@@ -209,7 +211,7 @@
     }
 
     .carousel-slide.is-active .slide-card {
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      box-shadow: none;
     }
 
     #carousel-prev,
@@ -234,6 +236,8 @@
     .slide-card {
       width: 280px;
       background: #E7E5DE;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     }
   }
 
