@@ -136,7 +136,8 @@
   }
 
   .carousel-slide.is-active .slide-card {
-    border: 2px solid transparent;
+    border: none;
+    outline: none;
   }
 
   .carousel-slide.is-active .slide-actions {
@@ -195,6 +196,8 @@
       height: auto;
       object-fit: cover;
       border-radius: 0;
+      border: none;
+      outline: none;
     }
 
     .carousel-slide:not(.is-active) {
@@ -212,6 +215,19 @@
 
     .carousel-slide.is-active .slide-card {
       box-shadow: none;
+      border: none;
+      outline: none;
+    }
+
+    .carousel-slide {
+      border: none;
+      outline: none;
+    }
+
+    .slide-card,
+    .slide-card * {
+      border: none !important;
+      outline: none !important;
     }
 
     #carousel-prev,
