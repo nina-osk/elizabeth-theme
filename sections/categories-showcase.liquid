@@ -35,7 +35,7 @@
                  aria-roledescription="slide"
                  aria-label="Slide {{ forloop.index }} of {{ cards.size }}">
               
-              <div class="slide-card rounded-xl overflow-hidden shadow-lg" style="background: #E7E5DE;">
+              <div class="slide-card rounded-xl overflow-hidden shadow-lg">
                 <!-- Category Label -->
                 <div class="absolute top-4 left-4 z-10">
                   <a href="#" id="carousel-category-link" style="text-decoration: none; cursor: pointer;">
@@ -47,7 +47,7 @@
 
                 {% if prod != blank and prod.featured_media %}
                   <!-- Product Image -->
-                  <div class="relative w-full" style="height: 340px; overflow: hidden;">
+                  <div class="relative w-full slide-card-image">
                     {{ prod.featured_media | image_url: width: 600 | image_tag: alt: prod.title, class: 'w-full h-full object-cover', loading: 'lazy', width: 600, height: 600 }}
                     
                     <!-- Action Icons (visible only on active slide) -->
@@ -126,6 +126,12 @@
     height: 380px;
     will-change: transform, opacity;
     flex-shrink: 0;
+    background: #E7E5DE;
+  }
+
+  .slide-card-image {
+    height: 340px;
+    overflow: hidden;
   }
 
   /* Active slide gets border */
@@ -180,14 +186,10 @@
     /* Make image fill entire card on mobile — no background gap */
     .slide-card {
       background: none !important;
-      display: flex !important;
-      flex-direction: column !important;
     }
 
-    .slide-card > .relative {
-      flex: 1 !important;
+    .slide-card-image {
       height: 100% !important;
-      min-height: 0 !important;
     }
 
     .slide-card img {
