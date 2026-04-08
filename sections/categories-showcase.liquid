@@ -181,51 +181,29 @@
       height: 380px;
     }
 
-    .slide-card {
+    /* NUCLEAR: remove .slide-card and .slide-card-image from the box tree entirely */
+    .slide-card,
+    .slide-card-image {
+      display: contents !important;
+    }
+
+    /* The img is now a direct layout child of .carousel-slide */
+    .carousel-slide img {
+      display: block !important;
       width: 85vw !important;
       max-width: 340px !important;
       height: auto !important;
-      overflow: hidden !important;
-      border-radius: 0 !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      line-height: 0 !important;
-      font-size: 0 !important;
-      background: none !important;
-      background-color: transparent !important;
-      border: none !important;
-      outline: none !important;
-      box-shadow: none !important;
-    }
-
-    .slide-card-image {
-      height: auto !important;
-      line-height: 0 !important;
-      font-size: 0 !important;
-      overflow: hidden !important;
-      padding: 0 !important;
-      background: none !important;
-      background-color: transparent !important;
-      border: none !important;
-      outline: none !important;
-      box-shadow: none !important;
-    }
-
-    .slide-card-image img {
-      display: block !important;
-      width: 100% !important;
-      height: auto !important;
-      aspect-ratio: auto !important;
       object-fit: cover !important;
       border-radius: 0 !important;
-      padding: 0 !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
       margin: 0 !important;
-      background: transparent !important;
+      padding: 0 !important;
     }
 
     .carousel-slide {
-      background: none !important;
-      background-color: transparent !important;
+      background: transparent !important;
     }
 
     .carousel-slide:not(.is-active) {
@@ -239,6 +217,11 @@
       opacity: 1;
       left: 50%;
       margin-left: 0;
+    }
+
+    /* Hide action buttons and category label on mobile to keep it clean */
+    .slide-actions {
+      display: none !important;
     }
 
     #carousel-prev,
