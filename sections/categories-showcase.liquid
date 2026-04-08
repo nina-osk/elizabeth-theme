@@ -114,19 +114,20 @@
 </div>
 
 <style>
-  /* Carousel Slide Positioning */
+  /* ========== BASE (Desktop-first) ========== */
+
   .carousel-slide {
     pointer-events: auto;
     cursor: pointer;
   }
 
-  /* Slide Card Styling */
   .slide-card {
     width: 280px;
     height: 380px;
     will-change: transform, opacity;
     flex-shrink: 0;
     background: #E7E5DE;
+    position: relative;
   }
 
   .slide-card-image {
@@ -134,120 +135,112 @@
     overflow: hidden;
   }
 
-  /* Active slide gets border */
   .carousel-slide.is-active .slide-card {
     border: 2px solid transparent;
   }
 
-  /* Show action icons only on active slide */
   .carousel-slide.is-active .slide-actions {
     opacity: 1 !important;
   }
 
-  /* Active dot styling */
   .carousel-dot.is-active {
     background: #222121 !important;
     width: 2.5rem;
   }
 
-  /* Responsive adjustments */
+  /* ========== MOBILE (max-width: 768px) ========== */
   @media (max-width: 768px) {
-    /* Hero text sizes for mobile */
     .categories-hero-header {
-      font-size: 0.65rem !important;
-      margin-bottom: 1.5rem !important;
+      font-size: 0.65rem;
+      margin-bottom: 1.5rem;
     }
-    
+
     .categories-hero-quote {
-      font-size: 1rem !important;
-      line-height: 1.5 !important;
+      font-size: 1rem;
+      line-height: 1.5;
     }
-    
+
     .categories-hero-signature {
-      font-size: 0.95rem !important;
+      font-size: 0.95rem;
     }
-    
+
     .categories-hero-divider {
-      width: 3rem !important;
+      width: 3rem;
     }
-    
+
     .carousel-wrapper .relative {
-      overflow: hidden !important;
-      height: 420px !important;
+      overflow: hidden;
+      height: 420px;
     }
-    
-    /* Make the slide card fit on mobile with visible borders */
+
     .slide-card {
-      width: 85vw !important;
-      max-width: 340px !important;
-      height: 420px !important;
-    }
-    
-    /* Make image fill entire card on mobile — no background gap */
-    .slide-card {
-      background: none !important;
+      width: 85vw;
+      max-width: 340px;
+      height: 420px;
+      background: transparent;
     }
 
     .slide-card-image {
-      height: 100% !important;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: auto;
+      width: auto;
     }
 
-    .slide-card img {
-      object-fit: cover !important;
-      width: 100% !important;
-      height: 100% !important;
+    .slide-card-image img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
-    
-    /* Hide non-active slides on mobile - move them off screen */
+
     .carousel-slide:not(.is-active) {
       opacity: 0 !important;
-      pointer-events: none !important;
+      pointer-events: none;
       transform: translateX(200vw) translateY(-50%) scale(0.8) !important;
     }
-    
-    /* Center active slide on mobile */
+
     .carousel-slide.is-active {
       transform: translateX(-50%) translateY(-50%) scale(1) !important;
-      opacity: 1 !important;
-      left: 50% !important;
-      margin-left: 0 !important;
+      opacity: 1;
+      left: 50%;
+      margin-left: 0;
     }
-    
-    /* Ensure border is visible */
+
     .carousel-slide.is-active .slide-card {
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
-    
-    /* Center navigation buttons on mobile */
-    .carousel-wrapper > div:last-child {
-      justify-content: center !important;
-    }
-    
-    /* Adjust button size for mobile */
+
     #carousel-prev,
     #carousel-next {
       padding: 0.75rem 1.5rem;
       font-size: 0.875rem;
     }
   }
-  
+
+  /* ========== DESKTOP (min-width: 769px) ========== */
   @media (min-width: 769px) {
     .carousel-wrapper .relative {
-      overflow: hidden !important;
-      height: 500px !important;
+      overflow: hidden;
+      height: 500px;
     }
-    
+
     .carousel-wrapper {
-      max-width: 100% !important;
-      overflow-x: hidden !important;
+      max-width: 100%;
+      overflow-x: hidden;
     }
-    
+
     .slide-card {
-      width: 280px !important;
+      width: 280px;
     }
   }
 
-  /* Reduced motion support */
+  /* ========== Accessibility ========== */
   @media (prefers-reduced-motion: reduce) {
     .carousel-slide,
     .carousel-dot {
@@ -255,13 +248,12 @@
     }
   }
 
-  /* Focus states for accessibility */
   .carousel-slide:focus-visible {
     outline: 2px solid #222121;
     outline-offset: 4px;
   }
 
-  /* Botones de categorías estilo print */
+  /* ========== Buttons ========== */
   .category-btn {
     background: #f7f9fb;
     border: 2px solid #e5e7eb;
