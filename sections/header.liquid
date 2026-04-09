@@ -17,7 +17,8 @@
 </div>
 {% endif %}
 
-<div style="position: sticky; top: 0; background-color: white !important; z-index: 50;" x-data="{ mobileMenuOpen: false }" x-effect="document.body.style.overflow = mobileMenuOpen ? 'hidden' : ''" class="site-header">
+<div x-data="{ mobileMenuOpen: false }" x-effect="document.body.style.overflow = mobileMenuOpen ? 'hidden' : ''">
+<div style="position: sticky; top: 0; background-color: white !important; z-index: 50;" class="site-header">
   <div style="max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem;">
     
     <!-- Header Row -->
@@ -155,21 +156,24 @@
       </div>
     </div>
 
-    <!-- MOBILE MENU -->
-    <div 
-      x-show="mobileMenuOpen" 
-      x-transition:enter="transition ease-out duration-300"
-      x-transition:enter-start="opacity-0"
-      x-transition:enter-end="opacity-100"
-      x-transition:leave="transition ease-in duration-200"
-      x-transition:leave-start="opacity-100"
-      x-transition:leave-end="opacity-0"
-      style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; padding: 0; background-color: rgba(0,0,0,0.5);"
-      class="mobile-menu-overlay"
-      @click.self="mobileMenuOpen = false"
-    >
-      <div style="background-color: #ffffff; border-radius: 0; box-shadow: none; width: 100%; height: 100vh; overflow-y: auto;">
-        <div class="p-5 divide-y-2 divide-gray-100">
+  </div>
+</div>
+
+<!-- MOBILE MENU (fuera del sticky, dentro del x-data) -->
+<div 
+  x-show="mobileMenuOpen" 
+  x-transition:enter="transition ease-out duration-300"
+  x-transition:enter-start="opacity-0"
+  x-transition:enter-end="opacity-100"
+  x-transition:leave="transition ease-in duration-200"
+  x-transition:leave-start="opacity-100"
+  x-transition:leave-end="opacity-0"
+  style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background-color: rgba(0,0,0,0.5);"
+  class="mobile-menu-overlay"
+  @click.self="mobileMenuOpen = false"
+>
+  <div style="background-color: #ffffff; width: 100%; height: 100%; overflow-y: auto;">
+    <div class="p-5 divide-y-2 divide-gray-100">
 
           <!-- MOBILE MENU HEADER -->
           <div class="flex items-center justify-between pb-4">
@@ -269,11 +273,9 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
 
 <style>
-  /* Nav link underline animation */
   .nav-link::after {
     content: '';
     position: absolute;
