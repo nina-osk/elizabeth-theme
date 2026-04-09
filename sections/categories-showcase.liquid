@@ -183,23 +183,41 @@
       height: 480px;
     }
 
-    .slide-card,
-    .slide-card-image,
-    .slide-actions {
-      display: none !important;
-    }
-
+    /* Cada contenedor pasa 100% de espacio al siguiente */
     .carousel-slide {
       width: 85vw !important;
       max-width: 340px !important;
       height: 450px !important;
       overflow: hidden !important;
-      background: transparent !important;
+      background: none !important;
       border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
       border-radius: 0 !important;
     }
 
-    .carousel-slide > img {
+    .carousel-slide .slide-card {
+      width: 100% !important;
+      height: 100% !important;
+      background: none !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: relative !important;
+    }
+
+    .carousel-slide .slide-card-image {
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+      position: relative !important;
+      line-height: 0 !important;
+    }
+
+    .carousel-slide .slide-card-image img {
       display: block !important;
       width: 100% !important;
       height: 100% !important;
@@ -211,6 +229,15 @@
       border-radius: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
+    }
+
+    .slide-actions {
+      display: none !important;
+    }
+
+    /* Ocultar label en mobile */
+    .carousel-slide .slide-card > .absolute {
+      display: none !important;
     }
 
     .carousel-slide:not(.is-active) {
@@ -364,42 +391,27 @@
 </style>
 
 <script>
-  console.log('Script iniciado');
-  
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM cargado');
-    
     const slides = document.querySelectorAll('.carousel-slide');
-    console.log('Slides encontrados:', slides.length);
-    
     const dots = document.querySelectorAll('.carousel-dot');
     const prevBtn = document.getElementById('carousel-prev');
     const nextBtn = document.getElementById('carousel-next');
     const productLink = document.getElementById('carousel-product-link');
     const productTitle = productLink ? productLink.querySelector('h3') : null;
     const priceElement = document.getElementById('carousel-product-price');
-    const carouselTrack = document.querySelector('.carousel-track');
 
-    console.log('prevBtn:', prevBtn);
-    console.log('nextBtn:', nextBtn);
-    console.log('productTitle:', productTitle);
-    console.log('productLink:', productLink);
-
-    if (slides.length === 0) {
-      console.error('No slides found!');
-      return;
-    }
+    if (slides.length === 0) return;
 
     let currentIndex = 0;
     const totalSlides = slides.length;
     
-    const productData = Array.from(slides).map(slide => ({
-      title: slide.dataset.title || 'Producto',
-      price: slide.dataset.price || '$0.00',
-      url: (slide.dataset.url || '').trim()
-    }));
-
-    console.log('Product Data:', productData);
+    const productData = Array.from(slides).map(function(slide) {
+      return {
+        title: slide.dataset.title || 'Producto',
+        price: slide.dataset.price || '$0.00',
+        url: (slide.dataset.url || '').trim()
+      };
+    });
 
     function getSlideStyle(index, activeIndex) {
       const diff = index - activeIndex;
@@ -436,19 +448,27 @@
     }
 
     function updateCarousel() {
-      slides.forEach((slide, index) => {
-        const style = getSlideStyle(index, currentIndex);
-        slide.style.transform = `translate(calc(-50% + ${style.x}px), -50%) scale(${style.scale})`;
+      slides.forEach(function(slide, index) {
+        var style = getSlideStyle(index, currentIndex);
+        slide.style.transform = 'translate(calc(-50% + ' + style.x + 'px), -50%) scale(' + style.scale + ')';
         slide.style.opacity = style.opacity;
         slide.style.zIndex = style.zIndex;
         slide.style.top = '50%';
         slide.style.left = '50%';
         
-        style.isActive ? slide.classList.add('is-active') : slide.classList.remove('is-active');
+        if (style.isActive) {
+          slide.classList.add('is-active');
+        } else {
+          slide.classList.remove('is-active');
+        }
       });
 
-      dots.forEach((dot, index) => {
-        index === currentIndex ? dot.classList.add('is-active') : dot.classList.remove('is-active');
+      dots.forEach(function(dot, index) {
+        if (index === currentIndex) {
+          dot.classList.add('is-active');
+        } else {
+          dot.classList.remove('is-active');
+        }
       });
 
       if (productData[currentIndex]) {
@@ -458,8 +478,6 @@
           productLink.href = productData[currentIndex].url;
         }
       }
-      
-
     }
 
     function goToSlide(index) {
@@ -467,83 +485,26 @@
       updateCarousel();
     }
 
-    if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
-    dots.forEach((dot, index) => dot.addEventListener('click', () => goToSlide(index)));
+    if (prevBtn) prevBtn.addEventListener('click', function() { goToSlide(currentIndex - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goToSlide(currentIndex + 1); });
+    dots.forEach(function(dot, index) {
+      dot.addEventListener('click', function() { goToSlide(index); });
+    });
     
-    // Agregar click en las tarjetas para navegar
-    slides.forEach((slide) => {
-      slide.addEventListener('click', () => {
+    slides.forEach(function(slide) {
+      slide.addEventListener('click', function() {
         if (slide.classList.contains('is-active')) {
-          // Si es la tarjeta activa, ir al producto
-          const url = slide.dataset.url || '';
+          var url = slide.dataset.url || '';
           if (url && url.trim() !== '') {
             window.location.href = url;
           }
         } else {
-          // Si no es la activa, avanzar al siguiente slide
           goToSlide(currentIndex + 1);
         }
       });
     });
 
     updateCarousel();
-    
-    // === FIX MOBILE: reestructurar DOM completamente ===
-    var mobileFixed = false;
-    function fixMobileCards() {
-      if (window.innerWidth > 768) return;
-      if (mobileFixed) return; // Solo ejecutar una vez
-      mobileFixed = true;
-      
-      slides.forEach(function(slide) {
-        var img = slide.querySelector('img');
-        if (!img) return;
-        
-        // Guardar solo el src y alt
-        var src = img.getAttribute('src');
-        var alt = img.getAttribute('alt') || '';
-        
-        // BORRAR TODO el contenido del slide
-        slide.innerHTML = '';
-        
-        // Crear imagen nueva limpia, sin herencia de estilos
-        var newImg = document.createElement('img');
-        newImg.src = src;
-        newImg.alt = alt;
-        newImg.width = 800;
-        newImg.height = 800;
-        newImg.loading = 'lazy';
-        newImg.setAttribute('style', 
-          'display:block;width:100%;height:100%;object-fit:cover;object-position:top center;' +
-          'border:none;outline:none;margin:0;padding:0;background:transparent;border-radius:0;'
-        );
-        
-        // Insertar imagen limpia directamente en el slide
-        slide.appendChild(newImg);
-        
-        // Forzar dimensiones del slide
-        slide.setAttribute('style', 
-          slide.getAttribute('style') + 
-          ';width:85vw !important;max-width:340px !important;height:450px !important;' +
-          'overflow:hidden !important;background:transparent !important;' +
-          'border:none !important;border-radius:0 !important;'
-        );
-      });
-      
-      // Ajustar contenedor
-      var trackContainer = document.querySelector('.carousel-track-container');
-      if (trackContainer) {
-        trackContainer.style.setProperty('height', '480px', 'important');
-      }
-      
-      console.log('MOBILE FIX: DOM reestructurado, slides:', slides.length);
-    }
-    
-    fixMobileCards();
-    window.addEventListener('load', fixMobileCards);
-    
-    console.log('Carrusel inicializado');
   });
 </script>
 
