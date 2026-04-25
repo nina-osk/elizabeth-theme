@@ -1,0 +1,151 @@
+<section class="sitemap-page">
+  <div class="sitemap-container">
+    <header class="sitemap-header">
+      <h1 class="sitemap-title">{{ page.title | default: section.settings.title }}</h1>
+      {% if page.content != blank %}
+        <div class="sitemap-intro">{{ page.content }}</div>
+      {% elsif section.settings.subtitle != blank %}
+        <p class="sitemap-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </header>
+
+    <div class="sitemap-grid">
+      <article class="sitemap-card">
+        <h2 class="sitemap-card-title">Colecciones</h2>
+        <ul class="sitemap-list">
+          {% for collection in collections %}
+            {% unless collection.handle == 'frontpage' %}
+              <li>
+                <a href="{{ collection.url }}" class="sitemap-link">{{ collection.title }}</a>
+              </li>
+            {% endunless %}
+          {% else %}
+            <li class="sitemap-empty">No hay colecciones disponibles.</li>
+          {% endfor %}
+        </ul>
+      </article>
+
+      <article class="sitemap-card">
+        <h2 class="sitemap-card-title">Enlaces rápidos</h2>
+        <ul class="sitemap-list">
+          <li><a href="{{ routes.root_url }}" class="sitemap-link">Inicio</a></li>
+          <li><a href="{{ routes.all_products_collection_url }}" class="sitemap-link">Todos los productos</a></li>
+          <li><a href="{{ routes.collections_url }}" class="sitemap-link">Todas las colecciones</a></li>
+          <li><a href="{{ shop.secure_url }}/sitemap.xml" class="sitemap-link" target="_blank" rel="noopener">Sitemap XML</a></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sitemap-page {
+    background: #f5f1e8;
+    padding: 3rem 1rem;
+  }
+
+  .sitemap-container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .sitemap-header {
+    margin-bottom: 2rem;
+  }
+
+  .sitemap-title {
+    margin: 0;
+    color: #1f2c1f;
+    font-family: Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .sitemap-intro,
+  .sitemap-subtitle {
+    margin-top: 0.8rem;
+    margin-bottom: 0;
+    color: #4a5849;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .sitemap-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .sitemap-card {
+    border: 1px solid rgba(93, 112, 88, 0.25);
+    border-radius: 12px;
+    background: #fffefb;
+    padding: 1.25rem;
+  }
+
+  .sitemap-card-title {
+    margin: 0 0 0.9rem;
+    color: #243423;
+    font-family: Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .sitemap-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .sitemap-link {
+    color: #3d523c;
+    text-decoration: none;
+  }
+
+  .sitemap-link:hover {
+    color: #2d2d2d;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .sitemap-empty {
+    color: #6b8068;
+  }
+
+  @media (min-width: 800px) {
+    .sitemap-page {
+      padding: 4rem 2rem;
+    }
+
+    .sitemap-grid {
+      grid-template-columns: 2fr 1fr;
+      align-items: start;
+    }
+
+    .sitemap-card {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Mapa del sitio",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo alternativo",
+      "default": "Mapa del sitio"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitulo",
+      "default": "Encuentra rapidamente todas las colecciones de la tienda."
+    }
+  ]
+}
+{% endschema %}
